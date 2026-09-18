@@ -3,6 +3,22 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { HighlightedCode } from "./code-block";
 
+/** [label, inserted before caret, inserted after caret] */
+const SYMBOLS: ReadonlyArray<readonly [string, string, string?]> = [
+  [";", ";"],
+  ["{ }", "{", "}"],
+  ["( )", "(", ")"],
+  ["' '", "'", "'"],
+  ["=", " = "],
+  ["< >", "<", ">"],
+  ["[ ]", "[", "]"],
+  [".", "."],
+  [",", ", "],
+  ["+", " + "],
+  ["!", "!"],
+  ["⇥", "    "],
+];
+
 /**
  * A deliberately small Apex editor.
  *
@@ -80,6 +96,21 @@ export function CodeEditor({
     }
   }
 
+  /** Symbol bar: insert `open` (+ `close`), wrapping any selection, caret in between. */
+  function insertSymbol(open: string, close = "") {
+    const ta = taRef.current;
+    if (!ta || readOnly) return;
+    const { selectionStart: s, selectionEnd: en } = ta;
+    const selected = value.slice(s, en);
+    onChange(value.slice(0, s) + open + selected + close + value.slice(en));
+    requestAnimationFrame(() => {
+      ta.focus();
+      const caret = s + open.length + selected.length;
+      ta.selectionStart = selected ? s + open.length : caret;
+      ta.selectionEnd = caret;
+    });
+  }
+
   const rows = Math.min(maxLines, Math.max(minLines, lineCount));
   const gutterWidth = String(lineCount).length <= 2 ? 34 : 44;
 
@@ -93,6 +124,30 @@ export function CodeEditor({
           {lineCount} {lineCount === 1 ? "line" : "lines"}
         </span>
       </div>
+
+      {/* Symbol bar for touch screens (iPad + Pencil / Scribble): the symbols
+          handwriting recognises worst, one tap away. Hidden with a mouse. */}
+      {!readOnly && (
+        <div
+          role="toolbar"
+          aria-label="Apex symbols"
+          className="thin-scroll hidden gap-1 overflow-x-auto border-b border-[var(--c-code-border)] px-2 py-1.5 pointer-coarse:flex"
+        >
+          {SYMBOLS.map(([label, open, close]) => (
+            <button
+              key={label}
+              type="button"
+              aria-label={label === "⇥" ? "Tab" : label}
+              // Keep focus (and the on-screen keyboard) in the textarea.
+              onPointerDown={(e) => e.preventDefault()}
+              onClick={() => insertSymbol(open, close)}
+              className="min-h-11 min-w-11 shrink-0 rounded-[4px] border border-[var(--c-code-border)] px-2 font-mono text-[var(--c-code-text)] active:bg-[var(--c-code-border)]"
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      )}
 
       <div className="relative">
         {/* line numbers */}
