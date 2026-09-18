@@ -7,7 +7,7 @@ export function LangToggle({ className = "" }: { className?: string }) {
   const { lang, setLang } = useSettings();
   return (
     <div
-      className={`inline-flex items-center rounded-[9px] border border-line bg-surface p-[2px] ${className}`}
+      className={`inline-flex items-center rounded-[4px] border border-line bg-surface p-[2px] ${className}`}
       role="group"
       aria-label="Language"
     >
@@ -16,7 +16,7 @@ export function LangToggle({ className = "" }: { className?: string }) {
           key={l}
           onClick={() => setLang(l)}
           aria-pressed={lang === l}
-          className={`t-micro inline-flex min-h-[36px] min-w-[44px] items-center justify-center rounded-[7px] px-2.5 font-medium uppercase transition ${
+          className={`t-micro inline-flex min-h-[36px] min-w-[44px] items-center justify-center rounded-[3px] px-2.5 font-medium uppercase transition ${
             lang === l
               ? "bg-brand text-on-brand"
               : "text-faint hover:text-ink"
@@ -35,7 +35,7 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
   return (
     <button
       onClick={() => setTheme(next)}
-      className={`grid h-10 w-10 place-items-center rounded-[9px] border border-line bg-surface text-muted transition hover:text-ink ${className}`}
+      className={`grid h-10 w-10 place-items-center rounded-[4px] border border-line bg-surface text-muted transition hover:text-ink ${className}`}
       aria-label={next === "dark" ? "Dark mode" : "Light mode"}
     >
       {theme === "dark" ? (

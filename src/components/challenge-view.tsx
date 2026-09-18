@@ -50,7 +50,7 @@ export function ChallengeView({
 
         {!unlocked && (
           <div
-            className="mt-6 flex items-start gap-3 rounded-[12px] border border-dashed border-line px-4 py-4"
+            className="mt-6 flex items-start gap-3 rounded-[4px] border border-dashed border-line px-4 py-4"
             style={{ background: "var(--c-surface)" }}
           >
             <svg width="17" height="17" viewBox="0 0 16 16" className="mt-[2px] shrink-0 text-accent" fill="none" stroke="currentColor" strokeWidth="1.6">

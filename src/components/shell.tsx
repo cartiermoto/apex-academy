@@ -58,7 +58,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
   return (
     <nav className="flex h-full flex-col">
       <div className="flex items-center justify-between px-5 pt-5 pb-4">
-        <Link href="/" onClick={onNavigate} className="inline-flex min-h-[44px] items-center rounded-md">
+        <Link href="/" onClick={onNavigate} className="inline-flex min-h-[44px] items-center rounded-[4px]">
           <Logo size={26} />
         </Link>
       </div>
@@ -75,7 +75,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
             return (
               <li key={m.id}>
                 <div
-                  className={`flex items-start gap-2.5 rounded-lg px-2 py-2 ${
+                  className={`flex items-start gap-2.5 rounded-[4px] px-2 py-2 ${
                     isPlanned ? "opacity-45" : ""
                   }`}
                 >
@@ -107,7 +107,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
                           <Link
                             href={href}
                             onClick={onNavigate}
-                            className={`flex min-h-[42px] items-center gap-2.5 rounded-lg px-2.5 py-2 transition ${
+                            className={`flex min-h-[42px] items-center gap-2.5 rounded-[4px] px-2.5 py-2 transition ${
                               active
                                 ? "bg-brand-soft text-ink"
                                 : "text-muted hover:bg-surface-2 hover:text-ink"
@@ -143,7 +143,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
                 <Link
                   href={href}
                   onClick={onNavigate}
-                  className={`flex items-start gap-2.5 rounded-lg px-2 py-2 transition ${
+                  className={`flex items-start gap-2.5 rounded-[4px] px-2 py-2 transition ${
                     active ? "bg-accent-soft" : "hover:bg-surface-2"
                   } ${unlocked ? "" : "opacity-55"}`}
                 >
@@ -197,7 +197,7 @@ function SignOutButton() {
       }}
       title={t(ui.signOut, lang)}
       aria-label={t(ui.signOut, lang)}
-      className="grid h-10 w-10 place-items-center rounded-[9px] border border-line bg-surface text-muted transition hover:text-ink"
+      className="grid h-10 w-10 place-items-center rounded-[4px] border border-line bg-surface text-muted transition hover:text-ink"
     >
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
@@ -238,7 +238,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
         <button
           onClick={() => setOpen(true)}
           aria-label="Menu"
-          className="grid h-10 w-10 place-items-center rounded-[9px] border border-line bg-surface text-muted"
+          className="grid h-10 w-10 place-items-center rounded-[4px] border border-line bg-surface text-muted"
         >
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round">
             <path d="M3 6h18M3 12h18M3 18h18" />

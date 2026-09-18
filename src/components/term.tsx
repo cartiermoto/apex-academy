@@ -99,7 +99,7 @@ function Term({ id, children, lang }: { id: string; children: React.ReactNode; l
             id={tipId}
             role="tooltip"
             onMouseLeave={() => hoverCapable() && setOpen(false)}
-            className="fade-in fixed z-[60] rounded-[8px] border border-line-strong bg-surface p-4 text-left shadow-[var(--shadow-pop)]"
+            className="fade-in fixed z-[60] rounded-[4px] border border-line-strong bg-surface p-4 text-left shadow-[var(--shadow-pop)]"
             style={{
               top: pos?.top ?? -9999,
               left: pos?.left ?? -9999,

@@ -21,6 +21,15 @@ function tagLabel(tag: QuizTag, lang: Lang): string {
   }
 }
 
+/**
+ * Options that are code (e.g. "String region = 'EMEA';") are shown in the
+ * monospace font: the UI sans draws the straight quote slanted, which would
+ * look like a typographic quote — not valid Apex.
+ */
+function looksLikeCode(s: string): boolean {
+  return /[;{}]|==|\w\(|'[^']*'|\.\w+\(/.test(s);
+}
+
 function normalise(s: string): string {
   return s
     .trim()
@@ -103,7 +112,7 @@ export function Quiz({
     return (
       <div className="fade-in max-w-[68ch]">
         <div
-          className="rounded-[12px] border p-6 sm:p-8"
+          className="rounded-[4px] border p-6 sm:p-8"
           style={{
             borderColor: passed ? "var(--c-brand)" : "var(--c-border-strong)",
             background: passed ? "var(--c-brand-soft)" : "var(--c-surface)",
@@ -150,7 +159,7 @@ export function Quiz({
                   className="t-micro mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full"
                   style={{
                     background: ok ? "var(--c-brand)" : "var(--c-danger)",
-                    color: "#fff",
+                    color: "var(--c-bg)", // white on brand/danger in light, navy in dark: both pass WCAG
                   }}
                 >
                   {ok ? "✓" : "✕"}
@@ -227,7 +236,7 @@ export function Quiz({
                   <button
                     disabled={answered}
                     onClick={() => setAnswers((a) => ({ ...a, [q.id]: i }))}
-                    className="flex w-full items-start gap-3 rounded-[10px] border p-3.5 text-left transition disabled:cursor-default"
+                    className="flex w-full items-start gap-3 rounded-[4px] border p-3.5 text-left transition disabled:cursor-default"
                     style={{
                       borderColor: showRight
                         ? "var(--c-brand)"
@@ -254,7 +263,7 @@ export function Quiz({
                     >
                       {String.fromCharCode(65 + i)}
                     </span>
-                    <span className="t-small min-w-0 flex-1 text-ink">
+                    <span className={`t-small min-w-0 flex-1 text-ink ${looksLikeCode(t(opt, lang)) ? "font-mono" : ""}`}>
                       {t(opt, lang)}
                     </span>
                   </button>
@@ -284,7 +293,7 @@ export function Quiz({
                           return { ...a, [q.id]: cur };
                         })
                       }
-                      className="flex w-full items-start gap-3 rounded-[10px] border p-3.5 text-left transition disabled:cursor-default"
+                      className="flex w-full items-start gap-3 rounded-[4px] border p-3.5 text-left transition disabled:cursor-default"
                       style={{
                         borderColor: answered
                           ? shouldBe
@@ -307,7 +316,7 @@ export function Quiz({
                       }}
                     >
                       <span
-                        className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-[6px] border"
+                        className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-[4px] border"
                         style={{
                           borderColor: picked ? "var(--c-brand)" : "var(--c-border-strong)",
                           background: picked ? "var(--c-brand)" : "transparent",
@@ -319,7 +328,7 @@ export function Quiz({
                           </svg>
                         )}
                       </span>
-                      <span className="t-small min-w-0 flex-1 text-ink">
+                      <span className={`t-small min-w-0 flex-1 text-ink ${looksLikeCode(t(opt, lang)) ? "font-mono" : ""}`}>
                         {t(opt, lang)}
                       </span>
                     </button>
@@ -343,14 +352,14 @@ export function Quiz({
             placeholder={
               q.placeholder ? t(q.placeholder, lang) : t(ui.typeYourAnswer, lang)
             }
-            className="mt-5 w-full rounded-[10px] border border-line bg-surface px-3.5 py-3 font-mono text-[16px] text-ink outline-none transition focus:border-brand sm:text-[0.9rem]"
+            className="mt-5 w-full rounded-[4px] border border-line bg-surface px-3.5 py-3 font-mono text-[16px] text-ink outline-none transition focus:border-brand sm:text-[0.9rem]"
           />
         )}
 
         {/* ------- verdict ------- */}
         {answered && (
           <div
-            className="fade-in mt-5 rounded-[10px] px-4 py-3.5"
+            className="fade-in mt-5 rounded-[4px] px-4 py-3.5"
             style={{
               background: correct ? "var(--c-brand-soft)" : "var(--c-danger-soft)",
             }}

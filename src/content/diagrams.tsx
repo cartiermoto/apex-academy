@@ -40,7 +40,7 @@ function Defs({ id }: { id: string }) {
         markerHeight="6"
         orient="auto-start-reverse"
       >
-        <path d="M0 0 L10 5 L0 10 z" fill="var(--c-accent)" />
+        <path d="M0 0 L10 5 L0 10 z" fill="var(--c-warn)" />
       </marker>
       <marker
         id={`am-${id}`}
@@ -69,8 +69,8 @@ const S = {
     strokeWidth: 1.5,
   },
   boxAccent: {
-    fill: "var(--c-accent-soft)",
-    stroke: "var(--c-accent)",
+    fill: "var(--c-warn-soft)",
+    stroke: "var(--c-warn)",
     strokeWidth: 1.5,
   },
   title: {
@@ -173,7 +173,7 @@ function VariableAnatomy({ lang }: P) {
       </text>
 
       {/* asignación */}
-      <path d="M330 154 L330 186" stroke="var(--c-accent)" strokeWidth="1.5" markerEnd={`url(#ac-${id})`} fill="none" />
+      <path d="M330 154 L330 186" stroke="var(--c-warn)" strokeWidth="1.5" markerEnd={`url(#ac-${id})`} fill="none" />
       <text x="330" y="206" {...S.label} textAnchor="middle">
         {pick(lang, "Asignación", "Assignment")}
       </text>
@@ -182,7 +182,7 @@ function VariableAnatomy({ lang }: P) {
       </text>
 
       {/* valor */}
-      <path d="M392 154 L440 196" stroke="var(--c-accent)" strokeWidth="1.5" markerEnd={`url(#ac-${id})`} fill="none" />
+      <path d="M392 154 L440 196" stroke="var(--c-warn)" strokeWidth="1.5" markerEnd={`url(#ac-${id})`} fill="none" />
       <text x="470" y="206" {...S.label} textAnchor="middle">
         {pick(lang, "Valor", "Value")}
       </text>
@@ -410,7 +410,7 @@ function DateTimeMap({ lang }: P) {
       </text>
 
       {/* timezone callout */}
-      <path d="M507 140 L507 178" stroke="var(--c-accent)" strokeWidth="1.5" markerEnd={`url(#ac-${id})`} fill="none" />
+      <path d="M507 140 L507 178" stroke="var(--c-warn)" strokeWidth="1.5" markerEnd={`url(#ac-${id})`} fill="none" />
       <rect x="150" y="184" width="450" height="86" rx="10" {...S.boxAccent} />
       <text x="170" y="210" {...S.label} fontWeight={600} fontSize={14}>
         {pick(lang, "Solo Datetime tiene zona horaria", "Only Datetime carries a time zone")}
@@ -534,8 +534,8 @@ function NullStates({ lang }: P) {
         {pick(lang, "TRES CAJAS DISTINTAS", "THREE DIFFERENT BOXES")}
       </text>
 
-      <rect x="0" y="30" width="185" height="110" rx="10" stroke="var(--c-accent)" strokeWidth="1.5" fill="var(--c-accent-soft)" strokeDasharray="5 4" />
-      <text x="92" y="58" {...S.mono} textAnchor="middle" fill="var(--c-accent)">
+      <rect x="0" y="30" width="185" height="110" rx="10" stroke="var(--c-warn)" strokeWidth="1.5" fill="var(--c-warn-soft)" strokeDasharray="5 4" />
+      <text x="92" y="58" {...S.mono} textAnchor="middle" fill="var(--c-warn)">
         null
       </text>
       <text x="92" y="86" {...S.muted} textAnchor="middle" fontSize={13}>
@@ -577,7 +577,7 @@ function NullStates({ lang }: P) {
       </text>
 
       {/* the explosion path */}
-      <path d="M92 146 L92 186" stroke="var(--c-accent)" strokeWidth="1.6" markerEnd={`url(#ac-${id})`} fill="none" />
+      <path d="M92 146 L92 186" stroke="var(--c-warn)" strokeWidth="1.6" markerEnd={`url(#ac-${id})`} fill="none" />
       <rect x="0" y="192" width="600" height="104" rx="10" {...S.boxAccent} />
       <text x="20" y="218" {...S.label} fontWeight={600} fontSize={14}>
         {pick(
@@ -590,7 +590,7 @@ function NullStates({ lang }: P) {
         String region = null;
       </text>
       <text x="20" y="266" {...S.monoSmall}>
-        region.toUpperCase(); <tspan fill="var(--c-accent)">→ NullPointerException</tspan>
+        region.toUpperCase(); <tspan fill="var(--c-warn)">→ NullPointerException</tspan>
       </text>
       <text x="20" y="288" {...S.muted} fontSize={12.5}>
         {pick(
@@ -719,8 +719,8 @@ function CollectionsMap({ lang }: P) {
             </text>
           </g>
         ))}
-        <rect x="360" y="122" width="108" height="42" rx="21" fill="none" stroke="var(--c-accent)" strokeWidth="1.4" strokeDasharray="4 4" />
-        <text x="414" y="149" {...S.monoSmall} textAnchor="middle" fill="var(--c-accent)">
+        <rect x="360" y="122" width="108" height="42" rx="21" fill="none" stroke="var(--c-warn)" strokeWidth="1.4" strokeDasharray="4 4" />
+        <text x="414" y="149" {...S.monoSmall} textAnchor="middle" fill="var(--c-warn)">
           Acme
         </text>
         <text x="482" y="143" {...S.muted} fontSize={12}>
@@ -816,7 +816,7 @@ function CastingMap({ lang }: P) {
       <text x="75" y="158" {...S.monoSmall} textAnchor="middle">
         Decimal 19.99
       </text>
-      <path d="M156 153 L232 153" stroke="var(--c-accent)" strokeWidth="1.6" markerEnd={`url(#ac-${id})`} fill="none" />
+      <path d="M156 153 L232 153" stroke="var(--c-warn)" strokeWidth="1.6" markerEnd={`url(#ac-${id})`} fill="none" />
       <text x="194" y="144" {...S.muted} fontSize={11.5} textAnchor="middle">
         {pick(lang, "algo se pierde", "something is lost")}
       </text>

@@ -48,7 +48,7 @@ export function CodeBlock({
 
   return (
     <figure className="my-6">
-      <div className={`code-surface overflow-hidden rounded-[10px] ${accent}`}>
+      <div className={`code-surface overflow-hidden rounded-[4px] ${accent}`}>
         <div className="flex items-center justify-between gap-2 border-b border-[var(--c-code-border)] px-3 py-1.5">
           <span className="t-micro font-mono text-[var(--c-code-com)]">
             {filename ?? "Apex"}

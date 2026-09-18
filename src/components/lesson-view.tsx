@@ -68,7 +68,7 @@ export function LessonView({
         <p className="lead mt-3 max-w-[62ch]">{t(lesson.summary, lang)}</p>
 
         {/* spec sheet: the Admin equivalent + what you will be able to do */}
-        <div className="mt-7 rounded-[10px] border border-line bg-surface">
+        <div className="mt-7 rounded-[4px] border border-line bg-surface">
           {lesson.analogy && (
             <div className="grid gap-1 border-b border-line px-5 py-4 sm:grid-cols-[10rem_1fr] sm:gap-4">
               <span className="t-eyebrow pt-0.5">{lang === "es" ? "En Admin es" : "In Admin it is"}</span>
@@ -96,7 +96,7 @@ export function LessonView({
 
         {complete && (
           <div
-            className="mt-6 flex items-start gap-3 rounded-[12px] px-4 py-3.5"
+            className="mt-6 flex items-start gap-3 rounded-[4px] px-4 py-3.5"
             style={{ background: "var(--c-brand-soft)" }}
           >
             <svg width="17" height="17" viewBox="0 0 16 16" className="mt-[2px] shrink-0 text-brand" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

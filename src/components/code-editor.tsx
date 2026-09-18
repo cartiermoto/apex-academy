@@ -84,7 +84,7 @@ export function CodeEditor({
   const gutterWidth = String(lineCount).length <= 2 ? 34 : 44;
 
   return (
-    <div className="code-surface editor-surface relative overflow-hidden rounded-[10px]">
+    <div className="code-surface editor-surface relative overflow-hidden rounded-[4px]">
       <div className="flex items-center justify-between gap-2 border-b border-[var(--c-code-border)] px-3 py-1.5">
         <span className="t-micro font-mono text-[var(--c-code-com)]">
           {filename ?? "Apex"}

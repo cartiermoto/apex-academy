@@ -58,7 +58,7 @@ function LoginForm() {
                 setPassword(e.target.value);
                 if (state === "error") setState("idle");
               }}
-              className="mt-1.5 w-full rounded-[10px] border border-line bg-surface px-3.5 py-3 text-ink outline-none transition focus:border-brand"
+              className="mt-1.5 w-full rounded-[4px] border border-line bg-surface px-3.5 py-3 text-ink outline-none transition focus:border-brand"
               placeholder="••••••••"
               autoComplete="current-password"
             />

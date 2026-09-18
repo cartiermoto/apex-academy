@@ -19,6 +19,8 @@ const CALLOUT = {
   tip: {
     border: "var(--c-brand)",
     bg: "var(--c-surface-2)",
+    /* brand-on-surface-2 is 4.26:1 in dark mode, so the title uses the text colour */
+    title: "var(--c-text)",
     icon: (
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.6.5.9 1.2 1 2h5.2c.1-.8.4-1.5 1-2A6 6 0 0 0 12 3Z" />
@@ -26,8 +28,8 @@ const CALLOUT = {
     ),
   },
   warn: {
-    border: "var(--c-accent)",
-    bg: "var(--c-accent-soft)",
+    border: "var(--c-warn)",
+    bg: "var(--c-warn-soft)",
     icon: (
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <path d="M10.3 3.9 1.8 18.4A2 2 0 0 0 3.5 21.4h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z" />
@@ -108,7 +110,7 @@ export function Theory({ blocks, lang }: { blocks: TheoryBlock[]; lang: Lang }) 
             return (
               <aside
                 key={i}
-                className="my-7 rounded-[8px] px-4 py-3.5 sm:px-5 sm:py-4"
+                className="my-7 rounded-[4px] px-4 py-3.5 sm:px-5 sm:py-4"
                 style={{
                   background: style.bg,
                   borderLeft: `3px solid ${style.border}`,
@@ -116,7 +118,7 @@ export function Theory({ blocks, lang }: { blocks: TheoryBlock[]; lang: Lang }) 
               >
                 <p
                   className="t-small flex items-center gap-2 font-semibold"
-                  style={{ color: style.border }}
+                  style={{ color: "title" in style ? style.title : style.border }}
                 >
                   {style.icon}
                   {t(b.title, lang)}

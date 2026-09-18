@@ -5,99 +5,105 @@
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 /* ---------------------------------------------------------------------------
-   Apex Academy — brand tokens ("editorial técnico")
+   Apex Academy — app-wide tokens (lessons, challenges, sidebar, login)
 
-   Base palette: Navy #2F4156 · Teal #567C8D · Sky Blue #C8D9E6 ·
-   Beige #F5EFEB · White. Plus one warm coral accent, used sparingly
-   (challenges, attention).
+   Derived from the official webyaber palette
+   (apex-academy-propuesta2-design-tokens.json). Every value is tagged:
+     JSON  → copied from the brand token file
+     NUEVO → proposed to cover a role the brand file does not define
+             (errors, warnings, code syntax, text-safe blue). Pending sign-off.
+   ⚠ #12262E (navy) is itself provisional — not in the official brand sheet.
 
-   Contrast notes (WCAG AA needs 4.5:1 for body text):
-   - Teal #567C8D on white is 4.47 — just short — so text/links use a
-     darker teal #4A6E7E (5.5 on white, 4.8 on beige). The original teal
-     stays for large, decorative uses.
-   - The coral used as text is #B85A36 (4.6 on white).
+   All text/background pairs verified against WCAG 2 (≥ 4.5:1). Notably:
+   - The JSON blue #1E7FB8 is only 4.39:1 on white, so it cannot carry small
+     text; text, links and icons use #1A6FA1 (NUEVO, same hue, 5.48:1).
+   - #858585 from the brand sheet is 3.7:1 on white and is not used.
    --------------------------------------------------------------------------- */
 :root {
-  --c-bg: #f5efeb;            /* beige page */
-  --c-surface: #ffffff;       /* cards sit in white on the beige */
-  --c-surface-2: #ede6e1;
-  --c-border: #e3dbd4;
-  --c-border-strong: #cdc2b9;
-  --c-heading: #2f4156;       /* navy */
-  --c-text: #243447;
-  --c-text-muted: #5b6b7c;
-  --c-text-faint: #8593a1;
+  --c-bg: #ffffff;              /* JSON */
+  --c-surface: #ffffff;         /* JSON */
+  --c-surface-2: #e8ecef;       /* JSON */
+  --c-border: #cdd8dd;          /* JSON divider */
+  --c-border-strong: #b0b0b0;   /* JSON */
+  --c-heading: #4d4d4d;         /* JSON ink */
+  --c-text: #4d4d4d;            /* JSON ink */
+  --c-text-muted: #5c5c5c;      /* NUEVO — 6.69:1 on white */
+  --c-text-faint: #666666;      /* NUEVO — 4.83:1 on #E8ECEF, 5.74:1 on white */
 
-  --c-brand: #4a6e7e;         /* teal, text-safe */
-  --c-brand-hover: #2f4156;   /* navy */
-  --c-brand-deco: #567c8d;    /* the palette's original teal */
-  --c-brand-soft: #e1eaf1;    /* sky blue, lightened */
-  --c-brand-ring: #4a6e7e40;
-  --c-on-brand: #ffffff;
-  --c-sky: #c8d9e6;
+  --c-brand: #1a6fa1;           /* NUEVO — text-safe version of #1E7FB8 */
+  --c-brand-hover: #204b5e;     /* JSON */
+  --c-brand-deco: #3da6d9;      /* JSON accent (decorative only) */
+  --c-brand-soft: #eaf5fb;      /* NUEVO — light tint of #3DA6D9 */
+  --c-brand-ring: #3da6d966;    /* JSON accent, translucent */
+  --c-on-brand: #ffffff;        /* JSON */
+  --c-fill: #3da6d9;            /* JSON accent — primary buttons, as on the home */
+  --c-on-fill: #12262e;         /* JSON onAccent (provisional navy) */
+  --c-sky: #bbe0f2;             /* JSON */
 
-  --c-accent: #b85a36;        /* coral */
-  --c-accent-soft: #f7e4da;
+  --c-accent: #204b5e;          /* JSON — challenges */
+  --c-accent-soft: #e8ecef;     /* JSON */
 
-  --c-danger: #a8372a;
-  --c-danger-soft: #f8e5e2;
-  --c-warn: #8c6212;
-  --c-warn-soft: #f7ecd7;
+  --c-danger: #b42318;          /* NUEVO — errors only */
+  --c-danger-soft: #fdecea;     /* NUEVO */
+  --c-warn: #8c5a00;            /* NUEVO — warnings only */
+  --c-warn-soft: #fff3e0;       /* NUEVO */
 
-  --c-dot: #2f415618;         /* dot-grid background */
+  --c-dot: rgba(77, 77, 77, 0.12); /* JSON ink, translucent */
 
   /* code surface */
-  --c-code-bg: #ffffff;
-  --c-code-border: #e3dbd4;
-  --c-code-text: #243447;
-  --c-code-key: #2f6475;
-  --c-code-type: #3d5a80;
-  --c-code-str: #a5502f;
-  --c-code-num: #6b4e8c;
-  --c-code-com: #8593a1;
+  --c-code-bg: #f3f8fa;         /* JSON */
+  --c-code-border: #cdd8dd;     /* JSON */
+  --c-code-text: #4d4d4d;       /* JSON */
+  --c-code-key: #1a6fa1;        /* NUEVO (= brand) */
+  --c-code-type: #204b5e;       /* JSON */
+  --c-code-str: #8c5a00;        /* NUEVO (= warn) */
+  --c-code-num: #7a3e9d;        /* NUEVO */
+  --c-code-com: #666666;        /* NUEVO (= faint) */
 
-  --radius: 8px;
-  --shadow-card: 0 1px 2px rgb(47 65 86 / 0.05), 0 1px 3px rgb(47 65 86 / 0.05);
-  --shadow-pop: 0 10px 30px rgb(47 65 86 / 0.14), 0 2px 6px rgb(47 65 86 / 0.08);
+  --radius: 4px;
+  --shadow-card: 0 1px 2px rgb(18 38 46 / 0.06);
+  --shadow-pop: 0 10px 30px rgb(18 38 46 / 0.14), 0 2px 6px rgb(18 38 46 / 0.08);
 }
 
 [data-theme="dark"] {
-  --c-bg: #16202b;            /* the navy, deepened */
-  --c-surface: #1d2a38;
-  --c-surface-2: #253445;
-  --c-border: #2e3f52;
-  --c-border-strong: #3f546b;
-  --c-heading: #eef3f7;
-  --c-text: #dfe7ee;
-  --c-text-muted: #a3b3c2;
-  --c-text-faint: #7a8d9f;
+  --c-bg: #12262e;              /* JSON (provisional navy) */
+  --c-surface: #1b3644;         /* JSON */
+  --c-surface-2: #204b5e;       /* JSON */
+  --c-border: rgba(255, 255, 255, 0.14); /* JSON divider */
+  --c-border-strong: rgba(255, 255, 255, 0.35); /* JSON legendBorder */
+  --c-heading: #f3f8fa;         /* JSON */
+  --c-text: #f3f8fa;            /* JSON */
+  --c-text-muted: #cdd8dd;      /* JSON */
+  --c-text-faint: #a2c2d2;      /* JSON */
 
-  --c-brand: #9cc0d4;         /* sky blue carries the brand at night */
-  --c-brand-hover: #c8d9e6;
-  --c-brand-deco: #7fa6ba;
-  --c-brand-soft: #22384a;
-  --c-brand-ring: #9cc0d450;
-  --c-on-brand: #16202b;
-  --c-sky: #c8d9e6;
+  --c-brand: #66b7e7;           /* JSON accent */
+  --c-brand-hover: #bbe0f2;     /* JSON */
+  --c-brand-deco: #66b7e7;      /* JSON */
+  --c-brand-soft: #163b4d;      /* NUEVO — between #1B3644 and #204B5E */
+  --c-brand-ring: #66b7e766;    /* JSON, translucent */
+  --c-on-brand: #12262e;        /* JSON */
+  --c-fill: #66b7e7;            /* JSON */
+  --c-on-fill: #12262e;         /* JSON */
+  --c-sky: #bbe0f2;             /* JSON */
 
-  --c-accent: #eb9a78;
-  --c-accent-soft: #3a2a25;
+  --c-accent: #a2c2d2;          /* JSON */
+  --c-accent-soft: #204b5e;     /* JSON */
 
-  --c-danger: #ec8575;
-  --c-danger-soft: #3a2325;
-  --c-warn: #dcb366;
-  --c-warn-soft: #34301f;
+  --c-danger: #f28b7d;          /* NUEVO */
+  --c-danger-soft: #3a2325;     /* NUEVO */
+  --c-warn: #f2c27b;            /* NUEVO */
+  --c-warn-soft: #33301f;       /* NUEVO */
 
-  --c-dot: #c8d9e614;
+  --c-dot: rgba(255, 255, 255, 0.08); /* JSON-derived */
 
-  --c-code-bg: #131c26;
-  --c-code-border: #2e3f52;
-  --c-code-text: #dfe7ee;
-  --c-code-key: #8fc4d6;
-  --c-code-type: #9fb9e0;
-  --c-code-str: #eba07e;
-  --c-code-num: #c4a6e0;
-  --c-code-com: #6e8296;
+  --c-code-bg: #0f2028;         /* NUEVO — a notch below the navy */
+  --c-code-border: rgba(255, 255, 255, 0.14); /* JSON */
+  --c-code-text: #f3f8fa;       /* JSON */
+  --c-code-key: #66b7e7;        /* JSON */
+  --c-code-type: #a2c2d2;       /* JSON */
+  --c-code-str: #f2c27b;        /* NUEVO (= warn) */
+  --c-code-num: #d4a5f0;        /* NUEVO */
+  --c-code-com: #8fa9b6;        /* NUEVO */
 
   --shadow-card: 0 1px 2px rgb(0 0 0 / 0.3);
   --shadow-pop: 0 10px 30px rgb(0 0 0 / 0.5);
@@ -119,6 +125,8 @@
   --color-brand-deco: var(--c-brand-deco);
   --color-brand-soft: var(--c-brand-soft);
   --color-on-brand: var(--c-on-brand);
+  --color-fill: var(--c-fill);
+  --color-on-fill: var(--c-on-fill);
   --color-sky: var(--c-sky);
 
   --color-accent: var(--c-accent);
@@ -129,12 +137,12 @@
   --color-warn: var(--c-warn);
   --color-warn-soft: var(--c-warn-soft);
 
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
     Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono",
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, "SF Mono",
     Menlo, Consolas, "Liberation Mono", monospace;
 
-  --radius-card: 10px;
+  --radius-card: 4px;
 }
 
 * {
@@ -331,7 +339,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border-radius: 6px;
+  border-radius: 4px;
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 1.2;
@@ -351,11 +359,11 @@ body {
   pointer-events: none;
 }
 .btn-primary {
-  background: var(--c-brand);
-  color: var(--c-on-brand);
+  background: var(--c-fill);
+  color: var(--c-on-fill);
 }
 .btn-primary:hover {
-  background: var(--c-brand-hover);
+  opacity: 0.9;
 }
 .btn-ghost {
   border: 1px solid var(--c-border-strong);
@@ -439,10 +447,11 @@ body {
   --e-card-border-robust: 1px solid rgba(77, 77, 77, 0.3);
   --e-card-border-scope: 1px solid rgba(77, 77, 77, 0.3);
 
-  /* ⚠ WCAG: #1E7FB8 on the "obj" surface #A2C2D2 is 2.34:1 — below the 3:1
-     minimum even for large text. Kept as specified pending a decision;
-     changing this one variable fixes modules 05–07. */
-  --e-module-num-obj: var(--e-module-num);
+  /* WCAG exception, decided with the owner: #1E7FB8 on the "obj" surface
+     #A2C2D2 is only 2.34:1 (fails even 3:1 for large text), so modules 05–07
+     use the navy instead — 8.33:1. Light mode only; dark keeps the rule of
+     "number = category accent". */
+  --e-module-num-obj: #12262e; /* provisional navy */
 
   background: var(--e-bg);
   color: var(--e-ink);

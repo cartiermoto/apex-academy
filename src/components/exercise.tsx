@@ -172,7 +172,7 @@ export function ExercisePanel({
       {result && (
         <div className="fade-in mt-6">
           <div
-            className="rounded-[12px] border p-5"
+            className="rounded-[4px] border p-5"
             style={{
               borderColor: result.passed ? "var(--c-brand)" : "var(--c-border-strong)",
               background: result.passed ? "var(--c-brand-soft)" : "var(--c-surface)",
@@ -196,7 +196,7 @@ export function ExercisePanel({
             </div>
 
             {result.untouched && (
-              <p className="t-small mt-3 text-[var(--c-accent)]">
+              <p className="t-small mt-3 text-[var(--c-warn)]">
                 {lang === "es"
                   ? "El editor sigue con el código de partida — escribe tu versión antes de validar."
                   : "The editor still holds the starter code — write your version before validating."}
@@ -254,12 +254,12 @@ export function ExercisePanel({
                     : n.tone === "bad"
                       ? "var(--c-danger)"
                       : n.tone === "warn"
-                        ? "var(--c-accent)"
+                        ? "var(--c-warn)"
                         : "var(--c-text-faint)";
                 return (
                   <div
                     key={i}
-                    className="rounded-[10px] px-4 py-3"
+                    className="rounded-[4px] px-4 py-3"
                     style={{
                       background: "var(--c-surface)",
                       borderLeft: `3px solid ${color}`,
@@ -288,7 +288,7 @@ export function ExercisePanel({
           {data.hints.slice(0, hintsShown).map((h, i) => (
             <div
               key={i}
-              className="fade-in rounded-[10px] bg-surface-2 px-4 py-3"
+              className="fade-in rounded-[4px] bg-surface-2 px-4 py-3"
               style={{ borderLeft: "3px solid var(--c-text-faint)" }}
             >
               <p className="t-micro text-faint">
