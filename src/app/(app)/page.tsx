@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { course } from "@/content/course";
 import { useProgress, useSettings } from "@/components/providers";
 import { Mark } from "@/components/logo";
@@ -31,7 +30,7 @@ const CATEGORIES: Array<{ id: ModuleCategory; name: L }> = [
 
 function Header() {
   const { lang, setLang, theme, setTheme } = useSettings();
-  const router = useRouter();
+  const { authed, logout } = useProgress();
 
   const iconBtn =
     "grid h-10 w-10 place-items-center rounded-[4px] border border-[var(--e-divider)] text-[var(--e-ink)] transition hover:opacity-75";
@@ -88,12 +87,19 @@ function Header() {
           )}
         </button>
 
+        {authed === false && (
+          <Link
+            href="/login?next=/"
+            className="e-mono inline-flex min-h-[40px] items-center rounded-[4px] px-3.5 text-[12px] font-semibold uppercase tracking-[0.06em] transition hover:opacity-90"
+            style={{ background: "var(--e-accent)", color: "var(--e-on-accent)" }}
+          >
+            {t(ui.signIn, lang)}
+          </Link>
+        )}
+
+        {authed && (
         <button
-          onClick={async () => {
-            await fetch("/api/auth/logout", { method: "POST" });
-            router.replace("/login");
-            router.refresh();
-          }}
+          onClick={() => void logout()}
           aria-label={t(ui.signOut, lang)}
           title={t(ui.signOut, lang)}
           className={iconBtn}
@@ -103,8 +109,31 @@ function Header() {
             <path d="m16 17 5-5-5-5M21 12H9" />
           </svg>
         </button>
+        )}
       </div>
     </header>
+  );
+}
+
+/* ------------------------------------------------------------- sync status */
+
+function SyncStatus() {
+  const { lang } = useSettings();
+  const { authed } = useProgress();
+  if (authed === null) return null;
+  return (
+    <p className="e-mono order-last text-[11px] uppercase tracking-[0.08em]">
+      {authed ? (
+        <>✓ {t(ui.syncOn, lang)}</>
+      ) : (
+        <>
+          {t(ui.syncOff, lang)} ·{" "}
+          <Link href="/login?next=/" className="underline underline-offset-4">
+            {t(ui.signIn, lang)}
+          </Link>
+        </>
+      )}
+    </p>
   );
 }
 
@@ -133,8 +162,14 @@ function UpNext({
   return (
     <Link
       href={`/m/${mod.id}/${lesson.slug}`}
-      className="group flex w-full flex-col gap-[22px] p-6 sm:p-8 lg:w-[420px] lg:shrink-0 xl:w-[460px]"
-      style={{ background: "var(--e-cat-fund-surface)", color: "var(--e-ink)" }}
+      /* Floating card (as in the reference site): tilted on wide screens, lifted
+         by a shadow, and it straightens on hover. Colours unchanged. */
+      className="group flex w-full flex-col gap-[22px] p-6 transition-transform duration-300 ease-out sm:p-8 lg:mt-4 lg:w-[420px] lg:shrink-0 lg:rotate-[1.5deg] lg:hover:rotate-0 xl:w-[460px]"
+      style={{
+        background: "var(--e-cat-fund-surface)",
+        color: "var(--e-ink)",
+        boxShadow: "var(--e-float-shadow)",
+      }}
     >
       <div className="flex items-center gap-3">
         <span className="shrink-0" style={{ color: "var(--e-ink)" }}>
@@ -265,6 +300,7 @@ export default function HomePage() {
                     {doneCount}/{allLessons.length} · {pct(doneCount, allLessons.length)}%
                   </span>
                 </div>
+                <SyncStatus />
                 <div className="h-1.5" style={{ background: "var(--e-track-bg)" }}>
                   <div
                     className="h-1.5 transition-[width] duration-500"

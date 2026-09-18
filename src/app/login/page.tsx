@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import { Mark } from "@/components/logo";
 import { useSettings } from "@/components/providers";
@@ -10,9 +11,11 @@ import { LangToggle, ThemeToggle } from "@/components/toggles";
 
 function LoginForm() {
   const { lang } = useSettings();
-  const router = useRouter();
   const params = useSearchParams();
   const [password, setPassword] = useState("");
+  // Only same-site paths: "/x" yes, "//evil.com" or "https://…" no.
+  const rawNext = params.get("next") ?? "/";
+  const safeNext = rawNext.startsWith("/") && !rawNext.startsWith("//") ? rawNext : "/";
   const [state, setState] = useState<"idle" | "busy" | "error">("idle");
 
   async function submit(e: React.FormEvent) {
@@ -24,8 +27,8 @@ function LoginForm() {
       body: JSON.stringify({ password }),
     });
     if (res.ok) {
-      router.replace(params.get("next") || "/");
-      router.refresh();
+      // Full reload so the app picks up the session and runs the first sync.
+      window.location.assign(safeNext);
     } else {
       setState("error");
     }
@@ -81,6 +84,12 @@ function LoginForm() {
 
         <p className="t-micro text-faint mt-8 text-center leading-relaxed">
           {t(ui.signInHint, lang)}
+        </p>
+
+        <p className="mt-6 text-center">
+          <Link href={safeNext} className="t-small text-brand underline underline-offset-4">
+            ← {t(ui.backToCourse, lang)}
+          </Link>
         </p>
       </div>
     </main>

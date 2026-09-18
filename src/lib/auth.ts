@@ -7,7 +7,7 @@
  */
 
 export const SESSION_COOKIE = "apex_session";
-const MAX_AGE_SECONDS = 60 * 60 * 24 * 30; // 30 days
+const MAX_AGE_SECONDS = 60 * 60 * 24 * 365; // 1 year: sign in once per device
 
 function secret(): string {
   return (

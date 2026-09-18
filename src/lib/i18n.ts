@@ -17,8 +17,15 @@ export const ui = {
   // auth
   signInTitle: { es: "Acceso", en: "Sign in" },
   signInHint: {
-    es: "Este curso es privado. Introduce la contraseña.",
-    en: "This course is private. Enter the password.",
+    es: "Entra para guardar tu progreso en la nube y seguirlo en cualquier dispositivo.",
+    en: "Sign in to save your progress to the cloud and pick it up on any device.",
+  },
+  signIn: { es: "Entrar", en: "Sign in" },
+  backToCourse: { es: "Volver al curso", en: "Back to the course" },
+  syncOn: { es: "Progreso sincronizado", en: "Progress synced" },
+  syncOff: {
+    es: "Progreso solo en este dispositivo",
+    en: "Progress on this device only",
   },
   password: { es: "Contraseña", en: "Password" },
   enter: { es: "Entrar", en: "Enter" },

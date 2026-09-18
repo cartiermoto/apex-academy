@@ -428,6 +428,8 @@ body {
   --e-challenge-bg: #12262e; /* provisional navy */
   --e-challenge-text: #ffffff;
   --e-logo-radius: 0px;
+  /* "Siguiente" floating card: a soft lift built from the navy */
+  --e-float-shadow: 0 24px 48px rgba(18, 38, 46, 0.16), 0 4px 10px rgba(18, 38, 46, 0.08);
 
   /* light: every module number uses the single blue; titles use ink */
   --e-module-num: #1e7fb8;
@@ -469,6 +471,8 @@ body {
   --e-challenge-bg: #204b5e;
   --e-challenge-text: #ffffff;
   --e-logo-radius: 6px;
+  /* on a navy page a navy shadow is invisible, so dark mode uses black */
+  --e-float-shadow: 0 24px 48px rgba(0, 0, 0, 0.45), 0 4px 10px rgba(0, 0, 0, 0.3);
 
   --e-cat-fund-surface: #1b3644;
   --e-cat-logic-surface: #1b3644;

@@ -71,6 +71,9 @@ interface ProgressApi {
   ) => void;
   reset: () => void;
   saving: boolean;
+  /** null while checking; true when signed in (progress syncs to the cloud) */
+  authed: boolean | null;
+  logout: () => Promise<void>;
 }
 
 const ProgressCtx = createContext<ProgressApi | null>(null);
@@ -85,6 +88,77 @@ const LS_PROGRESS = "apex.progress.v1";
 const LS_DRAFT = "apex.draft.";
 
 const EMPTY: ProgressSnapshot = { lessons: {}, drafts: {}, challenges: {} };
+
+type LP = ProgressSnapshot["lessons"][string];
+type CP = ProgressSnapshot["challenges"][string];
+
+function mergeLesson(a: LP | undefined, b: LP | undefined): LP {
+  if (!a) return b!;
+  if (!b) return a;
+  const bestA = (a.quizScore ?? -1) >= (b.quizScore ?? -1);
+  const m: LP = {
+    ...a,
+    theoryDone: a.theoryDone || b.theoryDone,
+    quizDone: a.quizDone || b.quizDone,
+    exerciseDone: a.exerciseDone || b.exerciseDone,
+    quizScore: bestA ? a.quizScore : b.quizScore,
+    quizTotal: bestA ? a.quizTotal : b.quizTotal,
+  };
+  m.status =
+    m.theoryDone && m.quizDone && m.exerciseDone
+      ? "completed"
+      : m.theoryDone || m.quizDone || m.exerciseDone || m.quizScore != null
+        ? "in_progress"
+        : "not_started";
+  return m;
+}
+
+function mergeChallenge(a: CP | undefined, b: CP | undefined): CP {
+  if (!a) return b!;
+  if (!b) return a;
+  return {
+    status:
+      a.status === "completed" || b.status === "completed"
+        ? "completed"
+        : a.status === "in_progress" || b.status === "in_progress"
+          ? "in_progress"
+          : "not_started",
+    passedComponents: Array.from(new Set([...a.passedComponents, ...b.passedComponents])),
+    hintsUsed: Math.max(a.hintsUsed, b.hintsUsed),
+  };
+}
+
+/** Union of this device and the cloud: nothing done anywhere is lost. */
+export function mergeSnapshots(local: ProgressSnapshot, server: ProgressSnapshot): ProgressSnapshot {
+  const lessons: ProgressSnapshot["lessons"] = {};
+  for (const id of new Set([...Object.keys(local.lessons), ...Object.keys(server.lessons)])) {
+    lessons[id] = mergeLesson(local.lessons[id], server.lessons[id]);
+  }
+  const challenges: ProgressSnapshot["challenges"] = {};
+  for (const id of new Set([...Object.keys(local.challenges), ...Object.keys(server.challenges)])) {
+    challenges[id] = mergeChallenge(local.challenges[id], server.challenges[id]);
+  }
+  // Drafts: this device wins — it autosaves on every keystroke.
+  return { lessons, challenges, drafts: { ...server.drafts, ...local.drafts } };
+}
+
+/** What the merged snapshot knows that the server does not yet. */
+function diffForServer(merged: ProgressSnapshot, server: ProgressSnapshot) {
+  const same = (x: unknown, y: unknown) => JSON.stringify(x) === JSON.stringify(y);
+  const lessons = Object.values(merged.lessons).filter((l) => {
+    const s = server.lessons[l.lessonId];
+    return !s || s.theoryDone !== l.theoryDone || s.quizDone !== l.quizDone ||
+      s.exerciseDone !== l.exerciseDone || s.quizScore !== l.quizScore;
+  });
+  const challenges = Object.entries(merged.challenges)
+    .filter(([id, c]) => !same(server.challenges[id], c))
+    .map(([challengeId, c]) => ({ challengeId, ...c }));
+  const drafts = Object.fromEntries(
+    Object.entries(merged.drafts).filter(([k, v]) => server.drafts[k] !== v),
+  );
+  if (!lessons.length && !challenges.length && !Object.keys(drafts).length) return null;
+  return { lessons, challenges, drafts };
+}
 
 /* -------------------------------------------------------------------------- */
 
@@ -122,35 +196,76 @@ export function Providers({ children }: { children: React.ReactNode }) {
     document.documentElement.style.colorScheme = tm;
   }, []);
 
-  /* --- hydrate progress: localStorage first, then server ------------------ */
+  /* --- session -----------------------------------------------------------
+     The course is public. Signing in (the course password) is optional and
+     only switches on cloud sync: without a session nothing leaves the browser,
+     so a visitor can use the course but can never touch the owner's progress. */
+  const [authed, setAuthed] = useState<boolean | null>(null);
+  const authedRef = useRef(false);
+
+  /* --- hydrate progress: localStorage first, then (if signed in) Neon ------ */
   useEffect(() => {
+    let local: ProgressSnapshot = EMPTY;
     try {
       const raw = localStorage.getItem(LS_PROGRESS);
-      if (raw) setSnapshot({ ...EMPTY, ...JSON.parse(raw) });
+      if (raw) local = { ...EMPTY, ...JSON.parse(raw) };
+      // drafts are also stored per key, on every keystroke
+      for (const k of Object.keys(localStorage)) {
+        if (k.startsWith(LS_DRAFT)) {
+          local = {
+            ...local,
+            drafts: { ...local.drafts, [k.slice(LS_DRAFT.length)]: localStorage.getItem(k) ?? "" },
+          };
+        }
+      }
     } catch {}
+    setSnapshot(local);
 
     let cancelled = false;
-    fetch("/api/progress")
-      .then((r) => (r.ok ? r.json() : null))
-      .then((data: ProgressSnapshot | null) => {
-        if (cancelled || !data) return;
-        setSnapshot((local) => {
-          // Server wins for lesson/challenge state; local drafts win when newer
-          // (they are saved on every keystroke, the server only on validate).
-          const merged: ProgressSnapshot = {
-            lessons: { ...local.lessons, ...data.lessons },
-            challenges: { ...local.challenges, ...data.challenges },
-            drafts: { ...data.drafts, ...local.drafts },
-          };
-          return merged;
-        });
-      })
-      .catch(() => {})
-      .finally(() => !cancelled && setReady(true));
+    (async () => {
+      try {
+        const session = await fetch("/api/auth/session").then((r) => r.json());
+        if (cancelled) return;
+        const isAuthed = Boolean(session?.authenticated);
+        authedRef.current = isAuthed;
+        setAuthed(isAuthed);
+        if (!isAuthed) return;
+
+        const res = await fetch("/api/progress");
+        if (!res.ok || cancelled) return;
+        const server = (await res.json()) as ProgressSnapshot;
+
+        // Union of both sides: nothing done on either device is ever lost.
+        const merged = mergeSnapshots(local, server);
+        setSnapshot(merged);
+
+        // Push back whatever this device knew that the server did not.
+        const upload = diffForServer(merged, server);
+        if (upload) {
+          await fetch("/api/progress", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ action: "merge", ...upload }),
+          });
+        }
+      } catch {
+        /* offline: the local copy is still fully usable */
+      } finally {
+        if (!cancelled) setReady(true);
+      }
+    })();
 
     return () => {
       cancelled = true;
     };
+  }, []);
+
+  const logout = useCallback(async () => {
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+    } catch {}
+    authedRef.current = false;
+    setAuthed(false);
   }, []);
 
   /* --- persist snapshot to localStorage ---------------------------------- */
@@ -162,6 +277,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }, [snapshot, ready]);
 
   const post = useCallback(async (body: unknown) => {
+    // Signed out: progress lives only in this browser (localStorage).
+    if (!authedRef.current) return;
     pending.current += 1;
     setSaving(true);
     try {
@@ -306,8 +423,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
       setChallenge,
       reset,
       saving,
+      authed,
+      logout,
     }),
-    [snapshot, ready, markTheory, markQuiz, markExercise, saveDraft, getDraft, setChallenge, reset, saving],
+    [snapshot, ready, markTheory, markQuiz, markExercise, saveDraft, getDraft, setChallenge, reset, saving, authed, logout],
   );
 
   return (

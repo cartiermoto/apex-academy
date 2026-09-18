@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Logo, Mark } from "./logo";
 import { LangToggle, ThemeToggle } from "./toggles";
@@ -185,16 +185,27 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
   );
 }
 
+/** "Entrar" when signed out (progress stays on this device), sign-out icon when in. */
 function SignOutButton() {
-  const router = useRouter();
+  const pathname = usePathname();
   const { lang } = useSettings();
+  const { authed, logout } = useProgress();
+
+  if (authed === null) return null;
+  if (!authed) {
+    return (
+      <Link
+        href={`/login?next=${encodeURIComponent(pathname)}`}
+        className="btn btn-primary btn-mono min-h-[40px] px-3.5 py-0"
+      >
+        {t(ui.signIn, lang)}
+      </Link>
+    );
+  }
+
   return (
     <button
-      onClick={async () => {
-        await fetch("/api/auth/logout", { method: "POST" });
-        router.replace("/login");
-        router.refresh();
-      }}
+      onClick={() => void logout()}
       title={t(ui.signOut, lang)}
       aria-label={t(ui.signOut, lang)}
       className="grid h-10 w-10 place-items-center rounded-[4px] border border-line bg-surface text-muted transition hover:text-ink"

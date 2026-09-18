@@ -93,6 +93,39 @@ export async function POST(req: Request) {
         });
         break;
 
+      // First sync after signing in on a device: the client sends what it knew
+      // that the server did not. Only "done" flags and better scores are sent,
+      // so a merge can add progress but never erase it.
+      case "merge": {
+        for (const l of (body.lessons ?? []) as Array<Record<string, any>>) {
+          if (typeof l?.lessonId !== "string" || typeof l?.moduleId !== "string") continue;
+          await patchLesson({
+            lessonId: l.lessonId,
+            moduleId: l.moduleId,
+            theoryDone: l.theoryDone ? true : undefined,
+            quizDone: l.quizDone ? true : undefined,
+            exerciseDone: l.exerciseDone ? true : undefined,
+            quizScore: typeof l.quizScore === "number" ? l.quizScore : undefined,
+            quizTotal: typeof l.quizTotal === "number" ? l.quizTotal : undefined,
+          });
+        }
+        for (const c of (body.challenges ?? []) as Array<Record<string, any>>) {
+          if (typeof c?.challengeId !== "string") continue;
+          await patchChallenge({
+            challengeId: c.challengeId,
+            status: c.status,
+            passedComponents: Array.isArray(c.passedComponents) ? c.passedComponents : undefined,
+            hintsUsed: typeof c.hintsUsed === "number" ? c.hintsUsed : undefined,
+          });
+        }
+        for (const [key, code] of Object.entries((body.drafts ?? {}) as Record<string, unknown>)) {
+          if (typeof code !== "string") continue;
+          const [lessonId, componentId] = key.split("::");
+          await saveDraft(key, lessonId, componentId ?? null, code);
+        }
+        break;
+      }
+
       case "reset":
         await resetAll();
         break;
