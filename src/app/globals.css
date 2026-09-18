@@ -5,84 +5,102 @@
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 /* ---------------------------------------------------------------------------
-   Apex Academy — brand tokens
-   One brand hue (deep teal), one accent (terracotta, used sparingly for
-   challenges + attention), warm neutral greys for everything else.
+   Apex Academy — brand tokens ("editorial técnico")
+
+   Base palette: Navy #2F4156 · Teal #567C8D · Sky Blue #C8D9E6 ·
+   Beige #F5EFEB · White. Plus one warm coral accent, used sparingly
+   (challenges, attention).
+
+   Contrast notes (WCAG AA needs 4.5:1 for body text):
+   - Teal #567C8D on white is 4.47 — just short — so text/links use a
+     darker teal #4A6E7E (5.5 on white, 4.8 on beige). The original teal
+     stays for large, decorative uses.
+   - The coral used as text is #B85A36 (4.6 on white).
    --------------------------------------------------------------------------- */
 :root {
-  --c-bg: #ffffff;
-  --c-surface: #faf9f8;
-  --c-surface-2: #f2f1ef;
-  --c-border: #e6e4e1;
-  --c-border-strong: #d4d1cc;
-  --c-text: #1a1917;
-  --c-text-muted: #6f6b65;
-  --c-text-faint: #9c9791;
+  --c-bg: #f5efeb;            /* beige page */
+  --c-surface: #ffffff;       /* cards sit in white on the beige */
+  --c-surface-2: #ede6e1;
+  --c-border: #e3dbd4;
+  --c-border-strong: #cdc2b9;
+  --c-heading: #2f4156;       /* navy */
+  --c-text: #243447;
+  --c-text-muted: #5b6b7c;
+  --c-text-faint: #8593a1;
 
-  --c-brand: #0e7c6b;
-  --c-brand-hover: #0a6152;
-  --c-brand-soft: #e4f2ef;
-  --c-brand-ring: #0e7c6b40;
+  --c-brand: #4a6e7e;         /* teal, text-safe */
+  --c-brand-hover: #2f4156;   /* navy */
+  --c-brand-deco: #567c8d;    /* the palette's original teal */
+  --c-brand-soft: #e1eaf1;    /* sky blue, lightened */
+  --c-brand-ring: #4a6e7e40;
   --c-on-brand: #ffffff;
+  --c-sky: #c8d9e6;
 
-  --c-accent: #c4562f;
-  --c-accent-soft: #fbece5;
+  --c-accent: #b85a36;        /* coral */
+  --c-accent-soft: #f7e4da;
 
-  --c-danger: #b03a2b;
-  --c-danger-soft: #fbeceb;
-  --c-warn: #9a6a12;
-  --c-warn-soft: #fbf2e2;
+  --c-danger: #a8372a;
+  --c-danger-soft: #f8e5e2;
+  --c-warn: #8c6212;
+  --c-warn-soft: #f7ecd7;
+
+  --c-dot: #2f415618;         /* dot-grid background */
 
   /* code surface */
-  --c-code-bg: #f7f6f4;
-  --c-code-border: #e6e4e1;
-  --c-code-text: #26241f;
-  --c-code-key: #0a6152;
-  --c-code-type: #2c5a8f;
-  --c-code-str: #9a4a1f;
-  --c-code-num: #7a3d8f;
-  --c-code-com: #8d8880;
+  --c-code-bg: #ffffff;
+  --c-code-border: #e3dbd4;
+  --c-code-text: #243447;
+  --c-code-key: #2f6475;
+  --c-code-type: #3d5a80;
+  --c-code-str: #a5502f;
+  --c-code-num: #6b4e8c;
+  --c-code-com: #8593a1;
 
-  --radius: 10px;
-  --shadow-card: 0 1px 2px rgb(26 25 23 / 0.04), 0 1px 3px rgb(26 25 23 / 0.04);
-  --shadow-pop: 0 4px 12px rgb(26 25 23 / 0.08), 0 1px 3px rgb(26 25 23 / 0.06);
+  --radius: 8px;
+  --shadow-card: 0 1px 2px rgb(47 65 86 / 0.05), 0 1px 3px rgb(47 65 86 / 0.05);
+  --shadow-pop: 0 10px 30px rgb(47 65 86 / 0.14), 0 2px 6px rgb(47 65 86 / 0.08);
 }
 
 [data-theme="dark"] {
-  --c-bg: #0f1110;
-  --c-surface: #161a18;
-  --c-surface-2: #1e2320;
-  --c-border: #2a302c;
-  --c-border-strong: #3a423d;
-  --c-text: #ecedea;
-  --c-text-muted: #9ba19c;
-  --c-text-faint: #767c78;
+  --c-bg: #16202b;            /* the navy, deepened */
+  --c-surface: #1d2a38;
+  --c-surface-2: #253445;
+  --c-border: #2e3f52;
+  --c-border-strong: #3f546b;
+  --c-heading: #eef3f7;
+  --c-text: #dfe7ee;
+  --c-text-muted: #a3b3c2;
+  --c-text-faint: #7a8d9f;
 
-  --c-brand: #3fbfa9;
-  --c-brand-hover: #59d2bd;
-  --c-brand-soft: #12302b;
-  --c-brand-ring: #3fbfa950;
-  --c-on-brand: #0b1513;
+  --c-brand: #9cc0d4;         /* sky blue carries the brand at night */
+  --c-brand-hover: #c8d9e6;
+  --c-brand-deco: #7fa6ba;
+  --c-brand-soft: #22384a;
+  --c-brand-ring: #9cc0d450;
+  --c-on-brand: #16202b;
+  --c-sky: #c8d9e6;
 
-  --c-accent: #e2825c;
-  --c-accent-soft: #33211a;
+  --c-accent: #eb9a78;
+  --c-accent-soft: #3a2a25;
 
-  --c-danger: #e0705e;
-  --c-danger-soft: #33201d;
-  --c-warn: #d7a850;
-  --c-warn-soft: #2e2617;
+  --c-danger: #ec8575;
+  --c-danger-soft: #3a2325;
+  --c-warn: #dcb366;
+  --c-warn-soft: #34301f;
 
-  --c-code-bg: #141816;
-  --c-code-border: #2a302c;
-  --c-code-text: #dfe2de;
-  --c-code-key: #5fd3bb;
-  --c-code-type: #86b9e8;
-  --c-code-str: #e0a071;
-  --c-code-num: #c79bdc;
-  --c-code-com: #6e746f;
+  --c-dot: #c8d9e614;
+
+  --c-code-bg: #131c26;
+  --c-code-border: #2e3f52;
+  --c-code-text: #dfe7ee;
+  --c-code-key: #8fc4d6;
+  --c-code-type: #9fb9e0;
+  --c-code-str: #eba07e;
+  --c-code-num: #c4a6e0;
+  --c-code-com: #6e8296;
 
   --shadow-card: 0 1px 2px rgb(0 0 0 / 0.3);
-  --shadow-pop: 0 6px 20px rgb(0 0 0 / 0.45);
+  --shadow-pop: 0 10px 30px rgb(0 0 0 / 0.5);
 }
 
 @theme inline {
@@ -92,13 +110,16 @@
   --color-line: var(--c-border);
   --color-line-strong: var(--c-border-strong);
   --color-ink: var(--c-text);
+  --color-heading: var(--c-heading);
   --color-muted: var(--c-text-muted);
   --color-faint: var(--c-text-faint);
 
   --color-brand: var(--c-brand);
   --color-brand-hover: var(--c-brand-hover);
+  --color-brand-deco: var(--c-brand-deco);
   --color-brand-soft: var(--c-brand-soft);
   --color-on-brand: var(--c-on-brand);
+  --color-sky: var(--c-sky);
 
   --color-accent: var(--c-accent);
   --color-accent-soft: var(--c-accent-soft);
@@ -113,7 +134,7 @@
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono",
     Menlo, Consolas, "Liberation Mono", monospace;
 
-  --radius-card: 12px;
+  --radius-card: 10px;
 }
 
 * {
@@ -135,29 +156,42 @@ body {
 }
 
 /* --- Typographic scale ---------------------------------------------------- */
+/* Editorial display: very large, tight, heavy — used once per page. */
+.t-hero {
+  /* capped so "a desarrollador" stays on one line in the hero column */
+  font-size: clamp(2.4rem, 1.2rem + 5vw, 4.4rem);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+  font-weight: 700;
+  color: var(--c-heading);
+}
 .t-display {
-  font-size: clamp(1.75rem, 1.2rem + 2.2vw, 2.6rem);
-  line-height: 1.08;
-  letter-spacing: -0.028em;
-  font-weight: 600;
+  font-size: clamp(1.9rem, 1.2rem + 2.8vw, 3rem);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  font-weight: 700;
+  color: var(--c-heading);
 }
 .t-h1 {
-  font-size: clamp(1.45rem, 1.1rem + 1.5vw, 2rem);
-  line-height: 1.15;
-  letter-spacing: -0.022em;
-  font-weight: 600;
+  font-size: clamp(1.6rem, 1.15rem + 1.9vw, 2.35rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  color: var(--c-heading);
 }
 .t-h2 {
-  font-size: clamp(1.15rem, 1rem + 0.7vw, 1.4rem);
-  line-height: 1.25;
-  letter-spacing: -0.016em;
+  font-size: clamp(1.2rem, 1rem + 0.8vw, 1.5rem);
+  line-height: 1.22;
+  letter-spacing: -0.02em;
   font-weight: 600;
+  color: var(--c-heading);
 }
 .t-h3 {
-  font-size: 1.02rem;
+  font-size: 1.04rem;
   line-height: 1.35;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.012em;
   font-weight: 600;
+  color: var(--c-heading);
 }
 .t-body {
   font-size: 1rem;
@@ -172,13 +206,60 @@ body {
   line-height: 1.5;
   letter-spacing: 0.02em;
 }
+/* Technical label: monospace, uppercase, widely tracked ("MÓDULO 1 · 18 MIN").
+   It is the signature of the editorial look and fits a code course. */
 .t-eyebrow {
+  font-family: var(--font-mono);
   font-size: 0.6875rem;
-  line-height: 1;
-  letter-spacing: 0.14em;
+  line-height: 1.2;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   font-weight: 500;
   color: var(--c-text-faint);
+}
+
+/* --- Editorial helpers ---------------------------------------------------- */
+.dot-grid {
+  background-image: radial-gradient(var(--c-dot) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Spec sheet: label / value rows, like a technical data card. */
+.spec-row {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, 34%) 1fr;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--c-border);
+}
+.spec-row:last-child {
+  border-bottom: 0;
+}
+
+/* --- Glossary term (tooltip trigger) -------------------------------------- */
+.term {
+  position: relative;
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--c-brand);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  cursor: help;
+  border-radius: 3px;
+  transition: background-color 0.15s ease;
+}
+.term:hover,
+.term[aria-expanded="true"] {
+  background: var(--c-brand-soft);
+}
+/* An invisible, taller hit area: easy to tap on a phone without changing the
+   line height of the paragraph the term sits in. */
+.term::after {
+  content: "";
+  position: absolute;
+  inset: -9px -3px;
 }
 
 /* --- Focus ---------------------------------------------------------------- */
@@ -250,7 +331,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border-radius: 10px;
+  border-radius: 6px;
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 1.2;
@@ -277,9 +358,27 @@ body {
   background: var(--c-brand-hover);
 }
 .btn-ghost {
-  border: 1px solid var(--c-border);
-  color: var(--c-text);
+  border: 1px solid var(--c-border-strong);
+  color: var(--c-heading);
   background: transparent;
+}
+/* Editorial call-to-action: monospace, uppercase, tracked. For the few
+   headline actions only — lesson controls keep the regular button. */
+.btn-mono {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.85rem 1.25rem;
+  min-height: 48px;
+}
+.btn-accent {
+  border: 1px solid var(--c-accent);
+  color: var(--c-accent);
+  background: transparent;
+}
+.btn-accent:hover {
+  background: var(--c-accent-soft);
 }
 .btn-ghost:hover {
   background: var(--c-surface-2);

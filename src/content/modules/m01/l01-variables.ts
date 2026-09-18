@@ -11,6 +11,10 @@ export const l01Variables: Lesson = {
     es: "Una variable es un campo personalizado que vive un instante. Aprende a crearlo: tipo, nombre y valor.",
     en: "A variable is a custom field that lives for an instant. Learn to create one: type, name and value.",
   },
+  analogy: {
+    es: "Crear un campo personalizado: tipo, nombre y valor",
+    en: "Creating a custom field: type, name and value",
+  },
   objectives: [
     {
       es: "Declarar una variable eligiendo el tipo antes que el valor.",
@@ -108,8 +112,8 @@ maxDiscount = 25;`,
     {
       type: "p",
       text: {
-        es: "Cuando escribes Integer delante de un nombre, le estás prometiendo a la plataforma que ahí solo habrá números enteros. Si más adelante intentas meter texto, el código ni siquiera llega a ejecutarse: falla al compilar, igual que Salesforce te impide guardar «N/A» en un campo Number.",
-        en: "When you write Integer before a name, you are promising the platform that only whole numbers will live there. If you later try to put text in, the code never even runs: it fails to compile, just as Salesforce refuses to save “N/A” into a Number field.",
+        es: "Cuando escribes Integer delante de un nombre, le estás prometiendo a la plataforma que ahí solo habrá números enteros. Si más adelante intentas meter texto, el código ni siquiera llega a ejecutarse: falla al [[compilar]], igual que Salesforce te impide guardar «N/A» en un campo Number.",
+        en: "When you write Integer before a name, you are promising the platform that only whole numbers will live there. If you later try to put text in, the code never even runs: it fails to [[compilar|compile]], just as Salesforce refuses to save “N/A” into a Number field.",
       },
     },
     {
@@ -315,8 +319,8 @@ Integer opportunityCount = 7;`,
       ],
       answer: 0,
       explain: {
-        es: "Apex es de tipado estático: el tipo forma parte de la declaración y no se deduce. Esa rigidez es lo que convierte errores de ejecución en errores de compilación.",
-        en: "Apex is statically typed: the type is part of the declaration and is never inferred. That rigidity is what turns runtime errors into compile-time errors.",
+        es: "Apex es de [[tipado-estatico|tipado estático]]: el tipo forma parte de la declaración y no se deduce. Esa rigidez es lo que convierte errores de ejecución en errores de compilación.",
+        en: "Apex is [[tipado-estatico|statically typed]]: the type is part of the declaration and is never inferred. That rigidity is what turns runtime errors into compile-time errors.",
       },
       tags: ["interleaving"],
     },

@@ -113,7 +113,11 @@ async function audit(page, label, device) {
   if (device.hasTouch) {
     const small = await page.evaluate((min) => {
       const out = [];
-      for (const el of document.querySelectorAll("button, a[href], input, textarea")) {
+      // Inline glossary terms are exempt (WCAG 2.5.8 "inline" exception): they sit
+      // inside a sentence and get a larger invisible hit area via .term::after.
+      for (const el of document.querySelectorAll(
+        "button:not(.term), a[href], input, textarea",
+      )) {
         const r = el.getBoundingClientRect();
         if (r.width === 0 || r.height === 0) continue;
         if (r.height < min || r.width < min) {
@@ -169,6 +173,39 @@ for (const device of DEVICES) {
 
   await page.goto(`${BASE}/m/m01/variables`, { waitUntil: "networkidle" });
   await audit(page, "lesson-theory", device);
+
+  // Glossary tooltip: open it (tap/click works everywhere) and make sure the
+  // popover stays fully on screen.
+  const term = page.locator("button.term").first();
+  if (await term.count()) {
+    await term.scrollIntoViewIfNeeded();
+    await page.evaluate(() => window.scrollBy(0, -120));
+    await page.waitForTimeout(200);
+    await term.click();
+    await page.waitForTimeout(350);
+    const tip = await page.evaluate(() => {
+      const el = document.querySelector('[role="tooltip"]');
+      if (!el) return null;
+      const r = el.getBoundingClientRect();
+      return {
+        left: Math.round(r.left),
+        right: Math.round(r.right),
+        top: Math.round(r.top),
+        bottom: Math.round(r.bottom),
+        vw: window.innerWidth,
+        vh: window.innerHeight,
+      };
+    });
+    if (!tip) {
+      problems.push({ device: device.name, view: "tooltip", type: "tooltip-did-not-open" });
+    } else if (tip.left < 0 || tip.right > tip.vw || tip.top < 0 || tip.bottom > tip.vh) {
+      problems.push({ device: device.name, view: "tooltip", type: "tooltip-off-screen", ...tip });
+    }
+    await audit(page, "tooltip", device);
+    await page.keyboard.press("Escape");
+  } else {
+    problems.push({ device: device.name, view: "tooltip", type: "no-glossary-term-found" });
+  }
 
   // Scroll to the first diagram and capture it.
   const fig = page.locator("figure").first();

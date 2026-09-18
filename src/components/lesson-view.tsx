@@ -64,22 +64,35 @@ export function LessonView({
           </span>
         </div>
 
-        <h1 className="t-h1 mt-3">{t(lesson.title, lang)}</h1>
+        <h1 className="t-h1 mt-4">{t(lesson.title, lang)}</h1>
         <p className="lead mt-3 max-w-[62ch]">{t(lesson.summary, lang)}</p>
 
-        {lesson.objectives.length > 0 && (
-          <div className="mt-6 rounded-[12px] bg-surface-2 p-5">
-            <p className="t-eyebrow">{t(ui.objectives, lang)}</p>
-            <ul className="mt-3 space-y-2">
-              {lesson.objectives.map((o, i) => (
-                <li key={i} className="t-small relative pl-5 text-ink">
-                  <span className="absolute left-0 top-[0.62em] h-[5px] w-[5px] rounded-full bg-brand" />
-                  {t(o, lang)}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+        {/* spec sheet: the Admin equivalent + what you will be able to do */}
+        <div className="mt-7 rounded-[10px] border border-line bg-surface">
+          {lesson.analogy && (
+            <div className="grid gap-1 border-b border-line px-5 py-4 sm:grid-cols-[10rem_1fr] sm:gap-4">
+              <span className="t-eyebrow pt-0.5">{lang === "es" ? "En Admin es" : "In Admin it is"}</span>
+              <span className="font-mono text-[0.86rem] leading-relaxed text-heading">
+                {t(lesson.analogy, lang)}
+              </span>
+            </div>
+          )}
+          {lesson.objectives.length > 0 && (
+            <div className="px-5 py-4">
+              <p className="t-eyebrow text-accent">✓ {t(ui.objectives, lang)}</p>
+              <ol className="mt-3 space-y-2.5">
+                {lesson.objectives.map((o, i) => (
+                  <li key={i} className="flex gap-3">
+                    <span className="font-mono text-[0.75rem] leading-[1.6] text-faint">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="t-small text-ink">{t(o, lang)}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
+        </div>
 
         {complete && (
           <div

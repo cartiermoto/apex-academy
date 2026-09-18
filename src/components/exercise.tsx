@@ -7,6 +7,7 @@ import { validate, type ValidationResult } from "@/lib/validate";
 import { buildFeedback, type FeedbackReport } from "@/lib/feedback";
 import { CodeEditor } from "./code-editor";
 import { CodeBlock } from "./code-block";
+import { RichText } from "./term";
 import { useProgress } from "./providers";
 
 /**
@@ -115,7 +116,7 @@ export function ExercisePanel({
   return (
     <div className="max-w-[68ch]">
       {/* ------------------------------------------------------------ brief */}
-      <p className="t-body text-ink">{t(data.prompt, lang)}</p>
+      <p className="t-body text-ink"><RichText text={t(data.prompt, lang)} lang={lang} /></p>
 
       <div className="card mt-5 p-5">
         <p className="t-eyebrow">{t(ui.requirements, lang)}</p>
@@ -125,7 +126,7 @@ export function ExercisePanel({
               <span className="t-micro absolute left-0 top-[1px] grid h-[18px] w-[18px] place-items-center rounded-full bg-surface-2 text-faint">
                 {i + 1}
               </span>
-              {t(b, lang)}
+              <RichText text={t(b, lang)} lang={lang} />
             </li>
           ))}
         </ul>

@@ -11,6 +11,10 @@ export const l10Checkpoint: Lesson = {
     es: "Las nueve sub-lecciones, un caso de negocio real resuelto con todas ellas, y un quiz que no se aprueba de memoria.",
     en: "The nine sub-lessons, one real business case solved with all of them, and a quiz you cannot pass from memory.",
   },
+  analogy: {
+    es: "Un caso real de Sales Cloud con las nueve piezas",
+    en: "A real Sales Cloud case using all nine pieces",
+  },
   objectives: [
     {
       es: "Reconstruir de memoria qué resuelve cada sub-lección y por qué está donde está.",
@@ -69,8 +73,8 @@ export const l10Checkpoint: Lesson = {
     {
       type: "p",
       text: {
-        es: "5 · sObjects. Object Manager define el molde; new Account() fabrica una fila con ese molde, y el punto significa «el campo de». Account a = new Account(Name = 'Acme'); crea un registro que existe solo en memoria: su Id está vacío y desaparece al acabar la transacción. Importa porque marca la frontera entre «tengo el dato delante» y «el dato está guardado», que es la frontera donde empiezan los módulos de DML y triggers.",
-        en: "5 · sObjects. Object Manager defines the mould; new Account() casts a row from it, and the dot means “the field of”. Account a = new Account(Name = 'Acme'); creates a record that exists only in memory: its Id is empty and it vanishes when the transaction ends. It matters because it marks the border between “I have the value in front of me” and “the value is saved”, which is where the DML and trigger modules begin.",
+        es: "5 · sObjects. Object Manager define el molde; new Account() fabrica una fila con ese molde, y el punto significa «el campo de». Account a = new Account(Name = 'Acme'); crea un registro que existe solo en memoria: su Id está vacío y desaparece al acabar la transacción. Importa porque marca la frontera entre «tengo el dato delante» y «el dato está guardado», que es la frontera donde empiezan los módulos de [[dml]] y [[trigger|triggers]].",
+        en: "5 · sObjects. Object Manager defines the mould; new Account() casts a row from it, and the dot means “the field of”. Account a = new Account(Name = 'Acme'); creates a record that exists only in memory: its Id is empty and it vanishes when the transaction ends. It matters because it marks the border between “I have the value in front of me” and “the value is saved”, which is where the [[dml]] and [[trigger]] modules begin.",
       },
     },
     {
@@ -90,8 +94,8 @@ export const l10Checkpoint: Lesson = {
     {
       type: "p",
       text: {
-        es: "8 · Colecciones. List es la lista relacionada —orden y repetidos—, Set es la columna de agrupación de un informe —valores únicos— y Map es el cruce por Id que harías en una hoja de cálculo. Map<String, Decimal> quotaByRegion = new Map<String, Decimal>(); responde «¿cuál es la cuota de EMEA?» sin recorrer nada. Importa porque a partir del Módulo 3 todo llega en bloques de 200 registros, y elegir mal la colección es la diferencia entre código que aguanta y código que agota los límites.",
-        en: "8 · Collections. List is the related list — order and duplicates — Set is a report's grouping column — unique values — and Map is the cross-reference by Id you would do in a spreadsheet. Map<String, Decimal> quotaByRegion = new Map<String, Decimal>(); answers “what is EMEA's quota?” without scanning anything. It matters because from Module 3 onwards everything arrives in blocks of 200 records, and choosing the wrong collection is the difference between code that holds and code that exhausts the limits.",
+        es: "8 · Colecciones. List es la lista relacionada —orden y repetidos—, Set es la columna de agrupación de un informe —valores únicos— y Map es el cruce por Id que harías en una hoja de cálculo. Map<String, Decimal> quotaByRegion = new Map<String, Decimal>(); responde «¿cuál es la cuota de EMEA?» sin recorrer nada. Importa porque a partir del Módulo 3 todo llega en bloques de 200 registros, y elegir mal la colección es la diferencia entre código que aguanta y código que agota los [[governor-limits|límites]].",
+        en: "8 · Collections. List is the related list — order and duplicates — Set is a report's grouping column — unique values — and Map is the cross-reference by Id you would do in a spreadsheet. Map<String, Decimal> quotaByRegion = new Map<String, Decimal>(); answers “what is EMEA's quota?” without scanning anything. It matters because from Module 3 onwards everything arrives in blocks of 200 records, and choosing the wrong collection is the difference between code that holds and code that exhausts the [[governor-limits|limits]].",
       },
     },
     {

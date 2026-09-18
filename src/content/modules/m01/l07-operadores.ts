@@ -11,6 +11,10 @@ export const l07Operadores: Lesson = {
     es: "Los símbolos que hacen cuentas, comparan y deciden. Incluido el que te deja poner un valor por defecto sin escribir un solo if.",
     en: "The symbols that calculate, compare and decide. Including the one that lets you set a default without writing a single if.",
   },
+  analogy: {
+    es: "Una regla de validación: AND(), OR(), NOT() e IF()",
+    en: "A validation rule: AND(), OR(), NOT() and IF()",
+  },
   objectives: [
     {
       es: "No volver a confundir = con ==.",

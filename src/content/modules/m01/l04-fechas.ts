@@ -11,6 +11,10 @@ export const l04Fechas: Lesson = {
     es: "Tres tipos para el tiempo, y una zona horaria que explica el 90 % de los «pero si en el informe salía otro día».",
     en: "Three types for time, and one time zone that explains 90% of every “but the report said another day”.",
   },
+  analogy: {
+    es: "Los campos Date, Time y Date/Time, y la zona horaria de los informes",
+    en: "Date, Time and Date/Time fields, and report time zones",
+  },
   objectives: [
     {
       es: "Elegir entre Date, Time y Datetime según lo que realmente se necesita saber.",
@@ -153,8 +157,8 @@ Integer daysToRenewal = today.daysBetween(renewal);`,
     {
       type: "p",
       text: {
-        es: "Un Datetime se guarda siempre en GMT y se muestra en la zona horaria del usuario que lo mira. Por eso una reunión creada a las 00:30 en Madrid puede aparecer como el día anterior para un compañero en Londres: el instante es el mismo, la etiqueta cambia.",
-        en: "A Datetime is always stored in GMT and displayed in the time zone of whoever is looking at it. That is why a meeting created at 00:30 in Madrid can show up as the previous day for a colleague in London: the instant is identical, the label changes.",
+        es: "Un Datetime se guarda siempre en [[gmt]] y se muestra en la zona horaria del usuario que lo mira. Por eso una reunión creada a las 00:30 en Madrid puede aparecer como el día anterior para un compañero en Londres: el instante es el mismo, la etiqueta cambia.",
+        en: "A Datetime is always stored in [[gmt]] and displayed in the time zone of whoever is looking at it. That is why a meeting created at 00:30 in Madrid can show up as the previous day for a colleague in London: the instant is identical, the label changes.",
       },
     },
     {

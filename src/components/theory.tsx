@@ -4,6 +4,7 @@ import type { Lang, TheoryBlock } from "@/lib/types";
 import { t } from "@/lib/i18n";
 import { CodeBlock } from "./code-block";
 import { Diagram } from "@/content/diagrams";
+import { RichText } from "./term";
 
 const CALLOUT = {
   admin: {
@@ -55,14 +56,14 @@ export function Theory({ blocks, lang }: { blocks: TheoryBlock[]; lang: Lang }) 
           case "lead":
             return (
               <p key={i} className="lead mt-0 mb-7">
-                {t(b.text, lang)}
+                <RichText text={t(b.text, lang)} lang={lang} />
               </p>
             );
 
           case "p":
             return (
               <p key={i} className="t-body mb-5 text-ink">
-                {t(b.text, lang)}
+                <RichText text={t(b.text, lang)} lang={lang} />
               </p>
             );
 
@@ -78,7 +79,7 @@ export function Theory({ blocks, lang }: { blocks: TheoryBlock[]; lang: Lang }) 
               <ol key={i} className="t-body mb-6 space-y-2.5 pl-5">
                 {b.items.map((it, j) => (
                   <li key={j} className="list-decimal marker:text-faint">
-                    {t(it, lang)}
+                    <RichText text={t(it, lang)} lang={lang} />
                   </li>
                 ))}
               </ol>
@@ -87,7 +88,7 @@ export function Theory({ blocks, lang }: { blocks: TheoryBlock[]; lang: Lang }) 
                 {b.items.map((it, j) => (
                   <li key={j} className="relative pl-5">
                     <span className="absolute left-0 top-[0.72em] h-[5px] w-[5px] rounded-full bg-brand" />
-                    {t(it, lang)}
+                    <RichText text={t(it, lang)} lang={lang} />
                   </li>
                 ))}
               </ul>
@@ -107,7 +108,7 @@ export function Theory({ blocks, lang }: { blocks: TheoryBlock[]; lang: Lang }) 
             return (
               <aside
                 key={i}
-                className="my-7 rounded-[10px] px-4 py-3.5 sm:px-5 sm:py-4"
+                className="my-7 rounded-[8px] px-4 py-3.5 sm:px-5 sm:py-4"
                 style={{
                   background: style.bg,
                   borderLeft: `3px solid ${style.border}`,
@@ -121,7 +122,7 @@ export function Theory({ blocks, lang }: { blocks: TheoryBlock[]; lang: Lang }) 
                   {t(b.title, lang)}
                 </p>
                 <p className="t-small mt-2 leading-relaxed text-ink">
-                  {t(b.text, lang)}
+                  <RichText text={t(b.text, lang)} lang={lang} />
                 </p>
               </aside>
             );
@@ -136,7 +137,7 @@ export function Theory({ blocks, lang }: { blocks: TheoryBlock[]; lang: Lang }) 
                       {b.head.map((h, j) => (
                         <th
                           key={j}
-                          className="t-micro border-b border-line pb-2 pr-4 font-medium uppercase tracking-wider text-faint"
+                          className="t-eyebrow border-b border-line-strong pb-2.5 pr-4"
                         >
                           {t(h, lang)}
                         </th>
@@ -151,7 +152,7 @@ export function Theory({ blocks, lang }: { blocks: TheoryBlock[]; lang: Lang }) 
                             key={k}
                             className="t-small border-b border-line py-3 pr-4 align-top text-ink"
                           >
-                            {t(cell, lang)}
+                            <RichText text={t(cell, lang)} lang={lang} />
                           </td>
                         ))}
                       </tr>

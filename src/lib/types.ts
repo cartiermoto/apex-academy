@@ -12,6 +12,27 @@ export type Lang = "es" | "en";
 export type L = { es: string; en: string };
 
 /* -------------------------------------------------------------------------- */
+/* Glossary                                                                   */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * A term that gets a tooltip wherever the course text marks it.
+ *
+ * Mark a term inside any theory string with [[id]] — the tooltip trigger shows
+ * the entry's `term` in the active language — or [[id|visible text]] when the
+ * sentence needs another form of the word ("transacciones", "compila"…).
+ */
+export interface GlossaryEntry {
+  id: string;
+  term: L;
+  definition: L;
+  /** the Salesforce Admin equivalent, when there is an honest one */
+  admin?: L;
+  /** where it is taught properly, e.g. "Módulo 4" */
+  taughtIn?: L;
+}
+
+/* -------------------------------------------------------------------------- */
 /* Theory                                                                     */
 /* -------------------------------------------------------------------------- */
 
@@ -114,6 +135,8 @@ export interface Lesson {
   kind: "lesson" | "checkpoint";
   title: L;
   summary: L;
+  /** one-line Salesforce Admin equivalent, shown on the lesson's spec card */
+  analogy?: L;
   objectives: L[];
   /** rough minutes */
   minutes: number;

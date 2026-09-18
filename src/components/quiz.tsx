@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import type { Lang, QuizQuestion, QuizTag } from "@/lib/types";
 import { t, ui } from "@/lib/i18n";
 import { CodeBlock } from "./code-block";
+import { RichText } from "./term";
 
 function tagLabel(tag: QuizTag, lang: Lang): string {
   switch (tag) {
@@ -159,7 +160,7 @@ export function Quiz({
                     {i + 1}. {t(x.prompt, lang)}
                   </p>
                   {!ok && (
-                    <p className="t-small mt-1.5 text-muted">{t(x.explain, lang)}</p>
+                    <p className="t-small mt-1.5 text-muted"><RichText text={t(x.explain, lang)} lang={lang} /></p>
                   )}
                 </div>
               </li>
@@ -360,7 +361,7 @@ export function Quiz({
             >
               {correct ? t(ui.correct, lang) : t(ui.incorrect, lang)}
             </p>
-            <p className="t-small mt-1.5 text-ink">{t(q.explain, lang)}</p>
+            <p className="t-small mt-1.5 text-ink"><RichText text={t(q.explain, lang)} lang={lang} /></p>
           </div>
         )}
 

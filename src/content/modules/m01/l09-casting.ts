@@ -11,6 +11,10 @@ export const l09Casting: Lesson = {
     es: "Cuando el dato que tienes no es del tipo que necesitas. Unas conversiones las hace Apex solo; otras las pides tú, y alguna puede fallar en ejecución.",
     en: "When the value you have is not the type you need. Some conversions Apex does for you; others you ask for, and one kind can fail at runtime.",
   },
+  analogy: {
+    es: "Cambiar un campo de Texto a Número en Setup",
+    en: "Changing a field from Text to Number in Setup",
+  },
   objectives: [
     {
       es: "Distinguir la conversión que Apex hace sola de la que tienes que pedir.",

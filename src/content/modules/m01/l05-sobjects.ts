@@ -11,6 +11,10 @@ export const l05SObjects: Lesson = {
     es: "El tipo que convierte un registro de Salesforce en una variable. Aquí es donde Apex deja de parecer un lenguaje genérico.",
     en: "The type that turns a Salesforce record into a variable. This is where Apex stops looking like a generic language.",
   },
+  analogy: {
+    es: "Object Manager es el molde; cada registro, una fila",
+    en: "Object Manager is the mould; each record, a row",
+  },
   objectives: [
     {
       es: "Crear un registro en memoria y rellenar sus campos.",
@@ -158,8 +162,8 @@ newAccount.NumberOfEmployees = 340;`,
     {
       type: "p",
       text: {
-        es: "Crear un sObject con new es como pulsar «Nuevo» en la interfaz y empezar a rellenar el formulario: el registro existe delante de ti, pero todavía no está en la base de datos. Su campo Id está vacío, nadie más lo ve y, si la transacción termina, desaparece. Guardarlo es otra operación —DML— y tiene su propio módulo.",
-        en: "Creating an sObject with new is like hitting “New” in the UI and starting to fill in the form: the record is there in front of you, but it is not in the database yet. Its Id field is empty, nobody else can see it, and if the transaction ends it vanishes. Saving it is a separate operation — DML — and it has its own module.",
+        es: "Crear un sObject con new es como pulsar «Nuevo» en la interfaz y empezar a rellenar el formulario: el registro existe delante de ti, pero todavía no está en la base de datos. Su campo Id está vacío, nadie más lo ve y, si la [[transaccion]] termina, desaparece. Guardarlo es otra operación —[[dml]]— y tiene su propio módulo.",
+        en: "Creating an sObject with new is like hitting “New” in the UI and starting to fill in the form: the record is there in front of you, but it is not in the database yet. Its Id field is empty, nobody else can see it, and if the [[transaccion|transaction]] ends it vanishes. Saving it is a separate operation — [[dml]] — and it has its own module.",
       },
     },
     {

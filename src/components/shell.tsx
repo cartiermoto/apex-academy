@@ -79,11 +79,11 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
                     isPlanned ? "opacity-45" : ""
                   }`}
                 >
-                  <span className="t-micro mt-[3px] w-4 shrink-0 text-right tabular-nums text-faint">
-                    {m.n}
+                  <span className="mt-[3px] w-5 shrink-0 font-mono text-[0.72rem] tabular-nums text-faint">
+                    {String(m.n).padStart(2, "0")}
                   </span>
                   <div className="min-w-0 flex-1">
-                    <p className="t-small font-medium leading-snug text-ink">
+                    <p className="t-small font-medium leading-snug text-heading">
                       {t(m.title, lang)}
                     </p>
                     {!isPlanned && (
@@ -242,7 +242,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
         </button>
         <Link href="/" className="flex min-h-[44px] items-center gap-2 px-1">
           <Mark size={22} className="text-brand" />
-          <span className="text-[0.925rem] font-semibold tracking-[-0.02em]">
+          <span className="text-[0.925rem] font-bold tracking-[-0.025em] text-heading">
             Apex Academy
           </span>
         </Link>

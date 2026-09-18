@@ -11,6 +11,10 @@ export const l03String: Lesson = {
     es: "El texto es el tipo con el que más vas a pelear. Antes de listar sus herramientas, hay que entender qué es exactamente una «herramienta» en Apex.",
     en: "Text is the type you will wrestle with most. Before listing its tools, you need to know what a “tool” actually is in Apex.",
   },
+  analogy: {
+    es: "Las funciones de fórmula: TRIM(), UPPER(), CONTAINS()",
+    en: "Formula functions: TRIM(), UPPER(), CONTAINS()",
+  },
   objectives: [
     {
       es: "Explicar qué es un método y qué devuelve, sin recurrir a ejemplos.",
@@ -65,8 +69,8 @@ export const l03String: Lesson = {
     {
       type: "p",
       text: {
-        es: "Y hay un detalle que confunde al principio: un String en Apex es inmutable. Ningún método lo cambia por dentro. Todos devuelven un texto nuevo, así que si no guardas el resultado en algún sitio, el trabajo se pierde.",
-        en: "And there is a detail that trips everyone up at first: a String in Apex is immutable. No method changes it from the inside. They all return a new piece of text, so if you do not store the result somewhere, the work is thrown away.",
+        es: "Y hay un detalle que confunde al principio: un String en Apex es [[inmutable]]. Ningún método lo cambia por dentro. Todos devuelven un texto nuevo, así que si no guardas el resultado en algún sitio, el trabajo se pierde.",
+        en: "And there is a detail that trips everyone up at first: a String in Apex is [[inmutable|immutable]]. No method changes it from the inside. They all return a new piece of text, so if you do not store the result somewhere, the work is thrown away.",
       },
     },
     {

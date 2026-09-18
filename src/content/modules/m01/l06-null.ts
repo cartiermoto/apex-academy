@@ -11,6 +11,10 @@ export const l06Null: Lesson = {
     es: "El campo en blanco, llevado al código. Es la causa número uno de errores en Apex y la más fácil de evitar.",
     en: "The blank field, taken into code. It is the number-one cause of Apex errors and the easiest to avoid.",
   },
+  analogy: {
+    es: "Un campo en blanco, ISBLANK() y BLANKVALUE()",
+    en: "A blank field, ISBLANK() and BLANKVALUE()",
+  },
   objectives: [
     {
       es: "Distinguir null de una cadena vacía y de un cero.",
@@ -30,8 +34,8 @@ export const l06Null: Lesson = {
     {
       type: "lead",
       text: {
-        es: "Abre cualquier lista de Leads de tu org y mira la columna de teléfono: habrá filas en blanco. Ese blanco tiene nombre en Apex —null— y, a diferencia de la interfaz, aquí no se ignora educadamente: si intentas usarlo, la transacción entera se detiene.",
-        en: "Open any Lead list in your org and look at the phone column: some rows are blank. That blank has a name in Apex — null — and unlike the UI it is not politely ignored here: try to use it and the whole transaction stops.",
+        es: "Abre cualquier lista de Leads de tu org y mira la columna de teléfono: habrá filas en blanco. Ese blanco tiene nombre en Apex —null— y, a diferencia de la interfaz, aquí no se ignora educadamente: si intentas usarlo, la [[transaccion]] entera se detiene.",
+        en: "Open any Lead list in your org and look at the phone column: some rows are blank. That blank has a name in Apex — null — and unlike the UI it is not politely ignored here: try to use it and the whole [[transaccion|transaction]] stops.",
       },
     },
     {
@@ -200,8 +204,8 @@ Boolean missing = String.isBlank(region);   // the opposite`,
     {
       type: "p",
       text: {
-        es: "Cuando solo quieres leer algo y te da igual que no exista, existe una forma corta: escribir ?. en lugar del punto. Si lo de la izquierda es null, la expresión entera vale null y no se lanza ninguna excepción.",
-        en: "When you only want to read something and you do not mind if it is missing, there is a short form: write ?. instead of the dot. If the left-hand side is null, the whole expression is null and no exception is thrown.",
+        es: "Cuando solo quieres leer algo y te da igual que no exista, existe una forma corta: escribir ?. en lugar del punto. Si lo de la izquierda es null, la expresión entera vale null y no se lanza ninguna [[excepcion]].",
+        en: "When you only want to read something and you do not mind if it is missing, there is a short form: write ?. instead of the dot. If the left-hand side is null, the whole expression is null and no [[excepcion|exception]] is thrown.",
       },
     },
     {

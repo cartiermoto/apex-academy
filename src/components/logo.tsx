@@ -81,7 +81,7 @@ export function Logo({
       <Mark size={size} className="text-brand shrink-0" />
       {!compact && (
         <span className="flex items-baseline gap-1.5 leading-none">
-          <span className="font-semibold tracking-[-0.02em] text-[0.975rem] text-ink">
+          <span className="font-bold tracking-[-0.025em] text-[0.975rem] text-heading">
             Apex
           </span>
           <span className="text-[0.975rem] tracking-[-0.01em] text-muted">

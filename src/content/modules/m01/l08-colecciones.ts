@@ -11,6 +11,10 @@ export const l08Colecciones: Lesson = {
     es: "Una variable guarda un dato. Estas tres guardan muchos, y elegir mal entre ellas es lo que separa el código que aguanta 200 registros del que no.",
     en: "A variable holds one value. These three hold many, and choosing wrongly between them is what separates code that survives 200 records from code that does not.",
   },
+  analogy: {
+    es: "Lista relacionada, agrupación de informe y cruce por Id",
+    en: "Related list, report grouping and matching by Id",
+  },
   objectives: [
     {
       es: "Elegir entre List, Set y Map según la pregunta que tengas que responder.",
@@ -190,8 +194,8 @@ Boolean hasRetail = industries.contains('Retail');  // true`,
       variant: "admin",
       title: { es: "El Set que ya usabas sin saberlo", en: "The Set you already used without knowing" },
       text: {
-        es: "Cuando agrupas un informe por Industry, la columna de grupos es un Set: cada valor aparece una vez aunque haya 4.000 cuentas detrás. Y cuando en Apex quieras recoger los Ids de cuenta de 200 Leads para consultarlos de una vez, el Set es lo que evita pedir el mismo Id veinte veces.",
-        en: "When you group a report by Industry, the group column is a Set: each value shows once even with 4,000 accounts behind it. And when in Apex you gather account Ids from 200 Leads to query them in one go, the Set is what stops you asking for the same Id twenty times.",
+        es: "Cuando agrupas un informe por Industry, la columna de grupos es un Set: cada valor aparece una vez aunque haya 4.000 cuentas detrás. Y cuando en Apex quieras recoger los Ids de cuenta de [[lote|200 Leads]] para [[soql|consultarlos]] de una vez, el Set es lo que evita pedir el mismo Id veinte veces.",
+        en: "When you group a report by Industry, the group column is a Set: each value shows once even with 4,000 accounts behind it. And when in Apex you gather account Ids from [[lote|200 Leads]] to [[soql|query them]] in one go, the Set is what stops you asking for the same Id twenty times.",
       },
     },
     {

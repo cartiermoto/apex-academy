@@ -14,6 +14,10 @@ export const l02NumerosBoolean: Lesson = {
     es: "Integer, Long, Decimal, Double, Boolean — más Id y Blob, los dos tipos que solo existen porque esto es Salesforce.",
     en: "Integer, Long, Decimal, Double, Boolean — plus Id and Blob, the two types that exist only because this is Salesforce.",
   },
+  analogy: {
+    es: "Elegir entre Number, Currency, Percent y Checkbox",
+    en: "Choosing between Number, Currency, Percent and Checkbox",
+  },
   objectives: [
     {
       es: "Elegir entre Integer, Long, Decimal y Double a partir del dato, no por costumbre.",
@@ -72,8 +76,8 @@ Long externalRecordId = 9000000000L;   // the L is mandatory`,
     {
       type: "p",
       text: {
-        es: "Decimal guarda decimales de forma exacta, cifra a cifra. Es el tipo que Salesforce te devuelve cuando lees un campo Currency, y es el único en el que deberías pensar cuando hay importes de por medio. Double también guarda decimales, pero de forma aproximada, en binario: perfecto para cálculos científicos y pésimo para facturas.",
-        en: "Decimal stores decimals exactly, digit by digit. It is the type Salesforce hands you when you read a Currency field, and the only one you should consider when money is involved. Double also stores decimals, but approximately, in binary: perfect for scientific maths and terrible for invoices.",
+        es: "Decimal guarda decimales de forma exacta, cifra a cifra. Es el tipo que Salesforce te devuelve cuando lees un campo Currency, y es el único en el que deberías pensar cuando hay importes de por medio. Double también guarda decimales, pero de forma aproximada, en [[binario]]: perfecto para cálculos científicos y pésimo para facturas.",
+        en: "Decimal stores decimals exactly, digit by digit. It is the type Salesforce hands you when you read a Currency field, and the only one you should consider when money is involved. Double also stores decimals, but approximately, in [[binario|binary]]: perfect for scientific maths and terrible for invoices.",
       },
     },
     {
@@ -143,8 +147,8 @@ Decimal ratioB = Decimal.valueOf(won) / total;  // 3.5 ← one of the two is a D
     {
       type: "p",
       text: {
-        es: "Boolean guarda true o false, igual que un checkbox. El matiz es que un Boolean declarado y no asignado no vale false: vale null, que es un tercer estado —«no se sabe»— del que hablaremos en detalle más adelante. Un checkbox en la base de datos nunca está vacío; una variable Boolean en memoria sí puede estarlo.",
-        en: "Boolean holds true or false, like a checkbox. The twist is that a Boolean that was declared but never assigned is not false: it is null, a third state meaning “unknown”, which gets its own sub-lesson later. A checkbox in the database is never empty; a Boolean variable in memory can be.",
+        es: "Boolean guarda true o false, igual que un checkbox. El matiz es que un Boolean declarado y no asignado no vale false: vale [[null]], que es un tercer estado —«no se sabe»— del que hablaremos en detalle más adelante. Un checkbox en la base de datos nunca está vacío; una variable Boolean en memoria sí puede estarlo.",
+        en: "Boolean holds true or false, like a checkbox. The twist is that a Boolean that was declared but never assigned is not false: it is [[null]], a third state meaning “unknown”, which gets its own sub-lesson later. A checkbox in the database is never empty; a Boolean variable in memory can be.",
       },
     },
     {
@@ -364,8 +368,8 @@ System.debug(winRate);`,
       ],
       answer: 0,
       explain: {
-        es: "El tipo de la variable es Long, pero el número escrito a la derecha se lee como Integer y se desborda. La L le dice a Apex que ese literal ya es un Long.",
-        en: "The variable's type is Long, but the number written on the right is read as an Integer and overflows. The L tells Apex that literal is already a Long.",
+        es: "El tipo de la variable es Long, pero el número escrito a la derecha se lee como Integer y se desborda. La L le dice a Apex que ese [[literal]] ya es un Long.",
+        en: "The variable's type is Long, but the number written on the right is read as an Integer and overflows. The L tells Apex that [[literal]] is already a Long.",
       },
       tags: ["find-error"],
     },
