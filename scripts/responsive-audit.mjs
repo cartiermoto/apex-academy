@@ -170,6 +170,9 @@ for (const device of DEVICES) {
 
   await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
   await audit(page, "home", device);
+  await page.evaluate(() => document.getElementById("modulos")?.scrollIntoView());
+  await page.waitForTimeout(250);
+  await audit(page, "home-modules", device);
 
   await page.goto(`${BASE}/m/m01/variables`, { waitUntil: "networkidle" });
   await audit(page, "lesson-theory", device);
@@ -253,7 +256,7 @@ for (const device of DEVICES) {
 
   // Mobile drawer
   if (device.viewport.width < 1024) {
-    await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
+    await page.goto(`${BASE}/m/m01/variables`, { waitUntil: "networkidle" });
     const burger = page.getByRole("button", { name: "Menu" });
     if (await burger.count()) {
       await burger.click();
@@ -275,6 +278,11 @@ for (const device of DEVICES) {
   });
   await dark.request.post(`${BASE}/api/auth/login`, { data: { password: "apex" } });
   const dpage = await dark.newPage();
+  await dpage.goto(`${BASE}/`, { waitUntil: "networkidle" });
+  await audit(dpage, "home-dark", device);
+  await dpage.evaluate(() => document.getElementById("modulos")?.scrollIntoView());
+  await dpage.waitForTimeout(250);
+  await audit(dpage, "home-dark-modules", device);
   await dpage.goto(`${BASE}/m/m01/colecciones`, { waitUntil: "networkidle" });
   const dfig = dpage.locator("figure").first();
   if (await dfig.count()) {

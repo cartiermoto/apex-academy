@@ -399,6 +399,172 @@ body {
   border-radius: var(--radius-card, 12px);
 }
 
+/* ---------------------------------------------------------------------------
+   Editorial por categorías — home / dashboard de módulos
+   Source: apex-academy-propuesta2-design-tokens.json (paleta oficial webyaber).
+   Every value below is copied verbatim from that file; do not add new tones.
+
+   ⚠ PROVISIONAL: #12262E (navy) is NOT part of the official brand sheet — it
+   is an extrapolation for dark mode. It is used as the dark background, as
+   the text on accent buttons ("onAccent") and as the light-mode challenge
+   card. It is the only value in this system awaiting brand sign-off.
+   --------------------------------------------------------------------------- */
+.editorial {
+  --e-bg: #ffffff;
+  --e-ink: #4d4d4d;
+  --e-accent: #3da6d9;
+  --e-on-accent: #12262e; /* provisional navy */
+  --e-divider: #cdd8dd;
+  --e-track-bg: #cdd8dd;
+  --e-legend-border: rgba(77, 77, 77, 0.3);
+  --e-challenge-bg: #12262e; /* provisional navy */
+  --e-challenge-text: #ffffff;
+  --e-logo-radius: 0px;
+
+  /* light: every module number uses the single blue; titles use ink */
+  --e-module-num: #1e7fb8;
+
+  --e-cat-fund-accent: #3da6d9;
+  --e-cat-fund-surface: #bbe0f2;
+  --e-cat-logic-accent: #66b7e7;
+  --e-cat-logic-surface: #c9e6f7;
+  --e-cat-obj-accent: #a2c2d2;
+  --e-cat-obj-surface: #a2c2d2;
+  --e-cat-robust-accent: #b0b0b0;
+  --e-cat-robust-surface: #e8ecef;
+  --e-cat-scope-accent: #cdd8dd;
+  --e-cat-scope-surface: #cdd8dd;
+
+  /* light: robust + scope surfaces are near-white, so they get a border */
+  --e-card-border-robust: 1px solid rgba(77, 77, 77, 0.3);
+  --e-card-border-scope: 1px solid rgba(77, 77, 77, 0.3);
+
+  /* ⚠ WCAG: #1E7FB8 on the "obj" surface #A2C2D2 is 2.34:1 — below the 3:1
+     minimum even for large text. Kept as specified pending a decision;
+     changing this one variable fixes modules 05–07. */
+  --e-module-num-obj: var(--e-module-num);
+
+  background: var(--e-bg);
+  color: var(--e-ink);
+  font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
+
+[data-theme="dark"] .editorial {
+  --e-bg: #12262e; /* provisional navy */
+  --e-ink: #f3f8fa;
+  --e-accent: #66b7e7;
+  --e-on-accent: #12262e; /* provisional navy */
+  --e-divider: rgba(255, 255, 255, 0.14);
+  --e-track-bg: rgba(255, 255, 255, 0.14);
+  --e-legend-border: rgba(255, 255, 255, 0.35);
+  --e-challenge-bg: #204b5e;
+  --e-challenge-text: #ffffff;
+  --e-logo-radius: 6px;
+
+  --e-cat-fund-surface: #1b3644;
+  --e-cat-logic-surface: #1b3644;
+  --e-cat-obj-surface: #1b3644;
+  --e-cat-robust-surface: #1b3644;
+  --e-cat-scope-surface: #1b3644;
+
+  --e-card-border-robust: none;
+  --e-card-border-scope: none;
+}
+
+/* Match the page behind the dashboard (visible on iOS overscroll). */
+body:has(.editorial) {
+  background: #ffffff;
+}
+[data-theme="dark"] body:has(.editorial) {
+  background: #12262e; /* provisional navy */
+}
+
+.editorial .e-mono {
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+/* Module cards: surface per category; number/title colour depends on theme. */
+.e-module {
+  --e-surface: var(--e-cat-fund-surface);
+  --e-cat-accent: var(--e-cat-fund-accent);
+  --e-num: var(--e-module-num);
+  background: var(--e-surface);
+  border: none;
+}
+.e-module[data-cat="logic"] {
+  --e-surface: var(--e-cat-logic-surface);
+  --e-cat-accent: var(--e-cat-logic-accent);
+}
+.e-module[data-cat="obj"] {
+  --e-surface: var(--e-cat-obj-surface);
+  --e-cat-accent: var(--e-cat-obj-accent);
+  --e-num: var(--e-module-num-obj);
+}
+.e-module[data-cat="robust"] {
+  --e-surface: var(--e-cat-robust-surface);
+  --e-cat-accent: var(--e-cat-robust-accent);
+  border: var(--e-card-border-robust);
+}
+.e-module[data-cat="scope"] {
+  --e-surface: var(--e-cat-scope-surface);
+  --e-cat-accent: var(--e-cat-scope-accent);
+  border: var(--e-card-border-scope);
+}
+.e-module .e-num {
+  color: var(--e-num);
+}
+.e-module .e-title {
+  color: var(--e-ink);
+}
+/* dark: number AND title take the accent of their own category */
+[data-theme="dark"] .e-module .e-num,
+[data-theme="dark"] .e-module .e-title {
+  color: var(--e-cat-accent);
+}
+
+.e-swatch[data-cat="fund"] { background: var(--e-cat-fund-accent); }
+.e-swatch[data-cat="logic"] { background: var(--e-cat-logic-accent); }
+.e-swatch[data-cat="obj"] { background: var(--e-cat-obj-accent); }
+.e-swatch[data-cat="robust"] { background: var(--e-cat-robust-accent); }
+.e-swatch[data-cat="scope"] { background: var(--e-cat-scope-accent); }
+
+.e-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 16px 28px;
+  border-radius: 4px;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  transition: opacity 0.15s ease, background-color 0.15s ease;
+  cursor: pointer;
+}
+.e-btn-primary {
+  background: var(--e-accent);
+  color: var(--e-on-accent);
+}
+.e-btn-primary:hover {
+  opacity: 0.9;
+}
+.e-btn-secondary {
+  background: transparent;
+  border: 1.5px solid var(--e-ink);
+  color: var(--e-ink);
+}
+.e-btn-secondary:hover {
+  background: rgba(77, 77, 77, 0.06);
+}
+
+.editorial :where(a, button):focus-visible {
+  outline: 2px solid var(--e-accent);
+  outline-offset: 2px;
+}
+
 /* --- Motion --------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   *,

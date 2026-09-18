@@ -222,6 +222,10 @@ export function Shell({ children }: { children: React.ReactNode }) {
     };
   }, [open]);
 
+  // The home is a full-width dashboard with its own header: no sidebar there.
+  // The sidebar (and the mobile drawer) appear once you open a module.
+  if (pathname === "/") return <>{children}</>;
+
   return (
     <div className="lg:grid lg:grid-cols-[264px_1fr]">
       {/* Desktop sidebar */}

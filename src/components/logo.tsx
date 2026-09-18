@@ -12,10 +12,16 @@ export function Mark({
   className = "",
   /** filled rounded square with the A knocked out — used for the favicon/badge */
   badge = false,
+  /** colour of the knocked-out A on the badge */
+  knockout = "var(--c-bg, #fff)",
+  /** corner radius of the badge square, in viewBox units (0–16) */
+  radius = 8,
 }: {
   size?: number;
   className?: string;
   badge?: boolean;
+  knockout?: string;
+  radius?: number;
 }) {
   if (badge) {
     return (
@@ -27,10 +33,10 @@ export function Mark({
         role="img"
         aria-label="Apex Academy"
       >
-        <rect width="32" height="32" rx="8" fill="currentColor" />
+        <rect width="32" height="32" rx={radius} fill="currentColor" />
         <g
           fill="none"
-          stroke="var(--c-bg, #fff)"
+          stroke={knockout}
           strokeWidth="2.4"
           strokeLinecap="round"
           strokeLinejoin="round"

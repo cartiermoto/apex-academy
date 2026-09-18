@@ -1,4 +1,4 @@
-import type { Challenge, Course, Lesson, Module } from "@/lib/types";
+import type { Challenge, Course, Lesson, Module, ModuleCategory } from "@/lib/types";
 import { m01 } from "./modules/m01";
 import { challenge1, challenge2 } from "./challenges";
 
@@ -10,6 +10,7 @@ import { challenge1, challenge2 } from "./challenges";
 function planned(
   n: number,
   id: string,
+  category: ModuleCategory,
   title: { es: string; en: string },
   subtitle: { es: string; en: string },
   outline: Array<[string, string]>,
@@ -17,6 +18,7 @@ function planned(
   return {
     id,
     n,
+    category,
     title,
     subtitle,
     status: "planned",
@@ -28,6 +30,7 @@ function planned(
 const m02 = planned(
   2,
   "m02",
+  "logic",
   { es: "Control de Flujo", en: "Control Flow" },
   {
     es: "Decidir y repetir: lo que en Flow eran nodos de decisión y bucles, aquí son diez líneas de código.",
@@ -48,6 +51,7 @@ const m02 = planned(
 const m03 = planned(
   3,
   "m03",
+  "logic",
   { es: "SOQL y SOSL", en: "SOQL and SOSL" },
   {
     es: "Preguntarle a la base de datos: el equivalente en código a un Report Type con filtros.",
@@ -67,6 +71,7 @@ const m03 = planned(
 const m04 = planned(
   4,
   "m04",
+  "logic",
   { es: "DML y Governor Limits", en: "DML and Governor Limits" },
   {
     es: "Escribir en la base de datos sin que la org te pare los pies.",
@@ -85,6 +90,7 @@ const m04 = planned(
 const m05 = planned(
   5,
   "m05",
+  "obj",
   { es: "Clases, Interfaces y POO", en: "Classes, Interfaces and OOP" },
   {
     es: "Del objeto de Salesforce al objeto de Apex: definir tus propios moldes.",
@@ -105,6 +111,7 @@ const m05 = planned(
 const m06 = planned(
   6,
   "m06",
+  "obj",
   { es: "Triggers", en: "Triggers" },
   {
     es: "La automatización que corre cuando nadie mira: el Record-Triggered Flow, en código.",
@@ -123,6 +130,7 @@ const m06 = planned(
 const m07 = planned(
   7,
   "m07",
+  "obj",
   { es: "Trigger Handlers", en: "Trigger Handlers" },
   {
     es: "Un trigger por objeto, toda la lógica fuera: el patrón que hace mantenible una org.",
@@ -140,6 +148,7 @@ const m07 = planned(
 const m08 = planned(
   8,
   "m08",
+  "robust",
   { es: "Manejo de Excepciones", en: "Exception Handling" },
   {
     es: "Qué hacer cuando algo falla — y por qué tu excepción personalizada extiende Exception.",
@@ -158,6 +167,7 @@ const m08 = planned(
 const m09 = planned(
   9,
   "m09",
+  "robust",
   { es: "Apex Asíncrono", en: "Asynchronous Apex" },
   {
     es: "Trabajo que no cabe en una transacción: cuatro herramientas y cuándo usar cada una.",
@@ -177,6 +187,7 @@ const m09 = planned(
 const m10 = planned(
   10,
   "m10",
+  "robust",
   { es: "Testing en Apex", en: "Testing in Apex" },
   {
     es: "El 75 % no es la meta: es el mínimo para desplegar. La meta es dormir tranquilo.",
@@ -196,6 +207,7 @@ const m10 = planned(
 const m11 = planned(
   11,
   "m11",
+  "scope",
   { es: "Integraciones", en: "Integrations" },
   {
     es: "Salesforce hablando con el resto del mundo.",
@@ -215,6 +227,7 @@ const m11 = planned(
 const m12 = planned(
   12,
   "m12",
+  "scope",
   { es: "Seguridad", en: "Security" },
   {
     es: "Apex corre en modo sistema por defecto. Ese 'por defecto' es tu responsabilidad.",

@@ -145,9 +145,13 @@ export interface Lesson {
   exercise: Exercise;
 }
 
+/** Visual grouping of modules on the home ("Editorial por categorías"). */
+export type ModuleCategory = "fund" | "logic" | "obj" | "robust" | "scope";
+
 export interface Module {
   id: string;
   n: number;
+  category: ModuleCategory;
   title: L;
   subtitle: L;
   status: "ready" | "planned";

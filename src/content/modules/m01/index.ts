@@ -13,6 +13,7 @@ import { l10Checkpoint } from "./l10-checkpoint";
 export const m01: Module = {
   id: "m01",
   n: 1,
+  category: "fund",
   status: "ready",
   title: { es: "Fundamentos", en: "Fundamentals" },
   subtitle: {
