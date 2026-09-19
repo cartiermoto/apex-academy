@@ -143,10 +143,12 @@ function UpNext({
   mod,
   lesson,
   status,
+  steps,
 }: {
   mod: Module;
   lesson: Lesson;
   status: LessonStatus;
+  steps: { theory: boolean; quiz: boolean; exercise: boolean };
 }) {
   const { lang } = useSettings();
   const statusLabel =
@@ -201,6 +203,24 @@ function UpNext({
           <span className={k}>{lang === "es" ? "Estado" : "Status"}</span>
           <span className="e-mono text-[14px] leading-[1.5]">{statusLabel}</span>
         </div>
+        {status === "in_progress" && (
+          <div className="grid grid-cols-[110px_1fr] gap-3 sm:grid-cols-[130px_1fr]">
+            <span className={k}>{lang === "es" ? "Pasos" : "Steps"}</span>
+            <span className="e-mono flex flex-wrap gap-x-4 gap-y-1 text-[14px] leading-[1.5]">
+              {(
+                [
+                  [ui.theory, steps.theory],
+                  [ui.quiz, steps.quiz],
+                  [ui.exercise, steps.exercise],
+                ] as const
+              ).map(([label, done]) => (
+                <span key={label.es}>
+                  {done ? "✓" : "○"} {t(label, lang)}
+                </span>
+              ))}
+            </span>
+          </div>
+        )}
       </div>
 
       <div className="flex flex-col gap-3 p-5" style={{ background: "var(--e-bg)" }}>
@@ -242,6 +262,13 @@ export default function HomePage() {
 
   const allLessons = course.modules.flatMap((m) => m.lessons);
   const doneCount = allLessons.filter((l) => statusOf(l.id) === "completed").length;
+  // Each sub-lesson is three steps (theory, quiz, exercise): the bar moves as
+  // soon as one is done, so partial progress never looks like "nothing saved".
+  const stepsDone = allLessons.reduce((n, l) => {
+    const p = snapshot.lessons[l.id];
+    return n + (p?.theoryDone ? 1 : 0) + (p?.quizDone ? 1 : 0) + (p?.exerciseDone ? 1 : 0);
+  }, 0);
+  const overallPct = pct(stepsDone, allLessons.length * 3);
   const moduleDone = (m: Module) =>
     m.lessons.length > 0 && m.lessons.every((l) => statusOf(l.id) === "completed");
 
@@ -284,7 +311,7 @@ export default function HomePage() {
             <div className="mt-2 flex flex-col gap-3.5 sm:flex-row">
               {nextUp && (
                 <Link href={`/m/${nextUp.m.id}/${nextUp.l.slug}`} className="e-btn e-btn-primary">
-                  {doneCount === 0 ? t(ui.startCourse, lang) : t(ui.continueLearning, lang)} →
+                  {stepsDone === 0 ? t(ui.startCourse, lang) : t(ui.continueLearning, lang)} →
                 </Link>
               )}
               <a href="#modulos" className="e-btn e-btn-secondary">
@@ -297,7 +324,7 @@ export default function HomePage() {
                 <div className="e-mono flex justify-between text-[11px] uppercase tracking-[0.1em]">
                   <span>{t(ui.overallProgress, lang)}</span>
                   <span className="tabular-nums">
-                    {doneCount}/{allLessons.length} · {pct(doneCount, allLessons.length)}%
+                    {doneCount}/{allLessons.length} {t(ui.lessonsDone, lang)} · {overallPct}%
                   </span>
                 </div>
                 <SyncStatus />
@@ -305,7 +332,7 @@ export default function HomePage() {
                   <div
                     className="h-1.5 transition-[width] duration-500"
                     style={{
-                      width: `${pct(doneCount, allLessons.length)}%`,
+                      width: `${overallPct}%`,
                       background: "var(--e-accent)",
                     }}
                   />
@@ -314,7 +341,18 @@ export default function HomePage() {
             )}
           </div>
 
-          {nextUp && <UpNext mod={nextUp.m} lesson={nextUp.l} status={statusOf(nextUp.l.id)} />}
+          {nextUp && (
+            <UpNext
+              mod={nextUp.m}
+              lesson={nextUp.l}
+              status={statusOf(nextUp.l.id)}
+              steps={{
+                theory: Boolean(snapshot.lessons[nextUp.l.id]?.theoryDone),
+                quiz: Boolean(snapshot.lessons[nextUp.l.id]?.quizDone),
+                exercise: Boolean(snapshot.lessons[nextUp.l.id]?.exerciseDone),
+              }}
+            />
+          )}
         </section>
 
         {/* ---------------------------------------------------------- legend */}

@@ -167,6 +167,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>("light");
   const [snapshot, setSnapshot] = useState<ProgressSnapshot>(EMPTY);
   const [ready, setReady] = useState(false);
+  const [localLoaded, setLocalLoaded] = useState(false);
   const [saving, setSaving] = useState(false);
   const pending = useRef(0);
 
@@ -220,6 +221,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       }
     } catch {}
     setSnapshot(local);
+    setLocalLoaded(true);
 
     let cancelled = false;
     (async () => {
@@ -236,8 +238,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
         const server = (await res.json()) as ProgressSnapshot;
 
         // Union of both sides: nothing done on either device is ever lost.
-        const merged = mergeSnapshots(local, server);
-        setSnapshot(merged);
+        // Merge into the *current* state, not the one read at start-up: anything
+        // marked while this request was in flight must survive it.
+        let merged = mergeSnapshots(local, server);
+        setSnapshot((current) => (merged = mergeSnapshots(current, server)));
+        await new Promise((r) => setTimeout(r, 0));
 
         // Push back whatever this device knew that the server did not.
         const upload = diffForServer(merged, server);
@@ -269,12 +274,14 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }, []);
 
   /* --- persist snapshot to localStorage ---------------------------------- */
+  // Starts as soon as the browser copy is loaded — not after the cloud answers —
+  // so a step marked on a slow connection is saved even if the tab closes.
   useEffect(() => {
-    if (!ready) return;
+    if (!localLoaded) return;
     try {
       localStorage.setItem(LS_PROGRESS, JSON.stringify(snapshot));
     } catch {}
-  }, [snapshot, ready]);
+  }, [snapshot, localLoaded]);
 
   const post = useCallback(async (body: unknown) => {
     // Signed out: progress lives only in this browser (localStorage).
