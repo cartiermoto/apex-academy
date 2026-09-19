@@ -1,5 +1,6 @@
 import type { Challenge, Course, Lesson, Module, ModuleCategory } from "@/lib/types";
 import { m01 } from "./modules/m01";
+import { m02 } from "./modules/m02";
 import { challenge1, challenge2 } from "./challenges";
 
 /* -------------------------------------------------------------------------- */
@@ -26,27 +27,6 @@ function planned(
     outline: outline.map(([es, en]) => ({ es, en })),
   };
 }
-
-const m02 = planned(
-  2,
-  "m02",
-  "logic",
-  { es: "Control de Flujo", en: "Control Flow" },
-  {
-    es: "Decidir y repetir: lo que en Flow eran nodos de decisión y bucles, aquí son diez líneas de código.",
-    en: "Deciding and repeating: what Flow drew as decision nodes and loops is ten lines of code here.",
-  },
-  [
-    ["If / Else / Else If", "If / Else / Else If"],
-    ["Switch Statement", "Switch statement"],
-    ["Expresiones vs Sentencias", "Expressions vs statements"],
-    ["While Loop", "While loop"],
-    ["For Loop y sus variantes", "For loop and its variants"],
-    ["Break y Continue", "Break and continue"],
-    ["Loops Anidados", "Nested loops"],
-    ["Checkpoint del Módulo 2", "Module 2 checkpoint"],
-  ],
-);
 
 const m03 = planned(
   3,

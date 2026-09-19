@@ -170,6 +170,67 @@ export const glossary: GlossaryEntry[] = [
     },
     taughtIn: { es: "Módulo 6", en: "Module 6" },
   },
+  {
+    id: "bloque",
+    term: { es: "bloque", en: "block" },
+    definition: {
+      es: "Las líneas encerradas entre { y }. Se ejecutan juntas, como un grupo, cuando el código llega a ellas.",
+      en: "The lines enclosed between { and }. They run together, as a group, when the code reaches them.",
+    },
+    admin: {
+      es: "Las acciones que cuelgan de una salida de un nodo Decision en Flow.",
+      en: "The actions hanging off one outcome of a Decision element in Flow.",
+    },
+  },
+  {
+    id: "ambito",
+    term: { es: "ámbito", en: "scope" },
+    definition: {
+      es: "La zona del código donde una variable existe. Una variable declarada dentro de un bloque desaparece al cerrarse su }.",
+      en: "The part of the code where a variable exists. A variable declared inside a block disappears when its } closes.",
+    },
+    admin: {
+      es: "Como un componente de una pantalla de Flow: solo existe mientras estás en esa pantalla.",
+      en: "Like a component on a Flow screen: it only exists while you are on that screen.",
+    },
+  },
+  {
+    id: "iteracion",
+    term: { es: "iteración", en: "iteration" },
+    definition: {
+      es: "Cada vuelta de un bucle. Un bucle sobre 200 registros hace 200 iteraciones.",
+      en: "Each pass of a loop. A loop over 200 records makes 200 iterations.",
+    },
+    admin: {
+      es: "Cada vez que el elemento Loop de Flow pasa al siguiente registro.",
+      en: "Each time Flow's Loop element moves on to the next record.",
+    },
+  },
+  {
+    id: "bucle-infinito",
+    term: { es: "bucle infinito", en: "infinite loop" },
+    definition: {
+      es: "Un bucle cuya condición nunca llega a ser falsa. En Salesforce no cuelga la org: la transacción se corta al agotar el tiempo de CPU.",
+      en: "A loop whose condition never becomes false. In Salesforce it does not hang the org: the transaction is cut off when it runs out of CPU time.",
+    },
+    admin: {
+      es: "Dos Flows que se actualizan el uno al otro sin fin hasta que Salesforce los detiene.",
+      en: "Two Flows updating each other endlessly until Salesforce stops them.",
+    },
+  },
+  {
+    id: "cpu-time",
+    term: { es: "tiempo de CPU", en: "CPU time" },
+    definition: {
+      es: "El tiempo de cálculo que una transacción puede gastar: 10 segundos en síncrono. Los bucles grandes o anidados son lo primero que lo agota.",
+      en: "The compute time one transaction may spend: 10 seconds synchronously. Big or nested loops are the first thing to burn through it.",
+    },
+    admin: {
+      es: "El error «Apex CPU time limit exceeded» que a veces aparece con Flows muy pesados.",
+      en: "The “Apex CPU time limit exceeded” error that sometimes shows up with very heavy Flows.",
+    },
+    taughtIn: { es: "Módulo 4", en: "Module 4" },
+  },
 ];
 
 const byId = new Map(glossary.map((g) => [g.id, g]));

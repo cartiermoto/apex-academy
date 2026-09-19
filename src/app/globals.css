@@ -503,6 +503,32 @@ body:has(.editorial) {
   --e-num: var(--e-module-num);
   background: var(--e-surface);
   border: none;
+  transition:
+    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.35s ease;
+}
+.e-module .e-num {
+  display: inline-block;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+/* Hover: the card lifts and tilts like the "Siguiente" card, alternating
+   direction so the grid feels alive; the number nudges forward. Only on
+   devices with a real pointer, and never when the user asked for less motion. */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  li:hover > .e-module,
+  li:hover > a > .e-module,
+  li:focus-within .e-module {
+    transform: translateY(-6px) rotate(-1.2deg);
+    box-shadow: var(--e-float-shadow);
+  }
+  li:nth-child(even):hover > .e-module,
+  li:nth-child(even):hover > a > .e-module,
+  li:nth-child(even):focus-within .e-module {
+    transform: translateY(-6px) rotate(1.2deg);
+  }
+  li:hover .e-module .e-num {
+    transform: translateX(6px) scale(1.08);
+  }
 }
 .e-module[data-cat="logic"] {
   --e-surface: var(--e-cat-logic-surface);

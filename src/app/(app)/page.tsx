@@ -416,7 +416,7 @@ export default function HomePage() {
                   {ready && m.lessons[0] ? (
                     <Link
                       href={`/m/${m.id}/${m.lessons[0].slug}`}
-                      className="block h-full transition hover:opacity-90"
+                      className="block h-full"
                     >
                       {card}
                     </Link>
