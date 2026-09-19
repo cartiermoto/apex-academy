@@ -1,6 +1,7 @@
 import type { Challenge, Course, Lesson, Module, ModuleCategory } from "@/lib/types";
 import { m01 } from "./modules/m01";
 import { m02 } from "./modules/m02";
+import { m05 } from "./modules/m05";
 import { challenge1, challenge2 } from "./challenges";
 
 /* -------------------------------------------------------------------------- */
@@ -64,31 +65,6 @@ const m04 = planned(
     ["Governor Limits: qué se cuenta y por qué", "Governor limits: what is counted and why"],
     ["Savepoints y rollback", "Savepoints and rollback"],
     ["Checkpoint del Módulo 4", "Module 4 checkpoint"],
-  ],
-);
-
-const m05 = planned(
-  5,
-  "m05",
-  "obj",
-  { es: "Clases, Interfaces y POO", en: "Classes, Interfaces and OOP" },
-  {
-    es: "Del objeto de Salesforce al objeto de Apex: definir tus propios moldes.",
-    en: "From the Salesforce object to the Apex object: defining your own moulds.",
-  },
-  [
-    ["Clases y objetos", "Classes and objects"],
-    ["Referencias: dos variables, un solo objeto", "References: two variables, one object"],
-    ["Constructores", "Constructors"],
-    ["this: el objeto hablando de sí mismo", "this: the object talking about itself"],
-    ["Static vs Non-Static", "Static vs non-static"],
-    ["Access Modifiers", "Access modifiers"],
-    ["Herencia", "Inheritance"],
-    ["virtual, abstract y override", "virtual, abstract and override"],
-    ["Sobrecarga vs sobrescritura", "Overloading vs overriding"],
-    ["Interfaces y polimorfismo", "Interfaces and polymorphism"],
-    ["Clases internas y Enums", "Inner classes and enums"],
-    ["Checkpoint del Módulo 5", "Module 5 checkpoint"],
   ],
 );
 

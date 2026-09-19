@@ -231,6 +231,67 @@ export const glossary: GlossaryEntry[] = [
     },
     taughtIn: { es: "Módulo 4", en: "Module 4" },
   },
+  {
+    id: "clase",
+    term: { es: "clase", en: "class" },
+    definition: {
+      es: "La definición de un tipo de objeto: qué datos guarda (atributos) y qué sabe hacer (métodos). No es un objeto: es el molde con el que se fabrican.",
+      en: "The definition of a kind of object: what data it holds (attributes) and what it can do (methods). It is not an object: it is the mould they are made from.",
+    },
+    admin: {
+      es: "La definición de un objeto en Object Manager: campos y comportamiento, sin ningún registro todavía.",
+      en: "An object's definition in Object Manager: fields and behaviour, with no records yet.",
+    },
+  },
+  {
+    id: "instancia",
+    term: { es: "instancia", en: "instance" },
+    definition: {
+      es: "Un objeto concreto fabricado a partir de una clase con new. Cada instancia tiene sus propios valores.",
+      en: "A concrete object made from a class with new. Each instance has its own values.",
+    },
+    admin: {
+      es: "Un registro: la cuenta «Acme» es una instancia del objeto Account.",
+      en: "A record: the “Acme” account is an instance of the Account object.",
+    },
+  },
+  {
+    id: "referencia",
+    term: { es: "referencia", en: "reference" },
+    definition: {
+      es: "Lo que guarda una variable de tipo objeto: no el objeto en sí, sino la dirección donde vive. Dos variables pueden apuntar al mismo objeto.",
+      en: "What an object-typed variable holds: not the object itself, but the address where it lives. Two variables can point to the same object.",
+    },
+    admin: {
+      es: "Como el enlace a un registro: dos personas con el mismo enlace están viendo y editando el mismo registro.",
+      en: "Like a link to a record: two people with the same link are viewing and editing the same record.",
+    },
+  },
+  {
+    id: "interfaz",
+    term: { es: "interfaz", en: "interface" },
+    definition: {
+      es: "Una lista de métodos que una clase se compromete a tener, sin decir cómo. Cualquier clase que la implemente se puede usar donde se pida la interfaz.",
+      en: "A list of methods a class commits to having, without saying how. Any class that implements it can be used wherever the interface is asked for.",
+    },
+    admin: {
+      es: "El requisito para programar una clase en Setup: solo aparecen las que implementan Schedulable.",
+      en: "The requirement for scheduling a class in Setup: only the ones implementing Schedulable show up.",
+    },
+  },
+  {
+    id: "heap",
+    term: { es: "heap", en: "heap" },
+    definition: {
+      es: "La memoria que una transacción puede usar para sus objetos: 6 MB en síncrono. Si la superas, la transacción falla.",
+      en: "The memory a transaction may use for its objects: 6 MB synchronously. Go over it and the transaction fails.",
+    },
+    admin: {
+      es: "Otro de los límites por ejecución, como el tiempo de CPU.",
+      en: "Another per-run limit, like CPU time.",
+    },
+    taughtIn: { es: "Módulo 4", en: "Module 4" },
+  },
 ];
 
 const byId = new Map(glossary.map((g) => [g.id, g]));
