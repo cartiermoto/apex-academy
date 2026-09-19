@@ -38,10 +38,12 @@ for (const file of readdirSync(dir).filter((f) => f.endsWith(".sql")).sort()) {
   // Neon's HTTP driver runs one statement per call.
   const statements = text
     .split(/;\s*(?:\r?\n|$)/)
-    .map((s) => s.trim())
-    .filter((s) => s && !/^--/.test(s.replace(/\s+/g, " ")));
+    // Strip comment lines (not whole chunks: a statement may follow a comment).
+    .map((s) => s.split(/\r?\n/).filter((l) => !/^\s*--/.test(l)).join("\n").trim())
+    .filter(Boolean);
   for (const statement of statements) {
-    await sql.query(statement);
+    // Driver 0.10 takes a plain string; newer versions renamed this to sql.query().
+    await (typeof sql.query === "function" ? sql.query(statement) : sql(statement));
   }
 }
 
