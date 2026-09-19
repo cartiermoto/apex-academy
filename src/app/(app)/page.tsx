@@ -445,9 +445,9 @@ export default function HomePage() {
 
               return (
                 <li key={c.id}>
-                  <Link href={`/c/${c.id}`} className="block h-full transition hover:opacity-95">
+                  <Link href={`/c/${c.id}`} className="block h-full">
                     <article
-                      className="flex h-full flex-col gap-3.5 p-6 sm:p-[30px]"
+                      className="e-challenge flex h-full flex-col gap-3.5 p-6 sm:p-[30px]"
                       style={{ background: "var(--e-challenge-bg)", color: "var(--e-challenge-text)" }}
                     >
                       <div className="e-mono flex items-center justify-between text-[11px] uppercase tracking-[0.08em] opacity-[0.72]">
