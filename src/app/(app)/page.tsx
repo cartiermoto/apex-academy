@@ -256,7 +256,7 @@ function UpNext({
 
 export default function HomePage() {
   const { lang } = useSettings();
-  const { snapshot } = useProgress();
+  const { snapshot, authed } = useProgress();
 
   const statusOf = (id: string): LessonStatus => snapshot.lessons[id]?.status ?? "not_started";
 
@@ -439,7 +439,8 @@ export default function HomePage() {
           <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:gap-5">
             {course.challenges.map((c) => {
               const required = course.modules.find((m) => m.id === c.requires);
-              const unlocked = required ? moduleDone(required) : false;
+              // Admin mode: signed in, the challenges open regardless of progress.
+              const unlocked = authed === true || (required ? moduleDone(required) : false);
               const progress = snapshot.challenges[c.id];
 
               return (
