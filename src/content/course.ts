@@ -1,6 +1,7 @@
 import type { Challenge, Course, Lesson, Module, ModuleCategory } from "@/lib/types";
 import { m01 } from "./modules/m01";
 import { m02 } from "./modules/m02";
+import { m03 } from "./modules/m03";
 import { m05 } from "./modules/m05";
 import { challenge1, challenge2 } from "./challenges";
 
@@ -28,26 +29,6 @@ function planned(
     outline: outline.map(([es, en]) => ({ es, en })),
   };
 }
-
-const m03 = planned(
-  3,
-  "m03",
-  "logic",
-  { es: "SOQL y SOSL", en: "SOQL and SOSL" },
-  {
-    es: "Preguntarle a la base de datos: el equivalente en código a un Report Type con filtros.",
-    en: "Asking the database: the code equivalent of a Report Type with filters.",
-  },
-  [
-    ["Anatomía de una consulta SOQL", "Anatomy of a SOQL query"],
-    ["WHERE, ORDER BY, LIMIT", "WHERE, ORDER BY, LIMIT"],
-    ["Consultas de relación (padre e hijo)", "Relationship queries (parent and child)"],
-    ["Variables de enlace y SOQL dinámico", "Bind variables and dynamic SOQL"],
-    ["Funciones de agregación", "Aggregate functions"],
-    ["SOSL: búsqueda en varios objetos", "SOSL: searching across objects"],
-    ["Checkpoint del Módulo 3", "Module 3 checkpoint"],
-  ],
-);
 
 const m04 = planned(
   4,

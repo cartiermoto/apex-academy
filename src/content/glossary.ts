@@ -292,6 +292,41 @@ export const glossary: GlossaryEntry[] = [
     },
     taughtIn: { es: "Módulo 4", en: "Module 4" },
   },
+  {
+    id: "subconsulta",
+    term: { es: "subconsulta", en: "subquery" },
+    definition: {
+      es: "Una consulta dentro de otra. En el SELECT trae los registros hijos de cada padre; en el WHERE (con IN) decide qué padres entran.",
+      en: "A query inside another one. In the SELECT it brings each parent's child records; in the WHERE (with IN) it decides which parents get in.",
+    },
+    admin: {
+      es: "La related list de la página de un registro.",
+      en: "The related list on a record page.",
+    },
+    taughtIn: { es: "Módulo 3", en: "Module 3" },
+  },
+  {
+    id: "variable-enlace",
+    term: { es: "variable de enlace", en: "bind variable" },
+    definition: {
+      es: "Una variable de Apex usada dentro de una consulta con dos puntos (:accId). Su valor viaja aparte del texto de la consulta, así que no puede alterarla.",
+      en: "An Apex variable used inside a query with a colon (:accId). Its value travels separately from the query text, so it cannot alter it.",
+    },
+    admin: {
+      es: "El {!recordId} que pones en el filtro de un Get Records de Flow.",
+      en: "The {!recordId} you put in a Flow Get Records filter.",
+    },
+    taughtIn: { es: "Módulo 3", en: "Module 3" },
+  },
+  {
+    id: "inyeccion-soql",
+    term: { es: "inyección de SOQL", en: "SOQL injection" },
+    definition: {
+      es: "Un ataque en el que el texto que escribe un usuario se pega dentro de una consulta dinámica y cambia lo que la consulta hace, por ejemplo saltándose un filtro.",
+      en: "An attack in which text typed by a user is glued into a dynamic query and changes what the query does, for example skipping a filter.",
+    },
+    taughtIn: { es: "Módulo 3 · Módulo 12", en: "Module 3 · Module 12" },
+  },
 ];
 
 const byId = new Map(glossary.map((g) => [g.id, g]));
