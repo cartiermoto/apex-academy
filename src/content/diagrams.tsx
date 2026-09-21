@@ -139,6 +139,15 @@ function Svg({
 
 function VariableAnatomy({ lang }: P) {
   const id = "var";
+  /* Each token is its own <text>, anchored at its centre, so the arrows land on
+     the right token whatever width the monospace font actually renders at. */
+  const tok = [
+    { t: "Integer", x: 206, fill: "var(--c-code-type)" },
+    { t: "maxDiscount", x: 306, fill: "var(--c-code-text)" },
+    { t: "=", x: 377, fill: "var(--c-brand)" },
+    { t: "20", x: 410, fill: "var(--c-code-num)" },
+    { t: ";", x: 425, fill: "var(--c-code-text)" },
+  ];
   return (
     <Svg
       id={id}
@@ -146,54 +155,52 @@ function VariableAnatomy({ lang }: P) {
       title={pick(lang, "Anatomía de una declaración", "Anatomy of a declaration")}
     >
       <rect x="60" y="92" width="480" height="56" rx="10" {...S.box} />
-      <text x="84" y="128" {...S.mono}>
-        <tspan fill="var(--c-code-type)">Integer</tspan>
-        <tspan fill="var(--c-code-text)"> maxDiscount </tspan>
-        <tspan fill="var(--c-brand)">=</tspan>
-        <tspan fill="var(--c-code-num)"> 20</tspan>
-        <tspan fill="var(--c-code-text)">;</tspan>
-      </text>
+      {tok.map((k) => (
+        <text key={k.t} x={k.x} y="128" {...S.mono} fill={k.fill} textAnchor="middle">
+          {k.t}
+        </text>
+      ))}
 
       {/* tipo */}
-      <path d="M110 86 L110 56" stroke="var(--c-brand)" strokeWidth="1.5" markerStart={`url(#ar-${id})`} fill="none" />
-      <text x="110" y="42" {...S.label} textAnchor="middle">
+      <path d="M206 86 L206 56" stroke="var(--c-brand)" strokeWidth="1.5" markerStart={`url(#ar-${id})`} fill="none" />
+      <text x="206" y="42" {...S.label} textAnchor="middle">
         {pick(lang, "Tipo", "Type")}
       </text>
-      <text x="104" y="24" {...S.muted} fontSize={12} textAnchor="middle">
+      <text x="206" y="24" {...S.muted} fontSize={12} textAnchor="middle">
         {pick(lang, "qué cabe dentro", "what fits inside")}
       </text>
 
       {/* nombre */}
-      <path d="M232 86 L232 56" stroke="var(--c-brand)" strokeWidth="1.5" markerStart={`url(#ar-${id})`} fill="none" />
-      <text x="232" y="42" {...S.label} textAnchor="middle">
+      <path d="M312 86 L312 56" stroke="var(--c-brand)" strokeWidth="1.5" markerStart={`url(#ar-${id})`} fill="none" />
+      <text x="312" y="42" {...S.label} textAnchor="middle">
         {pick(lang, "Nombre", "Name")}
       </text>
-      <text x="244" y="24" {...S.muted} fontSize={12} textAnchor="middle">
+      <text x="312" y="24" {...S.muted} fontSize={12} textAnchor="middle">
         {pick(lang, "cómo la llamas", "how you call it")}
       </text>
 
       {/* asignación */}
-      <path d="M330 154 L330 186" stroke="var(--c-warn)" strokeWidth="1.5" markerEnd={`url(#ac-${id})`} fill="none" />
-      <text x="330" y="206" {...S.label} textAnchor="middle">
+      <path d="M377 154 L332 188" stroke="var(--c-warn)" strokeWidth="1.5" markerEnd={`url(#ac-${id})`} fill="none" />
+      <text x="318" y="208" {...S.label} textAnchor="middle">
         {pick(lang, "Asignación", "Assignment")}
       </text>
-      <text x="330" y="226" {...S.muted} textAnchor="middle">
+      <text x="318" y="228" {...S.muted} textAnchor="middle">
         {pick(lang, "«guarda esto ahí»", "“store this there”")}
       </text>
 
       {/* valor */}
-      <path d="M392 154 L440 196" stroke="var(--c-warn)" strokeWidth="1.5" markerEnd={`url(#ac-${id})`} fill="none" />
-      <text x="470" y="206" {...S.label} textAnchor="middle">
+      <path d="M410 154 L462 188" stroke="var(--c-warn)" strokeWidth="1.5" markerEnd={`url(#ac-${id})`} fill="none" />
+      <text x="482" y="208" {...S.label} textAnchor="middle">
         {pick(lang, "Valor", "Value")}
       </text>
-      <text x="470" y="226" {...S.muted} textAnchor="middle">
+      <text x="482" y="228" {...S.muted} textAnchor="middle">
         {pick(lang, "lo que hay dentro hoy", "what is inside today")}
       </text>
 
       {/* punto y coma */}
-      <path d="M470 86 L446 86 L446 104" stroke="var(--c-text-faint)" strokeWidth="1.3" markerEnd={`url(#am-${id})`} fill="none" />
-      <text x="540" y="80" {...S.muted} textAnchor="end">
-        {pick(lang, "; cierra la sentencia", "; ends the statement")}
+      <path d="M470 76 L425 76 L425 104" stroke="var(--c-text-faint)" strokeWidth="1.3" markerEnd={`url(#am-${id})`} fill="none" />
+      <text x="478" y="80" {...S.muted}>
+        {pick(lang, "; cierra", "; ends it")}
       </text>
     </Svg>
   );
@@ -937,7 +944,7 @@ function FormulaVsApex({ lang }: P) {
     [
       pick(lang, "Dónde vive", "Where it lives"),
       pick(lang, "En un campo del objeto", "In a field on the object"),
-      pick(lang, "En una clase, un trigger, cualquier sitio", "In a class, a trigger, anywhere"),
+      pick(lang, "En clases y triggers", "In classes and triggers"),
     ],
     [
       pick(lang, "Cuándo corre", "When it runs"),
@@ -1029,7 +1036,7 @@ function ModuleOneDeps({ lang }: P) {
   return (
     <Svg
       id={id}
-      viewBox="0 0 600 330"
+      viewBox="0 0 600 344"
       title={pick(lang, "Dependencias entre sub-lecciones", "Dependencies between sub-lessons")}
     >
       {node(200, 0, 200, pick(lang, "1 · Variables", "1 · Variables"), true)}
@@ -1040,9 +1047,9 @@ function ModuleOneDeps({ lang }: P) {
       {node(205, 68, 190, pick(lang, "3 · String y métodos", "3 · String & methods"))}
       {node(410, 68, 190, pick(lang, "4 · Fechas", "4 · Dates"))}
 
-      <path d="M95 108 L95 130" stroke="var(--c-text-faint)" strokeWidth="1.2" markerEnd={`url(#am-${id})`} fill="none" />
+      <path d="M95 108 L95 156 L194 156" stroke="var(--c-text-faint)" strokeWidth="1.2" markerEnd={`url(#am-${id})`} fill="none" />
       <path d="M300 108 L300 130" stroke="var(--c-text-faint)" strokeWidth="1.2" markerEnd={`url(#am-${id})`} fill="none" />
-      <path d="M505 108 L505 130" stroke="var(--c-text-faint)" strokeWidth="1.2" markerEnd={`url(#am-${id})`} fill="none" />
+      <path d="M505 108 L505 156 L406 156" stroke="var(--c-text-faint)" strokeWidth="1.2" markerEnd={`url(#am-${id})`} fill="none" />
 
       {node(200, 136, 200, pick(lang, "5 · sObjects", "5 · sObjects"), true)}
 
@@ -1054,10 +1061,10 @@ function ModuleOneDeps({ lang }: P) {
       {node(205, 268, 190, pick(lang, "8 · Colecciones", "8 · Collections"))}
       {node(410, 268, 190, pick(lang, "9 · Casting", "9 · Casting"))}
 
-      <path d="M240 258 L110 264" stroke="var(--c-text-faint)" strokeWidth="1.2" markerEnd={`url(#am-${id})`} fill="none" />
-      <path d="M360 258 L490 264" stroke="var(--c-text-faint)" strokeWidth="1.2" markerEnd={`url(#am-${id})`} fill="none" />
+      <path d="M300 254 L95 254 L95 262" stroke="var(--c-text-faint)" strokeWidth="1.2" markerEnd={`url(#am-${id})`} fill="none" />
+      <path d="M300 254 L505 254 L505 262" stroke="var(--c-text-faint)" strokeWidth="1.2" markerEnd={`url(#am-${id})`} fill="none" />
 
-      <text x="0" y="322" {...S.muted} fontSize={12}>
+      <text x="0" y="336" {...S.muted} fontSize={12}>
         {pick(
           lang,
           "Nada de la fila de abajo se entiende sin null: por eso va antes.",
