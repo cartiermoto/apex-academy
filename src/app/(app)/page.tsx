@@ -256,7 +256,7 @@ function UpNext({
 
 export default function HomePage() {
   const { lang } = useSettings();
-  const { snapshot } = useProgress();
+  const { snapshot, authed } = useProgress();
 
   const statusOf = (id: string): LessonStatus => snapshot.lessons[id]?.status ?? "not_started";
 
@@ -416,7 +416,7 @@ export default function HomePage() {
                   {ready && m.lessons[0] ? (
                     <Link
                       href={`/m/${m.id}/${m.lessons[0].slug}`}
-                      className="block h-full transition hover:opacity-90"
+                      className="block h-full"
                     >
                       {card}
                     </Link>
@@ -439,14 +439,15 @@ export default function HomePage() {
           <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:gap-5">
             {course.challenges.map((c) => {
               const required = course.modules.find((m) => m.id === c.requires);
-              const unlocked = required ? moduleDone(required) : false;
+              // Admin mode: signed in, the challenges open regardless of progress.
+              const unlocked = authed === true || (required ? moduleDone(required) : false);
               const progress = snapshot.challenges[c.id];
 
               return (
                 <li key={c.id}>
-                  <Link href={`/c/${c.id}`} className="block h-full transition hover:opacity-95">
+                  <Link href={`/c/${c.id}`} className="block h-full">
                     <article
-                      className="flex h-full flex-col gap-3.5 p-6 sm:p-[30px]"
+                      className="e-challenge flex h-full flex-col gap-3.5 p-6 sm:p-[30px]"
                       style={{ background: "var(--e-challenge-bg)", color: "var(--e-challenge-text)" }}
                     >
                       <div className="e-mono flex items-center justify-between text-[11px] uppercase tracking-[0.08em] opacity-[0.72]">

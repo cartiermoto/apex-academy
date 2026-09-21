@@ -1,5 +1,7 @@
 import type { Challenge, Course, Lesson, Module, ModuleCategory } from "@/lib/types";
 import { m01 } from "./modules/m01";
+import { m02 } from "./modules/m02";
+import { m05 } from "./modules/m05";
 import { challenge1, challenge2 } from "./challenges";
 
 /* -------------------------------------------------------------------------- */
@@ -26,27 +28,6 @@ function planned(
     outline: outline.map(([es, en]) => ({ es, en })),
   };
 }
-
-const m02 = planned(
-  2,
-  "m02",
-  "logic",
-  { es: "Control de Flujo", en: "Control Flow" },
-  {
-    es: "Decidir y repetir: lo que en Flow eran nodos de decisión y bucles, aquí son diez líneas de código.",
-    en: "Deciding and repeating: what Flow drew as decision nodes and loops is ten lines of code here.",
-  },
-  [
-    ["If / Else / Else If", "If / Else / Else If"],
-    ["Switch Statement", "Switch statement"],
-    ["Expresiones vs Sentencias", "Expressions vs statements"],
-    ["While Loop", "While loop"],
-    ["For Loop y sus variantes", "For loop and its variants"],
-    ["Break y Continue", "Break and continue"],
-    ["Loops Anidados", "Nested loops"],
-    ["Checkpoint del Módulo 2", "Module 2 checkpoint"],
-  ],
-);
 
 const m03 = planned(
   3,
@@ -84,31 +65,6 @@ const m04 = planned(
     ["Governor Limits: qué se cuenta y por qué", "Governor limits: what is counted and why"],
     ["Savepoints y rollback", "Savepoints and rollback"],
     ["Checkpoint del Módulo 4", "Module 4 checkpoint"],
-  ],
-);
-
-const m05 = planned(
-  5,
-  "m05",
-  "obj",
-  { es: "Clases, Interfaces y POO", en: "Classes, Interfaces and OOP" },
-  {
-    es: "Del objeto de Salesforce al objeto de Apex: definir tus propios moldes.",
-    en: "From the Salesforce object to the Apex object: defining your own moulds.",
-  },
-  [
-    ["Clases y objetos", "Classes and objects"],
-    ["Referencias: dos variables, un solo objeto", "References: two variables, one object"],
-    ["Constructores", "Constructors"],
-    ["this: el objeto hablando de sí mismo", "this: the object talking about itself"],
-    ["Static vs Non-Static", "Static vs non-static"],
-    ["Access Modifiers", "Access modifiers"],
-    ["Herencia", "Inheritance"],
-    ["virtual, abstract y override", "virtual, abstract and override"],
-    ["Sobrecarga vs sobrescritura", "Overloading vs overriding"],
-    ["Interfaces y polimorfismo", "Interfaces and polymorphism"],
-    ["Clases internas y Enums", "Inner classes and enums"],
-    ["Checkpoint del Módulo 5", "Module 5 checkpoint"],
   ],
 );
 
