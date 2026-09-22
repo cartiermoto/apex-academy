@@ -85,10 +85,6 @@ export const ui = {
   typeYourAnswer: { es: "Escribe tu respuesta", en: "Type your answer" },
   quizResult: { es: "Resultado del quiz", en: "Quiz result" },
   retakeQuiz: { es: "Repetir quiz", en: "Retake quiz" },
-  quizPassHint: {
-    es: "Necesitas al menos un 70 % para completar el quiz.",
-    en: "You need at least 70% to complete the quiz.",
-  },
   goToExercise: { es: "Ir al ejercicio", en: "Go to exercise" },
   spacedChip: { es: "Repaso espaciado", en: "Spaced review" },
   interleavedChip: { es: "Mixta", en: "Interleaved" },

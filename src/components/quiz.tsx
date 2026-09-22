@@ -108,7 +108,14 @@ export function Quiz({
 
   /* ------------------------------------------------------------- results -- */
   if (done) {
-    const passed = score / questions.length >= 0.7;
+    const total = questions.length;
+    const pct = total === 0 ? 0 : Math.round((score / total) * 100);
+    const passed = score / total >= 0.7;
+    // The number of correct answers that would have reached 70%, and how many
+    // more that is than what the student actually got — so "not yet" always
+    // comes with a concrete number, never just a bare percentage.
+    const needed = Math.ceil(total * 0.7);
+    const missing = Math.max(0, needed - score);
     return (
       <div className="fade-in max-w-[68ch]">
         <div
@@ -121,14 +128,16 @@ export function Quiz({
           <p className="t-eyebrow">{t(ui.quizResult, lang)}</p>
           <p className="t-display mt-3 tabular-nums">
             {score}
-            <span className="text-faint">/{questions.length}</span>
+            <span className="text-faint">/{total} · {pct}%</span>
           </p>
           <p className="t-small mt-2 text-muted">
             {passed
               ? lang === "es"
                 ? "Quiz superado. Ahora escríbelo tú."
                 : "Quiz passed. Now write it yourself."
-              : t(ui.quizPassHint, lang)}
+              : lang === "es"
+                ? `Te ${missing === 1 ? "falta 1 respuesta correcta" : `faltan ${missing} respuestas correctas`} para llegar al 70 % (necesitas al menos ${needed} de ${total}).`
+                : `You're ${missing} correct ${missing === 1 ? "answer" : "answers"} short of 70% (you need at least ${needed} of ${total}).`}
           </p>
 
           <div className="mt-6 flex flex-wrap gap-2">
