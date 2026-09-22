@@ -304,6 +304,15 @@ String code2 = rawCompany.trim().substring(0, 4).toUpperCase(); // 'NORT'`,
       text: { es: "Métodos que se le piden al tipo, no al dato", en: "Methods you ask the type, not the value" },
     },
     {
+      type: "callout",
+      variant: "warn",
+      title: { es: "String es un tipo, nunca un método", en: "String is a type, never a method" },
+      text: {
+        es: "Antes de seguir, quítate esta duda de encima: String no es un método. String es el tipo, y los métodos son suyos —trim(), length(), toUpperCase() no existen sueltos por ahí—. Lo que confunde es que el punto se usa en dos sitios: nombre.trim() se lo pides al DATO («oye, este texto, límpiate»), y String.valueOf(42) se lo pides al TIPO («oye, tipo String, fabrícame un texto con esto»). En los dos casos el método es lo que va después del punto y siempre lleva paréntesis. En Object Manager pasa igual: «Nuevo» es una acción del objeto Cuenta y «cambiar el nombre» es una acción de una cuenta concreta.",
+        en: "Before going on, get this doubt out of the way: String is not a method. String is the type, and the methods belong to it — trim(), length() and toUpperCase() do not float around on their own. What confuses people is that the dot shows up in two places: name.trim() asks the VALUE (“hey, this text, clean yourself up”), while String.valueOf(42) asks the TYPE (“hey, String type, make me a text out of this”). In both cases the method is what follows the dot, and it always carries brackets. Object Manager works the same way: “New” is an action of the Account object, and “rename” is an action of one particular account.",
+      },
+    },
+    {
       type: "p",
       text: {
         es: "Casi todos los métodos se escriben sobre el dato: nombre.trim(). Pero algunos se escriben sobre la palabra String, con el dato dentro de los paréntesis. Son los que tienen que funcionar aunque el dato no exista todavía, y por eso son los que salvan el día cuando el texto puede venir vacío.",

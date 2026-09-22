@@ -13,11 +13,11 @@ import type { Lang } from "@/lib/types";
  */
 
 type P = { lang: Lang };
-const pick = (lang: Lang, es: string, en: string) => (lang === "es" ? es : en);
+export const pick = (lang: Lang, es: string, en: string) => (lang === "es" ? es : en);
 
 /* ---------------------------------------------------------------- shared --- */
 
-function useStepper(count: number, ms = 1700) {
+export function useStepper(count: number, ms = 1700) {
   const [i, setI] = useState(0);
   const [playing, setPlaying] = useState(false);
   const last = count - 1;
@@ -47,9 +47,9 @@ function useStepper(count: number, ms = 1700) {
     pause: () => setPlaying(false),
   };
 }
-type Stepper = ReturnType<typeof useStepper>;
+export type Stepper = ReturnType<typeof useStepper>;
 
-function Controls({ lang, s }: { lang: Lang; s: Stepper }) {
+export function Controls({ lang, s }: { lang: Lang; s: Stepper }) {
   return (
     <div className="mt-4 flex flex-wrap items-center gap-2">
       {s.playing ? (
@@ -71,7 +71,7 @@ function Controls({ lang, s }: { lang: Lang; s: Stepper }) {
   );
 }
 
-function Note({ lang, s, children }: { lang: Lang; s: Stepper; children: React.ReactNode }) {
+export function Note({ lang, s, children }: { lang: Lang; s: Stepper; children: React.ReactNode }) {
   return (
     <div className="mt-4 rounded-[4px] p-4" style={{ background: "var(--c-surface-2)" }} aria-live="polite">
       <p className="t-micro text-faint tabular-nums">
@@ -83,7 +83,7 @@ function Note({ lang, s, children }: { lang: Lang; s: Stepper; children: React.R
 }
 
 /** Scenario switch: a row of pressed/unpressed buttons. */
-function Tabs({ items, value, onChange }: { items: string[]; value: number; onChange: (n: number) => void }) {
+export function Tabs({ items, value, onChange }: { items: string[]; value: number; onChange: (n: number) => void }) {
   return (
     <div className="mb-4 flex flex-wrap gap-2">
       {items.map((label, n) => (
@@ -107,7 +107,7 @@ function Tabs({ items, value, onChange }: { items: string[]; value: number; onCh
   );
 }
 
-const codeBox: React.CSSProperties = {
+export const codeBox: React.CSSProperties = {
   background: "var(--c-code-bg)",
   border: "1px solid var(--c-code-border)",
   color: "var(--c-code-text)",
