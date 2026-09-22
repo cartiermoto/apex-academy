@@ -36,16 +36,18 @@ function Header() {
     "grid h-10 w-10 place-items-center rounded-[4px] border border-[var(--e-divider)] text-[var(--e-ink)] transition hover:opacity-75";
 
   return (
-    <header className="flex items-center justify-between gap-4">
-      <Link href="/" className="inline-flex min-h-[44px] items-center gap-2.5 text-[var(--e-ink)]">
-        <MascotMark theme={theme} size={34} className="shrink-0" />
-        <span className="text-[1.05rem] leading-none">
+    <header className="flex items-center justify-between gap-3">
+      <Link href="/" className="inline-flex min-h-[44px] min-w-[44px] items-center gap-2.5 text-[var(--e-ink)]">
+        <MascotMark theme={theme} size={30} className="shrink-0" />
+        {/* Under 400px the controls leave no room: the mascot alone carries the
+            brand (its alt text still names it for screen readers). */}
+        <span className="text-[1.05rem] leading-none max-[399px]:hidden">
           <span className="font-bold tracking-[-0.02em]">Apex</span>{" "}
           <span className="font-normal">Academy</span>
         </span>
       </Link>
 
-      <div className="flex items-center gap-2">
+      <div className="flex shrink-0 items-center gap-1.5">
         <div
           role="group"
           aria-label={t(ui.language, lang)}
@@ -479,14 +481,22 @@ export default function HomePage() {
           </ul>
         </section>
 
-        <footer
-          className="e-mono flex flex-wrap justify-between gap-3 pt-2 text-[11px] uppercase tracking-[0.08em]"
-          style={{ borderTop: "1px solid var(--e-divider)" }}
-        >
-          <span className="pt-4">Apex Academy</span>
-          <span className="pt-4">
-            {allLessons.length} {t(ui.lessons, lang)} · {lang === "es" ? "publicadas" : "published"}
-          </span>
+        <footer className="e-mono pt-2" style={{ borderTop: "1px solid var(--e-divider)" }}>
+          <div className="flex flex-wrap justify-between gap-3 text-[11px] uppercase tracking-[0.08em]">
+            <span className="pt-4">Apex Academy</span>
+            <span className="pt-4">
+              {allLessons.length} {t(ui.lessons, lang)} · {lang === "es" ? "publicadas" : "published"}
+            </span>
+          </div>
+          {/* Credit line (footer proposal A). Mixed toward the page colour instead
+              of opacity, so the accent span keeps its own full contrast. */}
+          <p
+            className="mt-[10px] text-[10px] tracking-[0.02em]"
+            style={{ color: "color-mix(in srgb, var(--e-ink) 80%, var(--e-bg))" }}
+          >
+            {lang === "es" ? "construido por elias · salesforce admin — con " : "built by elias · salesforce admin — with "}
+            <span style={{ color: "var(--e-credit-accent)" }}>claude code</span>
+          </p>
         </footer>
       </main>
     </div>

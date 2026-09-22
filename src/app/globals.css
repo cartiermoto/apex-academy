@@ -427,7 +427,8 @@ body {
   --e-legend-border: rgba(77, 77, 77, 0.3);
   --e-challenge-bg: #12262e; /* provisional navy */
   --e-challenge-text: #ffffff;
-  --e-logo-radius: 0px;
+  /* footer credit "claude code": mascot orange darkened for AA on white (5.0:1) — NUEVO */
+  --e-credit-accent: #b4531b;
   /* "Siguiente" floating card: a soft lift built from the navy */
   --e-float-shadow: 0 24px 48px rgba(18, 38, 46, 0.16), 0 4px 10px rgba(18, 38, 46, 0.08);
 
@@ -470,7 +471,8 @@ body {
   --e-legend-border: rgba(255, 255, 255, 0.35);
   --e-challenge-bg: #204b5e;
   --e-challenge-text: #ffffff;
-  --e-logo-radius: 6px;
+  /* mascot orange as-is: 4.8:1 on the navy page */
+  --e-credit-accent: #e8722c;
   /* on a navy page a navy shadow is invisible, so dark mode uses black */
   --e-float-shadow: 0 24px 48px rgba(0, 0, 0, 0.45), 0 4px 10px rgba(0, 0, 0, 0.3);
 
