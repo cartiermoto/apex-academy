@@ -292,6 +292,89 @@ export const glossary: GlossaryEntry[] = [
     },
     taughtIn: { es: "Módulo 4", en: "Module 4" },
   },
+  {
+    id: "subconsulta",
+    term: { es: "subconsulta", en: "subquery" },
+    definition: {
+      es: "Una consulta dentro de otra. En el SELECT trae los registros hijos de cada padre; en el WHERE (con IN) decide qué padres entran.",
+      en: "A query inside another one. In the SELECT it brings each parent's child records; in the WHERE (with IN) it decides which parents get in.",
+    },
+    admin: {
+      es: "La related list de la página de un registro.",
+      en: "The related list on a record page.",
+    },
+    taughtIn: { es: "Módulo 3", en: "Module 3" },
+  },
+  {
+    id: "variable-enlace",
+    term: { es: "variable de enlace", en: "bind variable" },
+    definition: {
+      es: "Una variable de Apex usada dentro de una consulta con dos puntos (:accId). Su valor viaja aparte del texto de la consulta, así que no puede alterarla.",
+      en: "An Apex variable used inside a query with a colon (:accId). Its value travels separately from the query text, so it cannot alter it.",
+    },
+    admin: {
+      es: "El {!recordId} que pones en el filtro de un Get Records de Flow.",
+      en: "The {!recordId} you put in a Flow Get Records filter.",
+    },
+    taughtIn: { es: "Módulo 3", en: "Module 3" },
+  },
+  {
+    id: "inyeccion-soql",
+    term: { es: "inyección de SOQL", en: "SOQL injection" },
+    definition: {
+      es: "Un ataque en el que el texto que escribe un usuario se pega dentro de una consulta dinámica y cambia lo que la consulta hace, por ejemplo saltándose un filtro.",
+      en: "An attack in which text typed by a user is glued into a dynamic query and changes what the query does, for example skipping a filter.",
+    },
+    taughtIn: { es: "Módulo 3 · Módulo 12", en: "Module 3 · Module 12" },
+  },
+  {
+    id: "id-externo",
+    term: { es: "Id externo", en: "external Id" },
+    definition: {
+      es: "Un campo marcado como External ID que guarda el identificador del registro en otro sistema (un ERP, una tienda). upsert lo usa para decidir si crea o actualiza.",
+      en: "A field marked as External ID that holds the record's identifier in another system (an ERP, a shop). upsert uses it to decide whether to create or update.",
+    },
+    admin: {
+      es: "El campo que eliges en el paso «Choose your field to use for matching» del Upsert de Data Loader.",
+      en: "The field you pick in the “Choose your field to use for matching” step of Data Loader's Upsert.",
+    },
+    taughtIn: { es: "Módulo 4", en: "Module 4" },
+  },
+  {
+    id: "bulkificacion",
+    term: { es: "bulkificación", en: "bulkification" },
+    definition: {
+      es: "Escribir el código para que haga el mismo número de consultas y DML con 1 registro que con 200: juntar Ids, consultar una vez, trabajar en memoria y guardar una vez.",
+      en: "Writing code so it runs the same number of queries and DML with 1 record as with 200: gather Ids, query once, work in memory and save once.",
+    },
+    admin: {
+      es: "En Flow, sacar Get Records y Update Records del Loop y trabajar con variables de colección.",
+      en: "In Flow, moving Get Records and Update Records out of the Loop and working with collection variables.",
+    },
+    taughtIn: { es: "Módulo 4", en: "Module 4" },
+  },
+  {
+    id: "savepoint",
+    term: { es: "savepoint", en: "savepoint" },
+    definition: {
+      es: "Una marca dentro de la transacción (Database.setSavepoint()). Database.rollback() devuelve la base de datos al estado que tenía en esa marca.",
+      en: "A mark inside the transaction (Database.setSavepoint()). Database.rollback() returns the database to the state it had at that mark.",
+    },
+    admin: {
+      es: "El elemento Roll Back Records de un camino de error en Flow.",
+      en: "The Roll Back Records element on a Flow fault path.",
+    },
+    taughtIn: { es: "Módulo 4", en: "Module 4" },
+  },
+  {
+    id: "multitenant",
+    term: { es: "multitenant", en: "multitenant" },
+    definition: {
+      es: "La arquitectura de Salesforce: miles de empresas comparten la misma infraestructura, cada una con sus datos separados. Los governor limits existen para que ninguna acapare los recursos.",
+      en: "Salesforce's architecture: thousands of companies share the same infrastructure, each with its data kept apart. Governor limits exist so none can hog the resources.",
+    },
+    taughtIn: { es: "Módulo 4", en: "Module 4" },
+  },
 ];
 
 const byId = new Map(glossary.map((g) => [g.id, g]));

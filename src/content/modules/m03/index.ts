@@ -1,0 +1,29 @@
+import type { Module } from "@/lib/types";
+import { l01Anatomia } from "./l01-anatomia";
+import { l02WhereOrderLimit } from "./l02-where-order-limit";
+import { l03Relaciones } from "./l03-relaciones";
+import { l04BindDinamico } from "./l04-bind-dinamico";
+import { l05Agregados } from "./l05-agregados";
+import { l06Sosl } from "./l06-sosl";
+import { l07Checkpoint } from "./l07-checkpoint";
+
+export const m03: Module = {
+  id: "m03",
+  n: 3,
+  category: "logic",
+  status: "ready",
+  title: { es: "SOQL y SOSL", en: "SOQL and SOSL" },
+  subtitle: {
+    es: "Preguntarle a la base de datos: el equivalente en código a un Report Type con filtros.",
+    en: "Asking the database: the code equivalent of a Report Type with filters.",
+  },
+  lessons: [
+    l01Anatomia,
+    l02WhereOrderLimit,
+    l03Relaciones,
+    l04BindDinamico,
+    l05Agregados,
+    l06Sosl,
+    l07Checkpoint,
+  ],
+};

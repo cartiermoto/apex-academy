@@ -2114,6 +2114,511 @@ function OopAdminMap({ lang }: P) {
   );
 }
 
+/* ============================================================ MODULE 3 ==== */
+
+/* ------------------------------------------------- m03 · soql anatomy ----- */
+
+function SoqlAnatomy({ lang }: P) {
+  const id = "soqa";
+  const rows = [
+    { code: "[ ... ]", what: pick(lang, "«esto es una consulta»", "“this is a query”") },
+    { code: "SELECT Id, Name, Industry", what: pick(lang, "las columnas del informe", "the report's columns") },
+    { code: "FROM Account", what: pick(lang, "el Report Type", "the Report Type") },
+    { code: "List<Account>", what: pick(lang, "lo que recibes: filas", "what you get: rows") },
+  ];
+  return (
+    <Svg id={id} viewBox="0 0 600 250" title={pick(lang, "Anatomía de una consulta", "Anatomy of a query")}>
+      <text x="0" y="16" {...S.eyebrow}>{pick(lang, "EN APEX", "IN APEX")}</text>
+      <text x="358" y="16" {...S.eyebrow}>{pick(lang, "EN TU INFORME", "IN YOUR REPORT")}</text>
+      {rows.map((r, i) => {
+        const y = 28 + i * 54;
+        return (
+          <g key={r.code}>
+            <Tag x={0} y={y} w={290} text={r.code} kind="brand" mono />
+            <Arrow d={`M296 ${y + 20} L352 ${y + 20}`} id={id} tone="muted" />
+            <Tag x={358} y={y} w={242} text={r.what} />
+          </g>
+        );
+      })}
+    </Svg>
+  );
+}
+
+/* ------------------------------------------------ m03 · filter funnel ----- */
+
+function FilterFunnel({ lang }: P) {
+  const id = "funnel";
+  const bars = [
+    { w: 600, code: "FROM Opportunity", n: pick(lang, "12.000 registros", "12,000 records"), brand: false },
+    { w: 470, code: "WHERE IsClosed = false AND …", n: "800", brand: false },
+    { w: 470, code: "ORDER BY Amount DESC", n: pick(lang, "800, ordenados", "800, sorted"), brand: false },
+    { w: 250, code: "LIMIT 10", n: pick(lang, "10 filas", "10 rows"), brand: true },
+  ];
+  return (
+    <Svg id={id} viewBox="0 0 600 232" title={pick(lang, "Cada cláusula filtra más", "Each clause filters more")}>
+      {bars.map((b, i) => {
+        const y = i * 62;
+        const x = (600 - b.w) / 2;
+        const style = b.brand ? S.boxBrand : S.box;
+        return (
+          <g key={b.code}>
+            <rect x={x} y={y} width={b.w} height="44" rx="8" {...style} />
+            <text x={x + 14} y={y + 27} {...S.monoSmall} fontSize={13}>
+              {b.code}
+            </text>
+            <text x={x + b.w - 14} y={y + 27} {...S.muted} fontSize={12.5} textAnchor="end">
+              {b.n}
+            </text>
+            {i < bars.length - 1 && <Arrow d={`M300 ${y + 46} L300 ${y + 60}`} id={id} tone="muted" />}
+          </g>
+        );
+      })}
+    </Svg>
+  );
+}
+
+/* ------------------------------------------------ m03 · relationships ----- */
+
+function RelationshipsMap({ lang }: P) {
+  const id = "rels";
+  const kids = ["Ruiz", "Kim", "Silva"];
+  return (
+    <Svg id={id} viewBox="0 0 600 300" title={pick(lang, "Relaciones padre e hijo", "Parent and child relationships")}>
+      <Tag x={200} y={0} w={200} h={46} text="User" sub={pick(lang, "el propietario", "the owner")} />
+      <Tag x={200} y={110} w={200} h={46} text="Account" sub="Acme Corp" kind="brand" />
+      {kids.map((k, i) => (
+        <Tag key={k} x={150 + i * 104} y={226} w={96} h={46} text="Contact" sub={k} />
+      ))}
+
+      <Arrow d="M223 224 L223 162" id={id} />
+      <Arrow d="M300 108 L300 50" id={id} />
+      <text x="0" y="112" {...S.label} fontSize={13}>
+        {pick(lang, "Hacia arriba: un punto", "Upwards: a dot")}
+      </text>
+      <text x="0" y="134" {...S.monoSmall} fontSize={12}>
+        Account.Name
+      </text>
+      <text x="0" y="152" {...S.monoSmall} fontSize={12}>
+        Account.Owner.Name
+      </text>
+
+      <Arrow d="M404 134 L430 134 L430 220" id={id} tone="accent" />
+      <text x="476" y="112" {...S.label} fontSize={13}>
+        {pick(lang, "Hacia abajo:", "Downwards:")}
+      </text>
+      <text x="476" y="130" {...S.label} fontSize={13}>
+        {pick(lang, "subconsulta", "subquery")}
+      </text>
+      <text x="476" y="152" {...S.monoSmall} fontSize={12}>
+        (SELECT …
+      </text>
+      <text x="476" y="170" {...S.monoSmall} fontSize={12}>
+        FROM Contacts)
+      </text>
+
+      <text x="0" y="296" {...S.muted} fontSize={12.5}>
+        {pick(
+          lang,
+          "Fórmula entre objetos hacia arriba · related list hacia abajo",
+          "Cross-object formula upwards · related list downwards",
+        )}
+      </text>
+    </Svg>
+  );
+}
+
+/* ----------------------------------------------------- m03 · bind -------- */
+
+function BindVsConcat({ lang }: P) {
+  const id = "bind";
+  return (
+    <Svg id={id} viewBox="0 0 600 300" title={pick(lang, "Enlace frente a concatenación", "Bind versus concatenation")}>
+      <text x="0" y="16" {...S.eyebrow}>
+        {pick(lang, "EL USUARIO ESCRIBE", "THE USER TYPES")}
+      </text>
+      <Tag x={0} y={26} w={300} text="%' OR Subject LIKE '%" kind="accent" mono />
+
+      <text x="0" y="104" {...S.eyebrow}>
+        {pick(lang, "CON :pattern · EL VALOR VA APARTE", "WITH :pattern · THE VALUE TRAVELS APART")}
+      </text>
+      <Tag x={0} y={114} w={380} text="… AND Subject LIKE :pattern" kind="brand" mono />
+      <text x={392} y={130} {...S.muted} fontSize={12}>
+        {pick(lang, "se busca ese texto tal cual.", "that text is searched as is.")}
+      </text>
+      <text x={392} y={147} {...S.muted} fontSize={12}>
+        {pick(lang, "El filtro sigue en pie.", "The filter still stands.")}
+      </text>
+
+      <text x="0" y="192" {...S.eyebrow}>
+        {pick(lang, "CON + · EL VALOR SE MEZCLA CON EL CÓDIGO", "WITH + · THE VALUE MIXES WITH THE CODE")}
+      </text>
+      <rect x="0" y="202" width="380" height="62" rx="8" {...S.boxAccent} />
+      <text x="12" y="227" {...S.monoSmall} fontSize={13}>
+        IsClosed = false AND Subject
+      </text>
+      <text x="12" y="249" {...S.monoSmall} fontSize={13}>
+        LIKE '%%' OR Subject LIKE '%%'
+      </text>
+      <text x={392} y={226} {...S.muted} fontSize={12}>
+        {pick(lang, "el OR abre la puerta:", "the OR opens the door:")}
+      </text>
+      <text x={392} y={243} {...S.muted} fontSize={12}>
+        {pick(lang, "salen también los cerrados.", "closed ones come out too.")}
+      </text>
+      <text x="0" y="292" {...S.muted} fontSize={12.5}>
+        {pick(lang, "Mismo texto del usuario, dos resultados muy distintos.", "Same user text, two very different results.")}
+      </text>
+    </Svg>
+  );
+}
+
+/* ------------------------------------------------ m03 · aggregate -------- */
+
+function AggregateBuckets({ lang }: P) {
+  const id = "agg";
+  const rows: Array<[string, string]> = [
+    ["Prospecting", "30.000"],
+    ["Proposal", "90.000"],
+    ["Prospecting", "25.000"],
+    ["Negotiation", "180.000"],
+    ["Proposal", "70.000"],
+    ["Prospecting", "35.000"],
+    ["Negotiation", "130.000"],
+    ["Proposal", "80.000"],
+  ];
+  const out: Array<[string, string, string]> = [
+    ["Prospecting", "3", "90.000"],
+    ["Proposal", "3", "240.000"],
+    ["Negotiation", "2", "310.000"],
+  ];
+  return (
+    <Svg id={id} viewBox="0 0 600 284" title={pick(lang, "Agrupar y sumar", "Group and sum")}>
+      <text x="0" y="14" {...S.eyebrow}>
+        {pick(lang, "8 OPORTUNIDADES", "8 OPPORTUNITIES")}
+      </text>
+      {rows.map(([s, a], i) => (
+        <g key={i}>
+          <rect x="0" y={24 + i * 32} width="210" height="26" rx="5" {...S.box} />
+          <text x="10" y={41 + i * 32} {...S.monoSmall} fontSize={12}>
+            {s}
+          </text>
+          <text x="200" y={41 + i * 32} {...S.muted} fontSize={12} textAnchor="end">
+            {a}
+          </text>
+        </g>
+      ))}
+      <Arrow d="M222 150 L300 150" id={id} />
+      <text x="226" y="140" {...S.monoSmall} fontSize={11.5}>
+        GROUP BY
+      </text>
+      <text x="310" y="14" {...S.eyebrow}>
+        {pick(lang, "3 FILAS · UNA POR ETAPA", "3 ROWS · ONE PER STAGE")}
+      </text>
+      {out.map(([s, n, t], i) => (
+        <g key={s}>
+          <rect x="310" y={64 + i * 62} width="290" height="48" rx="8" {...S.boxBrand} />
+          <text x="324" y={85 + i * 62} {...S.monoSmall} fontSize={13}>
+            {s}
+          </text>
+          <text x="324" y={103 + i * 62} {...S.muted} fontSize={11.5}>
+            COUNT = {n} · SUM = {t}
+          </text>
+        </g>
+      ))}
+    </Svg>
+  );
+}
+
+/* ------------------------------------------------------ m03 · sosl ------- */
+
+function SoslDrawers({ lang }: P) {
+  const id = "sosl";
+  const d = [
+    { t: "Account", s: pick(lang, "results[0] · 2 filas", "results[0] · 2 rows") },
+    { t: "Contact", s: pick(lang, "results[1] · 5 filas", "results[1] · 5 rows") },
+    { t: "Opportunity", s: pick(lang, "results[2] · 3 filas", "results[2] · 3 rows") },
+  ];
+  return (
+    <Svg id={id} viewBox="0 0 600 206" title={pick(lang, "Resultado de SOSL", "SOSL result")}>
+      <Tag x={140} y={0} w={320} h={46} text="FIND 'Acme*' IN ALL FIELDS" kind="brand" mono />
+      {d.map((b, i) => {
+        const x = i * 204;
+        return (
+          <g key={b.t}>
+            <Arrow d={`M300 50 L${x + 96} 118`} id={id} tone="muted" />
+            <Tag x={x} y={124} w={192} h={50} text={b.t} sub={b.s} mono />
+          </g>
+        );
+      })}
+      <text x="0" y="200" {...S.muted} fontSize={12.5}>
+        {"List<List<SObject>> · "}
+        {pick(lang, "el orden es el del RETURNING", "the order is the RETURNING's")}
+      </text>
+    </Svg>
+  );
+}
+
+/* ------------------------------------------- m03 · checkpoint chooser ---- */
+
+function QueryChooser({ lang }: P) {
+  const id = "qch";
+  const rows: Array<[string, string]> = [
+    [pick(lang, "¿Buscas un texto sin saber dónde está?", "Text, but you do not know where?"), "SOSL · FIND"],
+    [pick(lang, "¿Quieres un total, un recuento, una media?", "Want a total, a count, an average?"), "SUM · GROUP BY"],
+    [pick(lang, "¿Necesitas campos del padre?", "Need parent fields?"), "Account.Name"],
+    [pick(lang, "¿Necesitas los hijos de cada registro?", "Need each record's children?"), "(SELECT … FROM …)"],
+    [pick(lang, "¿Filtras por variables o por muchos Ids?", "Filtering by variables or many Ids?"), ":var · IN :ids"],
+    [pick(lang, "¿Nada de lo anterior?", "None of the above?"), "SELECT … WHERE …"],
+  ];
+  return (
+    <Svg id={id} viewBox="0 0 600 316" title={pick(lang, "Qué herramienta usar", "Which tool to use")}>
+      {rows.map(([q, a], i) => {
+        const y = i * 54;
+        return (
+          <g key={a}>
+            <Tag x={0} y={y} w={352} text={q} />
+            <Arrow d={`M356 ${y + 20} L380 ${y + 20}`} id={id} />
+            <Tag x={386} y={y} w={214} text={a} kind="brand" mono />
+          </g>
+        );
+      })}
+    </Svg>
+  );
+}
+
+/* ============================================================ MODULE 4 ==== */
+
+/* ---------------------------------------------------- m04 · dml ops ------ */
+
+function DmlOps({ lang }: P) {
+  const id = "dmlops";
+  const rows: Array<[string, string, string]> = [
+    ["Insert", "insert records;", pick(lang, "sin Id: te lo da", "no Id: it gives you one")],
+    ["Update", "update records;", pick(lang, "el Id, obligatorio", "the Id, mandatory")],
+    ["Upsert", "upsert records ExtId__c;", pick(lang, "un campo External ID", "an External ID field")],
+    ["Delete", "delete records;", pick(lang, "el Id · a la Papelera", "the Id · to the Bin")],
+  ];
+  return (
+    <Svg id={id} viewBox="0 0 600 250" title={pick(lang, "Operaciones DML", "DML operations")}>
+      <text x="0" y="16" {...S.eyebrow}>DATA LOADER</text>
+      <text x="162" y="16" {...S.eyebrow}>APEX</text>
+      <text x="424" y="16" {...S.eyebrow}>{pick(lang, "NECESITA", "NEEDS")}</text>
+      {rows.map(([op, code, need], i) => {
+        const y = 28 + i * 54;
+        return (
+          <g key={op}>
+            <Tag x={0} y={y} w={130} text={op} />
+            <Arrow d={`M134 ${y + 20} L156 ${y + 20}`} id={id} tone="muted" />
+            <Tag x={162} y={y} w={230} text={code} kind="brand" mono />
+            <Arrow d={`M396 ${y + 20} L418 ${y + 20}`} id={id} tone="muted" />
+            <Tag x={424} y={y} w={176} text={need} />
+          </g>
+        );
+      })}
+    </Svg>
+  );
+}
+
+/* ------------------------------------------------- m04 · all or none ----- */
+
+function AllOrNone({ lang }: P) {
+  const id = "aon";
+  const cells = (y: number, keepBad: boolean) =>
+    [0, 1, 2, 3, 4].map((i) => {
+      const bad = i === 2;
+      const style = bad ? S.boxAccent : keepBad ? S.boxBrand : S.box;
+      return (
+        <g key={`${y}-${i}`}>
+          <rect x={i * 50} y={y} width="42" height="42" rx="6" {...style} />
+          <text x={i * 50 + 21} y={y + 26} {...S.label} fontSize={12.5} textAnchor="middle">
+            {bad ? "✗" : `R${i + 1}`}
+          </text>
+        </g>
+      );
+    });
+  return (
+    <Svg id={id} viewBox="0 0 600 236" title={pick(lang, "Todo o nada frente a parcial", "All or nothing versus partial")}>
+      <text x="0" y="16" {...S.eyebrow}>insert records;</text>
+      {cells(26, false)}
+      <Arrow d="M252 47 L298 47" id={id} tone="accent" />
+      <Tag
+        x={304}
+        y={24}
+        w={296}
+        h={48}
+        kind="accent"
+        text={pick(lang, "0 guardados", "0 saved")}
+        sub={pick(lang, "DmlException: se deshace todo", "DmlException: everything undone")}
+      />
+
+      <text x="0" y="124" {...S.eyebrow}>Database.insert(records, false)</text>
+      {cells(134, true)}
+      <Arrow d="M252 155 L298 155" id={id} />
+      <Tag
+        x={304}
+        y={132}
+        w={296}
+        h={48}
+        kind="brand"
+        text={pick(lang, "4 guardados · 1 error", "4 saved · 1 error")}
+        sub={pick(lang, "el motivo, en su SaveResult", "the reason, in its SaveResult")}
+      />
+      <text x="0" y="226" {...S.muted} fontSize={12.5}>
+        {pick(lang, "Como Data Loader: success.csv y error.csv.", "Like Data Loader: success.csv and error.csv.")}
+      </text>
+    </Svg>
+  );
+}
+
+/* ------------------------------------------------------ m04 · bulk ------- */
+
+function BulkCompare({ lang }: P) {
+  const id = "bulk";
+  const left = [
+    pick(lang, "registro 1 → SELECT + update", "record 1 → SELECT + update"),
+    pick(lang, "registro 2 → SELECT + update", "record 2 → SELECT + update"),
+    "…",
+    pick(lang, "registro 200 → SELECT + update", "record 200 → SELECT + update"),
+  ];
+  const right = [
+    pick(lang, "1 · Juntar Ids en un Set", "1 · Gather Ids in a Set"),
+    pick(lang, "2 · Una consulta con IN", "2 · One query with IN"),
+    pick(lang, "3 · Trabajar en memoria", "3 · Work in memory"),
+    pick(lang, "4 · Un solo update", "4 · A single update"),
+  ];
+  return (
+    <Svg id={id} viewBox="0 0 600 300" title={pick(lang, "Sin bulkificar y bulkificado", "Unbulkified and bulkified")}>
+      <text x="0" y="16" {...S.eyebrow}>{pick(lang, "DENTRO DEL BUCLE", "INSIDE THE LOOP")}</text>
+      <text x="320" y="16" {...S.eyebrow}>{pick(lang, "LA RECETA", "THE RECIPE")}</text>
+      {left.map((t, i) => (
+        <Tag key={i} x={0} y={28 + i * 52} w={280} text={t} kind={i === 3 ? "accent" : "box"} />
+      ))}
+      {right.map((t, i) => (
+        <g key={t}>
+          <Tag x={320} y={28 + i * 52} w={280} text={t} kind="brand" />
+          {i < 3 && <Arrow d={`M460 ${70 + i * 52} L460 ${78 + i * 52}`} id={id} />}
+        </g>
+      ))}
+      <text x="0" y="262" {...S.label} fontSize={13}>
+        {pick(lang, "200 consultas + 200 DML", "200 queries + 200 DML")}
+      </text>
+      <text x="0" y="282" {...S.muted} fontSize={12}>
+        {pick(lang, "muere en la consulta 101", "dies on query 101")}
+      </text>
+      <text x="320" y="262" {...S.label} fontSize={13}>
+        {pick(lang, "1 consulta + 1 DML", "1 query + 1 DML")}
+      </text>
+      <text x="320" y="282" {...S.muted} fontSize={12}>
+        {pick(lang, "igual con 1 registro que con 200", "the same with 1 record or 200")}
+      </text>
+    </Svg>
+  );
+}
+
+/* ---------------------------------------------------- m04 · limits ------- */
+
+function LimitsGauges({ lang }: P) {
+  const id = "lims";
+  const rows: Array<[string, number, string]> = [
+    [pick(lang, "Consultas SOQL", "SOQL queries"), 3 / 100, "3 / 100"],
+    [pick(lang, "Filas leídas", "Rows read"), 1250 / 50000, pick(lang, "1.250 / 50.000", "1,250 / 50,000")],
+    [pick(lang, "Instrucciones DML", "DML statements"), 2 / 150, "2 / 150"],
+    [pick(lang, "Filas escritas", "Rows written"), 400 / 10000, pick(lang, "400 / 10.000", "400 / 10,000")],
+    [pick(lang, "CPU (ms)", "CPU (ms)"), 8600 / 10000, pick(lang, "8.600 / 10.000", "8,600 / 10,000")],
+    [pick(lang, "Memoria (heap)", "Memory (heap)"), 0.9 / 6, "0,9 / 6 MB"],
+  ];
+  const x0 = 160;
+  const w = 318;
+  return (
+    <Svg id={id} viewBox="0 0 600 262" title={pick(lang, "Consumo de límites", "Limit usage")}>
+      <text x="0" y="14" {...S.eyebrow}>LIMIT_USAGE_FOR_NS</text>
+      {rows.map(([label, ratio, value], i) => {
+        const y = 30 + i * 38;
+        const hot = ratio >= 0.8;
+        return (
+          <g key={label}>
+            <text x="0" y={y + 17} {...S.label} fontSize={13}>
+              {label}
+            </text>
+            <rect x={x0} y={y} width={w} height="24" rx="6" fill="var(--c-surface-2)" stroke="var(--c-border-strong)" />
+            <rect
+              x={x0}
+              y={y}
+              width={Math.max(8, w * ratio)}
+              height="24"
+              rx="6"
+              fill={hot ? "var(--c-warn-soft)" : "var(--c-brand-soft)"}
+              stroke={hot ? "var(--c-warn)" : "var(--c-brand)"}
+            />
+            <text x="600" y={y + 17} {...S.muted} fontSize={11.5} textAnchor="end">
+              {value}
+            </text>
+          </g>
+        );
+      })}
+    </Svg>
+  );
+}
+
+/* -------------------------------------------------- m04 · savepoint ------ */
+
+function SavepointTimeline({ lang }: P) {
+  const id = "spt";
+  const items = [
+    { t: pick(lang, "insert Uno", "insert One"), s: pick(lang, "se queda", "stays"), kind: "box" as const, mono: true },
+    { t: pick(lang, "marca", "mark"), s: "setSavepoint()", kind: "brand" as const, mono: false },
+    { t: pick(lang, "insert Dos", "insert Two"), s: pick(lang, "se deshace", "is undone"), kind: "accent" as const, mono: true },
+    { t: "rollback(sp)", s: pick(lang, "vuelve a la marca", "back to the mark"), kind: "brand" as const, mono: true },
+    { t: pick(lang, "insert Tres", "insert Three"), s: pick(lang, "se guarda", "is saved"), kind: "box" as const, mono: true },
+  ];
+  return (
+    <Svg id={id} viewBox="0 0 600 180" title={pick(lang, "Savepoint y rollback", "Savepoint and rollback")}>
+      <line x1="0" y1="112" x2="600" y2="112" stroke="var(--c-border-strong)" strokeWidth="1.5" />
+      {items.map((it, i) => (
+        <Tag key={i} x={i * 122} y={88} w={112} h={48} text={it.t} sub={it.s} kind={it.kind} mono={it.mono} />
+      ))}
+      <Arrow d="M422 84 C 422 30, 178 30, 178 82" id={id} tone="accent" />
+      <text x="300" y="14" {...S.muted} fontSize={12} textAnchor="middle">
+        {pick(lang, "Database.rollback(sp) vuelve aquí", "Database.rollback(sp) comes back here")}
+      </text>
+      <text x="0" y="170" {...S.muted} fontSize={12.5}>
+        {pick(lang, "Resultado final en la base de datos: Uno y Tres.", "Final result in the database: One and Three.")}
+      </text>
+    </Svg>
+  );
+}
+
+/* --------------------------------------------- m04 · checkpoint recipe --- */
+
+function SafeDmlRecipe({ lang }: P) {
+  const id = "recipe";
+  const rows: Array<[string, string]> = [
+    [pick(lang, "Juntar los Ids", "Gather the Ids"), "Set<Id> ids"],
+    [pick(lang, "Consultar una vez", "Query once"), "WHERE Id IN :ids"],
+    [pick(lang, "Decidir en memoria", "Decide in memory"), "Map · if · add()"],
+    [pick(lang, "Guardar una vez", "Save once"), "update records;"],
+    [pick(lang, "Revisar resultados", "Check results"), "SaveResult · rollback"],
+  ];
+  return (
+    <Svg id={id} viewBox="0 0 600 272" title={pick(lang, "Receta de DML seguro", "Safe DML recipe")}>
+      {rows.map(([t, c], i) => {
+        const y = i * 54;
+        return (
+          <g key={t}>
+            <circle cx="18" cy={y + 20} r="16" fill="var(--c-brand)" />
+            <text x="18" y={y + 25} fill="var(--c-surface)" fontSize={13} fontWeight={700} textAnchor="middle" fontFamily="var(--font-sans)">
+              {i + 1}
+            </text>
+            <Tag x={44} y={y} w={300} text={t} />
+            <Arrow d={`M348 ${y + 20} L374 ${y + 20}`} id={id} />
+            <Tag x={380} y={y} w={220} text={c} kind="brand" mono />
+          </g>
+        );
+      })}
+    </Svg>
+  );
+}
+
 /* --------------------------------------------------------------- registry -- */
 
 const REGISTRY: Record<string, (p: P) => React.ReactElement> = {
@@ -2137,6 +2642,19 @@ const REGISTRY: Record<string, (p: P) => React.ReactElement> = {
   "m02-break-continue": BreakContinueMap,
   "m02-nested-vs-lookup": NestedVsLookup,
   "m02-cp-choose": ControlChooser,
+  "m03-anatomy": SoqlAnatomy,
+  "m03-filter-funnel": FilterFunnel,
+  "m03-relationships": RelationshipsMap,
+  "m03-bind": BindVsConcat,
+  "m03-aggregate": AggregateBuckets,
+  "m03-sosl": SoslDrawers,
+  "m03-cp-choose": QueryChooser,
+  "m04-dml-ops": DmlOps,
+  "m04-all-or-none": AllOrNone,
+  "m04-bulk": BulkCompare,
+  "m04-limits": LimitsGauges,
+  "m04-savepoint": SavepointTimeline,
+  "m04-cp-recipe": SafeDmlRecipe,
   "m05-class-vs-object": ClassVsObject,
   "m05-references": ReferencesMap,
   "m05-constructor": ConstructorFlow,
