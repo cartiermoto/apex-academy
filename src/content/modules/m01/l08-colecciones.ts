@@ -39,14 +39,6 @@ export const l08Colecciones: Lesson = {
       },
     },
     {
-      type: "diagram",
-      id: "m01-collections",
-      caption: {
-        es: "Tres formas de guardar muchos datos, cada una buena en algo distinto.",
-        en: "Three ways to hold many values, each good at something different.",
-      },
-    },
-    {
       type: "h",
       text: { es: "Cómo se declara una colección", en: "How a collection is declared" },
     },
@@ -248,6 +240,14 @@ Decimal safeQuota = quotaByRegion.containsKey('APAC')
 Decimal safeQuota = quotaByRegion.containsKey('APAC')
     ? quotaByRegion.get('APAC')
     : 0;                                                  // 0`,
+      },
+    },
+    {
+      type: "diagram",
+      id: "m01-collections",
+      caption: {
+        es: "Ahora las tres a la vez, paso a paso: los mismos valores entran en una List y en un Set, y después en un Map. Fíjate en qué pasa con el segundo 'EMEA'.",
+        en: "Now all three at once, step by step: the same values go into a List and a Set, and then into a Map. Watch what happens to the second 'EMEA'.",
       },
     },
     {

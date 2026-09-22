@@ -190,6 +190,23 @@ Boolean broken = region.toUpperCase() == 'EMEA' && region != null;`,
       },
     },
     {
+      type: "diagram",
+      id: "m01-short-circuit",
+      caption: {
+        es: "Reprodúcelo con los tres escenarios. Fíjate en cuándo la parte derecha ni siquiera llega a ejecutarse.",
+        en: "Play it through all three scenarios. Watch when the right side never even runs.",
+      },
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "Como las condiciones de entrada de un Flow", en: "Like a Flow's entry conditions" },
+      text: {
+        es: "En un Flow desencadenado por registro, las condiciones de entrada deciden si el Flow ni siquiera arranca: si el registro no las cumple, ningún elemento de dentro llega a ejecutarse. region != null && … funciona igual: la primera condición es la condición de entrada, y lo que va detrás del && solo corre si la supera. (Simplificación: en un Flow no tienes que preocuparte del orden de las condiciones; en Apex es justo lo que te protege).",
+        en: "In a record-triggered Flow, the entry conditions decide whether the Flow even starts: if the record fails them, no element inside ever runs. region != null && … works the same way: the first condition is the entry condition, and whatever sits after && only runs if it passes. (Simplification: in a Flow you need not worry about condition order; in Apex it is exactly what protects you.)",
+      },
+    },
+    {
       type: "h",
       text: { es: "El operador condicional: IF() en una línea", en: "The conditional operator: IF() on one line" },
     },

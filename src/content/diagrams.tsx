@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { Lang } from "@/lib/types";
+import { CollectionsPlay, MethodFlow, ShortCircuit } from "./diagrams-anim";
 
 /**
  * Course diagrams.
@@ -370,68 +371,6 @@ function MethodAnatomy({ lang }: P) {
   );
 }
 
-/* ------------------------------------------------------ 3b. method chain --- */
-
-function MethodChain({ lang }: P) {
-  const id = "mchain";
-  return (
-    <Svg
-      id={id}
-      viewBox="0 50 640 240"
-      title={pick(lang, "Encadenar métodos", "Chaining methods")}
-    >
-      <rect x="0" y="70" width="120" height="64" rx="10" {...S.box} />
-      <text x="60" y="96" {...S.muted} textAnchor="middle">
-        {pick(lang, "El dato", "The value")}
-      </text>
-      <text x="60" y="120" {...S.monoSmall} textAnchor="middle">
-        {"'acme corp'"}
-      </text>
-
-      <path d="M124 102 L256 102" stroke="var(--c-brand)" strokeWidth="1.6" markerEnd={`url(#ar-${id})`} fill="none" />
-      <text x="190" y="88" {...S.monoSmall} fontSize={12} textAnchor="middle">
-        .substring(0, 4)
-      </text>
-
-      <rect x="260" y="70" width="120" height="64" rx="10" {...S.box} />
-      <text x="320" y="96" {...S.muted} textAnchor="middle">
-        {pick(lang, "Devuelve", "Returns")}
-      </text>
-      <text x="320" y="120" {...S.monoSmall} textAnchor="middle">
-        {"'acme'"}
-      </text>
-
-      <path d="M384 102 L516 102" stroke="var(--c-brand)" strokeWidth="1.6" markerEnd={`url(#ar-${id})`} fill="none" />
-      <text x="450" y="88" {...S.monoSmall} fontSize={12} textAnchor="middle">
-        .toUpperCase()
-      </text>
-
-      <rect x="520" y="70" width="120" height="64" rx="10" {...S.boxBrand} />
-      <text x="580" y="96" {...S.muted} textAnchor="middle" fontSize={12}>
-        {pick(lang, "Encima de ESO", "On THAT")}
-      </text>
-      <text x="580" y="120" {...S.monoSmall} textAnchor="middle" fill="var(--c-brand)">
-        {"'ACME'"}
-      </text>
-
-      <rect x="0" y="186" width="640" height="98" rx="10" {...S.boxAccent} />
-      <text x="20" y="212" {...S.label} fontWeight={600}>
-        {pick(lang, "Se lee de izquierda a derecha, un paso a la vez", "Read left to right, one step at a time")}
-      </text>
-      <text x="20" y="236" {...S.monoSmall}>
-        cleanCompany.substring(0, 4).toUpperCase();
-      </text>
-      <text x="20" y="260" {...S.muted} fontSize={12.5}>
-        {pick(
-          lang,
-          "En una fórmula sería UPPER(LEFT(cleanCompany, 4)): de dentro hacia fuera.",
-          "In a formula it would be UPPER(LEFT(cleanCompany, 4)): inside out.",
-        )}
-      </text>
-    </Svg>
-  );
-}
-
 /* --------------------------------------------- 4. date / time / datetime --- */
 
 function DateTimeMap({ lang }: P) {
@@ -743,105 +682,6 @@ function OperatorsMap({ lang }: P) {
       <rect x="410" y="278" width="190" height="48" rx="8" {...S.box} />
       <text x="426" y="308" {...S.monoSmall}>
         ! <tspan {...S.muted}>{pick(lang, "  lo contrario", "  the opposite")}</tspan>
-      </text>
-    </Svg>
-  );
-}
-
-/* ------------------------------------------------------ 8. collections ----- */
-
-function CollectionsMap({ lang }: P) {
-  const id = "coll";
-  return (
-    <Svg
-      id={id}
-      viewBox="0 0 600 330"
-      title={pick(lang, "List, Set y Map", "List, Set and Map")}
-    >
-      {/* List */}
-      <text x="0" y="16" {...S.eyebrow}>
-        LIST — {pick(lang, "ORDEN, CON REPETIDOS", "ORDERED, DUPLICATES OK")}
-      </text>
-      <g>
-        {["Acme", "Globex", "Acme", "Initech"].map((v, i) => (
-          <g key={i}>
-            <rect x={i * 120} y="28" width="108" height="46" rx="8" {...S.box} />
-            <text x={i * 120 + 54} y="50" {...S.monoSmall} textAnchor="middle">
-              {v}
-            </text>
-            <text x={i * 120 + 54} y="67" {...S.muted} fontSize={11} textAnchor="middle">
-              {pick(lang, "índice", "index")} {i}
-            </text>
-          </g>
-        ))}
-      </g>
-
-      {/* Set */}
-      <text x="0" y="110" {...S.eyebrow}>
-        SET — {pick(lang, "SIN REPETIDOS, SIN ORDEN GARANTIZADO", "NO DUPLICATES, NO GUARANTEED ORDER")}
-      </text>
-      <g>
-        {["Acme", "Globex", "Initech"].map((v, i) => (
-          <g key={i}>
-            <rect x={i * 120} y="122" width="108" height="42" rx="21" {...S.boxBrand} />
-            <text x={i * 120 + 54} y="149" {...S.monoSmall} textAnchor="middle">
-              {v}
-            </text>
-          </g>
-        ))}
-        <rect x="360" y="122" width="108" height="42" rx="21" fill="none" stroke="var(--c-warn)" strokeWidth="1.4" strokeDasharray="4 4" />
-        <text x="414" y="149" {...S.monoSmall} textAnchor="middle" fill="var(--c-warn)">
-          Acme
-        </text>
-        <text x="482" y="143" {...S.muted} fontSize={12}>
-          {pick(lang, "se descarta", "dropped")}
-        </text>
-        <text x="482" y="159" {...S.muted} fontSize={12}>
-          {pick(lang, "por repetido", "as duplicate")}
-        </text>
-      </g>
-
-      {/* Map */}
-      <text x="0" y="200" {...S.eyebrow}>
-        MAP — {pick(lang, "BUSCAR POR CLAVE", "LOOK UP BY KEY")}
-      </text>
-      {[
-        ["0015g00...", "Acme Corp"],
-        ["0015g01...", "Globex SA"],
-      ].map(([k, v], i) => (
-        <g key={i}>
-          <rect x="0" y={212 + i * 52} width="220" height="42" rx="8" {...S.box} />
-          <text x="16" y={239 + i * 52} {...S.monoSmall}>
-            {k}
-          </text>
-          <path
-            d={`M226 ${233 + i * 52} L286 ${233 + i * 52}`}
-            stroke="var(--c-brand)"
-            strokeWidth="1.5"
-            markerEnd={`url(#ar-${id})`}
-            fill="none"
-          />
-          <rect x="292" y={212 + i * 52} width="220" height="42" rx="8" {...S.boxBrand} />
-          <text x="308" y={239 + i * 52} {...S.monoSmall}>
-            {v}
-          </text>
-        </g>
-      ))}
-      <text x="524" y="245" {...S.muted} fontSize={12}>
-        {pick(lang, "clave", "key")}
-      </text>
-      <text x="524" y="262" {...S.muted} fontSize={12}>
-        →
-      </text>
-      <text x="524" y="280" {...S.muted} fontSize={12}>
-        {pick(lang, "valor", "value")}
-      </text>
-      <text x="0" y="322" {...S.muted} fontSize={12.5}>
-        {pick(
-          lang,
-          "Un Map contesta «¿qué cuenta es este Id?» sin recorrer la lista entera.",
-          "A Map answers “which account is this Id?” without scanning the whole list.",
-        )}
       </text>
     </Svg>
   );
@@ -3197,12 +3037,13 @@ const REGISTRY: Record<string, (p: P) => React.ReactElement> = {
   "m01-variable-anatomy": VariableAnatomy,
   "m01-number-types": NumberTypes,
   "m01-method-anatomy": MethodAnatomy,
-  "m01-method-chain": MethodChain,
+  "m01-method-chain": MethodFlow,
   "m01-datetime": DateTimeMap,
   "m01-sobject": SObjectShape,
   "m01-null": NullStates,
   "m01-operators": OperatorsMap,
-  "m01-collections": CollectionsMap,
+  "m01-short-circuit": ShortCircuit,
+  "m01-collections": CollectionsPlay,
   "m01-casting": CastingMap,
   "m01-cp-flow": CheckpointFlow,
   "m01-cp-formula-vs-apex": FormulaVsApex,

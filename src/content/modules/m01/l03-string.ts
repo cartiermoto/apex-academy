@@ -192,8 +192,8 @@ String quoted = 'The client said \\'yes\\' yesterday';`,
       type: "diagram",
       id: "m01-method-chain",
       caption: {
-        es: "Cada flecha es un paso. Lo que sale de un paso es lo único que entra en el siguiente.",
-        en: "Each arrow is one step. What comes out of one step is all that goes into the next.",
+        es: "Pulsa Reproducir o avanza paso a paso: lo que sale de un paso es lo único que entra en el siguiente. Cambia a «Anidar» para ver el orden de dentro hacia fuera, que se explica más abajo.",
+        en: "Press Play or step through: what comes out of one step is all that goes into the next. Switch to “Nest” to see the inside-out order, explained further down.",
       },
     },
     {
