@@ -369,6 +369,68 @@ function MethodAnatomy({ lang }: P) {
   );
 }
 
+/* ------------------------------------------------------ 3b. method chain --- */
+
+function MethodChain({ lang }: P) {
+  const id = "mchain";
+  return (
+    <Svg
+      id={id}
+      viewBox="0 50 640 240"
+      title={pick(lang, "Encadenar métodos", "Chaining methods")}
+    >
+      <rect x="0" y="70" width="120" height="64" rx="10" {...S.box} />
+      <text x="60" y="96" {...S.muted} textAnchor="middle">
+        {pick(lang, "El dato", "The value")}
+      </text>
+      <text x="60" y="120" {...S.monoSmall} textAnchor="middle">
+        {"'acme corp'"}
+      </text>
+
+      <path d="M124 102 L256 102" stroke="var(--c-brand)" strokeWidth="1.6" markerEnd={`url(#ar-${id})`} fill="none" />
+      <text x="190" y="88" {...S.monoSmall} fontSize={12} textAnchor="middle">
+        .substring(0, 4)
+      </text>
+
+      <rect x="260" y="70" width="120" height="64" rx="10" {...S.box} />
+      <text x="320" y="96" {...S.muted} textAnchor="middle">
+        {pick(lang, "Devuelve", "Returns")}
+      </text>
+      <text x="320" y="120" {...S.monoSmall} textAnchor="middle">
+        {"'acme'"}
+      </text>
+
+      <path d="M384 102 L516 102" stroke="var(--c-brand)" strokeWidth="1.6" markerEnd={`url(#ar-${id})`} fill="none" />
+      <text x="450" y="88" {...S.monoSmall} fontSize={12} textAnchor="middle">
+        .toUpperCase()
+      </text>
+
+      <rect x="520" y="70" width="120" height="64" rx="10" {...S.boxBrand} />
+      <text x="580" y="96" {...S.muted} textAnchor="middle" fontSize={12}>
+        {pick(lang, "Encima de ESO", "On THAT")}
+      </text>
+      <text x="580" y="120" {...S.monoSmall} textAnchor="middle" fill="var(--c-brand)">
+        {"'ACME'"}
+      </text>
+
+      <rect x="0" y="186" width="640" height="98" rx="10" {...S.boxAccent} />
+      <text x="20" y="212" {...S.label} fontWeight={600}>
+        {pick(lang, "Se lee de izquierda a derecha, un paso a la vez", "Read left to right, one step at a time")}
+      </text>
+      <text x="20" y="236" {...S.monoSmall}>
+        cleanCompany.substring(0, 4).toUpperCase();
+      </text>
+      <text x="20" y="260" {...S.muted} fontSize={12.5}>
+        {pick(
+          lang,
+          "En una fórmula sería UPPER(LEFT(cleanCompany, 4)): de dentro hacia fuera.",
+          "In a formula it would be UPPER(LEFT(cleanCompany, 4)): inside out.",
+        )}
+      </text>
+    </Svg>
+  );
+}
+
 /* --------------------------------------------- 4. date / time / datetime --- */
 
 function DateTimeMap({ lang }: P) {
@@ -2625,6 +2687,7 @@ const REGISTRY: Record<string, (p: P) => React.ReactElement> = {
   "m01-variable-anatomy": VariableAnatomy,
   "m01-number-types": NumberTypes,
   "m01-method-anatomy": MethodAnatomy,
+  "m01-method-chain": MethodChain,
   "m01-datetime": DateTimeMap,
   "m01-sobject": SObjectShape,
   "m01-null": NullStates,

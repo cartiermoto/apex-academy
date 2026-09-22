@@ -175,6 +175,43 @@ String quoted = 'The client said \\'yes\\' yesterday';`,
     },
     {
       type: "h",
+      text: { es: "Encadenar métodos: uno detrás de otro", en: "Chaining methods: one after another" },
+    },
+    {
+      type: "p",
+      text: {
+        es: "Cada método devuelve un valor nuevo, y ese valor nuevo también es un dato al que le puedes pedir otro método, con otro punto pegado detrás. Eso es encadenar: cleanCompany.substring(0, 4).toUpperCase() no son dos instrucciones, es una sola que se lee de izquierda a derecha. Primero substring(0, 4) actúa sobre cleanCompany y devuelve un texto más corto; después toUpperCase() actúa sobre ESE texto corto, no sobre cleanCompany.",
+        en: "Every method returns a new value, and that new value is itself something you can ask another method of, with another dot stuck on the end. That is chaining: cleanCompany.substring(0, 4).toUpperCase() is not two instructions, it is one, read left to right. First substring(0, 4) acts on cleanCompany and returns a shorter text; then toUpperCase() acts on THAT shorter text, not on cleanCompany.",
+      },
+    },
+    {
+      type: "diagram",
+      id: "m01-method-chain",
+      caption: {
+        es: "Cada flecha es un paso. Lo que sale de un paso es lo único que entra en el siguiente.",
+        en: "Each arrow is one step. What comes out of one step is all that goes into the next.",
+      },
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "Lo mismo que anidar funciones en una fórmula", en: "The same thing as nesting functions in a formula" },
+      text: {
+        es: "Ya hiciste esto en un campo fórmula: UPPER(LEFT(Company_Name__c, 4)) primero recorta y luego pone en mayúsculas, aunque lo escribas de fuera hacia dentro. La diferencia es el orden de lectura: la fórmula se lee de dentro hacia fuera (LEFT ocurre primero aunque esté más adentro), y el encadenado de Apex se lee de izquierda a derecha en el mismo orden en que ocurre. Es más fácil de seguir precisamente porque no hay que leerlo al revés.",
+        en: "You already did this in a formula field: UPPER(LEFT(Company_Name__c, 4)) trims first and capitalises second, even though you write it from the outside in. The difference is the reading order: a formula reads inside out (LEFT happens first even though it sits deeper in), while Apex chaining reads left to right in the very order things happen. It is easier to follow precisely because you never have to read it backwards.",
+      },
+    },
+    {
+      type: "callout",
+      variant: "warn",
+      title: { es: "Un eslabón roto revienta toda la cadena", en: "One broken link blows up the whole chain" },
+      text: {
+        es: "Si algún paso intermedio devuelve null —por ejemplo porque el dato de partida no existía—, pedirle un método al siguiente eslabón lanza NullPointerException, igual que viste con un dato suelto. La cadena entera es tan frágil como su punto más débil. Por eso String.isBlank() (que se le pide al tipo, no al dato) suele ir antes de empezar a encadenar, no en medio de la cadena.",
+        en: "If some step in the middle returns null — say, because the starting value did not exist — asking the next link for a method throws NullPointerException, exactly as you saw with a lone value. The whole chain is only as strong as its weakest link. That is why String.isBlank() (which you ask the type, not the value) usually runs before you start chaining, not in the middle of the chain.",
+      },
+    },
+    {
+      type: "h",
       text: { es: "Métodos que se le piden al tipo, no al dato", en: "Methods you ask the type, not the value" },
     },
     {
@@ -239,8 +276,8 @@ Boolean loose2 = 'EMEA'.equalsIgnoreCase('emea'); // true, and it reads better`,
       variant: "recall",
       title: { es: "Antes de seguir", en: "Before moving on" },
       text: {
-        es: "Sin mirar arriba: ¿por qué rawName.toUpperCase(); en una línea suelta no sirve para nada? ¿Y qué devuelve contains()?",
-        en: "Without looking up: why is rawName.toUpperCase(); on a line of its own completely useless? And what does contains() return?",
+        es: "Sin mirar arriba: ¿por qué rawName.toUpperCase(); en una línea suelta no sirve para nada? ¿Qué devuelve contains()? Y en code.substring(0, 4).toUpperCase(), ¿sobre qué actúa exactamente toUpperCase()?",
+        en: "Without looking up: why is rawName.toUpperCase(); on a line of its own completely useless? What does contains() return? And in code.substring(0, 4).toUpperCase(), what exactly does toUpperCase() act on?",
       },
     },
   ],
@@ -376,6 +413,29 @@ Boolean match = stored == 'closed won';`,
       },
       tags: ["spaced"],
       from: { es: "Repaso · M1 L2", en: "Review · M1 L2" },
+    },
+    {
+      id: "m01-l03-q7",
+      kind: "single",
+      prompt: { es: "¿Qué muestra este código?", en: "What does this code print?" },
+      code: {
+        es: `String code = 'apex-academy';
+System.debug(code.substring(0, 4).toUpperCase());`,
+        en: `String code = 'apex-academy';
+System.debug(code.substring(0, 4).toUpperCase());`,
+      },
+      options: [
+        { es: "APEX", en: "APEX" },
+        { es: "apex", en: "apex" },
+        { es: "APEX-ACADEMY", en: "APEX-ACADEMY" },
+        { es: "No compila: dos métodos seguidos no se pueden encadenar.", en: "It does not compile: you cannot chain two methods in a row." },
+      ],
+      answer: 0,
+      explain: {
+        es: "Primero substring(0, 4) actúa sobre code y devuelve 'apex'. Después toUpperCase() actúa sobre ese 'apex', no sobre code: el resultado es 'APEX'.",
+        en: "First substring(0, 4) acts on code and returns 'apex'. Then toUpperCase() acts on that 'apex', not on code: the result is 'APEX'.",
+      },
+      tags: ["predict-output"],
     },
   ],
 
