@@ -4,6 +4,7 @@ import { m02 } from "./modules/m02";
 import { m03 } from "./modules/m03";
 import { m04 } from "./modules/m04";
 import { m05 } from "./modules/m05";
+import { m06 } from "./modules/m06";
 import { challenge1, challenge2 } from "./challenges";
 
 /* -------------------------------------------------------------------------- */
@@ -30,25 +31,6 @@ function planned(
     outline: outline.map(([es, en]) => ({ es, en })),
   };
 }
-
-const m06 = planned(
-  6,
-  "m06",
-  "obj",
-  { es: "Triggers", en: "Triggers" },
-  {
-    es: "La automatización que corre cuando nadie mira: el Record-Triggered Flow, en código.",
-    en: "The automation that runs when nobody is looking: the record-triggered Flow, in code.",
-  },
-  [
-    ["Qué es un trigger y cuándo se dispara", "What a trigger is and when it fires"],
-    ["Contexto: Trigger.new, Trigger.old, Trigger.newMap", "Context: Trigger.new, Trigger.old, Trigger.newMap"],
-    ["before vs after", "before vs after"],
-    ["Orden de ejecución en Salesforce", "Salesforce order of execution"],
-    ["Recursión y cómo evitarla", "Recursion and how to avoid it"],
-    ["Checkpoint del Módulo 6", "Module 6 checkpoint"],
-  ],
-);
 
 const m07 = planned(
   7,
