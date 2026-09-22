@@ -246,6 +246,25 @@ for (Account a : accounts) {
       },
     },
     {
+      type: "h",
+      text: { es: "Las tres formas, una al lado de otra", en: "The three ways, side by side" },
+    },
+    {
+      type: "p",
+      text: {
+        es: "Bajar a los hijos, subir al padre y filtrar por los hijos se escriben parecido y devuelven cosas MUY distintas. Cambia de pestaña en el diagrama y fíjate en dos columnas: cuántas filas vuelven y de qué objeto son. Es el error más común al empezar: pedir contactos y recibir cuentas, o al revés.",
+        en: "Going down to the children, up to the parent and filtering by the children look similar and return VERY different things. Switch tabs in the diagram and watch two things: how many rows come back and which object they belong to. It is the most common beginner mistake: asking for contacts and receiving accounts, or the other way round.",
+      },
+    },
+    {
+      type: "diagram",
+      id: "m03-subquery",
+      caption: {
+        es: "Los mismos cinco registros de la org, consultados de tres maneras. Fíjate en el recuento de filas de cada pestaña.",
+        en: "The same five org records, queried three ways. Watch the row count on each tab.",
+      },
+    },
+    {
       type: "callout",
       variant: "recall",
       title: { es: "Antes de seguir", en: "Before moving on" },
