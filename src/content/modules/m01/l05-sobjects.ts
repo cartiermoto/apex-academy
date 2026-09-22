@@ -211,6 +211,34 @@ Integer nameLength = account.Name.length();`,
     },
     {
       type: "callout",
+      variant: "admin",
+      title: { es: "En account.Name.trim() el punto hace dos trabajos", en: "In account.Name.trim() the dot does two jobs" },
+      text: {
+        es: "El primer punto significa «el campo de»: account.Name es como el campo de combinación {!Account.Name} de una plantilla de email. El segundo punto es el de los métodos: a ese String le pides trim(). Se lee de izquierda a derecha, igual que cualquier cadena: registro → campo → método. En fórmula sería TRIM(Account.Name). Cómo distinguirlos: si lleva paréntesis es un método; si no los lleva, es un campo.",
+        en: "The first dot means “the field of”: account.Name is like the {!Account.Name} merge field in an email template. The second dot is the method dot: you ask that String for trim(). It reads left to right like any chain: record → field → method. As a formula it would be TRIM(Account.Name). How to tell them apart: brackets mean a method; no brackets means a field.",
+      },
+    },
+    {
+      type: "code",
+      code: {
+        es: `Account account = new Account(Name = '  acme corp  ', Industry = 'technology');
+
+String shortCode = account.Name.trim().substring(0, 4).toUpperCase(); // 'ACME'
+Boolean isTech = account.Industry.equalsIgnoreCase('Technology');     // true
+String label = account.Name.trim() + ' · ' + account.Industry;        // 'acme corp · technology'`,
+        en: `Account account = new Account(Name = '  acme corp  ', Industry = 'technology');
+
+String shortCode = account.Name.trim().substring(0, 4).toUpperCase(); // 'ACME'
+Boolean isTech = account.Industry.equalsIgnoreCase('Technology');     // true
+String label = account.Name.trim() + ' · ' + account.Industry;        // 'acme corp · technology'`,
+      },
+      caption: {
+        es: "Si el campo estuviera vacío (null), el primer método de la cadena lanzaría NullPointerException. La sub-lección siguiente es justo sobre eso.",
+        en: "If the field were empty (null), the first method in the chain would throw NullPointerException. The next sub-lesson is exactly about that.",
+      },
+    },
+    {
+      type: "callout",
       variant: "recall",
       title: { es: "Antes de seguir", en: "Before moving on" },
       text: {

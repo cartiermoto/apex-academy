@@ -5,7 +5,7 @@ export const l03String: Lesson = {
   slug: "string",
   n: 3,
   kind: "lesson",
-  minutes: 26,
+  minutes: 34,
   title: { es: "String y qué es un método", en: "String and what a method is" },
   summary: {
     es: "El texto es el tipo con el que más vas a pelear. Antes de listar sus herramientas, hay que entender qué es exactamente una «herramienta» en Apex.",
@@ -23,6 +23,10 @@ export const l03String: Lesson = {
     {
       es: "Usar los métodos de String más habituales para limpiar y componer texto.",
       en: "Use the common String methods to clean and compose text.",
+    },
+    {
+      es: "Encadenar y anidar métodos, y leer cualquier combinación paso a paso como lees una fórmula anidada.",
+      en: "Chain and nest methods, and read any combination step by step the way you read a nested formula.",
     },
     {
       es: "Saber por qué comparar textos con == en Apex sorprende a todo el mundo una vez.",
@@ -202,6 +206,91 @@ String quoted = 'The client said \\'yes\\' yesterday';`,
       },
     },
     {
+      type: "p",
+      text: {
+        es: "Veámoslo con el Lead sucio del ejercicio, eslabón a eslabón. La columna que importa es la última: el tipo que devuelve cada paso decide qué métodos puedes pedirle al siguiente.",
+        en: "Let us walk the dirty Lead from the exercise through it, link by link. The column that matters is the last one: the type each step returns decides which methods you may ask of the next.",
+      },
+    },
+    {
+      type: "table",
+      head: [
+        { es: "Lo que llevas escrito", en: "What you have written so far" },
+        { es: "Valor en ese punto", en: "Value at that point" },
+        { es: "Tipo", en: "Type" },
+      ],
+      rows: [
+        [
+          { es: "rawCompany", en: "rawCompany" },
+          { es: "'  northwind trading  '", en: "'  northwind trading  '" },
+          { es: "String", en: "String" },
+        ],
+        [
+          { es: "rawCompany.trim()", en: "rawCompany.trim()" },
+          { es: "'northwind trading'", en: "'northwind trading'" },
+          { es: "String", en: "String" },
+        ],
+        [
+          { es: "rawCompany.trim().substring(0, 4)", en: "rawCompany.trim().substring(0, 4)" },
+          { es: "'nort'", en: "'nort'" },
+          { es: "String", en: "String" },
+        ],
+        [
+          { es: "rawCompany.trim().substring(0, 4).toUpperCase()", en: "rawCompany.trim().substring(0, 4).toUpperCase()" },
+          { es: "'NORT'", en: "'NORT'" },
+          { es: "String", en: "String" },
+        ],
+        [
+          { es: "rawCompany.trim().length()", en: "rawCompany.trim().length()" },
+          { es: "17", en: "17" },
+          { es: "Integer — aquí se acaba la cadena de texto", en: "Integer — the text chain ends here" },
+        ],
+      ],
+    },
+    {
+      type: "p",
+      text: {
+        es: "Una cadena no es obligatoria: siempre puedes desarmarla en variables intermedias y el resultado es idéntico. Mientras aprendes, desarmarla es buena idea —cada paso tiene nombre y lo puedes mirar con System.debug()—; cuando ya lo lees con soltura, la versión encadenada ahorra variables que solo vivían para pasar el dato al siguiente paso.",
+        en: "A chain is never compulsory: you can always break it into intermediate variables and the result is identical. While you are learning, breaking it up is a good idea — every step has a name and you can inspect it with System.debug(); once you read chains fluently, the chained version saves variables that only existed to hand the value along.",
+      },
+    },
+    {
+      type: "code",
+      code: {
+        es: `String rawCompany = '  northwind trading  ';
+
+// Desarmada: un paso por línea, cada resultado con nombre
+String trimmed = rawCompany.trim();          // 'northwind trading'
+String firstFour = trimmed.substring(0, 4);  // 'nort'
+String code1 = firstFour.toUpperCase();      // 'NORT'
+
+// Encadenada: los mismos tres pasos, en una línea
+String code2 = rawCompany.trim().substring(0, 4).toUpperCase(); // 'NORT'`,
+        en: `String rawCompany = '  northwind trading  ';
+
+// Broken up: one step per line, every result named
+String trimmed = rawCompany.trim();          // 'northwind trading'
+String firstFour = trimmed.substring(0, 4);  // 'nort'
+String code1 = firstFour.toUpperCase();      // 'NORT'
+
+// Chained: the same three steps, on one line
+String code2 = rawCompany.trim().substring(0, 4).toUpperCase(); // 'NORT'`,
+      },
+      caption: {
+        es: "code1 y code2 valen lo mismo. Si una cadena no te sale, desármala: el paso que falla queda a la vista.",
+        en: "code1 and code2 hold the same value. When a chain will not work, break it up: the failing step shows itself.",
+      },
+    },
+    {
+      type: "callout",
+      variant: "tip",
+      title: { es: "La regla del tipo: cada eslabón tiene que encajar", en: "The type rule: every link has to fit" },
+      text: {
+        es: "Solo puedes pedirle a un eslabón los métodos de su tipo. rawCompany.trim().length() funciona porque trim() devuelve un String y los String tienen length(). Pero name.length().toUpperCase() no compila: length() devuelve un Integer, y un número no sabe ponerse en mayúsculas. Es como en Flow: la salida de un elemento solo se puede usar donde se espera ese tipo de dato.",
+        en: "You may only ask a link for the methods of its type. rawCompany.trim().length() works because trim() returns a String and Strings have length(). But name.length().toUpperCase() does not compile: length() returns an Integer, and a number does not know how to upper-case itself. It is like Flow: an element's output can only go where that data type is expected.",
+      },
+    },
+    {
       type: "callout",
       variant: "warn",
       title: { es: "Un eslabón roto revienta toda la cadena", en: "One broken link blows up the whole chain" },
@@ -242,6 +331,96 @@ String c = String.valueOf(42);         // '42': converts to text`,
     },
     {
       type: "h",
+      text: { es: "Anidar: un método dentro de los paréntesis de otro", en: "Nesting: one method inside another's brackets" },
+    },
+    {
+      type: "p",
+      text: {
+        es: "Encadenar es poner un método detrás de otro. Anidar es poner una llamada dentro de los paréntesis de otra, como argumento. Funciona por la misma razón: una llamada a un método ES un valor, así que puede ir en cualquier sitio donde iría ese valor escrito a mano. Y aquí la lectura sí es de dentro hacia fuera, exactamente como en una fórmula: Apex resuelve primero lo de los paréntesis de dentro y le pasa el resultado al de fuera.",
+        en: "Chaining puts one method after another. Nesting puts one call inside another's brackets, as an argument. It works for the same reason: a method call IS a value, so it can go anywhere that value could go if you typed it by hand. And here the reading really is inside out, exactly like a formula: Apex resolves the inner brackets first and hands the result to the outer call.",
+      },
+    },
+    {
+      type: "code",
+      code: {
+        es: `String rawName = '  ana torres  ';
+
+// 1 · Un método como argumento de otro
+String lengthText = String.valueOf(rawName.trim().length());
+//   primero rawName.trim().length()  → 10
+//   después String.valueOf(10)       → '10'
+
+// 2 · Un método dentro de una concatenación
+String greeting = 'Hola, ' + rawName.trim().capitalize();   // 'Hola, Ana torres'
+
+// 3 · Un método dentro de otro método del mismo dato
+String keyword = 'TORRES';
+Boolean found = rawName.contains(keyword.toLowerCase());    // true`,
+        en: `String rawName = '  ana torres  ';
+
+// 1 · A method as another method's argument
+String lengthText = String.valueOf(rawName.trim().length());
+//   first rawName.trim().length()   → 10
+//   then String.valueOf(10)         → '10'
+
+// 2 · A method inside a concatenation
+String greeting = 'Hello, ' + rawName.trim().capitalize();  // 'Hello, Ana torres'
+
+// 3 · A method inside another method on the same value
+String keyword = 'TORRES';
+Boolean found = rawName.contains(keyword.toLowerCase());    // true`,
+      },
+      caption: {
+        es: "En el ejemplo 3, contains() recibe 'torres' —el resultado de toLowerCase()—, no 'TORRES'. Lo de dentro siempre se resuelve antes.",
+        en: "In example 3, contains() receives 'torres' — the result of toLowerCase() — not 'TORRES'. The inside always resolves first.",
+      },
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "Esto sí es anidar como en fórmulas", en: "This is formula-style nesting, for real" },
+      text: {
+        es: "TEXT(LEN(TRIM(Name))) en un campo fórmula es exactamente String.valueOf(name.trim().length()): una función dentro de otra, resuelta de dentro hacia fuera. La única diferencia es que Apex mezcla los dos estilos en la misma línea: la parte encadenada (name.trim().length()) se lee de izquierda a derecha, y la parte anidada (String.valueOf(…)) de dentro hacia fuera. Truco para leer cualquier línea: busca el paréntesis más interno, resuélvelo en tu cabeza y sustitúyelo por su valor. Repite hasta que no quede nada.",
+        en: "TEXT(LEN(TRIM(Name))) in a formula field is exactly String.valueOf(name.trim().length()): one function inside another, resolved inside out. The only difference is that Apex mixes both styles on the same line: the chained part (name.trim().length()) reads left to right, and the nested part (String.valueOf(…)) reads inside out. A trick for reading any line: find the innermost brackets, resolve them in your head and replace them with their value. Repeat until nothing is left.",
+      },
+    },
+    {
+      type: "table",
+      head: [
+        { es: "En un campo fórmula", en: "In a formula field" },
+        { es: "En Apex", en: "In Apex" },
+        { es: "Qué hace", en: "What it does" },
+      ],
+      rows: [
+        [
+          { es: "UPPER(TRIM(Company))", en: "UPPER(TRIM(Company))" },
+          { es: "company.trim().toUpperCase()", en: "company.trim().toUpperCase()" },
+          { es: "Limpia y pone en mayúsculas.", en: "Cleans and upper-cases." },
+        ],
+        [
+          { es: "UPPER(LEFT(TRIM(Company), 4))", en: "UPPER(LEFT(TRIM(Company), 4))" },
+          { es: "company.trim().substring(0, 4).toUpperCase()", en: "company.trim().substring(0, 4).toUpperCase()" },
+          { es: "Código corto de 4 letras.", en: "A 4-letter short code." },
+        ],
+        [
+          { es: "LEN(TRIM(Company))", en: "LEN(TRIM(Company))" },
+          { es: "company.trim().length()", en: "company.trim().length()" },
+          { es: "Cuenta sin los espacios de los extremos.", en: "Counts without the outer spaces." },
+        ],
+        [
+          { es: "TEXT(LEN(Name))", en: "TEXT(LEN(Name))" },
+          { es: "String.valueOf(name.length())", en: "String.valueOf(name.length())" },
+          { es: "El recuento, convertido a texto.", en: "The count, turned into text." },
+        ],
+        [
+          { es: "\"Hola, \" & TRIM(FirstName)", en: "\"Hello, \" & TRIM(FirstName)" },
+          { es: "'Hola, ' + firstName.trim()", en: "'Hello, ' + firstName.trim()" },
+          { es: "Saludo con el nombre limpio.", en: "A greeting with the clean name." },
+        ],
+      ],
+    },
+    {
+      type: "h",
       text: { es: "Comparar textos: la sorpresa de Apex", en: "Comparing text: the Apex surprise" },
     },
     {
@@ -276,8 +455,8 @@ Boolean loose2 = 'EMEA'.equalsIgnoreCase('emea'); // true, and it reads better`,
       variant: "recall",
       title: { es: "Antes de seguir", en: "Before moving on" },
       text: {
-        es: "Sin mirar arriba: ¿por qué rawName.toUpperCase(); en una línea suelta no sirve para nada? ¿Qué devuelve contains()? Y en code.substring(0, 4).toUpperCase(), ¿sobre qué actúa exactamente toUpperCase()?",
-        en: "Without looking up: why is rawName.toUpperCase(); on a line of its own completely useless? What does contains() return? And in code.substring(0, 4).toUpperCase(), what exactly does toUpperCase() act on?",
+        es: "Sin mirar arriba: ¿por qué rawName.toUpperCase(); en una línea suelta no sirve para nada? ¿Qué devuelve contains()? En code.substring(0, 4).toUpperCase(), ¿sobre qué actúa exactamente toUpperCase()? ¿Por qué name.length().toUpperCase() no compila? Y en String.valueOf(name.trim().length()), ¿qué se ejecuta primero?",
+        en: "Without looking up: why is rawName.toUpperCase(); on a line of its own completely useless? What does contains() return? In code.substring(0, 4).toUpperCase(), what exactly does toUpperCase() act on? Why does name.length().toUpperCase() not compile? And in String.valueOf(name.trim().length()), what runs first?",
       },
     },
   ],
@@ -436,6 +615,49 @@ System.debug(code.substring(0, 4).toUpperCase());`,
         en: "First substring(0, 4) acts on code and returns 'apex'. Then toUpperCase() acts on that 'apex', not on code: the result is 'APEX'.",
       },
       tags: ["predict-output"],
+    },
+    {
+      id: "m01-l03-q8",
+      kind: "single",
+      prompt: { es: "¿Qué muestra este código?", en: "What does this code print?" },
+      code: {
+        es: `String city = '  Lima  ';
+System.debug('Letras: ' + String.valueOf(city.trim().length()));`,
+        en: `String city = '  Lima  ';
+System.debug('Letters: ' + String.valueOf(city.trim().length()));`,
+      },
+      options: [
+        { es: "Letras: 4", en: "Letters: 4" },
+        { es: "Letras: 8", en: "Letters: 8" },
+        { es: "Letras:   Lima  ", en: "Letters:   Lima  " },
+        { es: "No compila: no se puede meter un método dentro de otro.", en: "It does not compile: you cannot put a method inside another." },
+      ],
+      answer: 0,
+      explain: {
+        es: "De dentro hacia fuera: city.trim() da 'Lima', .length() da 4, String.valueOf(4) da '4', y el + lo pega detrás de 'Letras: '. Si saliera 8, sería porque se contó sin trim().",
+        en: "Inside out: city.trim() gives 'Lima', .length() gives 4, String.valueOf(4) gives '4', and + attaches it after 'Letters: '. Getting 8 would mean counting without trim().",
+      },
+      tags: ["predict-output"],
+    },
+    {
+      id: "m01-l03-q9",
+      kind: "single",
+      prompt: {
+        es: "Una de estas líneas no compila. ¿Cuál?",
+        en: "One of these lines does not compile. Which?",
+      },
+      options: [
+        { es: "Integer n = name.length().toUpperCase();", en: "Integer n = name.length().toUpperCase();" },
+        { es: "Integer n = name.trim().length();", en: "Integer n = name.trim().length();" },
+        { es: "String s = name.trim().toUpperCase();", en: "String s = name.trim().toUpperCase();" },
+        { es: "String s = String.valueOf(name.length());", en: "String s = String.valueOf(name.length());" },
+      ],
+      answer: 0,
+      explain: {
+        es: "length() devuelve un Integer, y un Integer no tiene toUpperCase(). Cada eslabón solo admite los métodos del tipo que le llega, igual que en Flow la salida de un elemento solo encaja donde se espera ese tipo.",
+        en: "length() returns an Integer, and an Integer has no toUpperCase(). Each link only accepts the methods of the type it receives, just as in Flow an element's output only fits where that type is expected.",
+      },
+      tags: ["find-error"],
     },
   ],
 
