@@ -427,8 +427,8 @@ Boolean isWon = stage = 'Closed Won';`,
 
   exercise: {
     prompt: {
-      es: "Vuelve al Lead incompleto de la sub-lección anterior. Ahora no basta con diagnosticar: el panel necesita valores que se puedan mostrar siempre, y un indicador de si el Lead está listo para asignarse. Decide tú qué poner cuando falta el dato.",
-      en: "Back to the incomplete Lead from the previous sub-lesson. Diagnosing is no longer enough: the dashboard needs values that can always be displayed, plus a flag for whether the Lead is ready to be assigned. You decide what goes in when a value is missing.",
+      es: "TAREA 7 DE 10 · Ayer diagnosticaste el Lead incompleto; hoy hay que resolverlo. Ventas fue clara: «si no sabemos la región, que ponga algo». Así que el panel necesita valores que se puedan mostrar siempre, más un indicador de si el Lead está listo para asignarse. Decide tú qué poner cuando falta el dato.",
+      en: "TASK 7 OF 10 · Yesterday you diagnosed the incomplete Lead; today you have to resolve it. Sales was clear: “if we do not know the region, put something”. So the dashboard needs values that can always be displayed, plus a flag for whether the Lead is ready to be assigned. You decide what goes in when a value is missing.",
     },
     brief: [
       {
@@ -453,15 +453,19 @@ Boolean isWon = stage = 'Closed Won';`,
       },
     ],
     starter: {
-      es: `Lead incompleteLead = new Lead(LastName = 'Ruiz');
-incompleteLead.Company = 'Globex Industries';
+      es: `// CASO: campaña de renovaciones · cliente Northwind Trading
+// Tarea 7 de 10: el mismo Lead incompleto de ayer, ahora hay que resolverlo.
+Lead incompleteLead = new Lead(LastName = 'Ruiz');
+incompleteLead.Company = 'Northwind Trading';
 // Region__c y NumberOfEmployees se quedan sin asignar: vienen vacíos del formulario.
 
 // Prepara los valores del panel. Que siempre haya algo que mostrar.
 
 `,
-      en: `Lead incompleteLead = new Lead(LastName = 'Ruiz');
-incompleteLead.Company = 'Globex Industries';
+      en: `// CASE: renewals campaign · customer Northwind Trading
+// Task 7 of 10: yesterday's incomplete Lead, now it has to be resolved.
+Lead incompleteLead = new Lead(LastName = 'Ruiz');
+incompleteLead.Company = 'Northwind Trading';
 // Region__c and NumberOfEmployees are left unassigned: the form sent them empty.
 
 // Prepare the dashboard values. There must always be something to show.

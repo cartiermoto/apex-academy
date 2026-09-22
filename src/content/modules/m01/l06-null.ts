@@ -384,8 +384,8 @@ String result = account?.Name;`,
 
   exercise: {
     prompt: {
-      es: "Los Leads del formulario web llegan con huecos. Antes de tocar nada, escribe el diagnóstico: qué falta y qué se puede usar. No cambies los datos todavía —eso es la sub-lección siguiente— y no dejes que el código explote con ninguno de los dos Leads.",
-      en: "Web-form Leads arrive with gaps. Before touching anything, write the diagnosis: what is missing and what is usable. Do not change the data yet — that is the next sub-lesson — and do not let the code explode on either Lead.",
+      es: "TAREA 6 DE 10 · La campaña trajo más Leads, y el segundo llegó a medias: sin región y sin empleados. Ventas quiere la ficha igualmente, así que antes de arreglar nada hay que saber qué falta. Escribe el diagnóstico —qué está ausente y qué se puede usar— sin cambiar todavía ningún dato (eso es la tarea 7) y sin que el código explote con ninguno de los dos Leads.",
+      en: "TASK 6 OF 10 · The campaign brought more Leads, and the second one arrived half-filled: no region and no employees. Sales wants the summary anyway, so before fixing anything you need to know what is missing. Write the diagnosis — what is absent and what is usable — without changing any value yet (that is task 7) and without letting the code explode on either Lead.",
     },
     brief: [
       {
@@ -410,9 +410,11 @@ String result = account?.Name;`,
       },
     ],
     starter: {
-      es: `Lead completeLead = new Lead(
-    Company = 'Globex Industries',
-    LastName = 'Fernández',
+      es: `// CASO: campaña de renovaciones · cliente Northwind Trading
+// Tarea 6 de 10: la campaña trajo dos Leads; el segundo llegó a medias.
+Lead completeLead = new Lead(
+    Company = 'Northwind Trading',
+    LastName = 'Torres',
     NumberOfEmployees = 120
 );
 completeLead.Region__c = 'EMEA';
@@ -423,9 +425,11 @@ incompleteLead.Company = '   ';
 // Diagnostica el Lead incompleto. Que no explote nada.
 
 `,
-      en: `Lead completeLead = new Lead(
-    Company = 'Globex Industries',
-    LastName = 'Fernandez',
+      en: `// CASE: renewals campaign · customer Northwind Trading
+// Task 6 of 10: the campaign brought two Leads; the second arrived half-filled.
+Lead completeLead = new Lead(
+    Company = 'Northwind Trading',
+    LastName = 'Torres',
     NumberOfEmployees = 120
 );
 completeLead.Region__c = 'EMEA';

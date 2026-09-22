@@ -386,8 +386,8 @@ System.debug(stage);`,
 
   exercise: {
     prompt: {
-      es: "Renovaciones necesita preparar el aviso de un contrato. Te describen los datos en palabras; tú eliges el tipo de cada uno y calculas lo que falta, sin escribir ninguna fecha resultado a mano.",
-      en: "Renewals needs to prepare a contract reminder. The data is described in words; you choose each type and compute what is missing, without typing any resulting date by hand.",
+      es: "TAREA 4 DE 10 · Ya tienes el cliente, los números y el contacto limpio. De la ficha que pidió Ventas falta la parte del calendario: cuándo se firmó, cuándo toca renovar y cuántos días quedan. Te describen los datos en palabras; tú eliges el tipo de cada uno y calculas lo que falta, sin escribir ninguna fecha resultado a mano.",
+      en: "TASK 4 OF 10 · You already have the customer, the numbers and the clean contact. What is missing from the summary Sales asked for is the calendar part: when it was signed, when it renews and how many days are left. The data is described in words; you choose each type and compute what is missing, without typing any resulting date by hand.",
     },
     brief: [
       {
@@ -412,11 +412,21 @@ System.debug(stage);`,
       },
     ],
     starter: {
-      es: `// Renovaciones: prepara el aviso.
+      es: `// CASO: campaña de renovaciones · cliente Northwind Trading
+// Ya resuelto (tareas 1-3): el cliente, los importes y el contacto limpio.
+String accountName = 'Northwind Trading';
+Decimal contractAmount = 24500.75;
+
+// Tarea 4 de 10: el calendario de la renovación.
 // Ojo con el tipo de cada dato: día, recuento, año o instante exacto.
 
 `,
-      en: `// Renewals: prepare the reminder.
+      en: `// CASE: renewals campaign · customer Northwind Trading
+// Already solved (tasks 1-3): the customer, the amounts and the clean contact.
+String accountName = 'Northwind Trading';
+Decimal contractAmount = 24500.75;
+
+// Task 4 of 10: the renewal calendar.
 // Mind each type: a day, a count, a year, or an exact instant.
 
 `,
@@ -547,6 +557,10 @@ Datetime reminderSentAt = Datetime.now();`,
       {
         es: "¿Cuál de estas cinco variables cambiaría de valor según quién ejecute el código? Esa es la que lleva zona horaria.",
         en: "Which of these five variables would change value depending on who runs the code? That is the one carrying a time zone.",
+      },
+      {
+        es: "Tarea 5: hasta aquí has trabajado con variables sueltas, como quien apunta en un papel. Mañana todos estos datos entran donde de verdad viven: dentro de un registro.",
+        en: "Task 5: so far you have worked with loose variables, like jotting on a sheet of paper. Tomorrow all this data goes where it really lives: inside a record.",
       },
     ],
   },

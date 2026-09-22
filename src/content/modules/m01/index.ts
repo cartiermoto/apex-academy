@@ -17,8 +17,8 @@ export const m01: Module = {
   status: "ready",
   title: { es: "Fundamentos", en: "Fundamentals" },
   subtitle: {
-    es: "Los ladrillos del lenguaje: tipos, datos, colecciones y el hueco donde no hay nada.",
-    en: "The building blocks: types, data, collections, and the gap where nothing is.",
+    es: "Los ladrillos del lenguaje: tipos, datos, colecciones y el hueco donde no hay nada. Los diez talleres son un mismo encargo de Ventas, troceado.",
+    en: "The building blocks: types, data, collections, and the gap where nothing is. The ten workshops are one Sales request, cut into pieces.",
   },
   lessons: [
     l01Variables,

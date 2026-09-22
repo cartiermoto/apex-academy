@@ -195,6 +195,33 @@ MAX_RETRIES = 5;   // ❌ does not compile: it is final`,
       },
     },
     {
+      type: "h",
+      text: { es: "Cómo vamos a trabajar: un solo caso, troceado", en: "How we will work: one case, cut into pieces" },
+    },
+    {
+      type: "p",
+      text: {
+        es: "Los talleres de este módulo no son diez ejercicios sueltos: son un mismo encargo real, partido en diez trozos. Es exactamente lo que hace un desarrollador cuando sale de una reunión con Ventas: nadie escribe de una sentada el requisito entero, se desglosa en tareas y se empieza por la primera que ya se puede resolver.",
+        en: "This module's workshops are not ten separate exercises: they are one real assignment cut into ten pieces. It is exactly what a developer does after a meeting with Sales: nobody writes the whole requirement in one sitting, you break it into tasks and start with the first one you can already solve.",
+      },
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "El encargo de Ventas, tal cual lo dijeron", en: "The Sales request, word for word" },
+      text: {
+        es: "«Para la campaña de renovaciones de primavera queremos una ficha por oportunidad que nos diga: de qué cuenta es y con el nombre bien escrito, cuánto vale con impuestos y si necesita aprobación, cuándo se firmó y cuántos días faltan para la renovación, en qué región cae el cliente —y si no la sabemos, que ponga algo—, qué cuota tiene esa región, y todo listo para mostrarlo en pantalla». Eso, entero, todavía no lo puedes escribir: te faltan ocho sub-lecciones. Pero el primer trozo sí.",
+        en: "“For the spring renewals campaign we want one summary per opportunity telling us: which account it belongs to, with the name properly written, how much it is worth with tax and whether it needs approval, when it was signed and how many days until renewal, which region the customer falls in — and if we do not know, put something — what quota that region carries, and all of it ready to show on screen.” You cannot write all of that yet: eight sub-lessons are missing. But the first piece you can.",
+      },
+    },
+    {
+      type: "p",
+      text: {
+        es: "Cada taller a partir de aquí empieza donde acabó el anterior: el código de partida ya trae resuelto lo que construiste, y encima se añade el trozo nuevo que la sub-lección de ese día te acaba de enseñar. Al llegar al checkpoint no montarás nada desde cero: solo verás el problema grande entero por primera vez, y te darás cuenta de que ya lo habías resuelto por partes.",
+        en: "From here on, every workshop starts where the previous one ended: the starter code already contains what you built, and on top of it goes the new piece that day's sub-lesson has just taught you. By the time you reach the checkpoint you will not assemble anything from scratch: you will simply see the whole big problem for the first time, and realise you had already solved it piece by piece.",
+      },
+    },
+    {
       type: "callout",
       variant: "recall",
       title: { es: "Antes de seguir", en: "Before moving on" },
@@ -328,8 +355,8 @@ Integer opportunityCount = 7;`,
 
   exercise: {
     prompt: {
-      es: "Ventas te pasa esta nota: «Para la campaña de primavera necesitamos guardar el nombre de la cuenta, cuántos contactos tiene, si es cliente estratégico y el descuento máximo autorizado, que este año es fijo en 15 y no debe poder cambiarse». Traduce la nota a declaraciones de Apex.",
-      en: "Sales sends you this note: “For the spring campaign we need to hold the account name, how many contacts it has, whether it is a strategic client, and the maximum authorised discount, which this year is fixed at 15 and must not be changeable.” Turn the note into Apex declarations.",
+      es: "TAREA 1 DE 10 · Sales de la campaña de renovaciones. De toda la ficha que pidieron, hoy solo puedes hacer lo primero que hace cualquier desarrollador: apuntar los datos que ya te han dado. Ventas dice: «El cliente es Northwind Trading, tiene 12 contactos, es cliente estratégico, y el descuento máximo autorizado este año es 15 y no debe poder cambiarse». Traduce esa frase a declaraciones de Apex.",
+      en: "TASK 1 OF 10 · Renewals campaign. Of the whole summary they asked for, today you can only do what any developer does first: write down the data you have already been given. Sales says: “The customer is Northwind Trading, it has 12 contacts, it is a strategic client, and the maximum authorised discount this year is 15 and must not be changeable.” Turn that sentence into Apex declarations.",
     },
     brief: [
       {
@@ -354,12 +381,16 @@ Integer opportunityCount = 7;`,
       },
     ],
     starter: {
-      es: `// Declara aquí las cuatro variables de la nota de Ventas.
-// Piensa primero qué tipo de dato pide cada frase.
+      es: `// CASO: campaña de renovaciones · cliente Northwind Trading
+// Tarea 1 de 10: apuntar los datos que Ventas ya te ha dado.
+
+// Declara aquí las cuatro variables. Piensa primero qué tipo pide cada frase.
 
 `,
-      en: `// Declare the four variables from the Sales note here.
-// Think first about which data type each sentence asks for.
+      en: `// CASE: renewals campaign · customer Northwind Trading
+// Task 1 of 10: write down the data Sales has already given you.
+
+// Declare the four variables here. Think first which type each sentence asks for.
 
 `,
     },
@@ -470,6 +501,10 @@ final Integer MAX_DISCOUNT = 15;`,
       {
         es: "¿Se entiende qué guarda cada variable sin leer la nota de Ventas? Ese es el listón.",
         en: "Can you tell what each variable holds without re-reading the Sales note? That is the bar.",
+      },
+      {
+        es: "Tarea 2: Ventas te pasará los números del contrato de renovación —el importe, los empleados, el Id del registro— y ahí elegir bien el tipo deja de ser cosmético.",
+        en: "Task 2: Sales will hand you the renewal contract's numbers — the amount, the employees, the record Id — and there, picking the right type stops being cosmetic.",
       },
     ],
   },

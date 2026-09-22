@@ -413,8 +413,8 @@ System.debug(Decimal.valueOf(won) / total);`,
 
   exercise: {
     prompt: {
-      es: "Una integración vuelca los datos de un pedido y te los entrega todos como texto, más el registro como sObject genérico. Conviértelo todo a los tipos correctos para poder calcular. Tú decides qué conversión usa cada dato.",
-      en: "An integration dumps an order's data and hands it all to you as text, plus the record as a generic sObject. Convert everything to the right types so it can be calculated with. You decide which conversion each value needs.",
+      es: "TAREA 9 DE 10 · Última pieza antes de montar la ficha. El sistema de pedidos de Northwind manda las líneas de la renovación por una integración, y las manda TODAS como texto, más el registro como sObject genérico. Nada de eso se puede multiplicar ni mostrar tal cual: conviértelo a los tipos correctos. Tú decides qué conversión usa cada dato.",
+      en: "TASK 9 OF 10 · Last piece before assembling the summary. Northwind's order system sends the renewal lines through an integration, and it sends them ALL as text, plus the record as a generic sObject. None of that can be multiplied or displayed as it is: convert it to the right types. You decide which conversion each value needs.",
     },
     brief: [
       {
@@ -443,14 +443,18 @@ System.debug(Decimal.valueOf(won) / total);`,
       },
     ],
     starter: {
-      es: `String rawQuantity = '25';
+      es: `// CASO: campaña de renovaciones · cliente Northwind Trading
+// Tarea 9 de 10: las líneas de la renovación, tal y como las manda la integración.
+String rawQuantity = '25';
 String rawPrice = '19.99';
 sObject genericRecord = new Account(Name = 'Northwind Trading');
 
 // Convierte cada dato al tipo que necesitas para poder operar.
 
 `,
-      en: `String rawQuantity = '25';
+      en: `// CASE: renewals campaign · customer Northwind Trading
+// Task 9 of 10: the renewal lines, exactly as the integration sends them.
+String rawQuantity = '25';
 String rawPrice = '19.99';
 sObject genericRecord = new Account(Name = 'Northwind Trading');
 

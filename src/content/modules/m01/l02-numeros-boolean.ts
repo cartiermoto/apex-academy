@@ -413,8 +413,8 @@ System.debug(winRate);`,
 
   exercise: {
     prompt: {
-      es: "Estás preparando los datos de una oportunidad para un panel de dirección. Te dan la descripción de cada dato, no el tipo. Declara las cinco variables eligiendo tú el tipo correcto, y calcula el valor con IVA.",
-      en: "You are preparing opportunity data for a management dashboard. You get a description of each value, not its type. Declare the five variables choosing the right type yourself, and compute the amount with tax.",
+      es: "TAREA 2 DE 10 · Ayer apuntaste quién es el cliente. Hoy llegan los números del contrato de renovación de Northwind, y aquí el tipo ya no es cosmético: uno mal elegido se come los céntimos o pierde el identificador del registro. Te dan la descripción de cada dato, no el tipo: elígelo tú y calcula el importe con IVA.",
+      en: "TASK 2 OF 10 · Yesterday you wrote down who the customer is. Today the numbers of Northwind's renewal contract arrive, and here the type is no longer cosmetic: a wrong one eats the cents or loses the record identifier. You get a description of each value, not its type: choose it yourself and compute the amount with tax.",
     },
     brief: [
       {
@@ -439,10 +439,22 @@ System.debug(winRate);`,
       },
     ],
     starter: {
-      es: `// Cinco variables. El tipo lo decides tú a partir de la descripción.
+      es: `// CASO: campaña de renovaciones · cliente Northwind Trading
+// Ya resuelto en la tarea 1:
+String accountName = 'Northwind Trading';
+final Integer MAX_DISCOUNT = 15;
+
+// Tarea 2 de 10: los números del contrato. Cinco variables más.
+// El tipo lo decides tú a partir de la descripción.
 
 `,
-      en: `// Five variables. You decide each type from the description.
+      en: `// CASE: renewals campaign · customer Northwind Trading
+// Already solved in task 1:
+String accountName = 'Northwind Trading';
+final Integer MAX_DISCOUNT = 15;
+
+// Task 2 of 10: the contract's numbers. Five more variables.
+// You decide each type from the description.
 
 `,
     },
@@ -556,6 +568,10 @@ Decimal amountWithTax = contractAmount * 1.21;`,
       {
         es: "¿Qué pasaría con este cálculo si el IVA dejara de ser el 21 %? Una constante final lo haría evidente.",
         en: "What would happen to this calculation if the tax stopped being 21%? A final constant would make that obvious.",
+      },
+      {
+        es: "Tarea 3: la ficha tiene que mostrar el nombre del contacto «bien escrito», y lo que llega del formulario web viene en mayúsculas, con espacios y con el correo mal tecleado.",
+        en: "Task 3: the summary has to show the contact's name “properly written”, and what the web form sends arrives in capitals, with spaces and with the email mistyped.",
       },
     ],
   },
