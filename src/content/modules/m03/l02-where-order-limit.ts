@@ -216,6 +216,25 @@ List<Opportunity> top10 = [
       },
     },
     {
+      type: "h",
+      text: { es: "Pruébalo: la consulta y su resultado, en vivo", en: "Try it: the query and its result, live" },
+    },
+    {
+      type: "p",
+      text: {
+        es: "Abajo tienes una org de Sales Cloud en miniatura —cinco cuentas con sus contactos— y una consulta que puedes montar por piezas. Cambia el filtro, el orden, el límite y los campos: la consulta se reescribe sola y la tabla de resultados se recalcula al instante. Es el Developer Console sin salir de aquí.",
+        en: "Below is a miniature Sales Cloud org — five accounts with their contacts — and a query you can assemble piece by piece. Change the filter, the order, the limit and the fields: the query rewrites itself and the result table recomputes instantly. It is the Developer Console without leaving this page.",
+      },
+    },
+    {
+      type: "diagram",
+      id: "m03-soql-live",
+      caption: {
+        es: "Dos cosas que merece la pena probar: poner LIMIT sin ORDER BY (¿qué fila te toca?) y filtrar por 'technology' en minúsculas.",
+        en: "Two things worth trying: LIMIT with no ORDER BY (which row do you get?) and filtering by lower-case 'technology'.",
+      },
+    },
+    {
       type: "list",
       items: [
         {

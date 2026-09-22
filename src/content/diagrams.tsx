@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import type { Lang } from "@/lib/types";
 import { CollectionsPlay, MethodFlow, ShortCircuit } from "./diagrams-anim";
+import { QueryAnatomyPlay, SoqlLive, SubqueryPlay } from "./diagrams-anim-m03";
 import {
   CastingPlay,
   CheckpointFlowPlay,
@@ -1193,31 +1194,6 @@ function OopAdminMap({ lang }: P) {
 
 /* ------------------------------------------------- m03 · soql anatomy ----- */
 
-function SoqlAnatomy({ lang }: P) {
-  const id = "soqa";
-  const rows = [
-    { code: "[ ... ]", what: pick(lang, "«esto es una consulta»", "“this is a query”") },
-    { code: "SELECT Id, Name, Industry", what: pick(lang, "las columnas del informe", "the report's columns") },
-    { code: "FROM Account", what: pick(lang, "el Report Type", "the Report Type") },
-    { code: "List<Account>", what: pick(lang, "lo que recibes: filas", "what you get: rows") },
-  ];
-  return (
-    <Svg id={id} viewBox="0 0 600 250" title={pick(lang, "Anatomía de una consulta", "Anatomy of a query")}>
-      <text x="0" y="16" {...S.eyebrow}>{pick(lang, "EN APEX", "IN APEX")}</text>
-      <text x="358" y="16" {...S.eyebrow}>{pick(lang, "EN TU INFORME", "IN YOUR REPORT")}</text>
-      {rows.map((r, i) => {
-        const y = 28 + i * 54;
-        return (
-          <g key={r.code}>
-            <Tag x={0} y={y} w={290} text={r.code} kind="brand" mono />
-            <Arrow d={`M296 ${y + 20} L352 ${y + 20}`} id={id} tone="muted" />
-            <Tag x={358} y={y} w={242} text={r.what} />
-          </g>
-        );
-      })}
-    </Svg>
-  );
-}
 
 /* ------------------------------------------------ m03 · filter funnel ----- */
 
@@ -2228,7 +2204,9 @@ const REGISTRY: Record<string, (p: P) => React.ReactElement> = {
   "m02-break-continue": BreakContinueMap,
   "m02-nested-vs-lookup": NestedVsLookup,
   "m02-cp-choose": ControlChooser,
-  "m03-anatomy": SoqlAnatomy,
+  "m03-anatomy": QueryAnatomyPlay,
+  "m03-soql-live": SoqlLive,
+  "m03-subquery": SubqueryPlay,
   "m03-filter-funnel": FilterFunnel,
   "m03-relationships": RelationshipsMap,
   "m03-bind": BindVsConcat,
