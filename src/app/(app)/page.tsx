@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { course } from "@/content/course";
 import { useProgress, useSettings } from "@/components/providers";
-import { Mark } from "@/components/logo";
+import { MascotMark } from "@/components/logo";
 import { t, ui } from "@/lib/i18n";
 import type { L, Lesson, LessonStatus, Module, ModuleCategory } from "@/lib/types";
 
@@ -38,9 +38,7 @@ function Header() {
   return (
     <header className="flex items-center justify-between gap-4">
       <Link href="/" className="inline-flex min-h-[44px] items-center gap-2.5 text-[var(--e-ink)]">
-        <span style={{ borderRadius: "var(--e-logo-radius)" }} className="inline-flex">
-          <Mark size={30} />
-        </span>
+        <MascotMark theme={theme} size={34} className="shrink-0" />
         <span className="text-[1.05rem] leading-none">
           <span className="font-bold tracking-[-0.02em]">Apex</span>{" "}
           <span className="font-normal">Academy</span>
@@ -150,7 +148,7 @@ function UpNext({
   status: LessonStatus;
   steps: { theory: boolean; quiz: boolean; exercise: boolean };
 }) {
-  const { lang } = useSettings();
+  const { lang, theme } = useSettings();
   const statusLabel =
     status === "completed"
       ? t(ui.completed, lang)
@@ -174,9 +172,7 @@ function UpNext({
       }}
     >
       <div className="flex items-center gap-3">
-        <span className="shrink-0" style={{ color: "var(--e-ink)" }}>
-          <Mark size={30} badge radius={0} knockout="var(--e-bg)" />
-        </span>
+        <MascotMark theme={theme} size={30} className="shrink-0" />
         <span className="e-mono flex-1 text-[12px] uppercase tracking-[0.08em]">
           {lang === "es" ? "Siguiente" : "Up next"} — M{mod.n}.{pad(lesson.n)}
         </span>

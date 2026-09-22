@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 240 240">
+  <circle cx="120" cy="120" r="118" fill="#12262E"/>
+  <g transform="translate(0,-6) scale(0.92)" transform-origin="120 120">
+    <ellipse cx="93" cy="138" rx="17" ry="26" fill="#C25A1E" transform="rotate(-18 93 138)"/>
+    <ellipse cx="147" cy="138" rx="17" ry="26" fill="#C25A1E" transform="rotate(18 147 138)"/>
+    <circle cx="78" cy="58" r="16" fill="#8B5E3C"/>
+    <circle cx="162" cy="58" r="16" fill="#8B5E3C"/>
+    <path d="M68,232 Q58,180 80,153 Q100,138 120,138 Q140,138 160,153 Q182,180 172,232 Z" fill="#E8722C"/>
+    <ellipse cx="120" cy="153" rx="35" ry="9" fill="#C25A1E"/>
+    <line x1="120" y1="156" x2="120" y2="228" stroke="#F3F8FA" stroke-width="2.5"/>
+    <circle cx="120" cy="180" r="4" fill="#F3F8FA"/>
+    <ellipse cx="99" cy="207" rx="15" ry="11" fill="#C98A55"/>
+    <ellipse cx="141" cy="207" rx="15" ry="11" fill="#C98A55"/>
+    <rect x="94" y="184" width="52" height="34" rx="6" fill="#F3F8FA"/>
+    <text x="120" y="206" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="15" font-weight="600" fill="#12262E">&lt;/&gt;</text>
+    <circle cx="120" cy="95" r="58" fill="#A9744F"/>
+    <ellipse cx="68" cy="112" rx="22" ry="26" fill="#C98A55"/>
+    <ellipse cx="172" cy="112" rx="22" ry="26" fill="#C98A55"/>
+    <ellipse cx="120" cy="114" rx="30" ry="23" fill="#F3E4CE"/>
+    <ellipse cx="120" cy="98" rx="7" ry="5" fill="#3B2A1E"/>
+    <path d="M120,103 L120,116 M120,116 Q106,126 97,119 M120,116 Q134,126 143,119" stroke="#3B2A1E" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="100" cy="88" r="7" fill="#1A1A1A"/>
+    <circle cx="140" cy="88" r="7" fill="#1A1A1A"/>
+    <circle cx="102.5" cy="85.5" r="2" fill="#fff"/>
+    <circle cx="142.5" cy="85.5" r="2" fill="#fff"/>
+    <line x1="116" y1="88" x2="124" y2="88" stroke="#F3F8FA" stroke-width="3"/>
+    <circle cx="100" cy="88" r="16" fill="rgba(255,255,255,0.12)" stroke="#F3F8FA" stroke-width="3"/>
+    <circle cx="140" cy="88" r="16" fill="rgba(255,255,255,0.12)" stroke="#F3F8FA" stroke-width="3"/>
+  </g>
+</svg>

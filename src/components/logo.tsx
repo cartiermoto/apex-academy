@@ -73,6 +73,37 @@ export function Mark({
   );
 }
 
+/**
+ * Apex Academy mascot — a trailblazer otter, replacing the lettered Mark on
+ * the home page. The source SVGs are already a filled circle (their own
+ * background baked in per theme), so this never needs clipping or a radius.
+ */
+export function MascotMark({
+  theme,
+  size = 30,
+  className = "",
+}: {
+  theme: "light" | "dark";
+  size?: number;
+  className?: string;
+}) {
+  const src =
+    theme === "dark"
+      ? "/mascot/apex-academy-mascota-icon-dark.svg"
+      : "/mascot/apex-academy-mascota-icon-light.svg";
+  return (
+    // eslint-disable-next-line @next/next/no-img-element -- fixed small icon from /public, no Image loader needed
+    <img
+      src={src}
+      width={size}
+      height={size}
+      alt="Apex Academy"
+      className={className}
+      style={{ display: "block", width: size, height: size }}
+    />
+  );
+}
+
 export function Logo({
   size = 28,
   compact = false,
