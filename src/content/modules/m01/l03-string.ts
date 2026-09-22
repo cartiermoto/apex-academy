@@ -43,6 +43,15 @@ export const l03String: Lesson = {
       },
     },
     {
+      type: "callout",
+      variant: "tip",
+      title: { es: "Por qué esto aparece justo aquí", en: "Why this shows up right here" },
+      text: {
+        es: "Los métodos no son cosa del texto: en Apex los tienen todos los tipos —Decimal tiene setScale(), Date tiene addYears(), List tiene add()—. Pero el texto es el primer sitio donde no puedes hacer nada sin ellos: los números se manejan con símbolos que ya conoces (+, -, *, /) y para «quítale los espacios» o «ponlo en mayúsculas» no hay símbolo, hay método. Y es el sitio donde el concepto cae sobre algo que ya sabes hacer: TRIM() y UPPER() en un campo fórmula. A partir de aquí todas las sub-lecciones dan los métodos por sabidos; en el Módulo 5 se cierra el círculo y verás POR QUÉ un dato tiene comportamiento.",
+        en: "Methods are not a text thing: in Apex every type has them — Decimal has setScale(), Date has addYears(), List has add(). But text is the first place where you can do nothing without them: numbers are handled with symbols you already know (+, -, *, /), and for “strip the spaces” or “upper-case it” there is no symbol, there is a method. It is also where the idea lands on something you already do: TRIM() and UPPER() in a formula field. From here on every sub-lesson assumes methods; Module 5 closes the circle and shows you WHY a value has behaviour.",
+      },
+    },
+    {
       type: "h",
       text: { es: "Primero: qué es un método", en: "First: what a method is" },
     },
