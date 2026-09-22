@@ -2,6 +2,7 @@ import type { Challenge, Course, Lesson, Module, ModuleCategory } from "@/lib/ty
 import { m01 } from "./modules/m01";
 import { m02 } from "./modules/m02";
 import { m03 } from "./modules/m03";
+import { m04 } from "./modules/m04";
 import { m05 } from "./modules/m05";
 import { challenge1, challenge2 } from "./challenges";
 
@@ -29,25 +30,6 @@ function planned(
     outline: outline.map(([es, en]) => ({ es, en })),
   };
 }
-
-const m04 = planned(
-  4,
-  "m04",
-  "logic",
-  { es: "DML y Governor Limits", en: "DML and Governor Limits" },
-  {
-    es: "Escribir en la base de datos sin que la org te pare los pies.",
-    en: "Writing to the database without the org shutting you down.",
-  },
-  [
-    ["insert, update, delete, upsert", "insert, update, delete, upsert"],
-    ["Database.insert y resultados parciales", "Database.insert and partial results"],
-    ["Bulkificación", "Bulkification"],
-    ["Governor Limits: qué se cuenta y por qué", "Governor limits: what is counted and why"],
-    ["Savepoints y rollback", "Savepoints and rollback"],
-    ["Checkpoint del Módulo 4", "Module 4 checkpoint"],
-  ],
-);
 
 const m06 = planned(
   6,

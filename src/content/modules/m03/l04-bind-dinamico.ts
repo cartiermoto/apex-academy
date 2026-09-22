@@ -377,7 +377,7 @@ List<Account> r = Database.query(
       id: "m03-l04-q6",
       kind: "text",
       prompt: {
-        es: "Completa la línea que construye el mapa Id → cuenta directamente desde la consulta: Map<Id, Account> m = new ______(​[SELECT Id, Name FROM Account WHERE Id IN :ids]);",
+        es: "Completa la línea que construye el mapa Id → cuenta directamente desde la consulta: Map<Id, Account> m = new ______([SELECT Id, Name FROM Account WHERE Id IN :ids]);",
         en: "Complete the line that builds the Id → account map straight from the query: Map<Id, Account> m = new ______([SELECT Id, Name FROM Account WHERE Id IN :ids]);",
       },
       accept: ["^\\s*Map\\s*<\\s*Id\\s*,\\s*Account\\s*>\\s*$"],
