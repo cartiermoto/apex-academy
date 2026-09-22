@@ -409,13 +409,13 @@ a.Nmae = 'Acme';`,
 
   exercise: {
     prompt: {
-      es: "Marketing te pasa una ficha de Lead recogida en una feria. Crea el registro en memoria y prepara dos valores derivados para el panel. La ficha describe los datos; tú decides el tipo de cada variable auxiliar.",
-      en: "Marketing hands you a Lead captured at a trade show. Create the record in memory and prepare two derived values for the dashboard. The note describes the data; you decide the type of each helper variable.",
+      es: "TAREA 5 DE 10 · Hasta ahora llevabas los datos de Northwind en variables sueltas, como apuntes en un papel. Hoy pasan a donde viven de verdad: dentro de un registro. Crea en memoria el Lead que originó esta renovación y saca de ÉL —no de textos sueltos— los dos valores que necesita el panel.",
+      en: "TASK 5 OF 10 · Until now you carried Northwind's data in loose variables, like notes on paper. Today it moves where it really lives: inside a record. Create in memory the Lead that started this renewal and derive from IT — not from loose strings — the two values the dashboard needs.",
     },
     brief: [
       {
-        es: "Crea un Lead llamado newLead con Company = '  globex industries  ', LastName = 'Fernández' y NumberOfEmployees = 120.",
-        en: "Create a Lead named newLead with Company = '  globex industries  ', LastName = 'Fernandez' and NumberOfEmployees = 120.",
+        es: "Crea un Lead llamado newLead con Company = '  northwind trading  ', LastName = 'Torres' y NumberOfEmployees = 120.",
+        en: "Create a Lead named newLead with Company = '  northwind trading  ', LastName = 'Torres' and NumberOfEmployees = 120.",
       },
       {
         es: "Asigna también el campo personalizado Region__c con el valor 'EMEA'.",
@@ -435,10 +435,14 @@ a.Nmae = 'Acme';`,
       },
     ],
     starter: {
-      es: `// Ficha de feria. Crea el registro en memoria y deriva los dos valores.
+      es: `// CASO: campaña de renovaciones · cliente Northwind Trading
+// Tarea 5 de 10: los mismos datos, ahora dentro de un registro.
+// Crea el Lead en memoria y deriva los dos valores leyéndolos de él.
 
 `,
-      en: `// Trade-show capture. Create the record in memory and derive the two values.
+      en: `// CASE: renewals campaign · customer Northwind Trading
+// Task 5 of 10: the same data, now inside a record.
+// Create the Lead in memory and derive the two values by reading from it.
 
 `,
     },
@@ -458,8 +462,8 @@ a.Nmae = 'Acme';`,
     ],
     solution: {
       es: `Lead newLead = new Lead(
-    Company = '  globex industries  ',
-    LastName = 'Fernández',
+    Company = '  northwind trading  ',
+    LastName = 'Torres',
     NumberOfEmployees = 120
 );
 newLead.Region__c = 'EMEA';
@@ -468,8 +472,8 @@ String cleanCompany = newLead.Company.trim();
 Integer employeeCount = newLead.NumberOfEmployees;
 Date capturedOn = Date.today();`,
       en: `Lead newLead = new Lead(
-    Company = '  globex industries  ',
-    LastName = 'Fernandez',
+    Company = '  northwind trading  ',
+    LastName = 'Torres',
     NumberOfEmployees = 120
 );
 newLead.Region__c = 'EMEA';

@@ -438,8 +438,8 @@ regions.add('EMEA');`,
 
   exercise: {
     prompt: {
-      es: "Operaciones quiere un resumen del pipeline de la semana. Te dan tres necesidades distintas; cada una pide una colección diferente. Elige tú cuál en cada caso y llena las tres.",
-      en: "Operations wants a summary of this week's pipeline. You are given three different needs; each calls for a different collection. You choose which, and fill all three.",
+      es: "TAREA 8 DE 10 · La ficha ha dejado de ser de una sola oportunidad: la campaña tiene varias, y Ventas pidió además «qué cuota tiene esa región». Un dato suelto por variable ya no sirve. Te dan tres necesidades distintas y cada una pide una colección diferente: elige tú cuál en cada caso y llena las tres.",
+      en: "TASK 8 OF 10 · The summary is no longer about a single opportunity: the campaign has several, and Sales also asked for “what quota that region carries”. One loose variable per value no longer cuts it. You are given three different needs and each calls for a different collection: you choose which, and fill all three.",
     },
     brief: [
       {
@@ -464,10 +464,14 @@ regions.add('EMEA');`,
       },
     ],
     starter: {
-      es: `// Tres necesidades, tres colecciones distintas. Elige cada una.
+      es: `// CASO: campaña de renovaciones · cliente Northwind Trading
+// Tarea 8 de 10: ya no es una oportunidad, son varias.
+// Tres necesidades, tres colecciones distintas. Elige cada una.
 
 `,
-      en: `// Three needs, three different collections. You pick each one.
+      en: `// CASE: renewals campaign · customer Northwind Trading
+// Task 8 of 10: it is no longer one opportunity, it is several.
+// Three needs, three different collections. You pick each one.
 
 `,
     },

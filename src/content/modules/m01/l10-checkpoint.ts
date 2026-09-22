@@ -605,8 +605,8 @@ Boolean isStrategic = a.AnnualRevenue = 500000;`,
 
   exercise: {
     prompt: {
-      es: "Ejercicio integrador. Dirección quiere la misma ficha resumen, pero para una oportunidad que llega peor: el nombre viene sucio, el importe está vacío y la región del cliente no se rellenó. Construye la ficha completa sin que el código falle y sin usar ni una condición ni un bucle — todavía no los has visto.",
-      en: "Integrative exercise. Management wants the same summary, but for an opportunity that arrives in worse shape: the name is dirty, the amount is empty and the customer's region was never filled. Build the whole summary without the code failing, and without a single condition or loop — you have not met those yet.",
+      es: "TAREA 10 DE 10 · La entrega. Es el requisito completo que Ventas soltó en la reunión de la sub-lección 1, entero y de una vez: la ficha de la renovación de Northwind. Y llega en el peor estado posible —el nombre sucio, el importe vacío, la región sin rellenar—, que es como llegan los datos de verdad. No vas a inventar nada nuevo: cada línea es un trozo que ya resolviste en las nueve tareas anteriores. Sin una sola condición ni bucle, porque todavía no los has visto.",
+      en: "TASK 10 OF 10 · Delivery day. This is the complete requirement Sales dropped in the sub-lesson 1 meeting, whole and all at once: Northwind's renewal summary. And it arrives in the worst possible shape — dirty name, empty amount, unfilled region — which is how real data arrives. You will invent nothing new: every line is a piece you already solved in the previous nine tasks. Without a single condition or loop, because you have not met those yet.",
     },
     brief: [
       {

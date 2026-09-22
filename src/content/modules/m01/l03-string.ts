@@ -672,8 +672,8 @@ System.debug('Letters: ' + String.valueOf(city.trim().length()));`,
 
   exercise: {
     prompt: {
-      es: "El formulario de la web manda el nombre y el correo tal y como los teclea la persona: mayúsculas donde no tocan, espacios de sobra. Prepara los datos para crear el Contact. Ninguno de estos valores sale de un solo método: piensa primero qué tienes, qué quieres y en qué orden hay que pedir las cosas.",
-      en: "The web form sends the name and the email exactly as the person typed them: capitals where they do not belong, spare spaces. Get the data ready to create the Contact. None of these values comes out of a single method: think first about what you have, what you want, and in which order to ask for things.",
+      es: "TAREA 3 DE 10 · Ventas pidió que la ficha muestre el nombre «bien escrito». El contacto de Northwind llegó por el formulario web, y llega como lo teclea la gente: mayúsculas donde no tocan y espacios de sobra. Límpialo para poder crear el Contact. Ninguno de estos valores sale de un solo método: piensa primero qué tienes, qué quieres y en qué orden hay que pedir las cosas.",
+      en: "TASK 3 OF 10 · Sales asked for the summary to show the name “properly written”. Northwind's contact came in through the web form, and it arrives the way people type: capitals where they do not belong and spare spaces. Clean it up so the Contact can be created. None of these values comes out of a single method: think first about what you have, what you want, and in which order to ask for things.",
     },
     brief: [
       {
@@ -710,13 +710,17 @@ System.debug('Letters: ' + String.valueOf(city.trim().length()));`,
       },
     ],
     starter: {
-      es: `String rawName = '  ANA maría TORRES  ';
+      es: `// CASO: campaña de renovaciones · cliente Northwind Trading
+// Tarea 3 de 10: el contacto, tal y como lo mandó el formulario web.
+String rawName = '  ANA maría TORRES  ';
 String rawEmail = ' Ventas@Northwind.COM ';
 
 // Seis valores. Ninguno sale de un solo método.
 
 `,
-      en: `String rawName = '  ANA maría TORRES  ';
+      en: `// CASE: renewals campaign · customer Northwind Trading
+// Task 3 of 10: the contact, exactly as the web form sent it.
+String rawName = '  ANA maría TORRES  ';
 String rawEmail = ' Ventas@Northwind.COM ';
 
 // Six values. Not one of them comes out of a single method.
