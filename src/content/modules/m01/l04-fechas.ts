@@ -151,6 +151,34 @@ Integer daysToRenewal = today.daysBetween(renewal);`,
       },
     },
     {
+      type: "callout",
+      variant: "admin",
+      title: { es: "Date.today().daysBetween(): una cadena que empieza en el tipo", en: "Date.today().daysBetween(): a chain that starts on the type" },
+      text: {
+        es: "En una fórmula escribirías Renewal_Date__c - TODAY() y el resultado ya sería un número de días. En Apex, las dos líneas de arriba (Date today = Date.today(); y luego today.daysBetween(renewal)) se suelen escribir en una sola: Date.today().daysBetween(renewal). Es el encadenado de la sub-lección de String: Date.today() se le pide al tipo Date y devuelve un Date —el de hoy—, y a ESE Date le pides daysBetween(). Si te cuesta leerlo, desármalo en dos líneas como arriba: es exactamente lo mismo. Ojo al orden: la fecha desde la que cuentas va delante del punto; al revés, el número sale negativo.",
+        en: "In a formula you would write Renewal_Date__c - TODAY() and the result would already be a number of days. In Apex, the two lines above (Date today = Date.today(); then today.daysBetween(renewal)) are usually written as one: Date.today().daysBetween(renewal). It is the chaining from the String sub-lesson: Date.today() is asked of the Date type and returns a Date — today's — and you ask THAT Date for daysBetween(). If it is hard to read, break it into two lines as above: it is exactly the same. Mind the order: the date you count from goes before the dot; the other way round, the number comes out negative.",
+      },
+    },
+    {
+      type: "code",
+      code: {
+        es: `Date closeDate = Date.newInstance(2026, 12, 31);
+
+Integer daysLeft = Date.today().daysBetween(closeDate);    // cadena: hoy → días hasta el cierre
+Integer closeYear = closeDate.addDays(30).year();           // cadena: +30 días → su año
+String closeLabel = String.valueOf(closeDate.addMonths(1)); // anidado: la fecha nueva, como texto`,
+        en: `Date closeDate = Date.newInstance(2026, 12, 31);
+
+Integer daysLeft = Date.today().daysBetween(closeDate);    // chain: today → days until close
+Integer closeYear = closeDate.addDays(30).year();           // chain: +30 days → its year
+String closeLabel = String.valueOf(closeDate.addMonths(1)); // nested: the new date, as text`,
+      },
+      caption: {
+        es: "closeYear vale 2027: al sumar 30 días al 31 de diciembre se cambia de año, y year() lee el año de la fecha NUEVA, no de closeDate.",
+        en: "closeYear is 2027: adding 30 days to 31 December rolls over the year, and year() reads the year of the NEW date, not closeDate's.",
+      },
+    },
+    {
       type: "h",
       text: { es: "La zona horaria, de una vez por todas", en: "The time zone, once and for all" },
     },

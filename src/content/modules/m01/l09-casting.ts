@@ -158,6 +158,46 @@ String dateText = String.valueOf(Date.today());`,
     },
     {
       type: "callout",
+      variant: "admin",
+      title: { es: "Convertir y redondear en una línea: TEXT(ROUND(…)) en Apex", en: "Convert and round in one line: TEXT(ROUND(…)) in Apex" },
+      text: {
+        es: "La última línea de arriba ya anidaba: Date.today() se resuelve primero y su resultado entra en String.valueOf(). Lo más habitual en la vida real es convertir un importe a texto ya redondeado, lo que en una fórmula sería TEXT(ROUND(Amount, 2)). En Apex: String.valueOf(total.setScale(2)). Se lee de dentro hacia fuera: primero total.setScale(2) da un Decimal con dos decimales, y ese Decimal es el que String.valueOf() convierte a texto. (Simplificación: ROUND() de fórmulas y setScale() no redondean igual en el caso exacto del medio, como 0.125; para importes normales dan lo mismo).",
+        en: "The last line above was already nesting: Date.today() resolves first and its result goes into String.valueOf(). The everyday case is turning an amount into already-rounded text — in a formula, TEXT(ROUND(Amount, 2)). In Apex: String.valueOf(total.setScale(2)). Read it inside out: first total.setScale(2) gives a Decimal with two decimals, and that Decimal is what String.valueOf() turns into text. (Simplification: formula ROUND() and setScale() do not round the same way in the exact halfway case, such as 0.125; for normal amounts they agree.)",
+      },
+    },
+    {
+      type: "code",
+      code: {
+        es: `Decimal total = Decimal.valueOf('1234.5678');
+
+// Desarmado: dos pasos con nombre
+Decimal rounded = total.setScale(2);          // 1234.57
+String label1 = String.valueOf(rounded);      // '1234.57'
+
+// Anidado: los mismos dos pasos en una línea
+String label2 = String.valueOf(total.setScale(2)); // '1234.57'
+
+// Y de texto a número a texto, con un cálculo en medio
+String doubled = String.valueOf(Integer.valueOf('21') * 2); // '42'`,
+        en: `Decimal total = Decimal.valueOf('1234.5678');
+
+// Broken up: two named steps
+Decimal rounded = total.setScale(2);          // 1234.57
+String label1 = String.valueOf(rounded);      // '1234.57'
+
+// Nested: the same two steps on one line
+String label2 = String.valueOf(total.setScale(2)); // '1234.57'
+
+// And text to number to text, with a calculation in between
+String doubled = String.valueOf(Integer.valueOf('21') * 2); // '42'`,
+      },
+      caption: {
+        es: "Lo necesitarás en el checkpoint para mostrar un importe con dos decimales.",
+        en: "You will need this in the checkpoint to show an amount with two decimals.",
+      },
+    },
+    {
+      type: "callout",
       variant: "warn",
       title: { es: "Si el texto no es un número, revienta", en: "If the text is not a number, it blows up" },
       text: {
