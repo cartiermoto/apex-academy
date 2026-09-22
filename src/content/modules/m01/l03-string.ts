@@ -163,7 +163,7 @@ String quoted = 'The client said \\'yes\\' yesterday';`,
         ],
         [
           { es: "capitalize()", en: "capitalize()" },
-          { es: "String con la primera letra en mayúscula.", en: "String with the first letter capitalised." },
+          { es: "String con la primera letra en mayúscula; el resto se queda tal cual estaba.", en: "String with the first letter capitalised; the rest is left exactly as it was." },
           { es: "—", en: "—" },
         ],
       ],
@@ -192,8 +192,8 @@ String quoted = 'The client said \\'yes\\' yesterday';`,
       type: "diagram",
       id: "m01-method-chain",
       caption: {
-        es: "Cada flecha es un paso. Lo que sale de un paso es lo único que entra en el siguiente.",
-        en: "Each arrow is one step. What comes out of one step is all that goes into the next.",
+        es: "Pulsa Reproducir o avanza paso a paso: lo que sale de un paso es lo único que entra en el siguiente. Cambia a «Anidar» para ver el orden de dentro hacia fuera, que se explica más abajo.",
+        en: "Press Play or step through: what comes out of one step is all that goes into the next. Switch to “Nest” to see the inside-out order, explained further down.",
       },
     },
     {
@@ -663,160 +663,224 @@ System.debug('Letters: ' + String.valueOf(city.trim().length()));`,
 
   exercise: {
     prompt: {
-      es: "Los Leads del formulario web llegan sucios: el nombre de empresa viene con espacios y en minúsculas, y marketing quiere un código de campaña en mayúsculas. Limpia los datos y compón el saludo, sin escribir ningún resultado a mano.",
-      en: "Leads from the web form arrive dirty: the company name comes with spaces and in lower case, and marketing wants a campaign code in upper case. Clean the data and compose the greeting, without typing any result by hand.",
+      es: "El formulario de la web manda el nombre y el correo tal y como los teclea la persona: mayúsculas donde no tocan, espacios de sobra. Prepara los datos para crear el Contact. Ninguno de estos valores sale de un solo método: piensa primero qué tienes, qué quieres y en qué orden hay que pedir las cosas.",
+      en: "The web form sends the name and the email exactly as the person typed them: capitals where they do not belong, spare spaces. Get the data ready to create the Contact. None of these values comes out of a single method: think first about what you have, what you want, and in which order to ask for things.",
     },
     brief: [
       {
-        es: "Parte de esta línea tal cual: String rawCompany = '  northwind trading  ';",
-        en: "Start from this exact line: String rawCompany = '  northwind trading  ';",
+        es: "Parte de las dos líneas del código de partida. No cambies sus valores.",
+        en: "Start from the two lines in the starter code. Do not change their values.",
       },
       {
-        es: "cleanCompany: rawCompany sin los espacios de los extremos.",
-        en: "cleanCompany: rawCompany with the outer spaces removed.",
+        es: "displayName: rawName sin espacios en los extremos y escrito como un nombre propio, es decir, solo la primera letra en mayúscula: 'Ana maría torres'.",
+        en: "displayName: rawName without the outer spaces and written like a proper name, that is, only the first letter capitalised: 'Ana maría torres'.",
       },
       {
-        es: "companyCode: los cuatro primeros caracteres de cleanCompany, en mayúsculas ('NORT').",
-        en: "companyCode: the first four characters of cleanCompany, in upper case ('NORT').",
+        es: "cleanEmail: rawEmail sin espacios en los extremos y todo en minúsculas.",
+        en: "cleanEmail: rawEmail without the outer spaces and all in lower case.",
       },
       {
-        es: "nameLength: cuántos caracteres tiene cleanCompany. Elige tú el tipo.",
-        en: "nameLength: how many characters cleanCompany has. You choose the type.",
+        es: "isDotCom: Boolean que diga si cleanEmail acaba en '.com'.",
+        en: "isDotCom: a Boolean saying whether cleanEmail ends in '.com'.",
       },
       {
-        es: "greeting: el texto 'Hola, ' seguido de cleanCompany.",
-        en: "greeting: the text 'Hello, ' followed by cleanCompany.",
+        es: "initial: la primera letra de cleanEmail, en mayúscula ('V'). Tiene que ser un String.",
+        en: "initial: the first letter of cleanEmail, capitalised ('V'). It must be a String.",
       },
       {
-        es: "Todos los valores se calculan con métodos. No escribas 'NORT' ni el número 17 a mano.",
-        en: "Every value is computed with methods. Do not type 'NORT' or the number 17 by hand.",
+        es: "lengthLabel: cuántos caracteres tiene cleanEmail, pero ya convertido a texto para poder mostrarlo.",
+        en: "lengthLabel: how many characters cleanEmail has, already converted to text so it can be displayed.",
+      },
+      {
+        es: "summary: displayName, un espacio, y cleanEmail entre los signos < y >.",
+        en: "summary: displayName, a space, and cleanEmail between < and >.",
+      },
+      {
+        es: "Todo se calcula con métodos: no escribas a mano ningún resultado, ni 'V', ni el 20, ni el nombre ya arreglado.",
+        en: "Everything is computed with methods: do not type any result by hand — not 'V', not 20, not the tidied name.",
       },
     ],
     starter: {
-      es: `String rawCompany = '  northwind trading  ';
+      es: `String rawName = '  ANA maría TORRES  ';
+String rawEmail = ' Ventas@Northwind.COM ';
 
-// Limpia, recorta, cuenta y saluda. Todo con métodos.
+// Seis valores. Ninguno sale de un solo método.
 
 `,
-      en: `String rawCompany = '  northwind trading  ';
+      en: `String rawName = '  ANA maría TORRES  ';
+String rawEmail = ' Ventas@Northwind.COM ';
 
-// Clean, slice, count and greet. All with methods.
+// Six values. Not one of them comes out of a single method.
 
 `,
     },
     hints: [
       {
-        es: "Comprueba si estás guardando el resultado de cada método. Una llamada suelta en su propia línea calcula y tira el resultado.",
-        en: "Check that you are storing the result of every method call. A bare call on its own line computes the value and throws it away.",
+        es: "Antes de escribir, hazte dos preguntas por cada valor: ¿de qué dato parto? ¿de qué tipo tiene que ser el resultado? Si el tipo de salida no es texto, el último método de la línea no puede ser uno de String.",
+        en: "Before writing, ask two questions for each value: what value do I start from? what type must the result be? If the output type is not text, the last method on the line cannot be a String one.",
       },
       {
-        es: "Los métodos se pueden encadenar: lo que devuelve uno es un dato al que se le puede pedir otro. Y recuerda que las posiciones de substring empiezan en 0.",
-        en: "Methods can be chained: what one returns is a value you can ask the next one. And remember substring positions start at 0.",
+        es: "En displayName el orden lo decide todo: capitalize() solo toca la primera letra y deja el resto como estaba, así que lo de en medio ya tiene que llegar en minúsculas. Son tres métodos seguidos.",
+        en: "In displayName the order decides everything: capitalize() only touches the first letter and leaves the rest as it was, so the middle has to arrive already in lower case. It is three methods in a row.",
       },
       {
-        es: "Pseudocódigo: String companyCode = cleanCompany.substring(0, 4).toUpperCase(); — y para unir textos, el signo más.",
-        en: "Pseudocode: String companyCode = cleanCompany.substring(0, 4).toUpperCase(); — and to join text, the plus sign.",
+        es: "lengthLabel es el único que se anida: dentro de los paréntesis de String.valueOf() va el recuento, y ese recuento se le pide al correo ya limpio, no a rawEmail.",
+        en: "lengthLabel is the only nested one: inside String.valueOf()'s brackets goes the count, and that count is asked of the already-clean email, not of rawEmail.",
       },
     ],
     solution: {
-      es: `String rawCompany = '  northwind trading  ';
+      es: `String rawName = '  ANA maría TORRES  ';
+String rawEmail = ' Ventas@Northwind.COM ';
 
-String cleanCompany = rawCompany.trim();
-String companyCode = cleanCompany.substring(0, 4).toUpperCase();
-Integer nameLength = cleanCompany.length();
-String greeting = 'Hola, ' + cleanCompany;`,
-      en: `String rawCompany = '  northwind trading  ';
+String displayName = rawName.trim().toLowerCase().capitalize();
+String cleanEmail = rawEmail.trim().toLowerCase();
+Boolean isDotCom = cleanEmail.endsWith('.com');
+String initial = cleanEmail.substring(0, 1).toUpperCase();
+String lengthLabel = String.valueOf(cleanEmail.length());
+String summary = displayName + ' <' + cleanEmail + '>';`,
+      en: `String rawName = '  ANA maría TORRES  ';
+String rawEmail = ' Ventas@Northwind.COM ';
 
-String cleanCompany = rawCompany.trim();
-String companyCode = cleanCompany.substring(0, 4).toUpperCase();
-Integer nameLength = cleanCompany.length();
-String greeting = 'Hello, ' + cleanCompany;`,
+String displayName = rawName.trim().toLowerCase().capitalize();
+String cleanEmail = rawEmail.trim().toLowerCase();
+Boolean isDotCom = cleanEmail.endsWith('.com');
+String initial = cleanEmail.substring(0, 1).toUpperCase();
+String lengthLabel = String.valueOf(cleanEmail.length());
+String summary = displayName + ' <' + cleanEmail + '>';`,
     },
     checks: [
       {
         id: "l03-c1",
         label: {
-          es: "cleanCompany guarda el resultado de trim()",
-          en: "cleanCompany stores the result of trim()",
+          es: "displayName limpia, baja a minúsculas y capitaliza, en ese orden",
+          en: "displayName trims, lower-cases and capitalises, in that order",
         },
         rule: {
-          op: "match",
-          pattern: "String\\s+cleanCompany\\s*=\\s*rawCompany\\s*\\.\\s*trim\\s*\\(\\s*\\)",
+          op: "all",
+          of: [
+            { op: "match", pattern: "rawName\\s*\\.\\s*trim\\s*\\(\\s*\\)" },
+            { op: "match", pattern: "rawName\\s*\\.[^;]*toLowerCase\\s*\\(\\s*\\)" },
+            { op: "match", pattern: "String\\s+displayName\\s*=[^;]*capitalize\\s*\\(\\s*\\)" },
+            { op: "absent", pattern: "capitalize\\s*\\(\\s*\\)\\s*\\.\\s*toLowerCase\\s*\\(\\s*\\)" },
+          ],
         },
         onFail: {
-          es: "trim() no modifica rawCompany: devuelve un texto nuevo. Si no lo asignas a cleanCompany, el trabajo se pierde.",
-          en: "trim() does not modify rawCompany: it returns a new string. If you do not assign it to cleanCompany, the work is lost.",
+          es: "Son tres métodos encadenados sobre rawName. capitalize() solo cambia la primera letra: si llega 'ANA MARÍA TORRES', devuelve 'ANA MARÍA TORRES'. Hay que pasar a minúsculas ANTES de capitalizar.",
+          en: "It is three methods chained on rawName. capitalize() only changes the first letter: if 'ANA MARÍA TORRES' arrives, it returns 'ANA MARÍA TORRES'. You must lower-case BEFORE capitalising.",
+        },
+        onPass: {
+          es: "Ese es el punto: en una cadena, cada método recibe lo que dejó el anterior, así que el orden cambia el resultado.",
+          en: "That is the point: in a chain each method receives what the previous one left, so the order changes the result.",
         },
       },
       {
         id: "l03-c2",
         label: {
-          es: "companyCode se calcula, no se escribe",
-          en: "companyCode is computed, not typed",
+          es: "cleanEmail sale de rawEmail, sin espacios y en minúsculas",
+          en: "cleanEmail comes from rawEmail, trimmed and lower-cased",
         },
         rule: {
           op: "all",
           of: [
-            { op: "match", pattern: "String\\s+companyCode\\s*=" },
-            { op: "match", pattern: "substring\\s*\\(\\s*0\\s*,\\s*4\\s*\\)" },
-            { op: "match", pattern: "toUpperCase\\s*\\(\\s*\\)" },
-            { op: "absent", pattern: "companyCode\\s*=\\s*'NORT'" },
+            { op: "match", pattern: "String\\s+cleanEmail\\s*=\\s*rawEmail\\s*\\." },
+            { op: "match", pattern: "cleanEmail\\s*=[^;]*trim\\s*\\(\\s*\\)" },
+            { op: "match", pattern: "cleanEmail\\s*=[^;]*toLowerCase\\s*\\(\\s*\\)" },
           ],
         },
         onFail: {
-          es: "Necesitas los cuatro primeros caracteres —substring(0, 4), porque se empieza a contar en 0— y luego pasarlos a mayúsculas. Escribir 'NORT' a mano funciona hoy y falla con el siguiente Lead.",
-          en: "You need the first four characters — substring(0, 4), because counting starts at 0 — and then upper-case them. Typing 'NORT' works today and breaks on the next Lead.",
-        },
-        onPass: {
-          es: "Encadenar substring().toUpperCase() es idiomático: cada método recibe lo que devolvió el anterior.",
-          en: "Chaining substring().toUpperCase() is idiomatic: each method receives what the previous one returned.",
+          es: "Un correo se compara y se guarda siempre en minúsculas. Aquí el orden da igual —trim() y toLowerCase() no se estorban—, pero los dos tienen que estar, y partiendo de rawEmail.",
+          en: "An email is always stored and compared in lower case. Here the order does not matter — trim() and toLowerCase() do not interfere — but both must be there, starting from rawEmail.",
         },
       },
       {
         id: "l03-c3",
         label: {
-          es: "nameLength es Integer y usa length()",
-          en: "nameLength is an Integer and uses length()",
+          es: "isDotCom es Boolean y pregunta por el final del texto",
+          en: "isDotCom is a Boolean and asks about the end of the text",
         },
         rule: {
           op: "all",
           of: [
-            { op: "match", pattern: "Integer\\s+nameLength\\s*=" },
-            { op: "match", pattern: "nameLength\\s*=\\s*cleanCompany\\s*\\.\\s*length\\s*\\(\\s*\\)" },
+            { op: "match", pattern: "Boolean\\s+isDotCom\\s*=" },
+            { op: "match", pattern: "isDotCom\\s*=[^;]*cleanEmail\\s*\\.\\s*endsWith\\s*\\(\\s*'\\.com'\\s*\\)", flags: "" },
           ],
         },
         onFail: {
-          es: "length() cuenta caracteres, así que devuelve un Integer. Y tiene que contar cleanCompany, no rawCompany: los espacios ya no cuentan.",
-          en: "length() counts characters, so it returns an Integer. And it must count cleanCompany, not rawCompany: the spaces are gone now.",
+          es: "«¿Acaba en algo?» es una pregunta de sí o no: el tipo es Boolean y el método es endsWith('.com'), pedido sobre cleanEmail. Sobre rawEmail fallaría por el espacio final y por las mayúsculas.",
+          en: "“Does it end with something?” is a yes/no question: the type is Boolean and the method is endsWith('.com'), asked of cleanEmail. On rawEmail it would fail because of the trailing space and the capitals.",
         },
       },
       {
         id: "l03-c4",
         label: {
-          es: "greeting concatena el saludo con cleanCompany",
-          en: "greeting concatenates the greeting with cleanCompany",
+          es: "initial recorta un carácter y lo pone en mayúscula",
+          en: "initial slices one character and upper-cases it",
         },
         rule: {
           op: "all",
           of: [
-            { op: "match", pattern: "String\\s+greeting\\s*=" },
-            { op: "match", pattern: "greeting\\s*=\\s*'[^']*'\\s*\\+\\s*cleanCompany" },
+            { op: "match", pattern: "String\\s+initial\\s*=" },
+            { op: "match", pattern: "initial\\s*=[^;]*substring\\s*\\(\\s*0\\s*,\\s*1\\s*\\)" },
+            { op: "match", pattern: "initial\\s*=[^;]*toUpperCase\\s*\\(\\s*\\)" },
+            { op: "absent", pattern: "initial\\s*=\\s*'[Vv]'" },
           ],
         },
         onFail: {
-          es: "Se unen textos con el signo más, y la parte variable tiene que ser cleanCompany: si escribes el nombre dentro de las comillas, el saludo no cambia nunca.",
-          en: "Text is joined with a plus, and the variable part must be cleanCompany: if you type the name inside the quotes, the greeting never changes.",
+          es: "Un solo carácter, el de la posición 0: substring(0, 1), porque el segundo número marca dónde parar sin incluirlo. Y después, en mayúscula. Escribir 'V' a mano funciona con este correo y con ninguno más.",
+          en: "A single character, the one at position 0: substring(0, 1), because the second number marks where to stop, exclusive. And then upper-cased. Typing 'V' by hand works for this email and no other.",
         },
       },
       {
         id: "l03-c5",
+        label: {
+          es: "lengthLabel anida el recuento dentro de String.valueOf()",
+          en: "lengthLabel nests the count inside String.valueOf()",
+        },
+        rule: {
+          op: "all",
+          of: [
+            { op: "match", pattern: "String\\s+lengthLabel\\s*=[^;]*String\\s*\\.\\s*valueOf\\s*\\(" },
+            { op: "match", pattern: "lengthLabel\\s*=[^;]*cleanEmail\\s*\\.\\s*length\\s*\\(\\s*\\)" },
+            { op: "absent", pattern: "lengthLabel\\s*=\\s*'\\d" },
+          ],
+        },
+        onFail: {
+          es: "length() devuelve un Integer y lo que pides es un texto, así que el recuento va DENTRO de los paréntesis de String.valueOf(). Y se cuenta el correo ya limpio: rawEmail tiene dos caracteres de más.",
+          en: "length() returns an Integer and what you want is text, so the count goes INSIDE String.valueOf()'s brackets. And it counts the clean email: rawEmail has two characters too many.",
+        },
+        onPass: {
+          es: "Anidado de libro: primero se resuelve lo de dentro, y su resultado entra en el método de fuera.",
+          en: "Textbook nesting: the inside resolves first, and its result goes into the outer method.",
+        },
+      },
+      {
+        id: "l03-c6",
+        label: {
+          es: "summary se compone con las variables, no con el texto escrito a mano",
+          en: "summary is composed from the variables, not from hand-typed text",
+        },
+        rule: {
+          op: "all",
+          of: [
+            { op: "match", pattern: "String\\s+summary\\s*=[^;]*displayName" },
+            { op: "match", pattern: "summary\\s*=[^;]*cleanEmail" },
+            { op: "match", pattern: "summary\\s*=[^;]*'[^']*<" },
+          ],
+        },
+        onFail: {
+          es: "Los trozos fijos —el espacio y los signos < y >— van entre comillas; los que cambian son displayName y cleanEmail, unidos con el signo más. Si escribes el nombre dentro de las comillas, el resumen será el mismo para todos los contactos.",
+          en: "The fixed bits — the space and the < > signs — go in quotes; the changing ones are displayName and cleanEmail, joined with plus. If you type the name inside the quotes, the summary will be identical for every contact.",
+        },
+      },
+      {
+        id: "l03-c7",
         label: {
           es: "No se descarta ninguna llamada a método",
           en: "No method call is thrown away",
         },
         rule: {
           op: "absent",
-          pattern: "^\\s*\\w+\\s*\\.\\s*(trim|toUpperCase|toLowerCase|substring)\\s*\\([^)]*\\)\\s*;\\s*$",
+          pattern: "^\\s*\\w+\\s*\\.\\s*(trim|toUpperCase|toLowerCase|capitalize|substring)\\s*\\([^)]*\\)\\s*;\\s*$",
           flags: "im",
         },
         onFail: {
@@ -828,8 +892,8 @@ String greeting = 'Hello, ' + cleanCompany;`,
     ],
     rubric: [
       {
-        es: "Si mañana el formulario envía '   ' como empresa, ¿qué haría substring(0, 4)? Guárdate la pregunta para la sub-lección de Null.",
-        en: "If the form sent '   ' as the company tomorrow, what would substring(0, 4) do? Hold that question for the Null sub-lesson.",
+        es: "Dos preguntas para pensar: si el formulario enviara el correo vacío, ¿en qué punto exacto de tus cadenas reventaría? Y si mañana piden el dominio del correo —lo que va detrás de la arroba—, ¿con qué método empezarías a buscarlo?",
+        en: "Two questions to chew on: if the form sent an empty email, at which exact point in your chains would it blow up? And if tomorrow they ask for the email's domain — what comes after the @ — which method would you start looking with?",
       },
     ],
   },
