@@ -375,6 +375,45 @@ export const glossary: GlossaryEntry[] = [
     },
     taughtIn: { es: "Módulo 4", en: "Module 4" },
   },
+  {
+    id: "variables-contexto",
+    term: { es: "variables de contexto", en: "context variables" },
+    definition: {
+      es: "Lo que Salesforce le deja preparado a un trigger en cada ejecución: Trigger.new, Trigger.old, sus mapas por Id y preguntas como Trigger.isInsert o Trigger.isBefore.",
+      en: "What Salesforce leaves ready for a trigger on every run: Trigger.new, Trigger.old, their maps by Id and questions like Trigger.isInsert or Trigger.isBefore.",
+    },
+    admin: {
+      es: "$Record y $Record__Prior de un Record-Triggered Flow, pero en listas.",
+      en: "A record-triggered Flow's $Record and $Record__Prior, but as lists.",
+    },
+    taughtIn: { es: "Módulo 6", en: "Module 6" },
+  },
+  {
+    id: "orden-ejecucion",
+    term: { es: "orden de ejecución", en: "order of execution" },
+    definition: {
+      es: "La secuencia fija en la que Salesforce ejecuta validaciones, flows, triggers, reglas y roll-ups cada vez que se guarda un registro, hasta el commit.",
+      en: "The fixed sequence in which Salesforce runs validations, flows, triggers, rules and roll-ups every time a record is saved, up to the commit.",
+    },
+    admin: {
+      es: "Flow Trigger Explorer, ampliado a toda la automatización del objeto.",
+      en: "Flow Trigger Explorer, widened to all of the object's automation.",
+    },
+    taughtIn: { es: "Módulo 6", en: "Module 6" },
+  },
+  {
+    id: "recursion",
+    term: { es: "recursión", en: "recursion" },
+    definition: {
+      es: "Cuando un trigger guarda registros de su propio objeto y así se vuelve a disparar a sí mismo. Salesforce la corta en el nivel 16 con «Maximum trigger depth exceeded».",
+      en: "When a trigger saves records of its own object and so fires itself again. Salesforce cuts it at level 16 with “Maximum trigger depth exceeded”.",
+    },
+    admin: {
+      es: "Un flow after-save que actualiza el mismo registro que lo disparó.",
+      en: "An after-save flow that updates the same record that fired it.",
+    },
+    taughtIn: { es: "Módulo 6", en: "Module 6" },
+  },
 ];
 
 const byId = new Map(glossary.map((g) => [g.id, g]));
