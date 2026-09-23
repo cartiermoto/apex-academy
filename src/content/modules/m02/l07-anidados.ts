@@ -348,8 +348,8 @@ for (Lead l : leads) {
 
   exercise: {
     prompt: {
-      es: "Marketing importa leads de una feria y quiere avisar a Ventas de los que vienen de empresas que ya son clientes. Un compañero lo resolvió con un bucle dentro de otro. Hazlo con dos bucles seguidos y un Set.",
-      en: "Marketing is importing leads from a trade show and wants to alert Sales to the ones from companies that are already customers. A colleague solved it with a loop inside another. Do it with two loops in a row and a Set.",
+      es: "TAREA 7 DE 8 · Marketing vuelve de una feria y quiere saber qué leads son de empresas que ya son clientes, como Northwind. Dos listas a la vez. Marketing importa leads de una feria y quiere avisar a Ventas de los que vienen de empresas que ya son clientes. Un compañero lo resolvió con un bucle dentro de otro. Hazlo con dos bucles seguidos y un Set.",
+      en: "TASK 7 OF 8 · Marketing is back from a trade show and wants to know which leads come from companies that are already customers, like Northwind. Two lists at once. Marketing is importing leads from a trade show and wants to alert Sales to the ones from companies that are already customers. A colleague solved it with a loop inside another. Do it with two loops in a row and a Set.",
     },
     brief: [
       {
@@ -370,7 +370,10 @@ for (Lead l : leads) {
       },
     ],
     starter: {
-      es: `List<Account> customers = new List<Account>{
+      es: `// CASO: las reglas de negocio de la cuenta clave · Northwind Trading
+// Tarea 7 de 8: cruzar los leads de la feria con los clientes, sin bucle dentro de bucle.
+
+List<Account> customers = new List<Account>{
     new Account(Name = 'Acme Corp'),
     new Account(Name = 'Globex'),
     new Account(Name = 'Initech')
@@ -384,7 +387,10 @@ List<Lead> leads = new List<Lead>{
 
 // Construye customerNames y después existingCustomerLeads.
 `,
-      en: `List<Account> customers = new List<Account>{
+      en: `// CASE: the key account's business rules · Northwind Trading
+// Task 7 of 8: cross the trade-show leads with the customers, with no loop inside a loop.
+
+List<Account> customers = new List<Account>{
     new Account(Name = 'Acme Corp'),
     new Account(Name = 'Globex'),
     new Account(Name = 'Initech')
@@ -555,6 +561,10 @@ System.debug(existingCustomerLeads.size());   // 2`,
       {
         es: "Añade un lead con Company = 'ACME CORP'. ¿Lo encuentra tu código? ¿Qué cambiarías para que sí?",
         en: "Add a lead with Company = 'ACME CORP'. Does your code find it? What would you change so it does?",
+      },
+      {
+        es: "Tarea 8: la entrega. La revisión trimestral junta todo lo anterior sobre el pipeline real: niveles, reglas, recorridos y paradas.",
+        en: "Task 8: delivery. The quarterly review brings everything before together on the real pipeline: tiers, rules, walks and stops.",
       },
     ],
   },

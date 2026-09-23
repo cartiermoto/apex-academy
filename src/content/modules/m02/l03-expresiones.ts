@@ -361,8 +361,8 @@ if (count == 0) {
 
   exercise: {
     prompt: {
-      es: "Un compañero dejó este código a medias y no compila. Arréglalo y, de paso, déjalo más limpio: la aprobación y el aviso a Legal no necesitan ningún if, porque en los dos casos lo único que se decide es un valor.",
-      en: "A colleague left this code half-done and it does not compile. Fix it and, while you are at it, make it cleaner: the approval and the Legal flag do not need any if, because in both cases the only thing being decided is a value.",
+      es: "TAREA 3 DE 8 · La renovación de Northwind está en negociación: hay que decidir quién la aprueba y si pasa por Legal. Un compañero empezó esta parte y la dejó a medias. Un compañero dejó este código a medias y no compila. Arréglalo y, de paso, déjalo más limpio: la aprobación y el aviso a Legal no necesitan ningún if, porque en los dos casos lo único que se decide es un valor.",
+      en: "TASK 3 OF 8 · Northwind's renewal is in negotiation: someone must decide who approves it and whether it goes through Legal. A colleague started this part and left it half done. A colleague left this code half-done and it does not compile. Fix it and, while you are at it, make it cleaner: the approval and the Legal flag do not need any if, because in both cases the only thing being decided is a value.",
     },
     brief: [
       {
@@ -383,7 +383,10 @@ if (count == 0) {
       },
     ],
     starter: {
-      es: `Opportunity opp = new Opportunity(Name = 'Renovación Acme', Amount = 80000, StageName = 'Negotiation');
+      es: `// CASO: las reglas de negocio de la cuenta clave · Northwind Trading
+// Tarea 3 de 8: quién aprueba la renovación y si pasa por Legal.
+
+Opportunity opp = new Opportunity(Name = 'Renovación Acme', Amount = 80000, StageName = 'Negotiation');
 
 if (opp.Amount >= 50000) {
     String approver = 'Director';
@@ -393,7 +396,10 @@ if (opp.Amount >= 50000) {
 
 System.debug(approver + ' · Legal: ' + needsLegal);
 `,
-      en: `Opportunity opp = new Opportunity(Name = 'Acme Renewal', Amount = 80000, StageName = 'Negotiation');
+      en: `// CASE: the key account's business rules · Northwind Trading
+// Task 3 of 8: who approves the renewal and whether it goes through Legal.
+
+Opportunity opp = new Opportunity(Name = 'Acme Renewal', Amount = 80000, StageName = 'Negotiation');
 
 if (opp.Amount >= 50000) {
     String approver = 'Director';
@@ -509,6 +515,10 @@ System.debug(approver + ' · Legal: ' + needsLegal);`,
       {
         es: "Lee cada línea en voz alta. ¿Suena como la regla que te dio el negocio?",
         en: "Read each line aloud. Does it sound like the rule the business gave you?",
+      },
+      {
+        es: "Tarea 4: con las reglas de una sola oportunidad resueltas, Dirección levanta la vista hacia el objetivo del año: ¿cuántos meses faltan?",
+        en: "Task 4: with the single-opportunity rules solved, Management looks up at the year's target: how many months to go?",
       },
     ],
   },

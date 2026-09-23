@@ -452,8 +452,8 @@ while (stock > 0) {
 
   exercise: {
     prompt: {
-      es: "Ejercicio integrador. Dirección prepara la revisión trimestral y te pide, sobre las oportunidades abiertas: cuántas son grandes, medianas y pequeñas; el pipeline ponderado por probabilidad de etapa; y la primera oportunidad abierta que necesita revisión legal. Las cerradas no cuentan para nada, y hay una sin importe.",
-      en: "Integrative exercise. Management is preparing the quarterly review and asks, about the open opportunities: how many are large, medium and small; the pipeline weighted by stage probability; and the first open opportunity that needs a legal review. Closed ones count for nothing, and one has no amount.",
+      es: "TAREA 8 DE 8 · La entrega. La revisión trimestral junta las reglas de las siete tareas anteriores sobre el pipeline real: no hay nada nuevo que aprender aquí, solo decidir qué herramienta va en cada parte. Ejercicio integrador. Dirección prepara la revisión trimestral y te pide, sobre las oportunidades abiertas: cuántas son grandes, medianas y pequeñas; el pipeline ponderado por probabilidad de etapa; y la primera oportunidad abierta que necesita revisión legal. Las cerradas no cuentan para nada, y hay una sin importe.",
+      en: "TASK 8 OF 8 · Delivery. The quarterly review brings the rules of the previous seven tasks together on the real pipeline: nothing new to learn here, just deciding which tool goes in each part. Integrative exercise. Management is preparing the quarterly review and asks, about the open opportunities: how many are large, medium and small; the pipeline weighted by stage probability; and the first open opportunity that needs a legal review. Closed ones count for nothing, and one has no amount.",
     },
     brief: [
       {
@@ -486,7 +486,10 @@ while (stock > 0) {
       },
     ],
     starter: {
-      es: `List<Opportunity> opps = new List<Opportunity>{
+      es: `// CASO: las reglas de negocio de la cuenta clave · Northwind Trading
+// Tarea 8 de 8: la revisión trimestral, con todo lo anterior.
+
+List<Opportunity> opps = new List<Opportunity>{
     new Opportunity(Name = 'Stark · Licencias', StageName = 'Closed Lost', Amount = 500000),
     new Opportunity(Name = 'Acme · Plataforma', StageName = 'Negotiation', Amount = 320000),
     new Opportunity(Name = 'Globex · Piloto', StageName = 'Prospecting', Amount = 15000),
@@ -500,7 +503,10 @@ while (stock > 0) {
 // 2. Primera oportunidad abierta para revisión legal (otro bucle).
 // 3. Resultados.
 `,
-      en: `List<Opportunity> opps = new List<Opportunity>{
+      en: `// CASE: the key account's business rules · Northwind Trading
+// Task 8 of 8: the quarterly review, with everything before.
+
+List<Opportunity> opps = new List<Opportunity>{
     new Opportunity(Name = 'Stark · Licences', StageName = 'Closed Lost', Amount = 500000),
     new Opportunity(Name = 'Acme · Platform', StageName = 'Negotiation', Amount = 320000),
     new Opportunity(Name = 'Globex · Pilot', StageName = 'Prospecting', Amount = 15000),

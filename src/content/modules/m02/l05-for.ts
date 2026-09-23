@@ -430,8 +430,8 @@ for (Opportunity opp : opps) {
 
   exercise: {
     prompt: {
-      es: "Para la reunión de pipeline del lunes, Dirección quiere tres datos de las oportunidades abiertas: el importe total, cuántas son de 50.000 o más, y la lista con los nombres de esas grandes. Una de las oportunidades aún no tiene importe.",
-      en: "For Monday's pipeline meeting, management wants three figures from the open opportunities: the total amount, how many are worth 50,000 or more, and the list of names of those big ones. One of the opportunities has no amount yet.",
+      es: "TAREA 5 DE 8 · Ya no es una oportunidad: es la lista entera del pipeline, y hay que recorrerla. Para la reunión de pipeline del lunes, Dirección quiere tres datos de las oportunidades abiertas: el importe total, cuántas son de 50.000 o más, y la lista con los nombres de esas grandes. Una de las oportunidades aún no tiene importe.",
+      en: "TASK 5 OF 8 · It is no longer one opportunity: it is the whole pipeline list, and it has to be walked. For Monday's pipeline meeting, management wants three figures from the open opportunities: the total amount, how many are worth 50,000 or more, and the list of names of those big ones. One of the opportunities has no amount yet.",
     },
     brief: [
       {
@@ -456,7 +456,10 @@ for (Opportunity opp : opps) {
       },
     ],
     starter: {
-      es: `List<Opportunity> opps = new List<Opportunity>{
+      es: `// CASO: las reglas de negocio de la cuenta clave · Northwind Trading
+// Tarea 5 de 8: recorrer el pipeline del lunes y resumirlo.
+
+List<Opportunity> opps = new List<Opportunity>{
     new Opportunity(Name = 'Acme · Renovación', Amount = 72000),
     new Opportunity(Name = 'Globex · Piloto', Amount = 18000),
     new Opportunity(Name = 'Initech · Ampliación', Amount = 50000),
@@ -466,7 +469,10 @@ for (Opportunity opp : opps) {
 
 // Calcula totalAmount, bigDealCount y bigDealNames.
 `,
-      en: `List<Opportunity> opps = new List<Opportunity>{
+      en: `// CASE: the key account's business rules · Northwind Trading
+// Task 5 of 8: walk Monday's pipeline and summarise it.
+
+List<Opportunity> opps = new List<Opportunity>{
     new Opportunity(Name = 'Acme · Renewal', Amount = 72000),
     new Opportunity(Name = 'Globex · Pilot', Amount = 18000),
     new Opportunity(Name = 'Initech · Expansion', Amount = 50000),
@@ -636,6 +642,10 @@ System.debug(totalAmount + ' · ' + bigDealCount + ' · ' + bigDealNames);`,
       {
         es: "Si mañana piden también el importe medio, ¿qué añadirías y dónde?",
         en: "If tomorrow they also ask for the average amount, what would you add and where?",
+      },
+      {
+        es: "Tarea 6: el mismo recorrido, pero sobre la cola de casos de Soporte… y parando en cuanto aparezca lo urgente.",
+        en: "Task 6: the same walk, but over Support's case queue… stopping as soon as something urgent turns up.",
       },
     ],
   },

@@ -15,8 +15,8 @@ export const m02: Module = {
   status: "ready",
   title: { es: "Control de Flujo", en: "Control Flow" },
   subtitle: {
-    es: "Decidir y repetir: lo que en Flow eran nodos de decisión y bucles, aquí son diez líneas de código.",
-    en: "Deciding and repeating: what Flow drew as decision nodes and loops is ten lines of code here.",
+    es: "Decidir y repetir: lo que en Flow eran nodos de decisión y bucles, aquí son diez líneas de código. Los ocho talleres son las reglas de negocio de una misma cuenta.",
+    en: "Deciding and repeating: what Flow drew as decision nodes and loops is ten lines of code here. The eight workshops are one account's business rules.",
   },
   lessons: [
     l01IfElse,
