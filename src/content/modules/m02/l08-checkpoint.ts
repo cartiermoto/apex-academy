@@ -95,8 +95,8 @@ export const l08Checkpoint: Lesson = {
       type: "diagram",
       id: "m02-cp-choose",
       caption: {
-        es: "Qué estructura elegir según la pregunta que te hace el negocio.",
-        en: "Which structure to pick depending on the question the business is asking.",
+        es: "Qué estructura elegir según la pregunta que te hace el negocio. Pruébate: elige la estructura para cada necesidad.",
+        en: "Which structure to pick depending on the question the business is asking. Test yourself: pick the structure for each need.",
       },
     },
     {

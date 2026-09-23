@@ -119,8 +119,8 @@ switch on support.Origin {
       type: "diagram",
       id: "m02-switch",
       caption: {
-        es: "switch evalúa el campo una sola vez y lo reparte a la salida de su valor.",
-        en: "switch evaluates the field once and routes it to the outcome for its value.",
+        es: "switch evalúa el campo una sola vez y lo reparte a la salida de su valor. Cambia el valor de c.Origin y mira qué rama se ilumina.",
+        en: "switch evaluates the field once and routes it to the outcome for its value. Change c.Origin and watch which arm lights up.",
       },
     },
     {
