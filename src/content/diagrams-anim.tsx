@@ -745,3 +745,84 @@ export function CollectionsPlay({ lang }: P) {
     </div>
   );
 }
+
+/* --------------------------------------------- a "which tool?" mini-game --- */
+
+/**
+ * The reader gets a business need and four tools to pick from; the answer is
+ * revealed on click. Distractors come from around the answer in the list, so
+ * close relatives (continue/break, IN/subquery) meet each other.
+ */
+export function ChooserGame({
+  lang,
+  all,
+  needs,
+}: {
+  lang: Lang;
+  all: string[];
+  needs: Array<{ need: string; answer: string }>;
+}) {
+  const s = useStepper(needs.length, 99999);
+  const [chosen, setChosen] = useState<Record<number, string>>({});
+  const cur = needs[s.i];
+  const picked = chosen[s.i];
+  // four options: the answer plus three distractors taken from around it in
+  // the list (so neighbours like continue/break meet), in a fixed order per need
+  const at = all.indexOf(cur.answer);
+  const options = [cur.answer, all[(at + 1) % all.length], all[(at + 3) % all.length], all[(at + 6) % all.length]]
+    .map((o, k) => ({ o, key: (k * 7 + s.i * 3) % 11 }))
+    .sort((a, b) => a.key - b.key)
+    .map((x) => x.o);
+  const score = Object.entries(chosen).filter(([k, v]) => needs[Number(k)].answer === v).length;
+
+  return (
+    <div className="w-full">
+      <p className="t-micro mb-2 font-semibold tracking-[0.06em] text-faint">
+        {pick(lang, "EL NEGOCIO PIDE…", "THE BUSINESS ASKS…")} · {pick(lang, "aciertos", "correct")} {score}/{Object.keys(chosen).length}
+      </p>
+      <p key={s.i} className="diag-pop t-body font-semibold text-ink">
+        {cur.need}
+      </p>
+      <div className="mt-3 flex flex-wrap gap-2">
+        {options.map((o) => {
+          const isPicked = picked === o;
+          const right = picked && o === cur.answer;
+          const wrong = isPicked && o !== cur.answer;
+          return (
+            <button
+              key={o}
+              type="button"
+              disabled={Boolean(picked)}
+              onClick={() => setChosen((c) => ({ ...c, [s.i]: o }))}
+              className="t-small min-h-[38px] rounded-[4px] border px-3 font-mono transition-colors disabled:cursor-default"
+              style={{
+                borderColor: right ? "var(--c-brand)" : wrong ? "var(--c-danger)" : "var(--c-border)",
+                background: right ? "var(--c-brand-soft)" : wrong ? "var(--c-danger-soft)" : "transparent",
+                color: right ? "var(--c-brand)" : wrong ? "var(--c-danger)" : "var(--c-text)",
+                fontWeight: right ? 600 : 400,
+              }}
+            >
+              {right ? "✓ " : wrong ? "✗ " : ""}
+              {o}
+            </button>
+          );
+        })}
+      </div>
+      <Note lang={lang} s={s}>
+        {picked
+          ? picked === cur.answer
+            ? pick(lang, "Correcto. Pasa a la siguiente cuando quieras.", "Right. Move to the next one when you like.")
+            : pick(lang, `No: lo que encaja es ${cur.answer}. Fíjate en la palabra clave de la frase.`, `No: what fits is ${cur.answer}. Look for the key word in the sentence.`)
+          : pick(lang, "Elige la estructura que usarías.", "Pick the structure you would use.")}
+      </Note>
+      <div className="mt-4 flex flex-wrap items-center gap-2">
+        <button type="button" className="btn btn-ghost" disabled={s.i === 0} onClick={() => s.go(s.i - 1)}>
+          {pick(lang, "← Anterior", "← Back")}
+        </button>
+        <button type="button" className="btn btn-primary" disabled={s.i === s.last} onClick={() => s.go(s.i + 1)}>
+          {pick(lang, "Siguiente →", "Next →")}
+        </button>
+      </div>
+    </div>
+  );
+}

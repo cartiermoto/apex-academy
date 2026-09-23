@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { Lang } from "@/lib/types";
-import { Controls, Note, Tabs, codeBox, pick, useStepper } from "./diagrams-anim";
+import { ChooserGame, Controls, Note, Tabs, codeBox, pick, useStepper } from "./diagrams-anim";
 
 /**
  * Module 3's interactive diagrams.
@@ -22,6 +22,7 @@ type Acc = {
   name: string;
   industry: string;
   revenue: number;
+  owner: string;
   contacts: string[];
   opps: Opp[];
 };
@@ -31,6 +32,7 @@ const ORG: Acc[] = [
     name: "Acme Corp",
     industry: "Technology",
     revenue: 5000000,
+    owner: "Laura Gil",
     contacts: ["Rivera", "Soto"],
     opps: [
       { name: "Renovación Acme", stage: "Closed Won", amount: 120000 },
@@ -41,6 +43,7 @@ const ORG: Acc[] = [
     name: "Northwind Trading",
     industry: "Retail",
     revenue: 2400000,
+    owner: "Marco Vidal",
     contacts: ["Torres"],
     opps: [{ name: "Renovación primavera", stage: "Negotiation", amount: 24500 }],
   },
@@ -48,6 +51,7 @@ const ORG: Acc[] = [
     name: "Globex",
     industry: "Technology",
     revenue: 900000,
+    owner: "Laura Gil",
     contacts: ["Méndez", "Ruiz", "Pardo"],
     opps: [],
   },
@@ -55,6 +59,7 @@ const ORG: Acc[] = [
     name: "Initech",
     industry: "Manufacturing",
     revenue: 12000000,
+    owner: "Sara Nieto",
     contacts: [],
     opps: [{ name: "Planta nueva", stage: "Closed Won", amount: 800000 }],
   },
@@ -62,6 +67,7 @@ const ORG: Acc[] = [
     name: "Umbrella Foods",
     industry: "Retail",
     revenue: 450000,
+    owner: "Marco Vidal",
     contacts: ["Díaz"],
     opps: [{ name: "Piloto tiendas", stage: "Prospecting", amount: 15000 }],
   },
@@ -623,4 +629,466 @@ export function SubqueryCost({ lang }: P) {
       </p>
     </div>
   );
+}
+
+/* ------------------------------------------------ 5. the filter funnel ---- */
+
+export function FilterFunnelPlay({ lang }: P) {
+  const steps = [
+    {
+      clause: "FROM Opportunity",
+      rows: 12000,
+      note: pick(
+        lang,
+        "La org tiene 12.000 oportunidades. Si la consulta terminara aquí, las 12.000 viajarían a tu código… y el límite de filas por transacción es de 50.000: con cuatro consultas así ya estarías rozándolo.",
+        "The org holds 12,000 opportunities. If the query stopped here, all 12,000 would travel to your code… and the per-transaction row limit is 50,000: four queries like this and you would be brushing it.",
+      ),
+    },
+    {
+      clause: "WHERE IsClosed = false AND CloseDate = THIS_QUARTER",
+      rows: 800,
+      note: pick(
+        lang,
+        "El filtro se aplica DENTRO de la base de datos: de 12.000 quedan 800 y las otras 11.200 ni se mueven. Es el paso que más ahorra.",
+        "The filter runs INSIDE the database: 12,000 become 800 and the other 11,200 never move. It is the step that saves the most.",
+      ),
+    },
+    {
+      clause: "ORDER BY Amount DESC",
+      rows: 800,
+      note: pick(
+        lang,
+        "Ordenar no quita filas: siguen siendo 800, ahora con las más grandes arriba. Sin este paso, el LIMIT de después cogería unas cualquiera.",
+        "Ordering removes no rows: still 800, now with the largest on top. Without this step, the LIMIT afterwards would grab any of them.",
+      ),
+    },
+    {
+      clause: "LIMIT 10",
+      rows: 10,
+      note: pick(
+        lang,
+        "Y a tu código llegan 10 filas. Todo el trabajo pesado lo hizo la base de datos; Apex solo recibe lo que va a enseñar en la reunión. Es la misma idea que filtrar un informe antes de exportarlo, no después.",
+        "And 10 rows reach your code. The database did all the heavy lifting; Apex only gets what it will show in the meeting. It is the same idea as filtering a report before exporting it, not afterwards.",
+      ),
+    },
+  ];
+  const s = useStepper(steps.length, 2000);
+  const max = Math.log10(12000);
+
+  return (
+    <div className="w-full">
+      <ol className="space-y-2">
+        {steps.map((x, n) => {
+          const on = n <= s.i;
+          const width = on ? Math.max(4, (Math.log10(x.rows) / max) * 100) : 0;
+          return (
+            <li key={n}>
+              <p className="flex items-baseline justify-between gap-2">
+                <code className="t-micro font-mono" style={{ color: on ? "var(--c-text)" : "var(--c-text-faint)" }}>
+                  {x.clause}
+                </code>
+                <span className="t-micro shrink-0 font-mono tabular-nums" style={{ color: on ? "var(--c-text)" : "var(--c-text-faint)" }}>
+                  {on ? `${x.rows.toLocaleString("es-ES")} ${pick(lang, "filas", "rows")}` : "—"}
+                </span>
+              </p>
+              <div className="mt-1 h-[10px] w-full overflow-hidden rounded-[4px]" style={{ background: "var(--c-surface-2)" }}>
+                <div
+                  className="h-full rounded-[4px] transition-[width] duration-500"
+                  style={{ width: `${width}%`, background: n === s.i ? "var(--c-brand)" : "var(--c-brand-deco)" }}
+                />
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+      <p className="t-micro mt-2 text-faint">
+        {pick(lang, "Barras en escala logarítmica: de 12.000 a 10 no cabría en una escala normal.", "Bars on a log scale: 12,000 down to 10 would not fit on a normal one.")}
+      </p>
+      <Note lang={lang} s={s}>
+        {steps[s.i].note}
+      </Note>
+      <Controls lang={lang} s={s} />
+    </div>
+  );
+}
+
+/* ---------------------------------------------- 6. walking relationships -- */
+
+export function RelationshipsPlay({ lang }: P) {
+  const [mode, setMode] = useState(0);
+  const contacts = ORG.flatMap((a) => a.contacts.map((c) => ({ last: c, acc: a })));
+  const [ci, setCi] = useState(contacts.findIndex((c) => c.last === "Torres"));
+  const [ai, setAi] = useState(0);
+  const c = contacts[ci];
+  const a = ORG[ai];
+
+  return (
+    <div className="w-full">
+      <Tabs
+        items={[pick(lang, "Subir: del contacto al padre", "Up: from contact to parent"), pick(lang, "Bajar: de la cuenta a los hijos", "Down: from account to children")]}
+        value={mode}
+        onChange={setMode}
+      />
+
+      {mode === 0 ? (
+        <>
+          <div className="mb-3 flex flex-wrap items-center gap-2">
+            <span className="t-micro font-semibold tracking-[0.06em] text-faint">{pick(lang, "CONTACTO", "CONTACT")}</span>
+            {contacts.map((x, n) => (
+              <Chip key={x.last} on={ci === n} onClick={() => setCi(n)}>
+                {x.last}
+              </Chip>
+            ))}
+          </div>
+          <ol className="space-y-2">
+            {[
+              { path: "c.LastName", value: `'${c.last}'`, what: pick(lang, "el propio contacto", "the contact itself") },
+              { path: "c.Account.Name", value: `'${c.acc.name}'`, what: pick(lang, "un punto: su cuenta", "one dot: its account") },
+              { path: "c.Account.Industry", value: `'${c.acc.industry}'`, what: pick(lang, "otro campo de la misma cuenta", "another field of the same account") },
+              { path: "c.Account.Owner.Name", value: `'${c.acc.owner}'`, what: pick(lang, "dos puntos: el propietario de su cuenta", "two dots: its account's owner") },
+            ].map((r, n) => (
+              <li
+                key={`${ci}-${n}`}
+                className="diag-pop flex flex-wrap items-baseline gap-x-3 gap-y-1 rounded-[4px] border px-3 py-2"
+                style={{ borderColor: "var(--c-border)", marginLeft: n * 14, animationDelay: `${n * 90}ms` }}
+              >
+                <code className="font-mono text-[12.5px] text-ink">{r.path}</code>
+                <span className="font-mono text-[12.5px] font-semibold" style={{ color: "var(--c-brand)" }}>
+                  → {r.value}
+                </span>
+                <span className="t-micro text-faint">{r.what}</span>
+              </li>
+            ))}
+          </ol>
+          <p className="t-small mt-3 text-muted" aria-live="polite">
+            {pick(
+              lang,
+              "Cada punto sube un nivel por un campo de búsqueda, igual que en una fórmula entre objetos. Hacia arriba puedes encadenar hasta cinco.",
+              "Each dot climbs one level through a lookup field, just like a cross-object formula. Upwards you can chain up to five.",
+            )}
+          </p>
+        </>
+      ) : (
+        <>
+          <div className="mb-3 flex flex-wrap items-center gap-2">
+            <span className="t-micro font-semibold tracking-[0.06em] text-faint">{pick(lang, "CUENTA", "ACCOUNT")}</span>
+            {ORG.map((x, n) => (
+              <Chip key={x.name} on={ai === n} onClick={() => setAi(n)}>
+                {x.name}
+              </Chip>
+            ))}
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {[
+              { rel: "a.Contacts", items: a.contacts, type: "List<Contact>" },
+              { rel: "a.Opportunities", items: a.opps.map((o) => o.name), type: "List<Opportunity>" },
+            ].map((r) => (
+              <div key={`${ai}-${r.rel}`} className="diag-pop rounded-[4px] border px-3 py-2.5" style={{ borderColor: "var(--c-border)" }}>
+                <p className="flex items-baseline justify-between gap-2">
+                  <code className="font-mono text-[12.5px] text-ink">{r.rel}</code>
+                  <span className="t-micro font-mono text-faint">
+                    {r.type} · size() = {r.items.length}
+                  </span>
+                </p>
+                {r.items.length ? (
+                  <ul className="mt-1.5 space-y-0.5">
+                    {r.items.map((it) => (
+                      <li key={it} className="t-small font-mono text-muted">
+                        · {it}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="t-small mt-1.5 font-mono" style={{ color: "var(--c-warn)" }}>
+                    {pick(lang, "(lista vacía, no null)", "(empty list, not null)")}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+          <p className="t-small mt-3 text-muted" aria-live="polite">
+            {pick(
+              lang,
+              "Hacia abajo no hay punto que valga: una cuenta tiene muchos hijos, así que llegan en una lista, y hay que pedirlos con una subconsulta. Es la related list de la página del registro.",
+              "Downwards a dot is not enough: an account has many children, so they arrive as a list, and you ask for them with a subquery. It is the record page's related list.",
+            )}
+          </p>
+        </>
+      )}
+    </div>
+  );
+}
+
+/* ------------------------------------------- 7. bind versus concatenation -- */
+
+export function BindPlay({ lang }: P) {
+  const cases = [
+    { subject: "Impresora no imprime", closed: false },
+    { subject: "Factura duplicada", closed: false },
+    { subject: "Impresora atascada", closed: true },
+    { subject: "Cambio de dirección", closed: true },
+    { subject: "Acceso bloqueado", closed: false },
+  ];
+  const inputs = [
+    { label: "Impresora", value: "Impresora", kind: "normal" as const },
+    { label: "O'Brien", value: "O'Brien", kind: "quote" as const },
+    { label: "%' OR Subject LIKE '%", value: "%' OR Subject LIKE '%", kind: "attack" as const },
+  ];
+  const [k, setK] = useState(0);
+  const input = inputs[k];
+
+  const contains = (text: string, needle: string) => text.toLowerCase().includes(needle.toLowerCase());
+  const bindRows = cases.filter((c) => !c.closed && contains(c.subject, input.value));
+  const concatWhere = `WHERE IsClosed = false AND Subject LIKE '%${input.value}%'`;
+  const concatRows =
+    input.kind === "attack" ? cases : input.kind === "quote" ? null : cases.filter((c) => !c.closed && contains(c.subject, input.value));
+
+  const verdict =
+    input.kind === "normal"
+      ? pick(lang, "Con un texto normal las dos versiones devuelven lo mismo. Por eso el problema pasa desapercibido en las pruebas.", "With normal text both versions return the same. That is why the problem slips through testing.")
+      : input.kind === "quote"
+        ? pick(
+            lang,
+            "Un apellido con apóstrofo cierra la comilla antes de tiempo: la versión concatenada ni siquiera es una consulta válida y revienta. La variable de enlace busca O'Brien tal cual.",
+            "A surname with an apostrophe closes the quote too early: the concatenated version is not even a valid query and blows up. The bind variable searches for O'Brien as it is.",
+          )
+        : pick(
+            lang,
+            "Esto es una inyección SOQL. El texto del usuario trae su propio OR, y como AND va antes que OR, el filtro IsClosed = false queda anulado: salen también los casos cerrados. Con la variable de enlace ese mismo texto es solo un texto que buscar, y no aparece en ningún asunto.",
+            "This is SOQL injection. The user's text brings its own OR, and since AND binds before OR, the IsClosed = false filter is voided: closed cases come out too. With the bind variable that same text is just text to look for, and it appears in no subject.",
+          );
+
+  const Result = ({ rows }: { rows: typeof cases | null }) =>
+    rows === null ? (
+      <p className="t-small font-mono" style={{ color: "var(--c-danger)" }}>
+        💥 QueryException
+      </p>
+    ) : (
+      <ul className="space-y-0.5">
+        {rows.length === 0 && <li className="t-small font-mono text-faint">{pick(lang, "0 filas", "0 rows")}</li>}
+        {rows.map((c) => (
+          <li key={c.subject} className="t-small font-mono" style={{ color: c.closed ? "var(--c-danger)" : "var(--c-text)" }}>
+            · {c.subject}
+            {c.closed ? pick(lang, "  (cerrado)", "  (closed)") : ""}
+          </li>
+        ))}
+      </ul>
+    );
+
+  return (
+    <div className="w-full">
+      <div className="mb-3 flex flex-wrap items-center gap-2">
+        <span className="t-micro font-semibold tracking-[0.06em] text-faint">{pick(lang, "EL AGENTE ESCRIBE", "THE AGENT TYPES")}</span>
+        {inputs.map((x, n) => (
+          <Chip key={x.label} on={k === n} onClick={() => setK(n)}>
+            {x.label}
+          </Chip>
+        ))}
+      </div>
+
+      <div className="grid gap-3 sm:grid-cols-2">
+        <div className="rounded-[4px] border px-3 py-2.5" style={{ borderColor: "var(--c-border)" }}>
+          <p className="t-micro mb-1 font-semibold" style={{ color: "var(--c-danger)" }}>
+            {pick(lang, "CONCATENANDO CON +", "CONCATENATING WITH +")}
+          </p>
+          <code className="mb-2 block font-mono text-[12px] leading-[1.6] break-words text-ink">{concatWhere}</code>
+          <Result rows={concatRows} />
+        </div>
+        <div className="rounded-[4px] border px-3 py-2.5" style={{ borderColor: "var(--c-brand)" }}>
+          <p className="t-micro mb-1 font-semibold" style={{ color: "var(--c-brand)" }}>
+            {pick(lang, "CON :pattern", "WITH :pattern")}
+          </p>
+          <code className="mb-2 block font-mono text-[12px] leading-[1.6] break-words text-ink">
+            WHERE IsClosed = false AND Subject LIKE :pattern
+          </code>
+          <Result rows={bindRows} />
+        </div>
+      </div>
+
+      <p className="t-small mt-3 text-muted" aria-live="polite">
+        {verdict}
+      </p>
+    </div>
+  );
+}
+
+/* --------------------------------------------- 8. grouping and summing ---- */
+
+export function AggregatePlay({ lang }: P) {
+  const opps: Array<[string, number]> = [
+    ["Prospecting", 30000],
+    ["Proposal", 90000],
+    ["Prospecting", 25000],
+    ["Negotiation", 180000],
+    ["Proposal", 70000],
+    ["Prospecting", 35000],
+    ["Negotiation", 130000],
+    ["Proposal", 80000],
+  ];
+  const stages = ["Prospecting", "Proposal", "Negotiation"];
+  const groups = stages.map((st) => {
+    const rows = opps.filter(([s]) => s === st);
+    return { stage: st, count: rows.length, sum: rows.reduce((n, [, a]) => n + a, 0), rows };
+  });
+  const steps = [
+    pick(lang, "Ocho oportunidades abiertas sueltas. Sin agregado, las ocho viajarían a Apex y tendrías que sumar tú en un bucle.", "Eight loose open opportunities. Without an aggregate, all eight would travel to Apex and you would add them up in a loop."),
+    pick(lang, "GROUP BY StageName las mete en cajones, uno por etapa: el informe resumido agrupado por Etapa.", "GROUP BY StageName drops them into buckets, one per stage: the summary report grouped by Stage."),
+    pick(lang, "COUNT(Id) y SUM(Amount) se calculan en cada cajón. De ocho filas pasamos a tres: una por etapa.", "COUNT(Id) and SUM(Amount) are worked out per bucket. Eight rows become three: one per stage."),
+    pick(lang, "HAVING filtra los cajones YA agrupados, no las oportunidades: aquí solo quedan las etapas con 3 o más oportunidades, y Negotiation sale fuera aunque sea la que más suma. WHERE no podría hacerlo: el recuento aún no existe cuando se aplica.", "HAVING filters the buckets ALREADY grouped, not the opportunities: here only stages with 3 or more opportunities remain, and Negotiation drops out even though it sums the most. WHERE could not do it: the count does not exist yet when it runs."),
+  ];
+  const s = useStepper(steps.length, 2200);
+  const having = (g: (typeof groups)[number]) => g.count >= 3;
+
+  return (
+    <div className="w-full">
+      <div className="rounded-[4px] px-3 py-2.5" style={codeBox}>
+        <code className="block whitespace-pre font-mono text-[12.5px] leading-[1.7] text-ink">
+          {"SELECT StageName, COUNT(Id) n, SUM(Amount) total\nFROM Opportunity WHERE IsClosed = false\nGROUP BY StageName\nHAVING COUNT(Id) >= 3"}
+        </code>
+      </div>
+
+      {s.i === 0 ? (
+        <ul className="mt-4 flex flex-wrap gap-2">
+          {opps.map(([st, amt], n) => (
+            <li key={n} className="diag-pop rounded-[4px] border px-2.5 py-1 font-mono text-[12px] text-ink" style={{ borderColor: "var(--c-border)" }}>
+              {st} · {amt.toLocaleString("es-ES")}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div className="mt-4 grid gap-3 sm:grid-cols-3">
+          {groups.map((g) => {
+            const out = s.i >= 3 && !having(g);
+            return (
+              <div
+                key={g.stage}
+                className="diag-pop rounded-[4px] border px-3 py-2.5 transition-opacity"
+                style={{
+                  borderColor: out ? "var(--c-border)" : "var(--c-brand)",
+                  borderStyle: out ? "dashed" : "solid",
+                  opacity: out ? 0.7 : 1,
+                }}
+              >
+                <p className="t-small font-semibold text-ink" style={{ textDecoration: out ? "line-through" : "none" }}>
+                  {g.stage}
+                </p>
+                {s.i === 1 && (
+                  <ul className="mt-1 space-y-0.5">
+                    {g.rows.map(([, amt], n) => (
+                      <li key={n} className="t-micro font-mono text-muted">
+                        · {amt.toLocaleString("es-ES")}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {s.i >= 2 && (
+                  <p key={`agg-${s.i}`} className="diag-pop mt-1 font-mono text-[12.5px] text-ink">
+                    n = {g.count} · total = {g.sum.toLocaleString("es-ES")}
+                  </p>
+                )}
+                {out && (
+                  <p className="t-micro mt-1 font-mono" style={{ color: "var(--c-warn)" }}>
+                    {pick(lang, "HAVING lo descarta", "HAVING drops it")}
+                  </p>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      <Note lang={lang} s={s}>
+        {steps[s.i]}
+      </Note>
+      <Controls lang={lang} s={s} />
+    </div>
+  );
+}
+
+/* ------------------------------------------------------ 9. SOSL results --- */
+
+export function SoslPlay({ lang }: P) {
+  const terms = ["northwind*", "acme*", "torres", "renovación*"];
+  const [t, setT] = useState(0);
+  const term = terms[t];
+  const stem = term.replace("*", "").toLowerCase();
+  const wild = term.endsWith("*");
+  const hit = (text: string) =>
+    text
+      .toLowerCase()
+      .split(/[\s·]+/)
+      .some((w) => (wild ? w.startsWith(stem) : w === stem));
+
+  const accounts = ORG.filter((a) => hit(a.name)).map((a) => a.name);
+  const contacts = ORG.flatMap((a) => a.contacts).filter(hit);
+  const opps = ORG.flatMap((a) => a.opps.filter((o) => o.stage !== "Closed Won")).filter((o) => hit(o.name)).map((o) => o.name);
+  const buckets = [
+    { idx: 0, label: "Account(Name)", cast: "(List<Account>)", items: accounts },
+    { idx: 1, label: "Contact(LastName)", cast: "(List<Contact>)", items: contacts },
+    { idx: 2, label: "Opportunity(Name WHERE IsClosed = false)", cast: "(List<Opportunity>)", items: opps },
+  ];
+
+  return (
+    <div className="w-full">
+      <div className="mb-3 flex flex-wrap items-center gap-2">
+        <span className="t-micro font-semibold tracking-[0.06em] text-faint">FIND</span>
+        {terms.map((x, n) => (
+          <Chip key={x} on={t === n} onClick={() => setT(n)}>
+            &apos;{x}&apos;
+          </Chip>
+        ))}
+      </div>
+      <div className="rounded-[4px] px-3 py-2.5" style={codeBox}>
+        <code className="block whitespace-pre-wrap font-mono text-[12.5px] leading-[1.7] text-ink">
+          {`List<List<SObject>> results = [FIND '${term}' IN ALL FIELDS\n    RETURNING Account(Name), Contact(LastName),\n              Opportunity(Name WHERE IsClosed = false)];`}
+        </code>
+      </div>
+      <ol className="mt-4 space-y-2">
+        {buckets.map((b) => (
+          <li key={`${t}-${b.idx}`} className="diag-pop rounded-[4px] border px-3 py-2" style={{ borderColor: b.items.length ? "var(--c-brand)" : "var(--c-border)" }}>
+            <p className="flex flex-wrap items-baseline justify-between gap-2">
+              <code className="font-mono text-[12.5px] font-semibold" style={{ color: "var(--c-brand)" }}>
+                results[{b.idx}]
+              </code>
+              <span className="t-micro font-mono text-faint">
+                {b.label} · {b.items.length} {pick(lang, b.items.length === 1 ? "fila" : "filas", b.items.length === 1 ? "row" : "rows")}
+              </span>
+            </p>
+            <p className="t-small mt-1 font-mono text-muted">{b.items.length ? b.items.join(" · ") : pick(lang, "(lista vacía)", "(empty list)")}</p>
+          </li>
+        ))}
+      </ol>
+      <p className="t-small mt-3 text-muted" aria-live="polite">
+        {pick(
+          lang,
+          "El resultado es una lista de listas, en el orden del RETURNING: results[0] siempre son las cuentas aunque vengan vacías. Para usarlas se convierten: (List<Account>) results[0]. Prueba con y sin asterisco: 'torres' encuentra la palabra exacta; 'northwind*', todo lo que empieza así.",
+          "The result is a list of lists, in RETURNING order: results[0] is always the accounts even when empty. To use them you convert: (List<Account>) results[0]. Try with and without the asterisk: 'torres' finds the exact word; 'northwind*', everything starting that way.",
+        )}
+      </p>
+    </div>
+  );
+}
+
+/* ------------------------------------------------ 10. which query tool? --- */
+
+export function QueryChooserPlay({ lang }: P) {
+  const all = [
+    "SOSL",
+    pick(lang, "Agregado + GROUP BY", "Aggregate + GROUP BY"),
+    pick(lang, "Punto hacia el padre", "Dot to the parent"),
+    pick(lang, "Subconsulta en el SELECT", "Subquery in the SELECT"),
+    "IN (SELECT …)",
+    pick(lang, "Variable de enlace", "Bind variable"),
+    pick(lang, "SOQL simple con WHERE", "Plain SOQL with WHERE"),
+  ];
+  const needs = [
+    { need: pick(lang, "Buscas un texto sin saber si es una cuenta, un contacto o un caso.", "You search a text without knowing if it is an account, a contact or a case."), answer: all[0] },
+    { need: pick(lang, "Quieres el importe total de oportunidades por comercial.", "You want the total opportunity amount per rep."), answer: all[1] },
+    { need: pick(lang, "De cada contacto necesitas el sector de su cuenta.", "For each contact you need its account's industry."), answer: all[2] },
+    { need: pick(lang, "Cada cuenta con la lista de sus casos abiertos.", "Each account with the list of its open cases."), answer: all[3] },
+    { need: pick(lang, "Solo las cuentas que tengan algún caso abierto, sin traer los casos.", "Only accounts with some open case, without bringing the cases."), answer: all[4] },
+    { need: pick(lang, "El filtro lleva un texto que escribe el usuario en un buscador.", "The filter carries text a user types in a search box."), answer: all[5] },
+    { need: pick(lang, "Las oportunidades abiertas de este trimestre, sin nada más.", "This quarter's open opportunities, nothing else."), answer: all[6] },
+  ];
+  return <ChooserGame lang={lang} all={all} needs={needs} />;
 }

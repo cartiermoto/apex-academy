@@ -3,7 +3,18 @@
 import { useEffect, useState } from "react";
 import type { Lang } from "@/lib/types";
 import { CollectionsPlay, MethodFlow, ShortCircuit } from "./diagrams-anim";
-import { QueryAnatomyPlay, SoqlLive, SubqueryCost, SubqueryPlay } from "./diagrams-anim-m03";
+import {
+  AggregatePlay,
+  BindPlay,
+  FilterFunnelPlay,
+  QueryAnatomyPlay,
+  QueryChooserPlay,
+  RelationshipsPlay,
+  SoqlLive,
+  SoslPlay,
+  SubqueryCost,
+  SubqueryPlay,
+} from "./diagrams-anim-m03";
 import {
   BreakContinuePlay,
   ControlChooserPlay,
@@ -744,250 +755,7 @@ function OopAdminMap({ lang }: P) {
 
 /* ============================================================ MODULE 3 ==== */
 
-/* ------------------------------------------------- m03 · soql anatomy ----- */
-
-
-/* ------------------------------------------------ m03 · filter funnel ----- */
-
-function FilterFunnel({ lang }: P) {
-  const id = "funnel";
-  const bars = [
-    { w: 600, code: "FROM Opportunity", n: pick(lang, "12.000 registros", "12,000 records"), brand: false },
-    { w: 470, code: "WHERE IsClosed = false AND …", n: "800", brand: false },
-    { w: 470, code: "ORDER BY Amount DESC", n: pick(lang, "800, ordenados", "800, sorted"), brand: false },
-    { w: 250, code: "LIMIT 10", n: pick(lang, "10 filas", "10 rows"), brand: true },
-  ];
-  return (
-    <Svg id={id} viewBox="0 0 600 232" title={pick(lang, "Cada cláusula filtra más", "Each clause filters more")}>
-      {bars.map((b, i) => {
-        const y = i * 62;
-        const x = (600 - b.w) / 2;
-        const style = b.brand ? S.boxBrand : S.box;
-        return (
-          <g key={b.code}>
-            <rect x={x} y={y} width={b.w} height="44" rx="8" {...style} />
-            <text x={x + 14} y={y + 27} {...S.monoSmall} fontSize={13}>
-              {b.code}
-            </text>
-            <text x={x + b.w - 14} y={y + 27} {...S.muted} fontSize={12.5} textAnchor="end">
-              {b.n}
-            </text>
-            {i < bars.length - 1 && <Arrow d={`M300 ${y + 46} L300 ${y + 60}`} id={id} tone="muted" />}
-          </g>
-        );
-      })}
-    </Svg>
-  );
-}
-
-/* ------------------------------------------------ m03 · relationships ----- */
-
-function RelationshipsMap({ lang }: P) {
-  const id = "rels";
-  const kids = ["Ruiz", "Kim", "Silva"];
-  return (
-    <Svg id={id} viewBox="0 0 600 300" title={pick(lang, "Relaciones padre e hijo", "Parent and child relationships")}>
-      <Tag x={200} y={0} w={200} h={46} text="User" sub={pick(lang, "el propietario", "the owner")} />
-      <Tag x={200} y={110} w={200} h={46} text="Account" sub="Acme Corp" kind="brand" />
-      {kids.map((k, i) => (
-        <Tag key={k} x={150 + i * 104} y={226} w={96} h={46} text="Contact" sub={k} />
-      ))}
-
-      <Arrow d="M223 224 L223 162" id={id} />
-      <Arrow d="M300 108 L300 50" id={id} />
-      <text x="0" y="112" {...S.label} fontSize={13}>
-        {pick(lang, "Hacia arriba: un punto", "Upwards: a dot")}
-      </text>
-      <text x="0" y="134" {...S.monoSmall} fontSize={12}>
-        Account.Name
-      </text>
-      <text x="0" y="152" {...S.monoSmall} fontSize={12}>
-        Account.Owner.Name
-      </text>
-
-      <Arrow d="M404 134 L430 134 L430 220" id={id} tone="accent" />
-      <text x="476" y="112" {...S.label} fontSize={13}>
-        {pick(lang, "Hacia abajo:", "Downwards:")}
-      </text>
-      <text x="476" y="130" {...S.label} fontSize={13}>
-        {pick(lang, "subconsulta", "subquery")}
-      </text>
-      <text x="476" y="152" {...S.monoSmall} fontSize={12}>
-        (SELECT …
-      </text>
-      <text x="476" y="170" {...S.monoSmall} fontSize={12}>
-        FROM Contacts)
-      </text>
-
-      <text x="0" y="296" {...S.muted} fontSize={12.5}>
-        {pick(
-          lang,
-          "Fórmula entre objetos hacia arriba · related list hacia abajo",
-          "Cross-object formula upwards · related list downwards",
-        )}
-      </text>
-    </Svg>
-  );
-}
-
-/* ----------------------------------------------------- m03 · bind -------- */
-
-function BindVsConcat({ lang }: P) {
-  const id = "bind";
-  return (
-    <Svg id={id} viewBox="0 0 600 300" title={pick(lang, "Enlace frente a concatenación", "Bind versus concatenation")}>
-      <text x="0" y="16" {...S.eyebrow}>
-        {pick(lang, "EL USUARIO ESCRIBE", "THE USER TYPES")}
-      </text>
-      <Tag x={0} y={26} w={300} text="%' OR Subject LIKE '%" kind="accent" mono />
-
-      <text x="0" y="104" {...S.eyebrow}>
-        {pick(lang, "CON :pattern · EL VALOR VA APARTE", "WITH :pattern · THE VALUE TRAVELS APART")}
-      </text>
-      <Tag x={0} y={114} w={380} text="… AND Subject LIKE :pattern" kind="brand" mono />
-      <text x={392} y={130} {...S.muted} fontSize={12}>
-        {pick(lang, "se busca ese texto tal cual.", "that text is searched as is.")}
-      </text>
-      <text x={392} y={147} {...S.muted} fontSize={12}>
-        {pick(lang, "El filtro sigue en pie.", "The filter still stands.")}
-      </text>
-
-      <text x="0" y="192" {...S.eyebrow}>
-        {pick(lang, "CON + · EL VALOR SE MEZCLA CON EL CÓDIGO", "WITH + · THE VALUE MIXES WITH THE CODE")}
-      </text>
-      <rect x="0" y="202" width="380" height="62" rx="8" {...S.boxAccent} />
-      <text x="12" y="227" {...S.monoSmall} fontSize={13}>
-        IsClosed = false AND Subject
-      </text>
-      <text x="12" y="249" {...S.monoSmall} fontSize={13}>
-        LIKE '%%' OR Subject LIKE '%%'
-      </text>
-      <text x={392} y={226} {...S.muted} fontSize={12}>
-        {pick(lang, "el OR abre la puerta:", "the OR opens the door:")}
-      </text>
-      <text x={392} y={243} {...S.muted} fontSize={12}>
-        {pick(lang, "salen también los cerrados.", "closed ones come out too.")}
-      </text>
-      <text x="0" y="292" {...S.muted} fontSize={12.5}>
-        {pick(lang, "Mismo texto del usuario, dos resultados muy distintos.", "Same user text, two very different results.")}
-      </text>
-    </Svg>
-  );
-}
-
-/* ------------------------------------------------ m03 · aggregate -------- */
-
-function AggregateBuckets({ lang }: P) {
-  const id = "agg";
-  const rows: Array<[string, string]> = [
-    ["Prospecting", "30.000"],
-    ["Proposal", "90.000"],
-    ["Prospecting", "25.000"],
-    ["Negotiation", "180.000"],
-    ["Proposal", "70.000"],
-    ["Prospecting", "35.000"],
-    ["Negotiation", "130.000"],
-    ["Proposal", "80.000"],
-  ];
-  const out: Array<[string, string, string]> = [
-    ["Prospecting", "3", "90.000"],
-    ["Proposal", "3", "240.000"],
-    ["Negotiation", "2", "310.000"],
-  ];
-  return (
-    <Svg id={id} viewBox="0 0 600 284" title={pick(lang, "Agrupar y sumar", "Group and sum")}>
-      <text x="0" y="14" {...S.eyebrow}>
-        {pick(lang, "8 OPORTUNIDADES", "8 OPPORTUNITIES")}
-      </text>
-      {rows.map(([s, a], i) => (
-        <g key={i}>
-          <rect x="0" y={24 + i * 32} width="210" height="26" rx="5" {...S.box} />
-          <text x="10" y={41 + i * 32} {...S.monoSmall} fontSize={12}>
-            {s}
-          </text>
-          <text x="200" y={41 + i * 32} {...S.muted} fontSize={12} textAnchor="end">
-            {a}
-          </text>
-        </g>
-      ))}
-      <Arrow d="M222 150 L300 150" id={id} />
-      <text x="226" y="140" {...S.monoSmall} fontSize={11.5}>
-        GROUP BY
-      </text>
-      <text x="310" y="14" {...S.eyebrow}>
-        {pick(lang, "3 FILAS · UNA POR ETAPA", "3 ROWS · ONE PER STAGE")}
-      </text>
-      {out.map(([s, n, t], i) => (
-        <g key={s}>
-          <rect x="310" y={64 + i * 62} width="290" height="48" rx="8" {...S.boxBrand} />
-          <text x="324" y={85 + i * 62} {...S.monoSmall} fontSize={13}>
-            {s}
-          </text>
-          <text x="324" y={103 + i * 62} {...S.muted} fontSize={11.5}>
-            COUNT = {n} · SUM = {t}
-          </text>
-        </g>
-      ))}
-    </Svg>
-  );
-}
-
-/* ------------------------------------------------------ m03 · sosl ------- */
-
-function SoslDrawers({ lang }: P) {
-  const id = "sosl";
-  const d = [
-    { t: "Account", s: pick(lang, "results[0] · 2 filas", "results[0] · 2 rows") },
-    { t: "Contact", s: pick(lang, "results[1] · 5 filas", "results[1] · 5 rows") },
-    { t: "Opportunity", s: pick(lang, "results[2] · 3 filas", "results[2] · 3 rows") },
-  ];
-  return (
-    <Svg id={id} viewBox="0 0 600 206" title={pick(lang, "Resultado de SOSL", "SOSL result")}>
-      <Tag x={140} y={0} w={320} h={46} text="FIND 'Acme*' IN ALL FIELDS" kind="brand" mono />
-      {d.map((b, i) => {
-        const x = i * 204;
-        return (
-          <g key={b.t}>
-            <Arrow d={`M300 50 L${x + 96} 118`} id={id} tone="muted" />
-            <Tag x={x} y={124} w={192} h={50} text={b.t} sub={b.s} mono />
-          </g>
-        );
-      })}
-      <text x="0" y="200" {...S.muted} fontSize={12.5}>
-        {"List<List<SObject>> · "}
-        {pick(lang, "el orden es el del RETURNING", "the order is the RETURNING's")}
-      </text>
-    </Svg>
-  );
-}
-
-/* ------------------------------------------- m03 · checkpoint chooser ---- */
-
-function QueryChooser({ lang }: P) {
-  const id = "qch";
-  const rows: Array<[string, string]> = [
-    [pick(lang, "¿Buscas un texto sin saber dónde está?", "Text, but you do not know where?"), "SOSL · FIND"],
-    [pick(lang, "¿Quieres un total, un recuento, una media?", "Want a total, a count, an average?"), "SUM · GROUP BY"],
-    [pick(lang, "¿Necesitas campos del padre?", "Need parent fields?"), "Account.Name"],
-    [pick(lang, "¿Necesitas los hijos de cada registro?", "Need each record's children?"), "(SELECT … FROM …)"],
-    [pick(lang, "¿Filtras por variables o por muchos Ids?", "Filtering by variables or many Ids?"), ":var · IN :ids"],
-    [pick(lang, "¿Nada de lo anterior?", "None of the above?"), "SELECT … WHERE …"],
-  ];
-  return (
-    <Svg id={id} viewBox="0 0 600 316" title={pick(lang, "Qué herramienta usar", "Which tool to use")}>
-      {rows.map(([q, a], i) => {
-        const y = i * 54;
-        return (
-          <g key={a}>
-            <Tag x={0} y={y} w={352} text={q} />
-            <Arrow d={`M356 ${y + 20} L380 ${y + 20}`} id={id} />
-            <Tag x={386} y={y} w={214} text={a} kind="brand" mono />
-          </g>
-        );
-      })}
-    </Svg>
-  );
-}
+/* The Module 3 diagrams are interactive now: see diagrams-anim-m03.tsx. */
 
 /* ============================================================ MODULE 4 ==== */
 
@@ -1760,12 +1528,12 @@ const REGISTRY: Record<string, (p: P) => React.ReactElement> = {
   "m03-soql-live": SoqlLive,
   "m03-subquery": SubqueryPlay,
   "m03-subquery-cost": SubqueryCost,
-  "m03-filter-funnel": FilterFunnel,
-  "m03-relationships": RelationshipsMap,
-  "m03-bind": BindVsConcat,
-  "m03-aggregate": AggregateBuckets,
-  "m03-sosl": SoslDrawers,
-  "m03-cp-choose": QueryChooser,
+  "m03-filter-funnel": FilterFunnelPlay,
+  "m03-relationships": RelationshipsPlay,
+  "m03-bind": BindPlay,
+  "m03-aggregate": AggregatePlay,
+  "m03-sosl": SoslPlay,
+  "m03-cp-choose": QueryChooserPlay,
   "m04-dml-ops": DmlOps,
   "m04-all-or-none": AllOrNone,
   "m04-bulk": BulkCompare,
