@@ -418,8 +418,8 @@ List<Opportunity> top10 = [
 
   exercise: {
     prompt: {
-      es: "La directora de Ventas quiere, cada lunes, las 10 oportunidades abiertas más grandes que cierran este trimestre y superan los 50.000, para revisarlas en la reunión. Escribe la consulta.",
-      en: "The Sales director wants, every Monday, the 10 biggest open opportunities closing this quarter and over 50,000, to review them in the meeting. Write the query.",
+      es: "TAREA 2 DE 8 · Ya ves la cartera entera; ahora hay que recortarla a lo que se revisa en la reunión. La directora de Ventas quiere, cada lunes, las 10 oportunidades abiertas más grandes que cierran este trimestre y superan los 50.000, para revisarlas en la reunión. Escribe la consulta.",
+      en: "TASK 2 OF 8 · You can see the whole portfolio; now it must be cut down to what gets reviewed in the meeting. The Sales director wants, every Monday, the 10 biggest open opportunities closing this quarter and over 50,000, to review them in the meeting. Write the query.",
     },
     brief: [
       {
@@ -440,13 +440,19 @@ List<Opportunity> top10 = [
       },
     ],
     starter: {
-      es: `// Las 10 oportunidades abiertas más grandes del trimestre (> 50.000)
+      es: `// CASO: la revisión trimestral de cartera del equipo de cuentas
+// Tarea 2 de 8: filtrar, ordenar y limitar para la reunión del lunes.
+
+// Las 10 oportunidades abiertas más grandes del trimestre (> 50.000)
 List<Opportunity> bigDeals = [
     SELECT Id, Name
     FROM Opportunity
 ];
 `,
-      en: `// The quarter's 10 biggest open opportunities (> 50,000)
+      en: `// CASE: the account team's quarterly portfolio review
+// Task 2 of 8: filter, order and cap for Monday's meeting.
+
+// The quarter's 10 biggest open opportunities (> 50,000)
 List<Opportunity> bigDeals = [
     SELECT Id, Name
     FROM Opportunity
@@ -584,6 +590,10 @@ for (Opportunity o : bigDeals) {
       {
         es: "Si la directora pide «también las de más de 50.000 del trimestre que viene», ¿qué cambias y qué queda igual?",
         en: "If the director asks for “also the ones over 50,000 next quarter”, what do you change and what stays the same?",
+      },
+      {
+        es: "Tarea 3: las oportunidades no viven solas; el responsable de Retail quiere ver cada cuenta con su propietario y sus contactos, de una vez.",
+        en: "Task 3: opportunities do not live alone; the Retail lead wants each account with its owner and its contacts, in one go.",
       },
     ],
   },

@@ -16,8 +16,8 @@ export const m03: Module = {
   status: "ready",
   title: { es: "SOQL y SOSL", en: "SOQL and SOSL" },
   subtitle: {
-    es: "Preguntarle a la base de datos: el equivalente en código a un Report Type con filtros.",
-    en: "Asking the database: the code equivalent of a Report Type with filters.",
+    es: "Preguntarle a la base de datos: el equivalente en código a un Report Type con filtros. Los ocho talleres son la revisión trimestral de cartera, troceada.",
+    en: "Asking the database: the code equivalent of a Report Type with filters. The eight workshops are the quarterly portfolio review, cut into pieces.",
   },
   lessons: [
     l01Anatomia,

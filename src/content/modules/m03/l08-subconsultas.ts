@@ -598,8 +598,8 @@ List<Account> support = [
 
   exercise: {
     prompt: {
-      es: "Revisión de cartera de Retail. Ventas prepara la reunión del lunes y pide dos listas: las cuentas de Retail que tienen negocio abierto —cada una con su propietario y sus tres oportunidades abiertas más grandes— y, aparte, las de Retail que no han tenido nunca una oportunidad, para asignarlas a prospección. Dos consultas, ni una más.",
-      en: "Retail portfolio review. Sales is preparing Monday's meeting and asks for two lists: the Retail accounts with open business — each with its owner and its three largest open opportunities — and, separately, the Retail accounts that never had an opportunity, to hand them to prospecting. Two queries, not one more.",
+      es: "TAREA 4 DE 8 · Revisión de cartera de Retail. Ventas prepara la reunión del lunes y pide dos listas: las cuentas de Retail que tienen negocio abierto —cada una con su propietario y sus tres oportunidades abiertas más grandes— y, aparte, las de Retail que no han tenido nunca una oportunidad, para asignarlas a prospección. Dos consultas, ni una más.",
+      en: "TASK 4 OF 8 · Retail portfolio review. Sales is preparing Monday's meeting and asks for two lists: the Retail accounts with open business — each with its owner and its three largest open opportunities — and, separately, the Retail accounts that never had an opportunity, to hand them to prospecting. Two queries, not one more.",
     },
     brief: [
       {
@@ -632,11 +632,17 @@ List<Account> support = [
       },
     ],
     starter: {
-      es: `// Revisión de cartera de Retail · reunión del lunes
+      es: `// CASO: la revisión trimestral de cartera del equipo de cuentas
+// Tarea 4 de 8: la cartera con negocio abierto, y la que nunca ha comprado.
+
+// Revisión de cartera de Retail · reunión del lunes
 // Dos consultas: la cartera con negocio abierto y las cuentas sin estrenar.
 
 `,
-      en: `// Retail portfolio review · Monday's meeting
+      en: `// CASE: the account team's quarterly portfolio review
+// Task 4 of 8: the portfolio with open business, and the part that never bought.
+
+// Retail portfolio review · Monday's meeting
 // Two queries: the portfolio with open business and the untouched accounts.
 
 `,
@@ -855,6 +861,10 @@ Integer toAssign = noPipeline.size();`,
       {
         es: "Si mañana Ventas pide además «y que no tengan ningún caso abierto», ¿cabe en la primera consulta? Cuenta cuántos IN y NOT IN llevarías y compáralo con el límite.",
         en: "If tomorrow Sales also asks “and with no open cases”, does it fit in the first query? Count how many IN and NOT IN you would carry and compare it with the limit.",
+      },
+      {
+        es: "Tarea 5: Soporte también entra en la revisión, y su buscador de casos tiene un agujero de seguridad que hay que cerrar.",
+        en: "Task 5: Support joins the review too, and its case search has a security hole to close.",
       },
     ],
   },

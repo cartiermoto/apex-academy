@@ -392,8 +392,8 @@ System.debug(r.size());`,
 
   exercise: {
     prompt: {
-      es: "Prepara la revisión trimestral de cartera de una región. Para cada cuenta de la región, el equipo quiere: su propietario, cuántas oportunidades abiertas tiene y el importe total de ese pipeline abierto. Antes lo montabas con tres informes; ahora, con dos consultas y ninguna dentro de un bucle.",
-      en: "Prepare a region's quarterly portfolio review. For each account in the region, the team wants: its owner, how many open opportunities it has and the total amount of that open pipeline. You used to build it from three reports; now, with two queries and none inside a loop.",
+      es: "TAREA 8 DE 8 · La entrega: la revisión trimestral completa de una región, que junta las siete tareas anteriores. Prepara la revisión trimestral de cartera de una región. Para cada cuenta de la región, el equipo quiere: su propietario, cuántas oportunidades abiertas tiene y el importe total de ese pipeline abierto. Antes lo montabas con tres informes; ahora, con dos consultas y ninguna dentro de un bucle.",
+      en: "TASK 8 OF 8 · Delivery: the full quarterly review of a region, bringing the previous seven tasks together. Prepare a region's quarterly portfolio review. For each account in the region, the team wants: its owner, how many open opportunities it has and the total amount of that open pipeline. You used to build it from three reports; now, with two queries and none inside a loop.",
     },
     brief: [
       {
@@ -414,7 +414,10 @@ System.debug(r.size());`,
       },
     ],
     starter: {
-      es: `String region = 'CA';
+      es: `// CASO: la revisión trimestral de cartera del equipo de cuentas
+// Tarea 8 de 8: la revisión trimestral de la región.
+
+String region = 'CA';
 
 // 1. Cuentas de la región, con propietario y oportunidades abiertas
 
@@ -427,7 +430,10 @@ System.debug(r.size());`,
 
 // 4. Informe final
 `,
-      en: `String region = 'CA';
+      en: `// CASE: the account team's quarterly portfolio review
+// Task 8 of 8: the region's quarterly review.
+
+String region = 'CA';
 
 // 1. Accounts in the region, with owner and open opportunities
 
