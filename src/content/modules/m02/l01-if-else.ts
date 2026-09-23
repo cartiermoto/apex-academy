@@ -124,8 +124,8 @@ if (amount >= 100000) {
       type: "diagram",
       id: "m02-if-chain",
       caption: {
-        es: "Una cadena de else if es un Decision con salidas ordenadas: la primera condición verdadera gana y el resto se salta.",
-        en: "An else if chain is a Decision with ordered outcomes: the first true condition wins and the rest are skipped.",
+        es: "Una cadena de else if es un Decision con salidas ordenadas: la primera condición verdadera gana y el resto se salta. Elige una facturación y reprodúcelo paso a paso.",
+        en: "An else if chain is a Decision with ordered outcomes: the first true condition wins and the rest are skipped. Pick a revenue and play it step by step.",
       },
     },
     {

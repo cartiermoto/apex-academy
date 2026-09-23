@@ -99,8 +99,8 @@ export const l07Anidados: Lesson = {
       type: "diagram",
       id: "m02-nested-vs-lookup",
       caption: {
-        es: "Anidado: cada lead recorre todas las cuentas. Con un Set: se recorren las cuentas una vez y cada lead hace una sola pregunta.",
-        en: "Nested: every lead walks through all the accounts. With a Set: the accounts are walked once and each lead asks a single question.",
+        es: "Anidado: cada lead recorre todas las cuentas. Con un Set: se recorren las cuentas una vez y cada lead hace una sola pregunta. Sube a 1.000 registros y compara las dos barras.",
+        en: "Nested: every lead walks through all the accounts. With a Set: the accounts are walked once and each lead asks a single question. Move up to 1,000 records and compare the two bars.",
       },
     },
     {
