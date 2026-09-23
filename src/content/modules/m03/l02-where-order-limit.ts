@@ -295,8 +295,8 @@ List<Opportunity> top10 = [
       ],
       answer: 0,
       explain: {
-        es: "Sin paréntesis, AND va antes que OR: la segunda opción traería todas las cuentas de Banca del mundo. La tercera es exactamente eso, escrito explícito.",
-        en: "Without brackets, AND goes before OR: the second option would bring back every Banking account in the world. The third is exactly that, written out.",
+        es: "Sin paréntesis, AND va antes que OR: la versión sin paréntesis traería todas las cuentas de Banca del mundo, y la que agrupa (Spain AND Retail) OR Banking es exactamente ese error escrito explícito.",
+        en: "Without brackets, AND goes before OR: the version without brackets would bring back every Banking account in the world, and the one grouping (Spain AND Retail) OR Banking is exactly that mistake, written out.",
       },
       tags: ["interleaving"],
     },
