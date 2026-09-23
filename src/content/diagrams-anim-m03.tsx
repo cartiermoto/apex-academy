@@ -503,3 +503,124 @@ export function QueryAnatomyPlay({ lang }: P) {
     </div>
   );
 }
+
+/* ------------------------------------ 4. what a subquery saves you (M4) --- */
+
+function LimitMeter({
+  label,
+  value,
+  max,
+  unit,
+}: {
+  label: string;
+  value: number;
+  max: number;
+  unit: string;
+}) {
+  const over = value > max;
+  const pct = Math.min(value / max, 1) * 100;
+  const shown = `${value.toLocaleString("es-ES")} / ${max.toLocaleString("es-ES")} ${unit}`;
+  return (
+    <div>
+      <p className="t-micro mb-1 flex items-baseline justify-between gap-2">
+        <span className="font-semibold tracking-[0.06em] text-faint">{label}</span>
+        <span className="font-mono tabular-nums" style={{ color: over ? "var(--c-danger)" : "var(--c-text)" }}>
+          {over ? "💥 " : ""}
+          {shown}
+        </span>
+      </p>
+      <div
+        role="meter"
+        aria-label={label}
+        aria-valuemin={0}
+        aria-valuemax={max}
+        aria-valuenow={Math.min(value, max)}
+        aria-valuetext={shown}
+        title={shown}
+        className="h-[10px] w-full overflow-hidden rounded-[4px]"
+        style={{ background: "var(--c-surface-2)" }}
+      >
+        <div
+          className="h-full rounded-[4px] transition-[width] duration-500"
+          style={{
+            width: value > 0 ? `max(4px, ${pct}%)` : 0,
+            background: over ? "var(--c-danger)" : "var(--c-brand)",
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
+export function SubqueryCost({ lang }: P) {
+  const [mode, setMode] = useState(0);
+  const [size, setSize] = useState(50);
+  const PER_ACCOUNT = 4; // contacts per account, on average
+  const QUERY_LIMIT = 100;
+  const ROW_LIMIT = 50000;
+
+  const queries = mode === 0 ? 1 : 1 + size;
+  const rows = size + size * PER_ACCOUNT;
+  const blows = queries > QUERY_LIMIT;
+
+  const code =
+    mode === 0
+      ? "List<Account> accs = [SELECT Name,\n    (SELECT LastName FROM Contacts)\n    FROM Account];\n\nfor (Account a : accs) {\n    for (Contact c : a.Contacts) { … }\n}"
+      : `List<Account> accs = [SELECT Id, Name FROM Account];\n\nfor (Account a : accs) {\n    ${pick(lang, "// una consulta NUEVA en cada vuelta", "// a NEW query on every pass")}\n    List<Contact> cs = [SELECT LastName FROM Contact\n                        WHERE AccountId = :a.Id];\n}`;
+
+  const note =
+    mode === 0
+      ? pick(
+          lang,
+          `Una sola sentencia SOQL trae las ${size} cuentas con sus contactos colgando. Da igual que sean 5 o 200: sigue siendo 1 de 100. (Letra pequeña: la relación hija se apunta en un cupo aparte, tres veces mayor, así que en la práctica no es lo que te para). Las filas sí cuentan todas —cuentas y contactos— para el tope de 50.000.`,
+          `A single SOQL statement brings all ${size} accounts with their contacts hanging off them. Whether it is 5 or 200, it is still 1 of 100. (Small print: the child relationship is logged against a separate allowance, three times larger, so in practice it is not what stops you.) The rows do all count — accounts and contacts — towards the 50,000 cap.`,
+        )
+      : blows
+        ? pick(
+            lang,
+            `Con ${size} cuentas harían falta ${queries} consultas, y el límite es 100. La transacción revienta en la vuelta 100 con System.LimitException: Too many SOQL queries: 101 y no se guarda nada. Fíjate en que las FILAS son exactamente las mismas que con la subconsulta: el problema no son los datos, es cuántas veces preguntas.`,
+            `With ${size} accounts you would need ${queries} queries, and the limit is 100. The transaction blows up on loop 100 with System.LimitException: Too many SOQL queries: 101 and nothing is saved. Note the ROWS are exactly the same as with the subquery: the problem is not the data, it is how many times you ask.`,
+          )
+        : pick(
+            lang,
+            `Con ${size} cuentas funciona: ${queries} consultas de 100. Por eso este error pasa las pruebas con datos de ejemplo y revienta en producción el día que alguien importa 200 cuentas de golpe. Sube a 200 y míralo.`,
+            `With ${size} accounts it works: ${queries} queries out of 100. That is why this bug passes testing with sample data and blows up in production the day someone imports 200 accounts at once. Move up to 200 and watch.`,
+          );
+
+  return (
+    <div className="w-full">
+      <Tabs
+        items={[pick(lang, "Con subconsulta", "With a subquery"), pick(lang, "Consulta dentro del bucle", "Query inside the loop")]}
+        value={mode}
+        onChange={setMode}
+      />
+
+      <div className="mb-3 flex flex-wrap items-center gap-2">
+        <span className="t-micro font-semibold tracking-[0.06em] text-faint">{pick(lang, "CUENTAS EN LA ORG", "ACCOUNTS IN THE ORG")}</span>
+        {[5, 50, 200].map((n) => (
+          <Chip key={n} on={size === n} onClick={() => setSize(n)}>
+            {n}
+          </Chip>
+        ))}
+      </div>
+
+      <div className="overflow-x-auto rounded-[4px] px-3 py-2.5" style={codeBox}>
+        <code className="block whitespace-pre font-mono text-[12.5px] leading-[1.7] text-ink">{code}</code>
+      </div>
+
+      <div className="mt-4 space-y-3">
+        <LimitMeter label={pick(lang, "CONSULTAS SOQL", "SOQL QUERIES")} value={queries} max={QUERY_LIMIT} unit="" />
+        <LimitMeter label={pick(lang, "FILAS RECUPERADAS", "ROWS RETRIEVED")} value={rows} max={ROW_LIMIT} unit="" />
+      </div>
+
+      <p className="t-small mt-3 text-muted" aria-live="polite">
+        <strong style={{ color: blows ? "var(--c-danger)" : "var(--c-text)" }}>
+          {blows
+            ? pick(lang, "💥 LimitException: la transacción entera se deshace.", "💥 LimitException: the whole transaction rolls back.")
+            : pick(lang, "✓ Dentro de los límites.", "✓ Within the limits.")}
+        </strong>{" "}
+        {note}
+      </p>
+    </div>
+  );
+}

@@ -3,7 +3,7 @@ import type { Lesson } from "@/lib/types";
 export const l05Agregados: Lesson = {
   id: "m03-l05",
   slug: "funciones-de-agregacion",
-  n: 5,
+  n: 6,
   kind: "lesson",
   minutes: 25,
   title: {

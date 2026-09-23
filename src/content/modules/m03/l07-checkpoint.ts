@@ -3,7 +3,7 @@ import type { Lesson } from "@/lib/types";
 export const l07Checkpoint: Lesson = {
   id: "m03-l07",
   slug: "checkpoint",
-  n: 7,
+  n: 8,
   kind: "checkpoint",
   minutes: 40,
   title: {

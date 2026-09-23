@@ -3,7 +3,7 @@ import type { Lesson } from "@/lib/types";
 export const l06Sosl: Lesson = {
   id: "m03-l06",
   slug: "sosl",
-  n: 6,
+  n: 7,
   kind: "lesson",
   minutes: 20,
   title: {
