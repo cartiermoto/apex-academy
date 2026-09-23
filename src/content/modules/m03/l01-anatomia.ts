@@ -216,6 +216,26 @@ if (!found.isEmpty()) {
       },
     },
     {
+      type: "h",
+      text: { es: "El encargo de este módulo", en: "This module's assignment" },
+    },
+    {
+      type: "p",
+      text: {
+        es: "En los Módulos 1 y 2 los datos te los daban escritos en el código. En la vida real están en la org, y hay que ir a buscarlos. Por eso el encargo de este módulo lo trae el equipo de cuentas, y es el de cada trimestre: la revisión de cartera. Como en los módulos anteriores, los ocho talleres son ese mismo encargo, troceado en el orden en que se aprende a consultar.",
+        en: "In Modules 1 and 2 the data was handed to you written in the code. In real life it lives in the org, and you have to go and get it. So this module's assignment comes from the account team, and it is the one they have every quarter: the portfolio review. As in earlier modules, the eight workshops are that same assignment, cut into pieces in the order you learn to query.",
+      },
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "Lo que pide el equipo de cuentas", en: "What the account team asks for" },
+      text: {
+        es: "«Para la revisión trimestral queremos: ver la cartera; las diez oportunidades grandes del trimestre; cada cuenta de Retail con su propietario y sus contactos; cuáles tienen negocio abierto y cuáles no han comprado nunca; un buscador de casos que no sea un agujero de seguridad; el pipeline sumado por etapa; un buscador para cuando llaman y no sabemos qué es; y todo eso junto para una región». Hoy lo montarías con varios informes, un par de Report Types personalizados y alguna exportación a Excel. Aquí son consultas, y la primera es la de hoy: ver qué hay.",
+        en: "“For the quarterly review we want: to see the portfolio; the quarter's ten big opportunities; each Retail account with its owner and contacts; which have open business and which never bought; a case search that is not a security hole; the pipeline summed by stage; a search for when someone calls and we do not know what it is about; and all of that together for one region.” Today you would build it with several reports, a couple of custom Report Types and an export to Excel. Here it is queries, and the first one is today's: see what is there.",
+      },
+    },
+    {
       type: "callout",
       variant: "recall",
       title: { es: "Antes de seguir", en: "Before moving on" },
@@ -373,8 +393,8 @@ System.debug(accs[0].Phone);`,
 
   exercise: {
     prompt: {
-      es: "El equipo de Customer Success quiere un listado rápido de las cuentas y su sector para revisar la cartera. Escribe la consulta y recorre el resultado.",
-      en: "The Customer Success team wants a quick list of accounts and their industry to review the portfolio. Write the query and loop over the result.",
+      es: "TAREA 1 DE 8 · Antes de revisar la cartera hay que verla: primero, qué cuentas hay y de qué sector es cada una. El equipo de Customer Success quiere un listado rápido de las cuentas y su sector para revisar la cartera. Escribe la consulta y recorre el resultado.",
+      en: "TASK 1 OF 8 · Before reviewing the portfolio you have to see it: first, which accounts exist and each one's industry. The Customer Success team wants a quick list of accounts and their industry to review the portfolio. Write the query and loop over the result.",
     },
     brief: [
       {
@@ -391,7 +411,10 @@ System.debug(accs[0].Phone);`,
       },
     ],
     starter: {
-      es: `// 1. Consulta las cuentas con Id, Name e Industry
+      es: `// CASO: la revisión trimestral de cartera del equipo de cuentas
+// Tarea 1 de 8: ver qué hay en la cartera.
+
+// 1. Consulta las cuentas con Id, Name e Industry
 
 
 // 2. Recorre y muestra nombre y sector
@@ -399,7 +422,10 @@ System.debug(accs[0].Phone);`,
 
 // 3. Muestra cuántas hay
 `,
-      en: `// 1. Query the accounts with Id, Name and Industry
+      en: `// CASE: the account team's quarterly portfolio review
+// Task 1 of 8: see what is in the portfolio.
+
+// 1. Query the accounts with Id, Name and Industry
 
 
 // 2. Loop and show name and industry
@@ -518,6 +544,10 @@ System.debug('Accounts read: ' + accounts.size());`,
       {
         es: "Si mañana Customer Success también quiere el teléfono, ¿qué dos líneas cambias?",
         en: "If tomorrow Customer Success also wants the phone number, which two lines do you change?",
+      },
+      {
+        es: "Tarea 2: ver todo no sirve para una reunión; la directora de Ventas quiere solo lo que importa, ordenado y con un tope.",
+        en: "Task 2: seeing everything is useless in a meeting; the sales director wants only what matters, ordered and capped.",
       },
     ],
   },

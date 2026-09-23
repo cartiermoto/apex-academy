@@ -365,8 +365,8 @@ List<AggregateResult> busy = [
 
   exercise: {
     prompt: {
-      es: "Operaciones de Ventas quiere, para el comité del viernes, el pipeline abierto por etapa: cuántas oportunidades y cuánto importe hay en cada una. Solo interesan las etapas que suman más de 100.000, de mayor a menor.",
-      en: "Sales Operations wants, for Friday's committee, the open pipeline by stage: how many opportunities and how much amount each one holds. Only stages totalling over 100,000 matter, largest first.",
+      es: "TAREA 6 DE 8 · El comité de la revisión no quiere filas, quiere totales por etapa. Operaciones de Ventas quiere, para el comité del viernes, el pipeline abierto por etapa: cuántas oportunidades y cuánto importe hay en cada una. Solo interesan las etapas que suman más de 100.000, de mayor a menor.",
+      en: "TASK 6 OF 8 · The review committee does not want rows, it wants totals per stage. Sales Operations wants, for Friday's committee, the open pipeline by stage: how many opportunities and how much amount each one holds. Only stages totalling over 100,000 matter, largest first.",
     },
     brief: [
       {
@@ -387,7 +387,10 @@ List<AggregateResult> busy = [
       },
     ],
     starter: {
-      es: `// Pipeline abierto por etapa (> 100.000)
+      es: `// CASO: la revisión trimestral de cartera del equipo de cuentas
+// Tarea 6 de 8: el pipeline abierto por etapa, sumado por la base de datos.
+
+// Pipeline abierto por etapa (> 100.000)
 List<Opportunity> opps = [SELECT StageName, Amount FROM Opportunity WHERE IsClosed = false];
 
 Decimal total = 0;
@@ -395,7 +398,10 @@ for (Opportunity o : opps) {
     total += o.Amount;
 }
 `,
-      en: `// Open pipeline by stage (> 100,000)
+      en: `// CASE: the account team's quarterly portfolio review
+// Task 6 of 8: open pipeline per stage, summed by the database.
+
+// Open pipeline by stage (> 100,000)
 List<Opportunity> opps = [SELECT StageName, Amount FROM Opportunity WHERE IsClosed = false];
 
 Decimal total = 0;
@@ -539,6 +545,10 @@ for (AggregateResult ar : byStage) {
       {
         es: "Si mañana piden además la oportunidad más grande de cada etapa, ¿qué función añades al SELECT?",
         en: "If tomorrow they also want the largest opportunity per stage, which function do you add to the SELECT?",
+      },
+      {
+        es: "Tarea 7: durante la revisión llaman clientes, y el agente no sabe si buscar una cuenta, un contacto o una oportunidad.",
+        en: "Task 7: during the review customers call, and the agent does not know whether to look for an account, a contact or an opportunity.",
       },
     ],
   },

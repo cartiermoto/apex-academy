@@ -392,8 +392,8 @@ List<Account> r = Database.query(
 
   exercise: {
     prompt: {
-      es: "Un compañero montó el buscador de casos del equipo de Soporte pegando textos, como en el libro. Seguridad lo ha marcado como vulnerable. Reescríbelo con una consulta estática y, de paso, trae las cuentas de los casos encontrados con una sola consulta más.",
-      en: "A colleague built the Support team's case search by gluing text, like in the book. Security has flagged it as vulnerable. Rewrite it with a static query and, while you are at it, bring the found cases' accounts with just one more query.",
+      es: "TAREA 5 DE 8 · Soporte entra en la revisión con su propio buscador de casos… y Seguridad acaba de marcarlo como vulnerable. Un compañero montó el buscador de casos del equipo de Soporte pegando textos, como en el libro. Seguridad lo ha marcado como vulnerable. Reescríbelo con una consulta estática y, de paso, trae las cuentas de los casos encontrados con una sola consulta más.",
+      en: "TASK 5 OF 8 · Support joins the review with its own case search… and Security has just flagged it as vulnerable. A colleague built the Support team's case search by gluing text, like in the book. Security has flagged it as vulnerable. Rewrite it with a static query and, while you are at it, bring the found cases' accounts with just one more query.",
     },
     brief: [
       {
@@ -414,13 +414,19 @@ List<Account> r = Database.query(
       },
     ],
     starter: {
-      es: `String keyword = 'impresora';   // lo escribe el agente en el buscador
+      es: `// CASO: la revisión trimestral de cartera del equipo de cuentas
+// Tarea 5 de 8: el buscador de casos, seguro, y las cuentas de esos casos.
+
+String keyword = 'impresora';   // lo escribe el agente en el buscador
 
 String soql = 'SELECT Id, Subject, AccountId FROM Case '
             + 'WHERE IsClosed = false AND Subject LIKE \\'%' + keyword + '%\\'';
 List<Case> cases = Database.query(soql);
 `,
-      en: `String keyword = 'printer';   // typed by the agent in the search box
+      en: `// CASE: the account team's quarterly portfolio review
+// Task 5 of 8: the case search, made safe, and those cases' accounts.
+
+String keyword = 'printer';   // typed by the agent in the search box
 
 String soql = 'SELECT Id, Subject, AccountId FROM Case '
             + 'WHERE IsClosed = false AND Subject LIKE \\'%' + keyword + '%\\'';
@@ -578,6 +584,10 @@ Map<Id, Account> accountsById = new Map<Id, Account>(
       {
         es: "Si el agente escribe O'Brien en el buscador, ¿qué habría pasado con el código original? ¿Y con el tuyo?",
         en: "If the agent types O'Brien into the search box, what would have happened with the original code? And with yours?",
+      },
+      {
+        es: "Tarea 6: el comité no quiere filas, quiere totales. Toca que la base de datos sume por ti.",
+        en: "Task 6: the committee does not want rows, it wants totals. Time for the database to add up for you.",
       },
     ],
   },

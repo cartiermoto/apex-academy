@@ -320,8 +320,8 @@ List<Opportunity> opps     = (List<Opportunity>) results[2];`,
 
   exercise: {
     prompt: {
-      es: "El equipo de Servicio quiere un buscador rápido para la consola: el agente escribe un término y ve de golpe las cuentas, los contactos y las oportunidades abiertas que lo contienen.",
-      en: "The Service team wants a quick search for the console: the agent types a term and sees at once the accounts, contacts and open opportunities that contain it.",
+      es: "TAREA 7 DE 8 · Mientras dura la revisión siguen llamando clientes, y el agente no sabe en qué objeto buscar. El equipo de Servicio quiere un buscador rápido para la consola: el agente escribe un término y ve de golpe las cuentas, los contactos y las oportunidades abiertas que lo contienen.",
+      en: "TASK 7 OF 8 · While the review goes on customers keep calling, and the agent does not know which object to search. The Service team wants a quick search for the console: the agent types a term and sees at once the accounts, contacts and open opportunities that contain it.",
     },
     brief: [
       {
@@ -342,10 +342,16 @@ List<Opportunity> opps     = (List<Opportunity>) results[2];`,
       },
     ],
     starter: {
-      es: `String term = 'Acme*';   // lo escribe el agente
+      es: `// CASO: la revisión trimestral de cartera del equipo de cuentas
+// Tarea 7 de 8: un buscador en varios objetos a la vez.
+
+String term = 'Acme*';   // lo escribe el agente
 
 `,
-      en: `String term = 'Acme*';   // typed by the agent
+      en: `// CASE: the account team's quarterly portfolio review
+// Task 7 of 8: one search across several objects at once.
+
+String term = 'Acme*';   // typed by the agent
 
 `,
     },
@@ -486,6 +492,10 @@ System.debug('Open opportunities: ' + opps.size());`,
       {
         es: "Si los agentes solo buscan por nombre de persona o empresa, ¿qué cambiarías en el IN para reducir ruido?",
         en: "If the agents only search by person or company name, what would you change in the IN to reduce noise?",
+      },
+      {
+        es: "Tarea 8: la entrega. La revisión trimestral de una región entera, con todo lo anterior y sin una consulta dentro de un bucle.",
+        en: "Task 8: delivery. The quarterly review of a whole region, with everything before and not one query inside a loop.",
       },
     ],
   },

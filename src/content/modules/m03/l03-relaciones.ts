@@ -431,8 +431,8 @@ System.debug(a.Contacts.size());`,
 
   exercise: {
     prompt: {
-      es: "El responsable de cuentas de Retail quiere, antes de su ronda de visitas, cada cuenta de Retail con su propietario y la lista de sus contactos ordenada por apellido. Escríbelo con una sola consulta.",
-      en: "The Retail account manager wants, before their round of visits, each Retail account with its owner and its list of contacts sorted by last name. Write it with a single query.",
+      es: "TAREA 3 DE 8 · Las oportunidades ya están filtradas; ahora la revisión cruza objetos: cada cuenta con su propietario y sus contactos. El responsable de cuentas de Retail quiere, antes de su ronda de visitas, cada cuenta de Retail con su propietario y la lista de sus contactos ordenada por apellido. Escríbelo con una sola consulta.",
+      en: "TASK 3 OF 8 · The opportunities are filtered; now the review crosses objects: each account with its owner and its contacts. The Retail account manager wants, before their round of visits, each Retail account with its owner and its list of contacts sorted by last name. Write it with a single query.",
     },
     brief: [
       {
@@ -453,7 +453,10 @@ System.debug(a.Contacts.size());`,
       },
     ],
     starter: {
-      es: `List<Account> accounts = [
+      es: `// CASO: la revisión trimestral de cartera del equipo de cuentas
+// Tarea 3 de 8: cuentas con su propietario y sus contactos, en una consulta.
+
+List<Account> accounts = [
     SELECT Id, Name
     FROM Account
 ];
@@ -462,7 +465,10 @@ for (Account a : accounts) {
 
 }
 `,
-      en: `List<Account> accounts = [
+      en: `// CASE: the account team's quarterly portfolio review
+// Task 3 of 8: accounts with their owner and contacts, in one query.
+
+List<Account> accounts = [
     SELECT Id, Name
     FROM Account
 ];
@@ -596,6 +602,10 @@ for (Account a : accounts) {
       {
         es: "¿Cuántas consultas harías si trajeras las cuentas primero y luego, dentro del bucle, los contactos de cada una? ¿Qué pasaría con 150 cuentas?",
         en: "How many queries would you run if you fetched the accounts first and then, inside the loop, each one's contacts? What would happen with 150 accounts?",
+      },
+      {
+        es: "Tarea 4: la ronda de visitas solo tiene sentido en cuentas con negocio abierto. Hace falta filtrar los padres por sus hijos.",
+        en: "Task 4: the visit round only makes sense for accounts with open business. The parents must be filtered by their children.",
       },
     ],
   },
