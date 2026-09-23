@@ -249,6 +249,37 @@ export async function patchChallenge(p: {
       updated_at        = now()`;
 }
 
+/**
+ * Wipe one module's progress and saved code, leaving every other module alone.
+ * Used when a module's exercises change and the student wants a clean run.
+ */
+export async function resetModule(moduleId: string) {
+  if (!usingNeon) {
+    const f = readFile();
+    const lessonIds = Object.values(f.lessons)
+      .filter((l) => l.moduleId === moduleId)
+      .map((l) => l.lessonId);
+    for (const id of lessonIds) delete f.lessons[id];
+    for (const key of Object.keys(f.drafts)) {
+      if (lessonIds.some((id) => key.startsWith(id))) delete f.drafts[key];
+    }
+    f.quizAttempts = f.quizAttempts.filter((a) => a.moduleId !== moduleId);
+    f.exerciseAttempts = f.exerciseAttempts.filter((a) => a.moduleId !== moduleId);
+    writeFile(f);
+    return;
+  }
+  const q = await sql();
+  // code_drafts has no module_id, so its rows are found through the lesson ids
+  // the other tables carry themselves.
+  const rows = await q`SELECT DISTINCT lesson_id FROM exercise_attempts WHERE module_id = ${moduleId}`;
+  const ids = rows.map((r: { lesson_id: string }) => r.lesson_id);
+  if (ids.length) await q`DELETE FROM code_drafts WHERE lesson_id = ANY(${ids})`;
+  await q`DELETE FROM quiz_attempts WHERE module_id = ${moduleId}`;
+  await q`DELETE FROM quiz_results WHERE module_id = ${moduleId}`;
+  await q`DELETE FROM exercise_attempts WHERE module_id = ${moduleId}`;
+  await q`DELETE FROM lesson_progress WHERE module_id = ${moduleId}`;
+}
+
 export async function resetAll() {
   if (!usingNeon) {
     writeFile(emptyFile());

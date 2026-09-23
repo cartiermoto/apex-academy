@@ -6,6 +6,7 @@ import {
   recordExercise,
   recordQuiz,
   resetAll,
+  resetModule,
   saveDraft,
   usingNeon,
 } from "@/lib/db";
@@ -129,6 +130,14 @@ export async function POST(req: Request) {
       case "reset":
         await resetAll();
         break;
+
+      case "resetModule": {
+        if (typeof body.moduleId !== "string") {
+          return NextResponse.json({ error: "moduleId required" }, { status: 400 });
+        }
+        await resetModule(body.moduleId);
+        break;
+      }
 
       default:
         return NextResponse.json({ error: "unknown action" }, { status: 400 });

@@ -399,7 +399,7 @@ export function SubqueryPlay({ lang }: P) {
 
       <p className="t-small mt-3 text-muted" aria-live="polite">
         <strong className="text-ink">
-          {cfg.rows.length} {pick(lang, "filas", "rows")}
+          {cfg.rows.length} {pick(lang, cfg.rows.length === 1 ? "fila" : "filas", cfg.rows.length === 1 ? "row" : "rows")}
         </strong>
         {" — "}
         {cfg.note}
@@ -486,7 +486,9 @@ export function QueryAnatomyPlay({ lang }: P) {
                     background: state === "next" ? "transparent" : "var(--c-brand-soft)",
                   }}
                 >
-                  {state === "next" ? "—" : `${x.rows} ${pick(lang, "filas", "rows")}`}
+                  {state === "next"
+                    ? "—"
+                    : `${x.rows} ${pick(lang, x.rows === 1 ? "fila" : "filas", x.rows === 1 ? "row" : "rows")}`}
                 </span>
               </button>
             </li>
