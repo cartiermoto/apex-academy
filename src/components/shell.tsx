@@ -10,6 +10,66 @@ import { course } from "@/content/course";
 import { t, ui } from "@/lib/i18n";
 import type { LessonStatus } from "@/lib/types";
 
+/**
+ * Start a module over. Useful when its exercises change: it clears that
+ * module's ticks and saved code and leaves every other module alone.
+ */
+function ResetModuleButton({ moduleId, moduleTitle }: { moduleId: string; moduleTitle: string }) {
+  const { lang } = useSettings();
+  const { resetModule } = useProgress();
+  const [confirming, setConfirming] = useState(false);
+
+  useEffect(() => {
+    if (!confirming) return;
+    const timer = setTimeout(() => setConfirming(false), 5000);
+    return () => clearTimeout(timer);
+  }, [confirming]);
+
+  if (!confirming) {
+    return (
+      <button
+        type="button"
+        onClick={() => setConfirming(true)}
+        className="t-micro flex min-h-[36px] w-full items-center gap-1.5 rounded-[4px] px-2.5 text-left text-faint transition hover:bg-surface-2 hover:text-ink"
+      >
+        ↻ {lang === "es" ? "Reiniciar este módulo" : "Restart this module"}
+      </button>
+    );
+  }
+
+  return (
+    <div className="rounded-[4px] border px-2.5 py-2" style={{ borderColor: "var(--c-warn)" }}>
+      <p className="t-micro text-muted">
+        {lang === "es"
+          ? `Se borrará tu progreso y tu código de «${moduleTitle}». El resto no se toca.`
+          : `Your progress and code for “${moduleTitle}” will be cleared. Nothing else is touched.`}
+      </p>
+      <div className="mt-2 flex gap-2">
+        <button
+          type="button"
+          onClick={async () => {
+            await resetModule(moduleId);
+            // Reload so an open exercise editor drops the old code it still
+            // holds in memory instead of autosaving it back.
+            window.location.reload();
+          }}
+          className="t-micro min-h-[32px] rounded-[4px] px-2.5 font-semibold"
+          style={{ background: "var(--c-warn-soft)", color: "var(--c-warn)" }}
+        >
+          {lang === "es" ? "Sí, reiniciar" : "Yes, restart"}
+        </button>
+        <button
+          type="button"
+          onClick={() => setConfirming(false)}
+          className="t-micro min-h-[32px] rounded-[4px] px-2.5 text-muted"
+        >
+          {lang === "es" ? "Cancelar" : "Cancel"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function StatusDot({ status }: { status: LessonStatus }) {
   if (status === "completed") {
     return (
@@ -131,6 +191,11 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
                         </li>
                       );
                     })}
+                    {open && m.lessons.some((l) => statusOf(l.id) !== "not_started") && (
+                      <li className="pt-1">
+                        <ResetModuleButton moduleId={m.id} moduleTitle={t(m.title, lang)} />
+                      </li>
+                    )}
                   </ul>
                 )}
               </li>

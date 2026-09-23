@@ -70,6 +70,8 @@ interface ProgressApi {
     patch: { status?: LessonStatus; passedComponents?: string[]; hintsUsed?: number },
   ) => void;
   reset: () => void;
+  /** wipe one module's progress and saved code, leaving the rest untouched */
+  resetModule: (moduleId: string) => Promise<void>;
   saving: boolean;
   /** null while checking; true when signed in (progress syncs to the cloud) */
   authed: boolean | null;
@@ -413,6 +415,36 @@ export function Providers({ children }: { children: React.ReactNode }) {
     void post({ action: "reset" });
   }, [post]);
 
+  const resetModule: ProgressApi["resetModule"] = useCallback(
+    async (moduleId) => {
+      setSnapshot((s) => {
+        const lessonIds = Object.values(s.lessons)
+          .filter((l) => l.moduleId === moduleId)
+          .map((l) => l.lessonId);
+        const lessons = { ...s.lessons };
+        for (const id of lessonIds) delete lessons[id];
+        const drafts = { ...s.drafts };
+        for (const key of Object.keys(drafts)) {
+          if (lessonIds.some((id) => key.startsWith(id))) delete drafts[key];
+        }
+        const next = { ...s, lessons, drafts };
+        // Written here rather than left to the persist effect: the caller
+        // reloads the page right after, and the effect may not have run yet.
+        try {
+          for (const k of Object.keys(localStorage)) {
+            if (k.startsWith(LS_DRAFT) && lessonIds.some((id) => k.slice(LS_DRAFT.length).startsWith(id))) {
+              localStorage.removeItem(k);
+            }
+          }
+          localStorage.setItem(LS_PROGRESS, JSON.stringify(next));
+        } catch {}
+        return next;
+      });
+      await post({ action: "resetModule", moduleId });
+    },
+    [post],
+  );
+
   const settings = useMemo<Settings>(
     () => ({ lang, setLang, theme, setTheme }),
     [lang, setLang, theme, setTheme],
@@ -429,11 +461,12 @@ export function Providers({ children }: { children: React.ReactNode }) {
       getDraft,
       setChallenge,
       reset,
+      resetModule,
       saving,
       authed,
       logout,
     }),
-    [snapshot, ready, markTheory, markQuiz, markExercise, saveDraft, getDraft, setChallenge, reset, saving, authed, logout],
+    [snapshot, ready, markTheory, markQuiz, markExercise, saveDraft, getDraft, setChallenge, reset, resetModule, saving, authed, logout],
   );
 
   return (
