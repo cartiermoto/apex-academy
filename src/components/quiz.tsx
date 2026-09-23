@@ -38,6 +38,29 @@ function normalise(s: string): string {
     .replace(/[̀-ͯ]/g, "");
 }
 
+/**
+ * The order the options are shown in. Content is authored with the right
+ * answer first, so showing it as written would let anyone pass by always
+ * clicking A. The permutation is seeded by the question id: the same question
+ * always shows the same order (server and client agree, and reloading cannot
+ * reroll it), while answers keep using the authored index.
+ */
+function displayOrder(id: string, n: number): number[] {
+  let h = 2166136261;
+  for (let k = 0; k < id.length; k++) h = Math.imul(h ^ id.charCodeAt(k), 16777619);
+  const rand = () => {
+    h = Math.imul(h ^ (h >>> 15), 2246822507);
+    h = Math.imul(h ^ (h >>> 13), 3266489909);
+    return ((h ^= h >>> 16) >>> 0) / 4294967296;
+  };
+  const order = Array.from({ length: n }, (_, k) => k);
+  for (let k = n - 1; k > 0; k--) {
+    const j = Math.floor(rand() * (k + 1));
+    [order[k], order[j]] = [order[j], order[k]];
+  }
+  return order;
+}
+
 function isCorrect(q: QuizQuestion, answer: unknown): boolean {
   if (q.kind === "single") return answer === q.answer;
   if (q.kind === "multi") {
@@ -236,7 +259,8 @@ export function Quiz({
         {/* ------- options ------- */}
         {q.kind === "single" && (
           <ul className="mt-5 space-y-2">
-            {q.options.map((opt, i) => {
+            {displayOrder(q.id, q.options.length).map((i, pos) => {
+              const opt = q.options[i];
               const picked = answer === i;
               const showRight = answered && i === q.answer;
               const showWrong = answered && picked && i !== q.answer;
@@ -270,7 +294,7 @@ export function Quiz({
                         color: picked ? "var(--c-brand)" : "var(--c-text-faint)",
                       }}
                     >
-                      {String.fromCharCode(65 + i)}
+                      {String.fromCharCode(65 + pos)}
                     </span>
                     <span className={`t-small min-w-0 flex-1 text-ink ${looksLikeCode(t(opt, lang)) ? "font-mono" : ""}`}>
                       {t(opt, lang)}
@@ -286,7 +310,8 @@ export function Quiz({
           <>
             <p className="t-micro mt-4 text-faint">{t(ui.selectAllThatApply, lang)}</p>
             <ul className="mt-2 space-y-2">
-              {q.options.map((opt, i) => {
+              {displayOrder(q.id, q.options.length).map((i) => {
+                const opt = q.options[i];
                 const picked = ((answer as number[]) ?? []).includes(i);
                 const shouldBe = q.answers.includes(i);
                 return (

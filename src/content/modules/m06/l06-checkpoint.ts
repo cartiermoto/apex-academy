@@ -190,8 +190,8 @@ export const l06Checkpoint: Lesson = {
       ],
       answer: 0,
       explain: {
-        es: "La prioridad es del propio caso: before, gratis. La tarea necesita el Id del caso: after. La segunda opción funciona, pero guarda dos veces y abre la puerta a la recursión; la tercera crearía tareas sin WhatId.",
-        en: "The priority belongs to the case itself: before, for free. The task needs the case's Id: after. The second option works, but saves twice and opens the door to recursion; the third would create tasks without a WhatId.",
+        es: "La prioridad es del propio caso: before, gratis. La tarea necesita el Id del caso: after. Hacerlo todo en after funciona, pero guarda dos veces y abre la puerta a la recursión; hacerlo todo en before crearía tareas sin WhatId.",
+        en: "The priority belongs to the case itself: before, for free. The task needs the case's Id: after. Doing it all in after works, but saves twice and opens the door to recursion; doing it all in before would create tasks without a WhatId.",
       },
       tags: ["interleaving"],
     },
