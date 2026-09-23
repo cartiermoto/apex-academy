@@ -160,6 +160,11 @@ export function getModule(moduleId: string): Module | undefined {
   return course.modules.find((m) => m.id === moduleId);
 }
 
+/** The lessons that count towards finishing a module: optional practice does not. */
+export function requiredLessons(m: Module): Lesson[] {
+  return m.lessons.filter((l) => !l.optional);
+}
+
 export function getLesson(moduleId: string, slug: string): Lesson | undefined {
   return getModule(moduleId)?.lessons.find((l) => l.slug === slug);
 }
