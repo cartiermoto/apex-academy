@@ -367,8 +367,8 @@ if (employees >= 1000) {
 
   exercise: {
     prompt: {
-      es: "Soporte ha firmado un acuerdo de nivel de servicio: los casos de prioridad High se responden en 4 horas, los Medium en 24 y los Low en 72. Los casos sin prioridad se tratan como Low, y cualquier valor nuevo que alguien añada al picklist se responde en 48 horas hasta que se decida otra cosa.",
-      en: "Support has signed a service-level agreement: High priority cases are answered within 4 hours, Medium within 24 and Low within 72. Cases with no priority are treated as Low, and any new value someone adds to the picklist is answered within 48 hours until decided otherwise.",
+      es: "TAREA 2 DE 8 · Ya sabes qué nivel de servicio tiene cada cuenta. Ahora Soporte necesita saber en cuánto tiempo responder a sus casos. Soporte ha firmado un acuerdo de nivel de servicio: los casos de prioridad High se responden en 4 horas, los Medium en 24 y los Low en 72. Los casos sin prioridad se tratan como Low, y cualquier valor nuevo que alguien añada al picklist se responde en 48 horas hasta que se decida otra cosa.",
+      en: "TASK 2 OF 8 · You now know each account's service tier. Now Support needs to know how fast to answer its cases. Support has signed a service-level agreement: High priority cases are answered within 4 hours, Medium within 24 and Low within 72. Cases with no priority are treated as Low, and any new value someone adds to the picklist is answered within 48 hours until decided otherwise.",
     },
     brief: [
       {
@@ -393,11 +393,17 @@ if (employees >= 1000) {
       },
     ],
     starter: {
-      es: `Case support = new Case(Subject = 'Factura duplicada', Priority = 'High');
+      es: `// CASO: las reglas de negocio de la cuenta clave · Northwind Trading
+// Tarea 2 de 8: las horas de respuesta de cada caso, según su prioridad.
+
+Case support = new Case(Subject = 'Factura duplicada', Priority = 'High');
 
 // Declara slaHours y asígnale las horas con un switch sobre support.Priority.
 `,
-      en: `Case support = new Case(Subject = 'Duplicate invoice', Priority = 'High');
+      en: `// CASE: the key account's business rules · Northwind Trading
+// Task 2 of 8: each case's response hours, from its priority.
+
+Case support = new Case(Subject = 'Duplicate invoice', Priority = 'High');
 
 // Declare slaHours and assign the hours with a switch on support.Priority.
 `,
@@ -552,6 +558,10 @@ System.debug(slaHours);`,
       {
         es: "Si mañana Soporte añade la prioridad 'Critical', ¿cuántas líneas tendrías que tocar?",
         en: "If Support adds a 'Critical' priority tomorrow, how many lines would you have to touch?",
+      },
+      {
+        es: "Tarea 3: la renovación de Northwind llega a negociación y hay que decidir quién la aprueba. Un compañero lo empezó con if… y no compila.",
+        en: "Task 3: Northwind's renewal reaches negotiation and someone must decide who approves it. A colleague started it with ifs… and it does not compile.",
       },
     ],
   },

@@ -251,6 +251,26 @@ if (opp.Amount != null && opp.Amount > 50000) {
       ],
     },
     {
+      type: "h",
+      text: { es: "El encargo de este módulo", en: "This module's assignment" },
+    },
+    {
+      type: "p",
+      text: {
+        es: "En el Módulo 1 preparaste los datos de la renovación de Northwind Trading. Ahora que los datos están, la reunión con Ventas cambia de tono: ya no piden «guárdame esto», piden «que Salesforce DECIDA solo». Y decidir es exactamente de lo que va este módulo. Como en el anterior, los ocho talleres son un mismo encargo troceado: cada uno resuelve una regla, y la última tarea las junta todas.",
+        en: "In Module 1 you prepared the data for Northwind Trading's renewal. Now the data is there, the meeting with Sales changes tone: they no longer ask “store this for me”, they ask “let Salesforce DECIDE on its own”. And deciding is exactly what this module is about. As in the previous one, the eight workshops are one assignment cut into pieces: each solves one rule, and the last task puts them all together.",
+      },
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "Lo que pidieron, regla por regla", en: "What they asked for, rule by rule" },
+      text: {
+        es: "«Queremos que el sistema decida solo: el nivel de servicio de cada cuenta según lo que factura; en cuántas horas se responde cada caso según su prioridad; quién aprueba cada renovación y si pasa por Legal; cuántos meses faltan para el objetivo; el resumen del pipeline del lunes; cuál es el primer caso urgente de la cola; qué leads de la feria son de clientes que ya tenemos; y la revisión trimestral con todo eso junto». Como Admin lo habrías intentado con reglas de validación, fórmulas y Flows repartidos por la org. Aquí va todo en código, y la primera regla es la de hoy.",
+        en: "“We want the system to decide on its own: each account's service tier from what it bills; how many hours each case gets for a response from its priority; who approves each renewal and whether it goes through Legal; how many months until the target; Monday's pipeline summary; which is the first urgent case in the queue; which trade-show leads come from customers we already have; and the quarterly review with all of that together.” As an Admin you would have tried it with validation rules, formulas and Flows scattered across the org. Here it all goes in code, and the first rule is today's.",
+      },
+    },
+    {
       type: "callout",
       variant: "recall",
       title: { es: "Antes de seguir", en: "Before moving on" },
@@ -454,8 +474,8 @@ if (hasOptedOut) {
 
   exercise: {
     prompt: {
-      es: "Customer Success quiere clasificar a cada cuenta en un nivel de servicio según su facturación anual: 1.000.000 o más es 'Platinum', 100.000 o más es 'Gold' y el resto 'Standard'. Hay cuentas sin facturación registrada: esas también son 'Standard', y el código no puede fallar con ellas.",
-      en: "Customer Success wants to place every account in a service tier by its annual revenue: 1,000,000 or more is 'Platinum', 100,000 or more is 'Gold' and the rest are 'Standard'. Some accounts have no revenue on record: those are 'Standard' too, and the code must not fail on them.",
+      es: "TAREA 1 DE 8 · Primera regla del encargo: el nivel de servicio de cada cuenta. Customer Success quiere clasificar a cada cuenta en un nivel de servicio según su facturación anual: 1.000.000 o más es 'Platinum', 100.000 o más es 'Gold' y el resto 'Standard'. Hay cuentas sin facturación registrada: esas también son 'Standard', y el código no puede fallar con ellas.",
+      en: "TASK 1 OF 8 · The first rule in the request: each account's service tier. Customer Success wants to place every account in a service tier by its annual revenue: 1,000,000 or more is 'Platinum', 100,000 or more is 'Gold' and the rest are 'Standard'. Some accounts have no revenue on record: those are 'Standard' too, and the code must not fail on them.",
     },
     brief: [
       {
@@ -476,11 +496,17 @@ if (hasOptedOut) {
       },
     ],
     starter: {
-      es: `Decimal annualRevenue = 250000;
+      es: `// CASO: las reglas de negocio de la cuenta clave · Northwind Trading
+// Tarea 1 de 8: el nivel de servicio según lo que factura la cuenta.
+
+Decimal annualRevenue = 250000;
 
 // Declara tier y asígnale 'Platinum', 'Gold' o 'Standard'.
 `,
-      en: `Decimal annualRevenue = 250000;
+      en: `// CASE: the key account's business rules · Northwind Trading
+// Task 1 of 8: the service tier from what the account bills.
+
+Decimal annualRevenue = 250000;
 
 // Declare tier and assign it 'Platinum', 'Gold' or 'Standard'.
 `,
@@ -618,6 +644,10 @@ System.debug(tier);`,
       {
         es: "¿Podría otra persona añadir un nivel 'Silver' sin tener que reordenar nada más que una línea?",
         en: "Could someone else add a 'Silver' tier without reordering more than one line?",
+      },
+      {
+        es: "Tarea 2: ya sabes qué nivel tiene cada cuenta; Soporte necesita ahora en cuántas horas responder a sus casos, y ahí un if tras otro empieza a hacerse largo.",
+        en: "Task 2: you now know each account's tier; Support now needs how many hours to answer its cases in, and there one if after another starts getting long.",
       },
     ],
   },

@@ -359,8 +359,8 @@ System.debug(found);`,
 
   exercise: {
     prompt: {
-      es: "La responsable de Soporte empieza el turno y quiere dos cosas: cuántos casos siguen abiertos, y cuál es el primer caso urgente nuevo de la cola para asignarlo ya. Los cerrados no cuentan para nada.",
-      en: "The Support lead is starting the shift and wants two things: how many cases are still open, and which is the first new urgent case in the queue so it can be assigned right away. Closed ones count for nothing.",
+      es: "TAREA 6 DE 8 · El mismo recorrido de la tarea 5, pero sobre la cola de casos de Soporte, saltando lo que no importa y parando en cuanto aparece lo urgente. La responsable de Soporte empieza el turno y quiere dos cosas: cuántos casos siguen abiertos, y cuál es el primer caso urgente nuevo de la cola para asignarlo ya. Los cerrados no cuentan para nada.",
+      en: "TASK 6 OF 8 · The same walk as task 5, but over Support's case queue, skipping what does not matter and stopping as soon as something urgent appears. The Support lead is starting the shift and wants two things: how many cases are still open, and which is the first new urgent case in the queue so it can be assigned right away. Closed ones count for nothing.",
     },
     brief: [
       {
@@ -381,7 +381,10 @@ System.debug(found);`,
       },
     ],
     starter: {
-      es: `List<Case> cases = new List<Case>{
+      es: `// CASO: las reglas de negocio de la cuenta clave · Northwind Trading
+// Tarea 6 de 8: la cola de Soporte, saltando lo cerrado y parando en lo urgente.
+
+List<Case> cases = new List<Case>{
     new Case(Subject = 'Cambio de dirección', Status = 'Closed', Priority = 'Low'),
     new Case(Subject = 'Error en factura', Status = 'Working', Priority = 'High'),
     new Case(Subject = 'No puedo entrar', Status = 'New', Priority = 'High'),
@@ -392,7 +395,10 @@ System.debug(found);`,
 // Bucle 1: openCount con continue.
 // Bucle 2: firstUrgent con break.
 `,
-      en: `List<Case> cases = new List<Case>{
+      en: `// CASE: the key account's business rules · Northwind Trading
+// Task 6 of 8: Support's queue, skipping what is closed and stopping at what is urgent.
+
+List<Case> cases = new List<Case>{
     new Case(Subject = 'Address change', Status = 'Closed', Priority = 'Low'),
     new Case(Subject = 'Invoice error', Status = 'Working', Priority = 'High'),
     new Case(Subject = 'Cannot log in', Status = 'New', Priority = 'High'),
@@ -583,6 +589,10 @@ if (firstUrgent == null) {
       {
         es: "Cambia el último caso a Priority 'Low' y el tercero a Status 'Working'. ¿Tu código muestra el aviso en vez de fallar?",
         en: "Change the last case to Priority 'Low' and the third to Status 'Working'. Does your code show the notice instead of failing?",
+      },
+      {
+        es: "Tarea 7: Marketing vuelve de una feria con leads y pregunta cuáles son de empresas que ya son clientes. Dos listas a la vez: cuidado con el bucle dentro del bucle.",
+        en: "Task 7: Marketing comes back from a trade show with leads and asks which come from companies that are already customers. Two lists at once: beware the loop inside the loop.",
       },
     ],
   },

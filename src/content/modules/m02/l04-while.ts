@@ -376,8 +376,8 @@ System.debug(halvings);`,
 
   exercise: {
     prompt: {
-      es: "Dirección comercial quiere saber cuántos meses tardará el pipeline actual en alcanzar el objetivo si crece un 10 % cada mes. Como la previsión de crecimiento podría ajustarse a 0 algún día, el cálculo nunca debe pasar de 120 meses.",
-      en: "Sales leadership wants to know how many months the current pipeline will take to reach the target if it grows 10% every month. Since the growth forecast might be set to 0 some day, the calculation must never go past 120 months.",
+      es: "TAREA 4 DE 8 · Resueltas las reglas de una sola oportunidad, Dirección levanta la vista hacia el objetivo. Dirección comercial quiere saber cuántos meses tardará el pipeline actual en alcanzar el objetivo si crece un 10 % cada mes. Como la previsión de crecimiento podría ajustarse a 0 algún día, el cálculo nunca debe pasar de 120 meses.",
+      en: "TASK 4 OF 8 · With the single-opportunity rules solved, Management looks up at the target. Sales leadership wants to know how many months the current pipeline will take to reach the target if it grows 10% every month. Since the growth forecast might be set to 0 some day, the calculation must never go past 120 months.",
     },
     brief: [
       {
@@ -398,12 +398,18 @@ System.debug(halvings);`,
       },
     ],
     starter: {
-      es: `Decimal pipeline = 50000;
+      es: `// CASO: las reglas de negocio de la cuenta clave · Northwind Trading
+// Tarea 4 de 8: cuántos meses faltan para el objetivo, sin arriesgar un bucle infinito.
+
+Decimal pipeline = 50000;
 Decimal target = 80000;
 
 // Cuenta cuántos meses hacen falta con un while.
 `,
-      en: `Decimal pipeline = 50000;
+      en: `// CASE: the key account's business rules · Northwind Trading
+// Task 4 of 8: how many months until the target, without risking an infinite loop.
+
+Decimal pipeline = 50000;
 Decimal target = 80000;
 
 // Count how many months it takes with a while.
@@ -526,6 +532,10 @@ System.debug(months);   // 5`,
       {
         es: "Cambia target a 5000000 y el crecimiento a 1.0. ¿Termina? ¿Qué valor da months?",
         en: "Change target to 5000000 and the growth to 1.0. Does it finish? What value does months give?",
+      },
+      {
+        es: "Tarea 5: se acabó mirar una oportunidad; el lunes llega la lista entera del pipeline y hay que recorrerla.",
+        en: "Task 5: no more looking at one opportunity; on Monday the whole pipeline list arrives and it has to be walked.",
       },
     ],
   },
