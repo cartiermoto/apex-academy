@@ -7,6 +7,7 @@ import { l04BindDinamico } from "./l04-bind-dinamico";
 import { l05Agregados } from "./l05-agregados";
 import { l06Sosl } from "./l06-sosl";
 import { l07Checkpoint } from "./l07-checkpoint";
+import { l09Practica } from "./l09-practica";
 
 export const m03: Module = {
   id: "m03",
@@ -27,5 +28,6 @@ export const m03: Module = {
     l05Agregados,
     l06Sosl,
     l07Checkpoint,
+    l09Practica,
   ],
 };

@@ -133,6 +133,8 @@ export interface Lesson {
   slug: string;
   n: number;
   kind: "lesson" | "checkpoint";
+  /** extra practice: shown in the module, but never required to complete it */
+  optional?: boolean;
   title: L;
   summary: L;
   /** one-line Salesforce Admin equivalent, shown on the lesson's spec card */

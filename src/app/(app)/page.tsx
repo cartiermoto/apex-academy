@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { course } from "@/content/course";
+import { course, requiredLessons } from "@/content/course";
 import { useProgress, useSettings } from "@/components/providers";
 import { MascotMark } from "@/components/logo";
 import { t, ui } from "@/lib/i18n";
@@ -258,7 +258,9 @@ export default function HomePage() {
 
   const statusOf = (id: string): LessonStatus => snapshot.lessons[id]?.status ?? "not_started";
 
-  const allLessons = course.modules.flatMap((m) => m.lessons);
+  // Optional practice is offered but never counted: it must not hold back the
+  // progress bar, the "completed" badge or the next-up card.
+  const allLessons = course.modules.flatMap((m) => requiredLessons(m));
   const doneCount = allLessons.filter((l) => statusOf(l.id) === "completed").length;
   // Each sub-lesson is three steps (theory, quiz, exercise): the bar moves as
   // soon as one is done, so partial progress never looks like "nothing saved".
@@ -268,9 +270,9 @@ export default function HomePage() {
   }, 0);
   const overallPct = pct(stepsDone, allLessons.length * 3);
   const moduleDone = (m: Module) =>
-    m.lessons.length > 0 && m.lessons.every((l) => statusOf(l.id) === "completed");
+    requiredLessons(m).length > 0 && requiredLessons(m).every((l) => statusOf(l.id) === "completed");
 
-  const pairs = course.modules.flatMap((m) => m.lessons.map((l) => ({ m, l })));
+  const pairs = course.modules.flatMap((m) => requiredLessons(m).map((l) => ({ m, l })));
   const nextUp = pairs.find(({ l }) => statusOf(l.id) !== "completed") ?? pairs[0];
   const published = course.modules.filter((m) => m.status === "ready").length;
 
@@ -379,7 +381,7 @@ export default function HomePage() {
           <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
             {course.modules.map((m) => {
               const ready = m.status === "ready";
-              const done = m.lessons.filter((l) => statusOf(l.id) === "completed").length;
+              const done = requiredLessons(m).filter((l) => statusOf(l.id) === "completed").length;
               const current = ready && nextUp?.m.id === m.id && !moduleDone(m);
               const tag = moduleDone(m)
                 ? t(ui.completed, lang)
@@ -391,7 +393,7 @@ export default function HomePage() {
                     ? t(ui.ready, lang)
                     : t(ui.planned, lang);
               const meta = ready
-                ? `${done}/${m.lessons.length} ${lang === "es" ? "hecho" : "done"}`
+                ? `${done}/${requiredLessons(m).length} ${lang === "es" ? "hecho" : "done"}`
                 : `${m.outline?.length ?? 0} ${lang === "es" ? "sub-lecciones" : "sub-lessons"}`;
 
               const card = (

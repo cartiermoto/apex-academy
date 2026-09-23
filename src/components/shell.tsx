@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { MascotMark } from "./logo";
 import { LangToggle, ThemeToggle } from "./toggles";
 import { useProgress, useSettings } from "./providers";
-import { course } from "@/content/course";
+import { course, requiredLessons } from "@/content/course";
 import { t, ui } from "@/lib/i18n";
 import type { LessonStatus } from "@/lib/types";
 
@@ -111,8 +111,8 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
 
   const moduleDone = (moduleId: string) => {
     const mod = course.modules.find((m) => m.id === moduleId);
-    if (!mod || !mod.lessons.length) return false;
-    return mod.lessons.every((l) => statusOf(l.id) === "completed");
+    if (!mod || !requiredLessons(mod).length) return false;
+    return requiredLessons(mod).every((l) => statusOf(l.id) === "completed");
   };
 
   return (
@@ -136,7 +136,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
           {course.modules.map((m) => {
             const isPlanned = m.status === "planned";
             const open = pathname.startsWith(`/m/${m.id}`);
-            const done = m.lessons.filter((l) => statusOf(l.id) === "completed").length;
+            const done = requiredLessons(m).filter((l) => statusOf(l.id) === "completed").length;
 
             return (
               <li key={m.id}>
@@ -154,7 +154,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
                     </p>
                     {!isPlanned && (
                       <p className="t-micro text-faint mt-0.5">
-                        {done}/{m.lessons.length} {t(ui.lessonsDone, lang)}
+                        {done}/{requiredLessons(m).length} {t(ui.lessonsDone, lang)}
                       </p>
                     )}
                     {isPlanned && (
@@ -187,6 +187,11 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
                             >
                               {t(l.title, lang)}
                             </span>
+                            {l.optional && (
+                              <span className="t-micro shrink-0 rounded-full border px-1.5 text-faint" style={{ borderColor: "var(--c-border)" }}>
+                                {lang === "es" ? "opcional" : "optional"}
+                              </span>
+                            )}
                           </Link>
                         </li>
                       );

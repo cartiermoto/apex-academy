@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import type { Challenge, Module } from "@/lib/types";
 import { t, ui } from "@/lib/i18n";
+import { requiredLessons } from "@/content/course";
 import { useProgress, useSettings } from "./providers";
 import { Theory } from "./theory";
 import { ExercisePanel } from "./exercise";
@@ -21,8 +22,8 @@ export function ChallengeView({
 
   const earned =
     !!requiredModule &&
-    requiredModule.lessons.length > 0 &&
-    requiredModule.lessons.every(
+    requiredLessons(requiredModule).length > 0 &&
+    requiredLessons(requiredModule).every(
       (l) => snapshot.lessons[l.id]?.status === "completed",
     );
   // Admin mode: signed in with the course password, nothing is locked.
