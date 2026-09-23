@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import type { Lang } from "@/lib/types";
 import { CollectionsPlay, MethodFlow, ShortCircuit } from "./diagrams-anim";
-import { QueryAnatomyPlay, SoqlLive, SubqueryPlay } from "./diagrams-anim-m03";
+import { QueryAnatomyPlay, SoqlLive, SubqueryCost, SubqueryPlay } from "./diagrams-anim-m03";
 import {
   CastingPlay,
   CheckpointFlowPlay,
@@ -2207,6 +2207,7 @@ const REGISTRY: Record<string, (p: P) => React.ReactElement> = {
   "m03-anatomy": QueryAnatomyPlay,
   "m03-soql-live": SoqlLive,
   "m03-subquery": SubqueryPlay,
+  "m03-subquery-cost": SubqueryCost,
   "m03-filter-funnel": FilterFunnel,
   "m03-relationships": RelationshipsMap,
   "m03-bind": BindVsConcat,

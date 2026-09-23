@@ -2,6 +2,7 @@ import type { Module } from "@/lib/types";
 import { l01Anatomia } from "./l01-anatomia";
 import { l02WhereOrderLimit } from "./l02-where-order-limit";
 import { l03Relaciones } from "./l03-relaciones";
+import { l08Subconsultas } from "./l08-subconsultas";
 import { l04BindDinamico } from "./l04-bind-dinamico";
 import { l05Agregados } from "./l05-agregados";
 import { l06Sosl } from "./l06-sosl";
@@ -21,6 +22,7 @@ export const m03: Module = {
     l01Anatomia,
     l02WhereOrderLimit,
     l03Relaciones,
+    l08Subconsultas,
     l04BindDinamico,
     l05Agregados,
     l06Sosl,

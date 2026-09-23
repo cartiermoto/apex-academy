@@ -3,7 +3,7 @@ import type { Lesson } from "@/lib/types";
 export const l04BindDinamico: Lesson = {
   id: "m03-l04",
   slug: "variables-de-enlace-y-soql-dinamico",
-  n: 4,
+  n: 5,
   kind: "lesson",
   minutes: 30,
   title: {
