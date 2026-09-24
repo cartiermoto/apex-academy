@@ -194,6 +194,15 @@ trigger OpportunityReview on Opportunity (after update) {
     },
     {
       type: "callout",
+      variant: "admin",
+      title: { es: "Cómo se nota una recursión desde fuera", en: "How recursion shows from the outside" },
+      text: {
+        es: "Antes de leer ningún código, un Admin puede sospechar de recursión por sus síntomas: tareas o notificaciones duplicadas, un campo con varias entradas idénticas seguidas en el historial de campos (Field History Tracking), o el error «Maximum trigger depth exceeded» en una carga de datos. Si ves cualquiera de los tres, busca un trigger —o un flow— que guarde registros de su propio objeto.",
+        en: "Before reading any code, an Admin can suspect recursion from its symptoms: duplicated tasks or notifications, a field with several identical consecutive entries in Field History Tracking, or the “Maximum trigger depth exceeded” error during a data load. If you see any of the three, look for a trigger — or a flow — that saves records of its own object.",
+      },
+    },
+    {
+      type: "callout",
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },
       text: {
@@ -352,8 +361,8 @@ trigger OpportunityReview on Opportunity (after update) {
 
   exercise: {
     prompt: {
-      es: "Otro equipo tiene un trigger en Account que actualiza las oportunidades de la cuenta, así que tu trigger after update de Opportunity no puede pasar a before: está en un ping-pong entre objetos. Protégelo con las defensas 2 y 3.",
-      en: "Another team has a trigger on Account that updates the account's opportunities, so your Opportunity after update trigger cannot move to before: it is in a ping-pong between objects. Protect it with defences 2 and 3.",
+      es: "TAREA 5 DE 6 · Quinto flow, el más delicado: la revisión de oportunidades, que se pelea con el trigger de otro equipo. Otro equipo tiene un trigger en Account que actualiza las oportunidades de la cuenta, así que tu trigger after update de Opportunity no puede pasar a before: está en un ping-pong entre objetos. Protégelo con las defensas 2 y 3.",
+      en: "TASK 5 OF 6 · Fifth flow, the trickiest: the opportunity review, clashing with another team's trigger. Another team has a trigger on Account that updates the account's opportunities, so your Opportunity after update trigger cannot move to before: it is in a ping-pong between objects. Protect it with defences 2 and 3.",
     },
     brief: [
       {
@@ -374,7 +383,10 @@ trigger OpportunityReview on Opportunity (after update) {
       },
     ],
     starter: {
-      es: `public class OpportunityTriggerGuard {
+      es: `// CASO: la migración de flows a Apex de Northwind
+// Tarea 5 de 6: la revisión de oportunidades, protegida del ping-pong.
+
+public class OpportunityTriggerGuard {
     // la guarda de esta transacción
 }
 
@@ -386,7 +398,10 @@ trigger OpportunityReview on Opportunity (after update) {
     update toUpdate;
 }
 `,
-      en: `public class OpportunityTriggerGuard {
+      en: `// CASE: Northwind's flow-to-Apex migration
+// Task 5 of 6: the opportunity review, protected from the ping-pong.
+
+public class OpportunityTriggerGuard {
     // this transaction's guard
 }
 
@@ -545,6 +560,10 @@ trigger OpportunityReview on Opportunity (after update) {
       {
         es: "Con solo la comparación de StageName (sin el Set), ¿se pararía el bucle? ¿Y con solo el Set, sin la comparación? ¿Qué aporta cada una?",
         en: "With only the StageName comparison (no Set), would the loop stop? And with only the Set, no comparison? What does each one contribute?",
+      },
+      {
+        es: "Tarea 6: la entrega. El último flow es el escalado de casos de Soporte, y lo usa todo: before, after, consultas bulk y 200 casos cada mañana.",
+        en: "Task 6: delivery. The last flow is Support's case escalation, and it uses everything: before, after, bulk queries and 200 cases each morning.",
       },
     ],
   },

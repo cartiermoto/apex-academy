@@ -220,6 +220,15 @@ export const l02Contexto: Lesson = {
     },
     {
       type: "callout",
+      variant: "admin",
+      title: { es: "ISCHANGED() y PRIORVALUE(): old y new en tus fórmulas", en: "ISCHANGED() and PRIORVALUE(): old and new in your formulas" },
+      text: {
+        es: "En una regla de validación escribes ISCHANGED(StageName) para saber si la etapa cambió, y PRIORVALUE(StageName) para leer la que había antes. Son exactamente Trigger.oldMap.get(o.Id).StageName comparado con o.StageName. La diferencia es de escala: la fórmula mira un registro; el trigger recibe hasta 200 y compara cada uno con su versión anterior, buscándola por Id en oldMap.",
+        en: "In a validation rule you write ISCHANGED(StageName) to know whether the stage changed, and PRIORVALUE(StageName) to read the previous one. They are exactly Trigger.oldMap.get(o.Id).StageName compared with o.StageName. The difference is scale: the formula looks at one record; the trigger gets up to 200 and compares each with its previous version, finding it by Id in oldMap.",
+      },
+    },
+    {
+      type: "callout",
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },
       text: {
@@ -388,8 +397,8 @@ export const l02Contexto: Lesson = {
 
   exercise: {
     prompt: {
-      es: "Ventas quiere un rastro rápido de los cambios de etapa: cada vez que una oportunidad cambia de StageName, el campo NextStep debe decir de qué etapa venía y a cuál pasó. Si se edita cualquier otro campo, NextStep no se toca.",
-      en: "Sales wants a quick trail of stage changes: every time an opportunity changes StageName, the NextStep field must say which stage it came from and which it moved to. If any other field is edited, NextStep is left alone.",
+      es: "TAREA 2 DE 6 · Segundo flow: el rastro de cambios de etapa que usa Ventas. En el flow era $Record frente a $Record__Prior. Ventas quiere un rastro rápido de los cambios de etapa: cada vez que una oportunidad cambia de StageName, el campo NextStep debe decir de qué etapa venía y a cuál pasó. Si se edita cualquier otro campo, NextStep no se toca.",
+      en: "TASK 2 OF 6 · Second flow: the stage-change trail Sales uses. In the flow it was $Record versus $Record__Prior. Sales wants a quick trail of stage changes: every time an opportunity changes StageName, the NextStep field must say which stage it came from and which it moved to. If any other field is edited, NextStep is left alone.",
     },
     brief: [
       {
@@ -410,11 +419,17 @@ export const l02Contexto: Lesson = {
       },
     ],
     starter: {
-      es: `trigger OpportunityStage on Opportunity (before update) {
+      es: `// CASO: la migración de flows a Apex de Northwind
+// Tarea 2 de 6: el rastro de etapas, comparando el antes y el después.
+
+trigger OpportunityStage on Opportunity (before update) {
 
 }
 `,
-      en: `trigger OpportunityStage on Opportunity (before update) {
+      en: `// CASE: Northwind's flow-to-Apex migration
+// Task 2 of 6: the stage trail, comparing before and after.
+
+trigger OpportunityStage on Opportunity (before update) {
 
 }
 `,
@@ -542,6 +557,10 @@ export const l02Contexto: Lesson = {
       {
         es: "Si el trigger también escuchara before insert, ¿qué línea fallaría al crear una oportunidad y cómo la protegerías?",
         en: "If the trigger also listened to before insert, which line would fail when creating an opportunity and how would you protect it?",
+      },
+      {
+        es: "Tarea 3: el flow de alta de cuentas hace dos cosas, y cada una necesita un momento distinto del guardado.",
+        en: "Task 3: the account onboarding flow does two things, and each needs a different moment of the save.",
       },
     ],
   },

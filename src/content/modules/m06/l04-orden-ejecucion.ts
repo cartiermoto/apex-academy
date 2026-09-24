@@ -177,6 +177,15 @@ export const l04OrdenEjecucion: Lesson = {
     },
     {
       type: "callout",
+      variant: "admin",
+      title: { es: "Ver el orden de verdad: los Debug Logs", en: "Seeing the real order: Debug Logs" },
+      text: {
+        es: "No hace falta imaginar el orden de ejecución: se puede ver. Setup → Debug Logs → añade un Trace Flag para tu usuario, guarda un registro y abre el log. Aparecen, en el orden real en que ocurrieron, tus triggers, las reglas de validación que se evaluaron y los flows que se lanzaron. Cuando algo «a veces sale mal», el log es la primera parada, igual que el historial de un flow cuando depurabas con clics.",
+        en: "You do not have to imagine the order of execution: you can see it. Setup → Debug Logs → add a Trace Flag for your user, save a record and open the log. Your triggers, the validation rules evaluated and the flows launched all appear, in the real order they happened. When something “sometimes goes wrong”, the log is the first stop, just like a flow's run history when you debugged with clicks.",
+      },
+    },
+    {
+      type: "callout",
       variant: "recall",
       title: { es: "Antes de seguir", en: "Before moving on" },
       text: {
@@ -335,8 +344,8 @@ export const l04OrdenEjecucion: Lesson = {
 
   exercise: {
     prompt: {
-      es: "Datos maestros ha creado una regla de validación en Contact: el país postal es obligatorio. Los contactos que llegan de la integración de eventos vienen sin país, pero sus cuentas sí lo tienen. Escribe el trigger que completa el país antes de que la regla mire, sin romper con cargas de 200.",
-      en: "Master data has created a validation rule on Contact: the mailing country is required. Contacts arriving from the events integration come without a country, but their accounts have one. Write the trigger that completes the country before the rule looks, without breaking on loads of 200.",
+      es: "TAREA 4 DE 6 · Cuarto flow: el que completa el país de los contactos. Como flow after-save llegaba tarde a la regla de validación. Datos maestros ha creado una regla de validación en Contact: el país postal es obligatorio. Los contactos que llegan de la integración de eventos vienen sin país, pero sus cuentas sí lo tienen. Escribe el trigger que completa el país antes de que la regla mire, sin romper con cargas de 200.",
+      en: "TASK 4 OF 6 · Fourth flow: the one completing contacts' country. As an after-save flow it reached the validation rule too late. Master data has created a validation rule on Contact: the mailing country is required. Contacts arriving from the events integration come without a country, but their accounts have one. Write the trigger that completes the country before the rule looks, without breaking on loads of 200.",
     },
     brief: [
       {
@@ -357,10 +366,16 @@ export const l04OrdenEjecucion: Lesson = {
       },
     ],
     starter: {
-      es: `// Regla de validación existente: MailingCountry obligatorio en Contact.
+      es: `// CASO: la migración de flows a Apex de Northwind
+// Tarea 4 de 6: el país del contacto, antes de que la validación mire.
+
+// Regla de validación existente: MailingCountry obligatorio en Contact.
 // Tu trigger tiene que correr ANTES que ella.
 `,
-      en: `// Existing validation rule: MailingCountry required on Contact.
+      en: `// CASE: Northwind's flow-to-Apex migration
+// Task 4 of 6: the contact's country, before the validation looks.
+
+// Existing validation rule: MailingCountry required on Contact.
 // Your trigger has to run BEFORE it.
 `,
     },
@@ -529,6 +544,10 @@ export const l04OrdenEjecucion: Lesson = {
       {
         es: "Si en vez de before insert lo hubieras escrito en after insert con un update, ¿llegaría a ejecutarse alguna vez con un contacto sin país? Piensa en qué paso lo rechazaría.",
         en: "If you had written it in after insert with an update instead of before insert, would it ever even run for a contact without a country? Think about which step would reject it.",
+      },
+      {
+        es: "Tarea 5: el flow de revisión de oportunidades convive con el trigger de otro equipo, y los dos se disparan mutuamente.",
+        en: "Task 5: the opportunity review flow lives alongside another team's trigger, and they fire each other.",
       },
     ],
   },

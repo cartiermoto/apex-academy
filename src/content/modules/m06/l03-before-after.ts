@@ -210,6 +210,15 @@ export const l03BeforeAfter: Lesson = {
     },
     {
       type: "callout",
+      variant: "admin",
+      title: { es: "Tus flows y tu Apex comparten los mismos límites", en: "Your flows and your Apex share the same limits" },
+      text: {
+        es: "Un detalle que muchos Admins descubren tarde: cuando un registro se guarda, todos los flows y todos los triggers que dispara corren en la MISMA transacción, y comparten sus límites. Si un flow after-save hace tres Update Records y un trigger hace dos inserts, ya son cinco de los 150 DML disponibles. Por eso hacer en before lo que se puede hacer en before no es una manía: cada DML que te ahorras es margen para toda la automatización del objeto.",
+        en: "A detail many Admins find out late: when a record is saved, every flow and every trigger it fires runs in the SAME transaction, and they share its limits. If an after-save flow does three Update Records and a trigger does two inserts, that is already five of the 150 DML available. That is why doing in before what can be done in before is not a fad: every DML you save is headroom for all of the object's automation.",
+      },
+    },
+    {
+      type: "callout",
       variant: "recall",
       title: { es: "Antes de seguir", en: "Before moving on" },
       text: {
@@ -386,8 +395,8 @@ export const l03BeforeAfter: Lesson = {
 
   exercise: {
     prompt: {
-      es: "Alta de cuentas: el equipo quiere que ninguna cuenta nueva se quede sin Rating (si viene vacío, 'Warm') y que cada cuenta nueva tenga una tarea de llamada de bienvenida para su propietario dentro de 3 días. Un solo trigger, con cada cosa en su momento.",
-      en: "New accounts: the team wants no new account left without a Rating (if blank, 'Warm') and every new account to get a welcome-call task for its owner within 3 days. A single trigger, with each thing at its right moment.",
+      es: "TAREA 3 DE 6 · Tercer flow: el alta de cuentas nuevas, que en Flow eran dos flows, uno Fast Field Updates y otro Actions and Related Records. El equipo quiere que ninguna cuenta nueva se quede sin Rating (si viene vacío, 'Warm') y que cada cuenta nueva tenga una tarea de llamada de bienvenida para su propietario dentro de 3 días. Un solo trigger, con cada cosa en su momento.",
+      en: "TASK 3 OF 6 · Third flow: onboarding new accounts, which in Flow were two flows, one Fast Field Updates and one Actions and Related Records. The team wants no new account left without a Rating (if blank, 'Warm') and every new account to get a welcome-call task for its owner within 3 days. A single trigger, with each thing at its right moment.",
     },
     brief: [
       {
@@ -408,11 +417,17 @@ export const l03BeforeAfter: Lesson = {
       },
     ],
     starter: {
-      es: `trigger AccountOnboarding on Account (before insert, after insert) {
+      es: `// CASO: la migración de flows a Apex de Northwind
+// Tarea 3 de 6: dos flows en un trigger, cada cosa en su momento.
+
+trigger AccountOnboarding on Account (before insert, after insert) {
 
 }
 `,
-      en: `trigger AccountOnboarding on Account (before insert, after insert) {
+      en: `// CASE: Northwind's flow-to-Apex migration
+// Task 3 of 6: two flows in one trigger, each thing at its moment.
+
+trigger AccountOnboarding on Account (before insert, after insert) {
 
 }
 `,
@@ -585,6 +600,10 @@ export const l03BeforeAfter: Lesson = {
       {
         es: "¿Qué pasaría si movieras la creación de tareas a la rama before? Piensa en qué valor tendría a.Id.",
         en: "What would happen if you moved the task creation into the before branch? Think about what value a.Id would have.",
+      },
+      {
+        es: "Tarea 4: el siguiente flow falla por culpa de una regla de validación… y para arreglarlo hay que saber quién corre antes.",
+        en: "Task 4: the next flow fails because of a validation rule… and fixing it means knowing who runs first.",
       },
     ],
   },
