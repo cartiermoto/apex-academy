@@ -757,10 +757,16 @@ export function ChooserGame({
   lang,
   all,
   needs,
+  eyebrow,
+  hint,
 }: {
   lang: Lang;
   all: string[];
   needs: Array<{ need: string; answer: string }>;
+  /** Replaces "THE BUSINESS ASKS…" when the question is not a business need. */
+  eyebrow?: string;
+  /** Replaces "Pick the structure you would use." */
+  hint?: string;
 }) {
   const s = useStepper(needs.length, 99999);
   const [chosen, setChosen] = useState<Record<number, string>>({});
@@ -786,7 +792,7 @@ export function ChooserGame({
   return (
     <div className="w-full">
       <p className="t-micro mb-2 font-semibold tracking-[0.06em] text-faint">
-        {pick(lang, "EL NEGOCIO PIDE…", "THE BUSINESS ASKS…")} · {pick(lang, "aciertos", "correct")} {score}/{Object.keys(chosen).length}
+        {eyebrow ?? pick(lang, "EL NEGOCIO PIDE…", "THE BUSINESS ASKS…")} ·{pick(lang, "aciertos", "correct")} {score}/{Object.keys(chosen).length}
       </p>
       <p key={s.i} className="diag-pop t-body font-semibold text-ink">
         {cur.need}
@@ -821,7 +827,7 @@ export function ChooserGame({
           ? picked === cur.answer
             ? pick(lang, "Correcto. Pasa a la siguiente cuando quieras.", "Right. Move to the next one when you like.")
             : pick(lang, `No: lo que encaja es ${cur.answer}. Fíjate en la palabra clave de la frase.`, `No: what fits is ${cur.answer}. Look for the key word in the sentence.`)
-          : pick(lang, "Elige la estructura que usarías.", "Pick the structure you would use.")}
+          : (hint ?? pick(lang, "Elige la estructura que usarías.", "Pick the structure you would use."))}
       </Note>
       <div className="mt-4 flex flex-wrap items-center gap-2">
         <button type="button" className="btn btn-ghost" disabled={s.i === 0} onClick={() => s.go(s.i - 1)}>
