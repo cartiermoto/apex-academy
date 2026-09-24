@@ -218,6 +218,46 @@ export const l01QueEsTrigger: Lesson = {
       },
     },
     {
+      type: "h",
+      text: { es: "Dónde se escribe un trigger… y dónde no", en: "Where a trigger is written… and where it is not" },
+    },
+    {
+      type: "p",
+      text: {
+        es: "Un flow lo puedes crear y activar directamente en producción. Un trigger no: en una org de producción no se puede escribir ni editar código Apex desde la interfaz. Se escribe en un sandbox o en una Developer Org, se prueba, y se despliega a producción, y el despliegue solo se acepta si las clases de test cubren al menos el 75 % del código (Módulo 10). Tu Developer Org es la excepción: es tu propio laboratorio, y en ella sí puedes escribir directamente.",
+        en: "A flow can be built and activated straight in production. A trigger cannot: in a production org you cannot write or edit Apex code from the UI. It is written in a sandbox or a Developer Org, tested, and deployed to production, and the deployment is only accepted if the test classes cover at least 75% of the code (Module 10). Your Developer Org is the exception: it is your own lab, and there you can write directly.",
+      },
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "Como un change set, pero con examen", en: "Like a change set, but with an exam" },
+      text: {
+        es: "Si alguna vez subiste campos o flows de un sandbox a producción con un change set, ya conoces el camino. Con Apex es el mismo, con una condición más: al desplegar, Salesforce ejecuta los tests y rechaza el paquete si no llegan a la cobertura mínima. Por eso ningún developer serio escribe un trigger sin su clase de test al lado.",
+        en: "If you ever moved fields or flows from a sandbox to production with a change set, you already know the path. With Apex it is the same, with one extra condition: on deployment, Salesforce runs the tests and rejects the package if they fall short of the minimum coverage. That is why no serious developer writes a trigger without its test class next to it.",
+      },
+    },
+    {
+      type: "h",
+      text: { es: "El encargo de este módulo", en: "This module's assignment" },
+    },
+    {
+      type: "p",
+      text: {
+        es: "La org de Northwind ha crecido a base de Record-Triggered Flows, y algunos se han quedado cortos: se vuelven lentos con las cargas masivas, chocan entre sí o necesitan lógica que en el lienzo es un laberinto. El equipo ha decidido migrar los más críticos a Apex, uno por uno. Ese es el encargo del módulo: cada taller migra uno de esos flows a un trigger, empezando por el más sencillo y terminando por el escalado de casos de Soporte, que es el que el Módulo 7 convertirá en una arquitectura profesional.",
+        en: "Northwind's org has grown on record-triggered flows, and some have fallen short: they slow down under bulk loads, collide with each other or need logic that is a maze on the canvas. The team has decided to migrate the most critical ones to Apex, one by one. That is this module's assignment: each workshop migrates one of those flows to a trigger, starting with the simplest and ending with Support's case escalation, which Module 7 will turn into a professional architecture.",
+      },
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "Los seis flows que se migran", en: "The six flows being migrated" },
+      text: {
+        es: "1 · El registro de leads del formulario web (Marketing). 2 · El rastro de cambios de etapa de las oportunidades (Ventas). 3 · El alta de cuentas nuevas con su tarea de bienvenida. 4 · El país de los contactos que exige una regla de validación. 5 · La revisión de oportunidades que se pelea con otro equipo. 6 · El escalado de casos de Soporte. Seis objetos distintos: al acabar habrás tocado casi todo Sales Cloud desde el código.",
+        en: "1 · Logging web-form leads (Marketing). 2 · The opportunity stage-change trail (Sales). 3 · Onboarding new accounts with their welcome task. 4 · The contacts' country a validation rule requires. 5 · The opportunity review clashing with another team. 6 · Support's case escalation. Six different objects: by the end you will have touched nearly all of Sales Cloud from code.",
+      },
+    },
+    {
       type: "callout",
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },
@@ -371,8 +411,8 @@ export const l01QueEsTrigger: Lesson = {
 
   exercise: {
     prompt: {
-      es: "Marketing quiere saber, en el log, qué leads entran por el formulario web justo al crearse. Escribe el trigger que los recorre todos, estén llegando de uno en uno o de 200 en 200.",
-      en: "Marketing wants to see in the log which leads come in through the web form right as they are created. Write the trigger that walks all of them, whether they arrive one at a time or 200 at a time.",
+      es: "TAREA 1 DE 6 · Primer flow que se migra, el más sencillo: el registro de leads del formulario web de Marketing. Marketing quiere saber, en el log, qué leads entran por el formulario web justo al crearse. Escribe el trigger que los recorre todos, estén llegando de uno en uno o de 200 en 200.",
+      en: "TASK 1 OF 6 · The first flow to migrate, the simplest: Marketing's web-form lead log. Marketing wants to see in the log which leads come in through the web form right as they are created. Write the trigger that walks all of them, whether they arrive one at a time or 200 at a time.",
     },
     brief: [
       {
@@ -393,9 +433,15 @@ export const l01QueEsTrigger: Lesson = {
       },
     ],
     starter: {
-      es: `// Escribe aquí el trigger LeadWelcome
+      es: `// CASO: la migración de flows a Apex de Northwind
+// Tarea 1 de 6: el flow de leads del formulario web, ahora como trigger.
+
+// Escribe aquí el trigger LeadWelcome
 `,
-      en: `// Write the LeadWelcome trigger here
+      en: `// CASE: Northwind's flow-to-Apex migration
+// Task 1 of 6: the web-form leads flow, now as a trigger.
+
+// Write the LeadWelcome trigger here
 `,
     },
     hints: [
@@ -496,6 +542,10 @@ export const l01QueEsTrigger: Lesson = {
       {
         es: "Si Marketing también quisiera verlo cuando un lead se edita, ¿qué cambiarías en la cabecera y qué se quedaría igual?",
         en: "If Marketing also wanted to see it when a lead is edited, what would you change in the header and what would stay the same?",
+      },
+      {
+        es: "Tarea 2: el siguiente flow es de Ventas y no mira solo el registro nuevo: necesita saber qué valor tenía antes.",
+        en: "Task 2: the next flow belongs to Sales and does not only look at the new record: it needs to know the previous value.",
       },
     ],
   },

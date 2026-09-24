@@ -156,6 +156,37 @@ export const l06Checkpoint: Lesson = {
       ],
     },
     {
+      type: "h",
+      text: { es: "El diccionario completo: de Flow a trigger", en: "The full dictionary: from Flow to trigger" },
+    },
+    {
+      type: "table",
+      head: [
+        { es: "En un Record-Triggered Flow", en: "In a record-triggered flow" },
+        { es: "En un trigger", en: "In a trigger" },
+      ],
+      rows: [
+        [{ es: "Objeto del elemento Start", en: "The Start element's object" }, { es: "trigger X on Account", en: "trigger X on Account" }],
+        [{ es: "«A record is created or updated»", en: "“A record is created or updated”" }, { es: "(… insert, … update)", en: "(… insert, … update)" }],
+        [{ es: "Fast Field Updates", en: "Fast Field Updates" }, { es: "before", en: "before" }],
+        [{ es: "Actions and Related Records", en: "Actions and Related Records" }, { es: "after", en: "after" }],
+        [{ es: "$Record", en: "$Record" }, { es: "cada registro de Trigger.new", en: "each record in Trigger.new" }],
+        [{ es: "$Record__Prior", en: "$Record__Prior" }, { es: "Trigger.oldMap.get(r.Id)", en: "Trigger.oldMap.get(r.Id)" }],
+        [{ es: "«Only when a record is updated to meet…»", en: "“Only when a record is updated to meet…”" }, { es: "comparar old y new", en: "comparing old and new" }],
+        [{ es: "Trigger Order en Flow Trigger Explorer", en: "Trigger Order in Flow Trigger Explorer" }, { es: "no existe: un solo trigger por objeto (Módulo 7)", en: "does not exist: one trigger per object (Module 7)" }],
+        [{ es: "Get Records dentro de un Loop", en: "Get Records inside a Loop" }, { es: "consulta dentro de un bucle: el error del Módulo 4", en: "a query inside a loop: Module 4's mistake" }],
+      ],
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "Lo que no se traduce: el volumen", en: "What does not translate: volume" },
+      text: {
+        es: "La tabla engaña en una cosa: un flow piensa en un registro ($Record) y la plataforma lo agrupa por ti; un trigger piensa en una lista desde la primera línea. Esa es la verdadera diferencia de mentalidad, y la razón de que en todos los talleres del módulo el código tuviera que aguantar 200 registros a la vez.",
+        en: "The table is misleading in one respect: a flow thinks about one record ($Record) and the platform batches it for you; a trigger thinks about a list from the very first line. That is the real mindset difference, and the reason every workshop in this module had to hold up with 200 records at once.",
+      },
+    },
+    {
       type: "callout",
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },
@@ -361,8 +392,8 @@ export const l06Checkpoint: Lesson = {
 
   exercise: {
     prompt: {
-      es: "Soporte quiere automatizar el escalado: cuando se crea un caso de una cuenta con Rating 'Hot', su prioridad pasa a 'High' y su propietario recibe una tarea para revisarlo hoy. Tiene que aguantar la carga de 200 casos que llega cada mañana desde el sistema de tickets.",
-      en: "Support wants to automate escalation: when a case is created for an account rated 'Hot', its priority becomes 'High' and its owner gets a task to review it today. It has to withstand the 200-case load that arrives every morning from the ticketing system.",
+      es: "TAREA 6 DE 6 · La entrega: el último y más importante de los flows, el escalado de casos de Soporte. Soporte quiere automatizar el escalado: cuando se crea un caso de una cuenta con Rating 'Hot', su prioridad pasa a 'High' y su propietario recibe una tarea para revisarlo hoy. Tiene que aguantar la carga de 200 casos que llega cada mañana desde el sistema de tickets.",
+      en: "TASK 6 OF 6 · Delivery: the last and most important flow, Support's case escalation. Support wants to automate escalation: when a case is created for an account rated 'Hot', its priority becomes 'High' and its owner gets a task to review it today. It has to withstand the 200-case load that arrives every morning from the ticketing system.",
     },
     brief: [
       {
@@ -383,13 +414,19 @@ export const l06Checkpoint: Lesson = {
       },
     ],
     starter: {
-      es: `trigger CaseEscalation on Case (before insert, after insert) {
+      es: `// CASO: la migración de flows a Apex de Northwind
+// Tarea 6 de 6: el escalado de casos de Soporte, que el Módulo 7 heredará.
+
+trigger CaseEscalation on Case (before insert, after insert) {
     // before: prioridad según la cuenta
 
     // after: tareas para los casos escalados
 }
 `,
-      en: `trigger CaseEscalation on Case (before insert, after insert) {
+      en: `// CASE: Northwind's flow-to-Apex migration
+// Task 6 of 6: Support's case escalation, which Module 7 will inherit.
+
+trigger CaseEscalation on Case (before insert, after insert) {
     // before: priority based on the account
 
     // after: tasks for the escalated cases
