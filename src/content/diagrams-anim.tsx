@@ -769,7 +769,15 @@ export function ChooserGame({
   // four options: the answer plus three distractors taken from around it in
   // the list (so neighbours like continue/break meet), in a fixed order per need
   const at = all.indexOf(cur.answer);
-  const options = [cur.answer, all[(at + 1) % all.length], all[(at + 3) % all.length], all[(at + 6) % all.length]]
+  // walk a fixed spread of offsets and keep the first three distinct distractors,
+  // so short lists (five layers, say) never repeat an option
+  const picks = [cur.answer];
+  for (const off of [1, 3, 6, 2, 4, 5, 7]) {
+    const o = all[(at + off) % all.length];
+    if (!picks.includes(o)) picks.push(o);
+    if (picks.length === Math.min(4, all.length)) break;
+  }
+  const options = picks
     .map((o, k) => ({ o, key: (k * 7 + s.i * 3) % 11 }))
     .sort((a, b) => a.key - b.key)
     .map((x) => x.o);

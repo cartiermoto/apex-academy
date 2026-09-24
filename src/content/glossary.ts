@@ -414,6 +414,45 @@ export const glossary: GlossaryEntry[] = [
     },
     taughtIn: { es: "Módulo 6", en: "Module 6" },
   },
+  {
+    id: "handler",
+    term: { es: "handler", en: "handler" },
+    definition: {
+      es: "La clase a la que un trigger delega todo el trabajo. El trigger solo decide qué evento es; el handler tiene un método por evento (beforeInsert, afterUpdate…) que recibe los registros como parámetro.",
+      en: "The class a trigger hands all the work to. The trigger only decides which event it is; the handler has one method per event (beforeInsert, afterUpdate…) that receives the records as a parameter.",
+    },
+    admin: {
+      es: "El lienzo de un Record-Triggered Flow, frente al elemento Start.",
+      en: "A record-triggered flow's canvas, as opposed to its Start element.",
+    },
+    taughtIn: { es: "Módulo 7", en: "Module 7" },
+  },
+  {
+    id: "clase-servicio",
+    term: { es: "clase de servicio", en: "service class" },
+    definition: {
+      es: "Una clase con la lógica de negocio de un tema, en métodos static que reciben listas y no saben nada de triggers. La llaman el handler, un botón, un proceso programado o un test.",
+      en: "A class holding one topic's business logic, in static methods that take lists and know nothing about triggers. The handler, a button, a scheduled job or a test all call it.",
+    },
+    admin: {
+      es: "Un subflow que varios flows distintos llaman.",
+      en: "A subflow called by several different flows.",
+    },
+    taughtIn: { es: "Módulo 7", en: "Module 7" },
+  },
+  {
+    id: "permiso-personalizado",
+    term: { es: "permiso personalizado", en: "custom permission" },
+    definition: {
+      es: "Un permiso que defines tú en Setup y asignas con permission sets. En Apex se comprueba con FeatureManagement.checkPermission; en fórmulas, con $Permission.",
+      en: "A permission you define in Setup and grant through permission sets. In Apex you check it with FeatureManagement.checkPermission; in formulas, with $Permission.",
+    },
+    admin: {
+      es: "El «Bypass Validation Rules» que muchas orgs usan para las cargas de datos.",
+      en: "The “Bypass Validation Rules” many orgs use for data loads.",
+    },
+    taughtIn: { es: "Módulo 7", en: "Module 7" },
+  },
 ];
 
 const byId = new Map(glossary.map((g) => [g.id, g]));
