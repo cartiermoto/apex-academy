@@ -25,6 +25,7 @@ import {
   SwitchPlay,
   WhilePlay,
 } from "./diagrams-anim-m02";
+import { GuardBypassPlay, LayerChooserPlay, ServiceDoorsPlay, ThinTriggerPlay, TwoTriggersPlay } from "./diagrams-anim-m07";
 import {
   CastingPlay,
   CheckpointFlowPlay,
@@ -1534,6 +1535,11 @@ const REGISTRY: Record<string, (p: P) => React.ReactElement> = {
   "m03-aggregate": AggregatePlay,
   "m03-sosl": SoslPlay,
   "m03-cp-choose": QueryChooserPlay,
+  "m07-two-triggers": TwoTriggersPlay,
+  "m07-thin-trigger": ThinTriggerPlay,
+  "m07-service-doors": ServiceDoorsPlay,
+  "m07-guard-bypass": GuardBypassPlay,
+  "m07-architecture": LayerChooserPlay,
   "m04-dml-ops": DmlOps,
   "m04-all-or-none": AllOrNone,
   "m04-bulk": BulkCompare,

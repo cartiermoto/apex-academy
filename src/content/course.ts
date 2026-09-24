@@ -5,10 +5,11 @@ import { m03 } from "./modules/m03";
 import { m04 } from "./modules/m04";
 import { m05 } from "./modules/m05";
 import { m06 } from "./modules/m06";
+import { m07 } from "./modules/m07";
 import { challenge1, challenge2 } from "./challenges";
 
 /* -------------------------------------------------------------------------- */
-/* Modules 2–12 — outlines. Each becomes a full module with the same shape as  */
+/* Modules 8–12 — outlines. Each becomes a full module with the same shape as  */
 /* m01 (Teoría → Quiz → Ejercicio per sub-lesson + a Checkpoint).              */
 /* -------------------------------------------------------------------------- */
 
@@ -31,24 +32,6 @@ function planned(
     outline: outline.map(([es, en]) => ({ es, en })),
   };
 }
-
-const m07 = planned(
-  7,
-  "m07",
-  "obj",
-  { es: "Trigger Handlers", en: "Trigger Handlers" },
-  {
-    es: "Un trigger por objeto, toda la lógica fuera: el patrón que hace mantenible una org.",
-    en: "One trigger per object, all logic outside: the pattern that keeps an org maintainable.",
-  },
-  [
-    ["Por qué un trigger no debe tener lógica", "Why a trigger should hold no logic"],
-    ["El patrón Handler", "The handler pattern"],
-    ["Separar lógica de negocio en clases de servicio", "Service classes for business logic"],
-    ["Control de recursión con variables estáticas", "Recursion control with static variables"],
-    ["Checkpoint del Módulo 7", "Module 7 checkpoint"],
-  ],
-);
 
 const m08 = planned(
   8,
