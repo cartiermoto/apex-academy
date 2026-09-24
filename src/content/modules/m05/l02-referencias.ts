@@ -367,8 +367,8 @@ for (Lead l : leads) {
 
   exercise: {
     prompt: {
-      es: "Un compañero escribió el código que prepara la renovación anual de un cliente, pero Ventas se queja: después de ejecutarlo, la oportunidad ganada de este año aparece como 'Prospecting'. Encuentra el problema y arréglalo.",
-      en: "A colleague wrote the code that prepares a customer's yearly renewal, but Sales is complaining: after running it, this year's won opportunity shows up as 'Prospecting'. Find the problem and fix it.",
+      es: "TAREA 2 DE 12 · La renovación en sí: se prepara a partir de la oportunidad ganada de este año. Un compañero escribió el código que prepara la renovación anual de un cliente, pero Ventas se queja: después de ejecutarlo, la oportunidad ganada de este año aparece como 'Prospecting'. Encuentra el problema y arréglalo.",
+      en: "TASK 2 OF 12 · The renewal itself: it is prepared from this year's won opportunity. A colleague wrote the code that prepares a customer's yearly renewal, but Sales is complaining: after running it, this year's won opportunity shows up as 'Prospecting'. Find the problem and fix it.",
     },
     brief: [
       {
@@ -385,7 +385,10 @@ for (Lead l : leads) {
       },
     ],
     starter: {
-      es: `Opportunity original = new Opportunity(
+      es: `// CASO: el motor comercial de Northwind Trading
+// Tarea 2 de 12: la renovación, sin estropear la oportunidad original.
+
+Opportunity original = new Opportunity(
     Name = 'Acme · 2026',
     StageName = 'Closed Won',
     Amount = 50000,
@@ -397,7 +400,10 @@ renewal.Name = 'Acme · 2027';
 renewal.StageName = 'Prospecting';
 renewal.CloseDate = original.CloseDate.addYears(1);
 `,
-      en: `Opportunity original = new Opportunity(
+      en: `// CASE: Northwind Trading's commercial engine
+// Task 2 of 12: the renewal, without spoiling the original opportunity.
+
+Opportunity original = new Opportunity(
     Name = 'Acme · 2026',
     StageName = 'Closed Won',
     Amount = 50000,
@@ -538,6 +544,10 @@ System.debug(original.StageName);   // Closed Won`,
       {
         es: "Si quitas el clone() y vuelves a ejecutar mentalmente el código, ¿qué dos campos del original quedarían mal?",
         en: "If you remove the clone() and run the code again in your head, which two fields of the original would end up wrong?",
+      },
+      {
+        es: "Tarea 3: toda renovación incluye un plan de soporte, y ese plan tiene que nacer completo, sin campos olvidados.",
+        en: "Task 3: every renewal includes a support plan, and that plan must be born complete, with no forgotten fields.",
       },
     ],
   },

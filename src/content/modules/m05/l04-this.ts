@@ -390,8 +390,8 @@ System.debug(r.code);`,
 
   exercise: {
     prompt: {
-      es: "Mejora la clase SupportPlan de la lección anterior: el parámetro del constructor debe llamarse igual que el atributo, y tiene que existir un plan 'Basic' por defecto sin repetir la lógica del constructor principal.",
-      en: "Improve the SupportPlan class from the previous lesson: the constructor's parameter must share the attribute's name, and there must be a default 'Basic' plan without repeating the main constructor's logic.",
+      es: "TAREA 4 DE 12 · El plan de soporte de la tarea 3 funciona, pero con nombres forzados y código repetido. Mejora la clase SupportPlan de la lección anterior: el parámetro del constructor debe llamarse igual que el atributo, y tiene que existir un plan 'Basic' por defecto sin repetir la lógica del constructor principal.",
+      en: "TASK 4 OF 12 · Task 3's support plan works, but with forced names and repeated code. Improve the SupportPlan class from the previous lesson: the constructor's parameter must share the attribute's name, and there must be a default 'Basic' plan without repeating the main constructor's logic.",
     },
     brief: [
       {
@@ -412,7 +412,10 @@ System.debug(r.code);`,
       },
     ],
     starter: {
-      es: `public class SupportPlan {
+      es: `// CASO: el motor comercial de Northwind Trading
+// Tarea 4 de 12: el mismo plan de soporte, limpio.
+
+public class SupportPlan {
     public String level;
     public Date startDate;
     public List<String> contacts;
@@ -426,7 +429,10 @@ System.debug(r.code);`,
 
 // Uso: crea basicPlan sin pasar ningún nivel.
 `,
-      en: `public class SupportPlan {
+      en: `// CASE: Northwind Trading's commercial engine
+// Task 4 of 12: the same support plan, cleaned up.
+
+public class SupportPlan {
     public String level;
     public Date startDate;
     public List<String> contacts;
@@ -580,6 +586,10 @@ System.debug(basicPlan.level);   // Basic`,
       {
         es: "¿Queda alguna línea duplicada entre los dos constructores?",
         en: "Is there any line left duplicated between the two constructors?",
+      },
+      {
+        es: "Tarea 5: el motor ya tiene piezas; ahora hace falta que todas calculen los precios de la misma manera.",
+        en: "Task 5: the engine has pieces now; next they must all compute prices the same way.",
       },
     ],
   },

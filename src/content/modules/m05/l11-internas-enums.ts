@@ -394,8 +394,8 @@ switch on t {
 
   exercise: {
     prompt: {
-      es: "Soporte quiere dejar de repartir casos comparando textos. Escribe un enrutador con un enum para los niveles y un wrapper con el resultado de cada asignación.",
-      en: "Support wants to stop routing cases by comparing text. Write a router with an enum for the tiers and a wrapper holding each assignment's result.",
+      es: "TAREA 11 DE 12 · Soporte también forma parte del motor: los casos de los clientes que renuevan se reparten por nivel. Soporte quiere dejar de repartir casos comparando textos. Escribe un enrutador con un enum para los niveles y un wrapper con el resultado de cada asignación.",
+      en: "TASK 11 OF 12 · Support is part of the engine too: renewing customers' cases are routed by tier. Support wants to stop routing cases by comparing text. Write a router with an enum for the tiers and a wrapper holding each assignment's result.",
     },
     brief: [
       {
@@ -416,12 +416,18 @@ switch on t {
       },
     ],
     starter: {
-      es: `// 1. CaseRouter con su enum, su clase interna y route().
+      es: `// CASO: el motor comercial de Northwind Trading
+// Tarea 11 de 12: un enrutador con valores cerrados y un resultado con forma.
+
+// 1. CaseRouter con su enum, su clase interna y route().
 
 
 // 2. Uso.
 `,
-      en: `// 1. CaseRouter with its enum, its inner class and route().
+      en: `// CASE: Northwind Trading's commercial engine
+// Task 11 of 12: a router with closed values and a shaped result.
+
+// 1. CaseRouter with its enum, its inner class and route().
 
 
 // 2. Usage.
@@ -629,6 +635,10 @@ System.debug(assignment.tier.name() + ' · ' + assignment.slaHours);   // PRIORI
       {
         es: "Si Soporte añade un nivel VIP, ¿qué te avisaría el compilador que te falta por tocar? ¿Y si los niveles fueran textos?",
         en: "If Support adds a VIP tier, what would the compiler warn you is left to change? And if the tiers were text?",
+      },
+      {
+        es: "Tarea 12: la entrega. Las comisiones del trimestre usan casi todo lo que has construido: herencia, abstract, una interfaz y propiedades protegidas.",
+        en: "Task 12: delivery. The quarter's commissions use nearly everything you have built: inheritance, abstract, an interface and protected properties.",
       },
     ],
   },

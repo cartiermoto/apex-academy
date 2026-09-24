@@ -350,8 +350,8 @@ Decimal total = PricingUtils.withVat(1000);   // 1210`,
 
   exercise: {
     prompt: {
-      es: "Finanzas quiere que todo el código de la org calcule los precios igual. Escribe una clase de utilidades con el IVA como constante y dos métodos estáticos, y úsala sin crear ninguna instancia.",
-      en: "Finance wants all code in the org to work out prices the same way. Write a utility class with VAT as a constant and two static methods, and use it without creating any instance.",
+      es: "TAREA 5 DE 12 · Los precios de las renovaciones tienen que calcularse igual en todo el motor. Finanzas quiere que todo el código de la org calcule los precios igual. Escribe una clase de utilidades con el IVA como constante y dos métodos estáticos, y úsala sin crear ninguna instancia.",
+      en: "TASK 5 OF 12 · Renewal prices must be computed the same way across the whole engine. Finance wants all code in the org to work out prices the same way. Write a utility class with VAT as a constant and two static methods, and use it without creating any instance.",
     },
     brief: [
       {
@@ -372,12 +372,18 @@ Decimal total = PricingUtils.withVat(1000);   // 1210`,
       },
     ],
     starter: {
-      es: `// 1. Clase PricingUtils: constante y dos métodos estáticos.
+      es: `// CASO: el motor comercial de Northwind Trading
+// Tarea 5 de 12: los precios, en un solo sitio y sin instancias.
+
+// 1. Clase PricingUtils: constante y dos métodos estáticos.
 
 
 // 2. Uso: finalPrice = 2000 con un 10 % de descuento y después IVA.
 `,
-      en: `// 1. PricingUtils class: a constant and two static methods.
+      en: `// CASE: Northwind Trading's commercial engine
+// Task 5 of 12: prices, in one place and with no instances.
+
+// 1. PricingUtils class: a constant and two static methods.
 
 
 // 2. Usage: finalPrice = 2000 with a 10% discount and then VAT.
@@ -537,6 +543,10 @@ Decimal finalPrice = PricingUtils.withVat(discounted);        // 2178`,
       {
         es: "¿Por qué es mejor que el IVA viva en PricingUtils que repetido en cada clase que lo necesite?",
         en: "Why is it better for VAT to live in PricingUtils than repeated in every class that needs it?",
+      },
+      {
+        es: "Tarea 6: Marketing financia campañas para empujar las renovaciones, y su presupuesto no se puede saltar desde ningún sitio.",
+        en: "Task 6: Marketing funds campaigns to push renewals, and their budget must not be skippable from anywhere.",
       },
     ],
   },

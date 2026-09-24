@@ -223,6 +223,26 @@ System.debug(training.cost(80));    // 0`,
       },
     },
     {
+      type: "h",
+      text: { es: "El encargo de este módulo", en: "This module's assignment" },
+    },
+    {
+      type: "p",
+      text: {
+        es: "Hasta ahora cada módulo resolvía un encargo con código suelto: variables, consultas, un trigger. Este módulo te enseña a construir piezas con nombre propio que se reutilizan, y por eso el encargo es más grande: el motor comercial de Northwind, el conjunto de clases que el equipo de Ventas, Servicios, Marketing y Soporte necesita para vender, renovar y cobrar. Cada taller añade una pieza al motor; el checkpoint, las comisiones del trimestre, usa casi todas a la vez.",
+        en: "Until now each module solved its assignment with loose code: variables, queries, a trigger. This module teaches you to build named pieces that get reused, which is why the assignment is bigger: Northwind's commercial engine, the set of classes the Sales, Services, Marketing and Support teams need to sell, renew and get paid. Each workshop adds one piece to the engine; the checkpoint, the quarter's commissions, uses nearly all of them at once.",
+      },
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "Las doce piezas, en el orden en que se construyen", en: "The twelve pieces, in the order they are built" },
+      text: {
+        es: "El coste de las horas de implantación · la renovación preparada desde la oportunidad de este año · el plan de soporte que nace completo · ese mismo plan, limpio · los precios calculados igual en todas partes · el presupuesto de campaña que nadie se salta · los avisos · los descuentos · el formato de las cifras para Finanzas · la puntuación de leads nuevos · el reparto de casos por nivel · y las comisiones del trimestre. Es como diseñar una app en Object Manager: primero los objetos sencillos, luego los que se apoyan en ellos.",
+        en: "The cost of implementation hours · the renewal prepared from this year's opportunity · the support plan born complete · that same plan, cleaned up · prices computed the same everywhere · the campaign budget nobody skips · the notices · the discounts · the figures' format for Finance · scoring new leads · routing cases by tier · and the quarter's commissions. It is like designing an app in Object Manager: first the simple objects, then the ones built on top of them.",
+      },
+    },
+    {
       type: "callout",
       variant: "recall",
       title: { es: "Antes de seguir", en: "Before moving on" },
@@ -395,8 +415,8 @@ System.debug(a.cost(100));`,
 
   exercise: {
     prompt: {
-      es: "Tu equipo de Servicios Profesionales quiere calcular el coste de sus partes de trabajo antes de facturar. Define la clase y úsala para dos partes: uno facturable y uno interno.",
-      en: "Your Professional Services team wants to work out the cost of its work tickets before invoicing. Define the class and use it for two tickets: one billable and one internal.",
+      es: "TAREA 1 DE 12 · Primera pieza del motor. Cada renovación de Northwind lleva horas de implantación de Servicios Profesionales, y hay que saber cuánto cuestan antes de facturarlas. Tu equipo de Servicios Profesionales quiere calcular el coste de sus partes de trabajo antes de facturar. Define la clase y úsala para dos partes: uno facturable y uno interno.",
+      en: "TASK 1 OF 12 · The engine's first piece. Every Northwind renewal carries Professional Services implementation hours, and their cost must be known before invoicing. Your Professional Services team wants to work out the cost of its work tickets before invoicing. Define the class and use it for two tickets: one billable and one internal.",
     },
     brief: [
       {
@@ -413,12 +433,18 @@ System.debug(a.cost(100));`,
       },
     ],
     starter: {
-      es: `// 1. Define la clase WorkTicket.
+      es: `// CASO: el motor comercial de Northwind Trading
+// Tarea 1 de 12: la primera clase del motor, el parte de trabajo.
+
+// 1. Define la clase WorkTicket.
 
 
 // 2. Uso (como en Execute Anonymous): crea las dos instancias y calcula su coste.
 `,
-      en: `// 1. Define the WorkTicket class.
+      en: `// CASE: Northwind Trading's commercial engine
+// Task 1 of 12: the engine's first class, the work ticket.
+
+// 1. Define the WorkTicket class.
 
 
 // 2. Usage (as in Execute Anonymous): create both instances and work out their cost.
@@ -589,6 +615,10 @@ Decimal internalCost = internalTicket.cost(95);   // 0`,
       {
         es: "¿Qué devuelve tu método si alguien crea un WorkTicket y nunca rellena isBillable? ¿Falla o devuelve 0?",
         en: "What does your method return if someone creates a WorkTicket and never fills in isBillable? Does it fail or return 0?",
+      },
+      {
+        es: "Tarea 2: con las horas ya calculables, toca la renovación en sí… y ahí aparece el error más desconcertante de Apex.",
+        en: "Task 2: with hours now computable, the renewal itself comes next… and with it Apex's most baffling bug.",
       },
     ],
   },
