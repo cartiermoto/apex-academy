@@ -182,6 +182,35 @@ line.usedAmount = 0;               // ❌ does not compile: writing is not`,
       },
     },
     {
+      type: "h",
+      text: { es: "Encapsular: la regla vive dentro, no fuera", en: "Encapsulation: the rule lives inside, not outside" },
+    },
+    {
+      type: "p",
+      text: {
+        es: "La razón de fondo para hacer private un atributo no es esconder datos por gusto: es que la regla que lo protege esté en un solo sitio. Si spent fuera public, cada trozo de código que gasta tendría que acordarse de comprobar el presupuesto antes; basta que uno lo olvide para que el presupuesto se supere. Con spent de solo lectura y un único método spend() que comprueba, es imposible saltarse la regla, venga la llamada de donde venga. Eso se llama encapsular.",
+        en: "The deep reason to make an attribute private is not hiding data for the sake of it: it is keeping the rule that protects it in a single place. If spent were public, every piece of code that spends would have to remember to check the budget first; one forgetting is enough for the budget to be exceeded. With spent read-only and a single spend() method that checks, the rule cannot be skipped, wherever the call comes from. That is called encapsulation.",
+      },
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "Una regla de validación dentro del objeto", en: "A validation rule inside the object" },
+      text: {
+        es: "Una regla de validación se aplica igual si el registro se guarda desde la pantalla, desde una importación o desde la API: nadie se la puede saltar. Un atributo privado con un método que comprueba es lo mismo en código: la regla viaja con el objeto. La diferencia es que en Apex la regla puede ser tan compleja como quieras, y el método puede devolver true o false en vez de mostrar un error.",
+        en: "A validation rule applies the same whether the record is saved from the screen, an import or the API: nobody can skip it. A private attribute with a method that checks is the same thing in code: the rule travels with the object. The difference is that in Apex the rule can be as complex as you like, and the method can return true or false instead of showing an error.",
+      },
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "global y los paquetes que instalas", en: "global and the packages you install" },
+      text: {
+        es: "Cuando instalas un paquete gestionado de AppExchange, desde tu org solo puedes usar las clases y métodos que el fabricante marcó como global; todo lo demás es invisible, aunque exista. Por eso en tu propio código casi nunca escribirás global: es la puerta que se deja abierta hacia fuera del paquete, y una vez publicada ya no se puede cerrar.",
+        en: "When you install a managed package from AppExchange, from your org you can only use the classes and methods the vendor marked global; everything else is invisible, even though it exists. That is why you will almost never write global in your own code: it is the door left open to outside the package, and once published it cannot be shut.",
+      },
+    },
+    {
       type: "callout",
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },

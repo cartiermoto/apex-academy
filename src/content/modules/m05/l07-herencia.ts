@@ -170,6 +170,47 @@ Notification anyNotice = reminder;    // a TaskReminder IS a Notification`,
       },
     },
     {
+      type: "h",
+      text: { es: "Lo que se hereda y lo que no", en: "What is inherited and what is not" },
+    },
+    {
+      type: "p",
+      text: {
+        es: "La hija recibe los atributos y métodos públicos y protected del padre. Lo private del padre sigue existiendo dentro del objeto, pero la hija no puede tocarlo: por eso recipient es protected, para que TaskReminder pueda usarlo. Y hay algo que NO se hereda nunca: los constructores. Si el padre solo tiene un constructor con parámetros, la hija tiene que escribir el suyo y llamar al del padre con super(…) como primera línea. Es la forma de decir «primero construye la parte de notificación, y luego yo añado lo mío».",
+        en: "The child receives the parent's public and protected attributes and methods. The parent's private parts still exist inside the object, but the child cannot touch them: that is why recipient is protected, so TaskReminder can use it. And there is something NEVER inherited: constructors. If the parent only has a constructor with parameters, the child must write its own and call the parent's with super(…) as its first line. It is the way of saying “first build the notification part, then I add mine”.",
+      },
+    },
+    {
+      type: "code",
+      code: {
+        es: `public class TaskReminder extends Notification {
+    private Date dueDate;
+
+    public TaskReminder(String recipient, String subject, Date dueDate) {
+        super(recipient, subject);   // 1º: el padre monta su parte
+        this.dueDate = dueDate;      // 2º: la hija añade la suya
+    }
+}`,
+        en: `public class TaskReminder extends Notification {
+    private Date dueDate;
+
+    public TaskReminder(String recipient, String subject, Date dueDate) {
+        super(recipient, subject);   // 1st: the parent builds its part
+        this.dueDate = dueDate;      // 2nd: the child adds its own
+    }
+}`,
+      },
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "Un perfil base y lo que se añade encima", en: "A base profile and what is added on top" },
+      text: {
+        es: "Simplificación útil: piensa en un perfil mínimo que todos comparten y en los permission sets que se suman encima para cada rol. El comercial tiene todo lo del perfil base y además lo suyo; si mañana arreglas algo en el perfil, lo reciben todos a la vez. La herencia funciona así: lo común se escribe una vez en el padre y cada hija añade lo que la hace distinta. (Donde la analogía falla: un usuario puede sumar varios permission sets, y en Apex una clase solo puede heredar de UNA.)",
+        en: "Useful simplification: think of a minimal profile everyone shares and the permission sets added on top for each role. The sales rep has everything from the base profile plus their own; fix something in the profile tomorrow and everyone gets it at once. Inheritance works like that: the common part is written once in the parent and each child adds what makes it different. (Where the analogy breaks: a user can stack several permission sets, while in Apex a class can inherit from only ONE.)",
+      },
+    },
+    {
       type: "callout",
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },

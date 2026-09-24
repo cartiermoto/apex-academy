@@ -213,6 +213,26 @@ System.debug(total);   // 50`,
       ],
     },
     {
+      type: "h",
+      text: { es: "Por qué no un if por cada tipo", en: "Why not an if per type" },
+    },
+    {
+      type: "p",
+      text: {
+        es: "Podrías escribir el scoring con un bucle y una cadena de if: si es la regla del sector, haz esto; si es la del origen, esto otro. Funciona el primer trimestre. El segundo, Marketing añade dos reglas y alguien tiene que abrir el bucle, añadir ramas y volver a probarlo todo, arriesgando las reglas que ya funcionaban. Con la interfaz, añadir una regla es escribir una clase nueva y meterla en la lista: el bucle que calcula el total no se toca nunca. Es el mismo razonamiento que en el Módulo 7 llevó las reglas de casos a clases de servicio: lo que cambia a menudo se aísla de lo que no debería cambiar.",
+        en: "You could write the scoring with a loop and a chain of ifs: if it is the industry rule, do this; if it is the source rule, that. It works the first quarter. The second, Marketing adds two rules and someone has to open the loop, add branches and retest everything, risking the rules that already worked. With the interface, adding a rule means writing a new class and putting it in the list: the loop that computes the total is never touched. It is the same reasoning that in Module 7 moved the case rules into service classes: what changes often is isolated from what should not change.",
+      },
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "El elemento Subflow solo conoce el contrato", en: "The Subflow element only knows the contract" },
+      text: {
+        es: "Cuando un flow llama a un subflow, solo le importa qué variables de entrada acepta y cuáles devuelve. Puedes cambiar por completo lo que hace ese subflow por dentro —o sustituirlo por otro con las mismas variables— y el flow que lo llama ni se entera. Una interfaz es ese contrato de entradas y salidas, escrito en código: el bucle del scoring llama a score() sin saber qué clase hay detrás.",
+        en: "When a flow calls a subflow, all it cares about is which input variables it accepts and which it returns. You can completely change what that subflow does inside — or swap it for another with the same variables — and the calling flow never notices. An interface is that contract of inputs and outputs, written in code: the scoring loop calls score() without knowing which class is behind it.",
+      },
+    },
+    {
       type: "callout",
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },

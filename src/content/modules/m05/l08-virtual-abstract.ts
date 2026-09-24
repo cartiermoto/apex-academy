@@ -211,6 +211,26 @@ public class PercentDiscount extends Discount {
       ],
     },
     {
+      type: "h",
+      text: { es: "¿virtual, abstract o interfaz? Cómo decidir", en: "virtual, abstract or interface? How to decide" },
+    },
+    {
+      type: "p",
+      text: {
+        es: "Las tres herramientas responden a tres preguntas distintas. ¿Hay una forma por defecto que casi todas las hijas usarían? Entonces virtual: el padre la ofrece y quien quiera la cambia. ¿Hay código común que compartir, pero una parte que cada hija DEBE resolver y no tiene versión sensata en abstracto? Entonces clase abstract con un método abstract. ¿No hay nada en común salvo «saber hacer algo»? Entonces una interfaz, que es la lección 10. Elegir bien importa: una clase abstract obliga a heredar de ella, y en Apex solo se hereda de una clase.",
+        en: "The three tools answer three different questions. Is there a default way nearly every child would use? Then virtual: the parent offers it and whoever wants changes it. Is there common code to share, but one part each child MUST solve that has no sensible abstract version? Then an abstract class with an abstract method. Is there nothing in common except “knowing how to do something”? Then an interface, which is lesson 10. Choosing well matters: an abstract class forces you to inherit from it, and in Apex you inherit from just one class.",
+      },
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "El layout obligatorio y el valor por defecto que se puede cambiar", en: "The mandatory layout and the default you can change" },
+      text: {
+        es: "Todos los Record Types de Opportunity tienen que tener un page layout asignado —es obligatorio, no hay «ninguno»—: eso es abstract. En cambio, un picklist tiene un valor por defecto que cada Record Type puede mantener o cambiar por otro: eso es virtual. Y «Activity», que nunca creas directamente porque siempre es una Task o un Event, es la clase abstract por excelencia de la plataforma.",
+        en: "Every Opportunity record type must have a page layout assigned — it is mandatory, there is no “none”: that is abstract. A picklist, on the other hand, has a default value each record type can keep or change: that is virtual. And “Activity”, which you never create directly because it is always a Task or an Event, is the platform's archetypal abstract class.",
+      },
+    },
+    {
       type: "callout",
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },
