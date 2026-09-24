@@ -148,6 +148,35 @@ Decimal total = PricingUtils.withVat(1000);   // 1210`,
       },
     },
     {
+      type: "h",
+      text: { es: "¿Constante en el código o configuración en la org?", en: "A constant in code or configuration in the org?" },
+    },
+    {
+      type: "p",
+      text: {
+        es: "static final VAT_RATE = 0.21 es perfecto para algo que nunca cambia sin que cambie también el código. Pero si el valor lo decide el negocio —el IVA de otro país, el descuento máximo del trimestre—, meterlo en una constante significa que cada cambio necesita un desarrollador y un despliegue. Para eso la plataforma tiene Custom Metadata Types y Custom Settings: el valor vive en la org, lo cambia un Admin desde Setup y el código lo lee. La regla: static final para lo que es parte de la lógica; metadatos para lo que es parte del negocio.",
+        en: "static final VAT_RATE = 0.21 is perfect for something that never changes without the code changing too. But if the business decides the value — another country's VAT, the quarter's maximum discount — putting it in a constant means every change needs a developer and a deployment. That is what Custom Metadata Types and Custom Settings are for: the value lives in the org, an Admin changes it from Setup and the code reads it. The rule: static final for what is part of the logic; metadata for what is part of the business.",
+      },
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "Tú mismo pedirías esto", en: "You would ask for this yourself" },
+      text: {
+        es: "Si un desarrollador te dice «para cambiar el descuento máximo hay que desplegar», como Admin tienes derecho a quejarte. Lo profesional es que ese valor esté en un registro de Custom Metadata que tú puedes editar, y que la clase lo lea. Saber distinguir qué va en una constante y qué va en configuración es lo que hace que el código no dependa de ti para cada cambio pequeño… ni tú de él.",
+        en: "If a developer tells you “changing the maximum discount needs a deployment”, as an Admin you have every right to complain. The professional way is for that value to sit in a Custom Metadata record you can edit, with the class reading it. Knowing what goes in a constant and what goes in configuration is what keeps the code from depending on you for every small change… and you on it.",
+      },
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "Static y los triggers del Módulo 7", en: "Static and Module 7's triggers" },
+      text: {
+        es: "La guardia static Set<Id> del Módulo 7 funcionaba precisamente por lo que ves en esta lección: una variable static es compartida por todo el código de la transacción, así que la segunda pasada del trigger veía los Ids que había guardado la primera. Una variable de instancia no habría servido: cada new CaseTriggerHandler() empieza con la suya, vacía.",
+        en: "Module 7's static Set<Id> guard worked precisely because of what you see in this lesson: a static variable is shared by all the code in the transaction, so the trigger's second pass saw the Ids the first one had stored. An instance variable would not have worked: every new CaseTriggerHandler() starts with its own, empty.",
+      },
+    },
+    {
       type: "callout",
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },

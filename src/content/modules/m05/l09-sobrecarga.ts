@@ -150,6 +150,26 @@ MoneyFormatter.format(1500, 'USD');    // USD 1500`,
       ],
     },
     {
+      type: "h",
+      text: { es: "Sobrecarga en la plataforma: ya la usabas", en: "Overloading on the platform: you already used it" },
+    },
+    {
+      type: "p",
+      text: {
+        es: "Sin saberlo, llevas todo el curso llamando a métodos sobrecargados. String.valueOf() acepta un Integer, un Decimal, una Date…: el mismo nombre con versiones para cada tipo. Y en el Módulo 4 usaste Database.insert(records) y también Database.insert(records, false): dos versiones del mismo método, una con el parámetro allOrNone y otra sin él. La plataforma decide cuál ejecutar por lo que le pasas, igual que tus propias clases.",
+        en: "Without knowing it, you have been calling overloaded methods all course long. String.valueOf() takes an Integer, a Decimal, a Date…: the same name with a version per type. And in Module 4 you used Database.insert(records) and also Database.insert(records, false): two versions of the same method, one with the allOrNone parameter and one without. The platform decides which to run by what you pass, just like your own classes.",
+      },
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "TEXT() en una fórmula es sobrecarga", en: "TEXT() in a formula is overloading" },
+      text: {
+        es: "En un campo fórmula escribes TEXT(Amount), TEXT(CloseDate) o TEXT(StageName), y la misma función sabe convertir un número, una fecha o un picklist. No hay una TEXTFROMDATE ni una TEXTFROMPICKLIST: hay un solo nombre que se adapta a lo que recibe. Eso es sobrecarga. La sobrescritura, en cambio, sería que cada Record Type tuviera su propia versión de una misma regla: mismo nombre, mismo uso, distinto comportamiento según quién es.",
+        en: "In a formula field you write TEXT(Amount), TEXT(CloseDate) or TEXT(StageName), and the same function knows how to convert a number, a date or a picklist. There is no TEXTFROMDATE or TEXTFROMPICKLIST: there is one name that adapts to what it receives. That is overloading. Overriding, by contrast, would be each record type having its own version of the same rule: same name, same use, different behaviour depending on who it is.",
+      },
+    },
+    {
       type: "callout",
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },

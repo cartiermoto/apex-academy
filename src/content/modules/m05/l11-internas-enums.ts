@@ -178,6 +178,55 @@ System.debug(a.tier.name() + ' · ' + a.slaHours);   // CRITICAL · 4`,
       },
     },
     {
+      type: "h",
+      text: { es: "El wrapper que verás en cualquier entrevista", en: "The wrapper you will see in any interview" },
+    },
+    {
+      type: "p",
+      text: {
+        es: "El uso más famoso de una clase interna es el wrapper para pantallas: una tabla de cuentas con una casilla para seleccionar varias y actuar sobre ellas. Account no tiene ningún campo «seleccionado», y crear uno en el objeto solo para una pantalla sería ensuciar el modelo de datos. La solución es un wrapper que junta el registro y la casilla. Es tan habitual que en las entrevistas de desarrollador Salesforce se pregunta casi siempre.",
+        en: "The most famous use of an inner class is the screen wrapper: a table of accounts with a checkbox to select several and act on them. Account has no “selected” field, and creating one on the object just for a screen would clutter the data model. The fix is a wrapper bundling the record and the checkbox. It is so common that Salesforce developer interviews ask about it almost every time.",
+      },
+    },
+    {
+      type: "code",
+      code: {
+        es: `public class AccountPicker {
+    public class Row {
+        public Boolean selected = false;   // lo que la cuenta no tiene
+        public Account record;             // el registro, entero
+        public Row(Account record) { this.record = record; }
+    }
+}
+
+List<AccountPicker.Row> rows = new List<AccountPicker.Row>();
+for (Account a : [SELECT Id, Name FROM Account LIMIT 20]) {
+    rows.add(new AccountPicker.Row(a));
+}`,
+        en: `public class AccountPicker {
+    public class Row {
+        public Boolean selected = false;   // what the account lacks
+        public Account record;             // the whole record
+        public Row(Account record) { this.record = record; }
+    }
+}
+
+List<AccountPicker.Row> rows = new List<AccountPicker.Row>();
+for (Account a : [SELECT Id, Name FROM Account LIMIT 20]) {
+    rows.add(new AccountPicker.Row(a));
+}`,
+      },
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "Picklist restringido o enum: dónde vive la lista", en: "Restricted picklist or enum: where the list lives" },
+      text: {
+        es: "Un picklist restringido protege los DATOS: nadie puede guardar un valor que no esté en la lista, ni siquiera por API. Un enum protege el CÓDIGO: nadie puede escribir un valor que no exista, porque no compila. Y hay una diferencia práctica: un Admin cambia los valores del picklist desde Setup cuando quiere; los de un enum solo cambian con un despliegue. Por eso los enums se usan para listas que son parte de la lógica (niveles de servicio, estados internos), no para las que decide el negocio cada trimestre.",
+        en: "A restricted picklist protects the DATA: nobody can save a value not on the list, not even through the API. An enum protects the CODE: nobody can write a value that does not exist, because it will not compile. And there is a practical difference: an Admin changes a picklist's values from Setup whenever they like; an enum's only change with a deployment. That is why enums are used for lists that are part of the logic (service tiers, internal states), not for those the business decides every quarter.",
+      },
+    },
+    {
       type: "callout",
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },

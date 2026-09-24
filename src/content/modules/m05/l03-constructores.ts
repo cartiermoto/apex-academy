@@ -165,6 +165,51 @@ public SupportPlan() {
       },
     },
     {
+      type: "h",
+      text: { es: "Varios constructores, varias formas de nacer", en: "Several constructors, several ways to be born" },
+    },
+    {
+      type: "p",
+      text: {
+        es: "Una clase puede tener más de un constructor, siempre que cada uno reciba parámetros distintos. Así ofreces varias formas de crear el objeto: la habitual, con los datos mínimos, y otra más completa para los casos especiales. Apex elige cuál ejecutar mirando lo que pasas al hacer new. Es tu primer contacto con la sobrecarga, que la lección 9 explica a fondo.",
+        en: "A class can have more than one constructor, as long as each takes different parameters. That way you offer several ways to create the object: the usual one, with the minimum data, and a fuller one for special cases. Apex picks which one to run by looking at what you pass to new. It is your first contact with overloading, which lesson 9 explains in depth.",
+      },
+    },
+    {
+      type: "code",
+      code: {
+        es: `public SupportPlan(String planLevel) {
+    // … el de siempre: las horas salen del nivel
+}
+
+public SupportPlan(String planLevel, Integer customHours) {
+    // … para un contrato negociado: horas a medida
+}
+
+SupportPlan standard  = new SupportPlan('Silver');
+SupportPlan negotiated = new SupportPlan('Gold', 60);`,
+        en: `public SupportPlan(String planLevel) {
+    // … the usual one: hours come from the level
+}
+
+public SupportPlan(String planLevel, Integer customHours) {
+    // … for a negotiated contract: custom hours
+}
+
+SupportPlan standard  = new SupportPlan('Silver');
+SupportPlan negotiated = new SupportPlan('Gold', 60);`,
+      },
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "Como las acciones rápidas con valores predefinidos", en: "Like quick actions with predefined values" },
+      text: {
+        es: "En una cuenta puedes tener una acción «Nueva oportunidad de renovación» que ya rellena la etapa, el tipo y la fecha de cierre, y otra «Nueva oportunidad» que deja todo en blanco. Las dos crean una oportunidad, pero cada una la hace nacer distinta. Cada constructor es una de esas acciones: una forma de crear el objeto con los valores ya puestos, para que nadie tenga que acordarse de rellenarlos.",
+        en: "On an account you may have a “New renewal opportunity” action that already fills in stage, type and close date, and a “New opportunity” one that leaves everything blank. Both create an opportunity, but each gives it a different start. Each constructor is one of those actions: a way to create the object with its values already set, so nobody has to remember to fill them in.",
+      },
+    },
+    {
       type: "callout",
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },

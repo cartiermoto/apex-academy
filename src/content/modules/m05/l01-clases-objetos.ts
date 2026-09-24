@@ -164,6 +164,56 @@ System.debug(training.cost(80));    // 0`,
       },
     },
     {
+      type: "h",
+      text: { es: "Una clase no es un objeto personalizado", en: "A class is not a custom object" },
+    },
+    {
+      type: "p",
+      text: {
+        es: "Aquí está la confusión número uno de un Admin que empieza con Apex, así que conviene deshacerla pronto. Cuando creas un objeto personalizado en Object Manager, Salesforce crea una tabla en la base de datos: sus registros se guardan, salen en vistas de lista, en informes y en el formato de página. Cuando escribes una clase de Apex, no se crea nada de eso. La clase es solo un molde que vive en el código, y sus objetos existen en memoria mientras dura la transacción; al terminar, desaparecen. Si quieres que algo quede guardado, tienes que pasar los datos a un sObject —un Account, un Case, un objeto personalizado— y hacer DML, como en el Módulo 4.",
+        en: "Here is an Admin's number-one confusion when starting with Apex, so it is worth clearing up early. When you create a custom object in Object Manager, Salesforce creates a table in the database: its records are saved, show up in list views, reports and the page layout. When you write an Apex class, none of that happens. The class is only a mould living in the code, and its objects exist in memory for as long as the transaction lasts; when it ends, they vanish. If you want something to stay saved, you have to move the data into an sObject — an Account, a Case, a custom object — and do DML, as in Module 4.",
+      },
+    },
+    {
+      type: "table",
+      head: [
+        { es: "En Object Manager", en: "In Object Manager" },
+        { es: "En una clase de Apex", en: "In an Apex class" },
+        { es: "La diferencia", en: "The difference" },
+      ],
+      rows: [
+        [
+          { es: "Campos", en: "Fields" },
+          { es: "Atributos", en: "Attributes" },
+          { es: "Los atributos no se guardan solos en la base de datos.", en: "Attributes do not save themselves to the database." },
+        ],
+        [
+          { es: "Campo fórmula", en: "Formula field" },
+          { es: "Método que calcula y devuelve", en: "A method that computes and returns" },
+          { es: "El método puede hacer mucho más que una fórmula: bucles, consultas, otros objetos.", en: "The method can do far more than a formula: loops, queries, other objects." },
+        ],
+        [
+          { es: "Registro", en: "Record" },
+          { es: "Objeto (instancia)", en: "Object (instance)" },
+          { es: "La instancia vive en memoria; el registro, en la base de datos.", en: "The instance lives in memory; the record, in the database." },
+        ],
+        [
+          { es: "Vista de lista, informe, layout", en: "List view, report, layout" },
+          { es: "—", en: "—" },
+          { es: "El usuario no ve tus objetos hasta que los muestras en una pantalla o los guardas.", en: "Users do not see your objects until you show them on a screen or save them." },
+        ],
+      ],
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "Entonces, ¿para qué sirve una clase?", en: "So what is a class for?" },
+      text: {
+        es: "Para todo lo que no merece una tabla: un cálculo que se repite en varios sitios, un resultado intermedio que junta datos de tres objetos, una regla de negocio con nombre propio. Piensa en las veces que creaste un campo fórmula o un campo oculto solo para que un flow pudiera hacer una cuenta: con Apex, eso vive en una clase y no ensucia el modelo de datos que ven los usuarios.",
+        en: "For everything that does not deserve a table: a calculation repeated in several places, an intermediate result pulling data from three objects, a business rule with its own name. Think of the times you created a formula field or a hidden field just so a flow could do a sum: with Apex, that lives in a class and does not clutter the data model users see.",
+      },
+    },
+    {
       type: "callout",
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },

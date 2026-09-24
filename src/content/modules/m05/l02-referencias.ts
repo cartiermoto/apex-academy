@@ -156,6 +156,49 @@ System.debug(original.StageName);           // unchanged`,
       },
     },
     {
+      type: "h",
+      text: { es: "Un objeto en dos colecciones a la vez", en: "One object in two collections at once" },
+    },
+    {
+      type: "p",
+      text: {
+        es: "Las referencias no solo aparecen al copiar variables: aparecen cada vez que guardas el mismo objeto en dos colecciones. Es muy habitual en triggers: tienes la lista de cuentas y construyes un Map por Id para buscarlas rápido. Lista y Map no tienen copias distintas, tienen flechas hacia las MISMAS cuentas. Cambia una a través del Map y el cambio se ve también desde la lista.",
+        en: "References do not only appear when copying variables: they appear every time you keep the same object in two collections. It is very common in triggers: you have the list of accounts and build a Map by Id to find them fast. The List and the Map do not hold different copies, they hold arrows to the SAME accounts. Change one through the Map and the change is visible from the list too.",
+      },
+    },
+    {
+      type: "code",
+      code: {
+        es: `List<Account> accounts = [SELECT Id, Name, Rating FROM Account LIMIT 10];
+Map<Id, Account> byId = new Map<Id, Account>(accounts);
+
+Account acme = byId.get(accounts[0].Id);
+acme.Rating = 'Hot';
+
+System.debug(accounts[0].Rating); // Hot: es el mismo objeto`,
+        en: `List<Account> accounts = [SELECT Id, Name, Rating FROM Account LIMIT 10];
+Map<Id, Account> byId = new Map<Id, Account>(accounts);
+
+Account acme = byId.get(accounts[0].Id);
+acme.Rating = 'Hot';
+
+System.debug(accounts[0].Rating); // Hot: it is the same object`,
+      },
+      caption: {
+        es: "Por eso, en el Módulo 7, el servicio podía cambiar la prioridad de los casos que recibía y el cambio llegaba a Trigger.new.",
+        en: "That is why, in Module 7, the service could change the priority of the cases it received and the change reached Trigger.new.",
+      },
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "El mismo contacto en dos related lists", en: "The same contact in two related lists" },
+      text: {
+        es: "Un contacto aparece en la related list de su cuenta y también en la de una campaña de la que es miembro. Si le cambias el teléfono desde la campaña, en la cuenta también sale cambiado: no hay dos contactos, hay uno visto desde dos sitios. Eso es exactamente una referencia. Lo que en Apex sería una copia de verdad —clone()— en la interfaz sería el botón «Clonar»: un registro nuevo que a partir de ahí va por su cuenta.",
+        en: "A contact shows up in its account's related list and also in the list of a campaign it belongs to. Change its phone from the campaign and it shows changed on the account too: there are not two contacts, there is one seen from two places. That is exactly a reference. What in Apex would be a real copy — clone() — is the “Clone” button in the UI: a new record that goes its own way from then on.",
+      },
+    },
+    {
       type: "callout",
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },

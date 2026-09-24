@@ -170,6 +170,38 @@ export const l12Checkpoint: Lesson = {
       },
     },
     {
+      type: "h",
+      text: { es: "El mapa completo: POO en lenguaje de Admin", en: "The full map: OOP in Admin language" },
+    },
+    {
+      type: "table",
+      head: [
+        { es: "Concepto", en: "Concept" },
+        { es: "Lo que ya conocías", en: "What you already knew" },
+        { es: "Para qué lo usarás", en: "What you will use it for" },
+      ],
+      rows: [
+        [{ es: "Clase / objeto", en: "Class / object" }, { es: "Objeto de Object Manager / registro", en: "Object Manager object / record" }, { es: "Todo el código a partir de aquí", en: "All code from here on" }],
+        [{ es: "Referencia", en: "Reference" }, { es: "El mismo contacto en dos related lists", en: "The same contact in two related lists" }, { es: "Cambiar registros dentro de bucles y servicios", en: "Changing records inside loops and services" }],
+        [{ es: "Constructor", en: "Constructor" }, { es: "Acción rápida con valores predefinidos", en: "Quick action with predefined values" }, { es: "Objetos que nacen válidos", en: "Objects born valid" }],
+        [{ es: "this", en: "this" }, { es: "$Record en un flow", en: "$Record in a flow" }, { es: "Constructores y clases de datos de prueba (M10)", en: "Constructors and test-data classes (M10)" }],
+        [{ es: "static", en: "static" }, { es: "Custom Setting de toda la org", en: "Org-wide custom setting" }, { es: "Servicios y guardias de triggers (M7)", en: "Services and trigger guards (M7)" }],
+        [{ es: "private / get; private set;", en: "private / get; private set;" }, { es: "Field-Level Security y reglas de validación", en: "Field-level security and validation rules" }, { es: "Clases que no se pueden usar mal", en: "Classes that cannot be misused" }],
+        [{ es: "Herencia / abstract", en: "Inheritance / abstract" }, { es: "Activity → Task y Event", en: "Activity → Task and Event" }, { es: "Frameworks de triggers (M7)", en: "Trigger frameworks (M7)" }],
+        [{ es: "Interfaz", en: "Interface" }, { es: "El contrato de un subflow", en: "A subflow's contract" }, { es: "Schedulable, Queueable, Batchable (M9)", en: "Schedulable, Queueable, Batchable (M9)" }],
+        [{ es: "Enum / wrapper", en: "Enum / wrapper" }, { es: "Picklist restringido / fila de informe", en: "Restricted picklist / report row" }, { es: "Pantallas y resultados de servicios", en: "Screens and service results" }],
+      ],
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "Diseñar clases es diseñar un modelo de datos", en: "Designing classes is designing a data model" },
+      text: {
+        es: "Cuando te piden un proceso nuevo, antes de tocar Flow dibujas los objetos y sus relaciones: qué es padre de qué, qué campos son comunes. Con las clases se hace igual y en el mismo orden: primero qué cosas hay y qué comparten (herencia), luego qué saben hacer (métodos e interfaces), y al final qué se protege (private). Tu experiencia diseñando modelos de datos es la mejor preparación que existe para esto.",
+        en: "When asked for a new process, before touching Flow you sketch the objects and their relationships: what is parent of what, which fields are common. With classes you do the same, in the same order: first which things exist and what they share (inheritance), then what they know how to do (methods and interfaces), and finally what gets protected (private). Your experience designing data models is the best preparation there is for this.",
+      },
+    },
+    {
       type: "callout",
       variant: "recall",
       title: { es: "Antes del quiz", en: "Before the quiz" },

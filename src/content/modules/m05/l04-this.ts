@@ -151,6 +151,57 @@ export const l04This: Lesson = {
       },
     },
     {
+      type: "h",
+      text: { es: "this como argumento: el objeto se presenta a otro", en: "this as an argument: the object introduces itself to another" },
+    },
+    {
+      type: "p",
+      text: {
+        es: "this no solo sirve para distinguir un atributo de un parámetro. También puedes pasarlo como argumento, cuando un objeto necesita entregarse a sí mismo a otro código: «apúntame en el registro de auditoría», «añádeme a esta lista». Y un método puede devolver this al terminar, para que se puedan encadenar llamadas sobre el mismo objeto, como encadenabas métodos de String en el Módulo 1. Lo verás mucho en el Módulo 10, en las clases que fabrican datos de prueba.",
+        en: "this is not only for telling an attribute from a parameter. You can also pass it as an argument, when an object needs to hand itself over to other code: “log me in the audit trail”, “add me to this list”. And a method can return this when it finishes, so calls on the same object can be chained, as you chained String methods in Module 1. You will see it a lot in Module 10, in the classes that build test data.",
+      },
+    },
+    {
+      type: "code",
+      code: {
+        es: `public class SupportPlan {
+    public List<String> contacts = new List<String>();
+
+    public SupportPlan addContact(String email) {
+        this.contacts.add(email);
+        return this;   // devuelve el mismo objeto…
+    }
+}
+
+// …así que las llamadas se encadenan
+SupportPlan plan = new SupportPlan('Gold')
+    .addContact('ana@northwind.com')
+    .addContact('luis@northwind.com');`,
+        en: `public class SupportPlan {
+    public List<String> contacts = new List<String>();
+
+    public SupportPlan addContact(String email) {
+        this.contacts.add(email);
+        return this;   // returns the same object…
+    }
+}
+
+// …so the calls chain
+SupportPlan plan = new SupportPlan('Gold')
+    .addContact('ana@northwind.com')
+    .addContact('luis@northwind.com');`,
+      },
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "Pasar $Record a un subflow", en: "Passing $Record to a subflow" },
+      text: {
+        es: "En un Record-Triggered Flow, cuando llamas a un subflow y le das $Record como variable de entrada, le estás diciendo «trabaja con este registro, el que me disparó a mí». Pasar this a otro método es exactamente eso: el objeto se entrega entero al código que lo necesita, sin copiar sus campos uno a uno.",
+        en: "In a record-triggered flow, when you call a subflow and give it $Record as an input variable, you are saying “work with this record, the one that fired me”. Passing this to another method is exactly that: the object hands itself over whole to the code that needs it, without copying its fields one by one.",
+      },
+    },
+    {
       type: "callout",
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },
