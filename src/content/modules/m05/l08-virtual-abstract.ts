@@ -415,8 +415,8 @@ System.debug(d.apply(150) + ' · ' + d.describe());`,
 
   exercise: {
     prompt: {
-      es: "El equipo de pricing tiene dos tipos de descuento: por porcentaje y de importe fijo. Todos tienen una etiqueta y se aplican sobre un importe, pero cada uno a su manera, y nadie debe poder crear un «descuento» genérico.",
-      en: "The pricing team has two kinds of discount: percentage and fixed amount. They all have a label and are applied to an amount, but each in its own way, and nobody should be able to create a generic “discount”.",
+      es: "TAREA 8 DE 12 · Los descuentos que se aplican a las renovaciones. El equipo de pricing tiene dos tipos de descuento: por porcentaje y de importe fijo. Todos tienen una etiqueta y se aplican sobre un importe, pero cada uno a su manera, y nadie debe poder crear un «descuento» genérico.",
+      en: "TASK 8 OF 12 · The discounts applied to renewals. The pricing team has two kinds of discount: percentage and fixed amount. They all have a label and are applied to an amount, but each in its own way, and nobody should be able to create a generic “discount”.",
     },
     brief: [
       {
@@ -437,7 +437,10 @@ System.debug(d.apply(150) + ' · ' + d.describe());`,
       },
     ],
     starter: {
-      es: `// 1. Clase abstracta Discount.
+      es: `// CASO: el motor comercial de Northwind Trading
+// Tarea 8 de 12: los descuentos, con lo común arriba y lo concreto abajo.
+
+// 1. Clase abstracta Discount.
 
 
 // 2. PercentDiscount y FixedDiscount.
@@ -445,7 +448,10 @@ System.debug(d.apply(150) + ' · ' + d.describe());`,
 
 // 3. Uso.
 `,
-      en: `// 1. Abstract class Discount.
+      en: `// CASE: Northwind Trading's commercial engine
+// Task 8 of 12: discounts, with the common part above and the specific part below.
+
+// 1. Abstract class Discount.
 
 
 // 2. PercentDiscount and FixedDiscount.
@@ -672,6 +678,10 @@ System.debug(spring.apply(200) + ' · ' + welcome.describe());`,
       {
         es: "Si mañana llega un BuyTwoGetOneDiscount, ¿qué tendrías que escribir y qué seguro que no tocarías?",
         en: "If a BuyTwoGetOneDiscount arrives tomorrow, what would you have to write and what would you definitely not touch?",
+      },
+      {
+        es: "Tarea 9: Finanzas quiere ver las cifras del motor siempre con el mismo formato, y cada informe con su título.",
+        en: "Task 9: Finance wants the engine's figures always in the same format, and each report with its own title.",
       },
     ],
   },

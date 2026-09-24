@@ -349,8 +349,8 @@ System.debug(r.title());`,
 
   exercise: {
     prompt: {
-      es: "Finanzas quiere dos cosas: una forma única de formatear importes, con divisa opcional; y que cada tipo de informe tenga su propio título, partiendo de uno genérico.",
-      en: "Finance wants two things: a single way to format amounts, with an optional currency; and for each kind of report to have its own title, starting from a generic one.",
+      es: "TAREA 9 DE 12 · Finanzas revisa las cifras que produce el motor. Finanzas quiere dos cosas: una forma única de formatear importes, con divisa opcional; y que cada tipo de informe tenga su propio título, partiendo de uno genérico.",
+      en: "TASK 9 OF 12 · Finance reviews the figures the engine produces. Finance wants two things: a single way to format amounts, with an optional currency; and for each kind of report to have its own title, starting from a generic one.",
     },
     brief: [
       {
@@ -371,7 +371,10 @@ System.debug(r.title());`,
       },
     ],
     starter: {
-      es: `// 1. MoneyFormatter (sobrecarga).
+      es: `// CASO: el motor comercial de Northwind Trading
+// Tarea 9 de 12: un formato único para las cifras y un título por informe.
+
+// 1. MoneyFormatter (sobrecarga).
 
 
 // 2. Report y SalesReport (sobrescritura).
@@ -379,7 +382,10 @@ System.debug(r.title());`,
 
 // 3. Uso.
 `,
-      en: `// 1. MoneyFormatter (overloading).
+      en: `// CASE: Northwind Trading's commercial engine
+// Task 9 of 12: one format for figures and one title per report.
+
+// 1. MoneyFormatter (overloading).
 
 
 // 2. Report and SalesReport (overriding).
@@ -558,6 +564,10 @@ String reportTitle = monthly.title();              // Sales report`,
       {
         es: "Explica con tus palabras por qué r.title() devuelve el título de ventas aunque r sea de tipo Report.",
         en: "Explain in your own words why r.title() returns the sales title even though r is of type Report.",
+      },
+      {
+        es: "Tarea 10: mientras se renueva la cartera, Marketing busca clientes nuevos, con reglas de puntuación que cambian cada trimestre.",
+        en: "Task 10: while the portfolio renews, Marketing hunts new customers, with scoring rules that change every quarter.",
       },
     ],
   },

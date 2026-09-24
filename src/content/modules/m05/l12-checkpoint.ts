@@ -466,8 +466,8 @@ System.debug(x.greet());`,
 
   exercise: {
     prompt: {
-      es: "Ejercicio integrador. Ventas quiere calcular las comisiones del trimestre. Hay dos tipos de oportunidad —negocio nuevo y renovación— que comparten nombre, importe y una comisión base del 5 %, pero el negocio nuevo paga el doble. Y en el futuro habrá otros conceptos comisionables que no serán oportunidades. Diseña las clases y calcula el total.",
-      en: "Integrative exercise. Sales wants to work out the quarter's commissions. There are two kinds of opportunity — new business and renewal — that share a name, an amount and a 5% base commission, but new business pays double. And in future there will be other commissionable items that are not opportunities. Design the classes and work out the total.",
+      es: "TAREA 12 DE 12 · La entrega del motor comercial. Ejercicio integrador. Ventas quiere calcular las comisiones del trimestre. Hay dos tipos de oportunidad —negocio nuevo y renovación— que comparten nombre, importe y una comisión base del 5 %, pero el negocio nuevo paga el doble. Y en el futuro habrá otros conceptos comisionables que no serán oportunidades. Diseña las clases y calcula el total.",
+      en: "TASK 12 OF 12 · The commercial engine's delivery. Integrative exercise. Sales wants to work out the quarter's commissions. There are two kinds of opportunity — new business and renewal — that share a name, an amount and a 5% base commission, but new business pays double. And in future there will be other commissionable items that are not opportunities. Design the classes and work out the total.",
     },
     brief: [
       {
@@ -492,7 +492,10 @@ System.debug(x.greet());`,
       },
     ],
     starter: {
-      es: `// 1. Interfaz Commissionable.
+      es: `// CASO: el motor comercial de Northwind Trading
+// Tarea 12 de 12: las comisiones del trimestre.
+
+// 1. Interfaz Commissionable.
 
 
 // 2. Clase abstracta Deal.
@@ -503,7 +506,10 @@ System.debug(x.greet());`,
 
 // 4. Uso: lista polimórfica y total.
 `,
-      en: `// 1. Commissionable interface.
+      en: `// CASE: Northwind Trading's commercial engine
+// Task 12 of 12: the quarter's commissions.
+
+// 1. Commissionable interface.
 
 
 // 2. Abstract class Deal.

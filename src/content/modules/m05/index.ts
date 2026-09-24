@@ -19,8 +19,8 @@ export const m05: Module = {
   status: "ready",
   title: { es: "Clases, Interfaces y POO", en: "Classes, Interfaces and OOP" },
   subtitle: {
-    es: "Del objeto de Salesforce al objeto de Apex: definir tus propios moldes.",
-    en: "From the Salesforce object to the Apex object: defining your own moulds.",
+    es: "Del objeto de Salesforce al objeto de Apex: definir tus propios moldes. Los doce talleres construyen, pieza a pieza, el motor comercial de Northwind.",
+    en: "From the Salesforce object to the Apex object: defining your own moulds. The twelve workshops build Northwind's commercial engine, piece by piece.",
   },
   lessons: [
     l01ClasesObjetos,

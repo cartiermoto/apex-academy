@@ -424,8 +424,8 @@ for (LeadScoringRule rule : rules) {
 
   exercise: {
     prompt: {
-      es: "Marketing quiere puntuar los leads con reglas que irán cambiando cada trimestre. Diseña el scoring para que añadir o quitar una regla no obligue a tocar el cálculo del total.",
-      en: "Marketing wants to score leads with rules that will change every quarter. Design the scoring so that adding or removing a rule never forces a change to the total calculation.",
+      es: "TAREA 10 DE 12 · Mientras se renueva la cartera, Marketing busca clientes nuevos. Marketing quiere puntuar los leads con reglas que irán cambiando cada trimestre. Diseña el scoring para que añadir o quitar una regla no obligue a tocar el cálculo del total.",
+      en: "TASK 10 OF 12 · While the portfolio renews, Marketing hunts new customers. Marketing wants to score leads with rules that will change every quarter. Design the scoring so that adding or removing a rule never forces a change to the total calculation.",
     },
     brief: [
       {
@@ -446,7 +446,10 @@ for (LeadScoringRule rule : rules) {
       },
     ],
     starter: {
-      es: `// 1. La interfaz.
+      es: `// CASO: el motor comercial de Northwind Trading
+// Tarea 10 de 12: reglas de puntuación que se añaden sin tocar el cálculo.
+
+// 1. La interfaz.
 
 
 // 2. Las dos reglas.
@@ -454,7 +457,10 @@ for (LeadScoringRule rule : rules) {
 
 // 3. Uso: lista de reglas, lead y bucle.
 `,
-      en: `// 1. The interface.
+      en: `// CASE: Northwind Trading's commercial engine
+// Task 10 of 12: scoring rules added without touching the calculation.
+
+// 1. The interface.
 
 
 // 2. The two rules.
@@ -636,6 +642,10 @@ System.debug(totalScore);   // 45`,
       {
         es: "Añade mentalmente una SizeRule. ¿Cuántas líneas del bucle cambian? Si la respuesta no es cero, revisa el diseño.",
         en: "Add a SizeRule in your head. How many lines of the loop change? If the answer is not zero, revisit the design.",
+      },
+      {
+        es: "Tarea 11: Soporte también forma parte del motor, y quiere dejar de repartir los casos de los clientes comparando textos.",
+        en: "Task 11: Support is part of the engine too, and wants to stop routing customers' cases by comparing text.",
       },
     ],
   },

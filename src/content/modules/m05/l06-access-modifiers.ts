@@ -384,8 +384,8 @@ System.debug(second + ' · ' + line.usedAmount);`,
 
   exercise: {
     prompt: {
-      es: "Ventas quiere controlar el presupuesto de marketing de cada campaña: se puede consultar lo gastado desde cualquier sitio, pero solo se puede gastar a través de una acción que compruebe que no se supera el presupuesto.",
-      en: "Sales wants to control each campaign's marketing budget: the amount spent can be read from anywhere, but money can only be spent through an action that checks the budget is not exceeded.",
+      es: "TAREA 6 DE 12 · Marketing financia campañas para empujar las renovaciones. Ventas quiere controlar el presupuesto de marketing de cada campaña: se puede consultar lo gastado desde cualquier sitio, pero solo se puede gastar a través de una acción que compruebe que no se supera el presupuesto.",
+      en: "TASK 6 OF 12 · Marketing funds campaigns to push renewals. Sales wants to control each campaign's marketing budget: the amount spent can be read from anywhere, but money can only be spent through an action that checks the budget is not exceeded.",
     },
     brief: [
       {
@@ -410,12 +410,18 @@ System.debug(second + ' · ' + line.usedAmount);`,
       },
     ],
     starter: {
-      es: `// 1. Clase CampaignBudget.
+      es: `// CASO: el motor comercial de Northwind Trading
+// Tarea 6 de 12: un presupuesto que nadie se pueda saltar.
+
+// 1. Clase CampaignBudget.
 
 
 // 2. Uso.
 `,
-      en: `// 1. CampaignBudget class.
+      en: `// CASE: Northwind Trading's commercial engine
+// Task 6 of 12: a budget nobody can skip.
+
+// 1. CampaignBudget class.
 
 
 // 2. Usage.
@@ -599,6 +605,10 @@ System.debug(secondOk + ' · ' + springBudget.spent);   // false · 6000`,
       {
         es: "¿Qué pasa si alguien llama a spend(-500)? ¿Y a spend(null)? Tu clase debería decir false en los dos casos.",
         en: "What happens if someone calls spend(-500)? And spend(null)? Your class should say false in both cases.",
+      },
+      {
+        es: "Tarea 7: el motor tiene que avisar a la gente, y algunos avisos son iguales que otros… con algo más.",
+        en: "Task 7: the engine has to notify people, and some notices are like others… with something extra.",
       },
     ],
   },

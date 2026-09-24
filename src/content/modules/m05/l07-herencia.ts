@@ -389,8 +389,8 @@ System.debug(r.preview() + ' · ' + r.isOverdue());`,
 
   exercise: {
     prompt: {
-      es: "Soporte quiere recordatorios de tareas que, además de todo lo que tiene una notificación, sepan si están vencidos. Escribe la clase padre, la hija y úsalas.",
-      en: "Support wants task reminders that, on top of everything a notification has, know whether they are overdue. Write the parent class, the child and use them.",
+      es: "TAREA 7 DE 12 · El motor tiene que avisar: de las renovaciones que vencen, de las tareas pendientes. Soporte quiere recordatorios de tareas que, además de todo lo que tiene una notificación, sepan si están vencidos. Escribe la clase padre, la hija y úsalas.",
+      en: "TASK 7 OF 12 · The engine has to notify: about renewals falling due, about pending tasks. Support wants task reminders that, on top of everything a notification has, know whether they are overdue. Write the parent class, the child and use them.",
     },
     brief: [
       {
@@ -415,7 +415,10 @@ System.debug(r.preview() + ' · ' + r.isOverdue());`,
       },
     ],
     starter: {
-      es: `// 1. Clase padre Notification.
+      es: `// CASO: el motor comercial de Northwind Trading
+// Tarea 7 de 12: avisos que comparten lo común.
+
+// 1. Clase padre Notification.
 
 
 // 2. Clase hija TaskReminder.
@@ -423,7 +426,10 @@ System.debug(r.preview() + ' · ' + r.isOverdue());`,
 
 // 3. Uso.
 `,
-      en: `// 1. Parent class Notification.
+      en: `// CASE: Northwind Trading's commercial engine
+// Task 7 of 12: notices that share the common part.
+
+// 1. Parent class Notification.
 
 
 // 2. Child class TaskReminder.
@@ -615,6 +621,10 @@ System.debug(previewText + ' · overdue: ' + reminder.isOverdue());`,
       {
         es: "Si Marketing pide mañana EmailNotification con una lista de adjuntos, ¿qué clase escribirías y qué no tendrías que tocar?",
         en: "If Marketing asks tomorrow for an EmailNotification with a list of attachments, which class would you write and what would you not have to touch?",
+      },
+      {
+        es: "Tarea 8: los descuentos de la renovación. Todos se aplican sobre un importe, pero cada uno a su manera, y no existe «un descuento» genérico.",
+        en: "Task 8: the renewal discounts. They all apply to an amount, each its own way, and there is no generic “discount”.",
       },
     ],
   },

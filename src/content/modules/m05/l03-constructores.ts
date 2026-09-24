@@ -421,8 +421,8 @@ Plan b = new Plan('gold');`,
 
   exercise: {
     prompt: {
-      es: "Customer Success vende planes de soporte. Cada plan debe nacer ya completo: con su nivel, las horas incluidas según el nivel, la fecha de inicio de hoy y una lista vacía de contactos autorizados. Escribe la clase con su constructor y úsala.",
-      en: "Customer Success sells support plans. Each plan must be born complete: with its level, the hours included for that level, today's start date and an empty list of authorised contacts. Write the class with its constructor and use it.",
+      es: "TAREA 3 DE 12 · Toda renovación incluye un plan de soporte. Customer Success vende planes de soporte. Cada plan debe nacer ya completo: con su nivel, las horas incluidas según el nivel, la fecha de inicio de hoy y una lista vacía de contactos autorizados. Escribe la clase con su constructor y úsala.",
+      en: "TASK 3 OF 12 · Every renewal includes a support plan. Customer Success sells support plans. Each plan must be born complete: with its level, the hours included for that level, today's start date and an empty list of authorised contacts. Write the class with its constructor and use it.",
     },
     brief: [
       {
@@ -439,12 +439,18 @@ Plan b = new Plan('gold');`,
       },
     ],
     starter: {
-      es: `// 1. Clase SupportPlan con su constructor.
+      es: `// CASO: el motor comercial de Northwind Trading
+// Tarea 3 de 12: el plan de soporte, completo desde el new.
+
+// 1. Clase SupportPlan con su constructor.
 
 
 // 2. Uso: crea goldPlan y añade un contacto.
 `,
-      en: `// 1. SupportPlan class with its constructor.
+      en: `// CASE: Northwind Trading's commercial engine
+// Task 3 of 12: the support plan, complete from new.
+
+// 1. SupportPlan class with its constructor.
 
 
 // 2. Usage: create goldPlan and add a contact.
@@ -627,6 +633,10 @@ System.debug(goldPlan.hoursIncluded);   // 40`,
       {
         es: "Si alguien escribe new SupportPlan('gold') en minúsculas, ¿cuántas horas recibe? ¿Lo arreglarías en el constructor?",
         en: "If someone writes new SupportPlan('gold') in lower case, how many hours do they get? Would you fix it in the constructor?",
+      },
+      {
+        es: "Tarea 4: el plan funciona, pero sus parámetros tienen nombres forzados y dos constructores repiten código. Mañana se limpia.",
+        en: "Task 4: the plan works, but its parameters have forced names and two constructors repeat code. Tomorrow it gets cleaned up.",
       },
     ],
   },
