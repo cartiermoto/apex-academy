@@ -43,9 +43,10 @@ export const l01Variables: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "En Setup → Object Manager → Fields & Relationships → New, la primera pantalla te obliga a elegir el tipo de dato. No puedes crear un campo «que ya veremos qué guarda». Apex es igual de estricto, y por la misma razón: el tipo es lo que le permite a la plataforma protegerte de guardar «mañana» en un campo de importe.",
-        en: "In Setup → Object Manager → Fields & Relationships → New, the very first screen forces you to pick a data type. You cannot create a field that will “figure out later” what it stores. Apex is just as strict, for the same reason: the type is what lets the platform stop you from storing “tomorrow” in an amount field.",
+        es: "La primera vez que creé un campo, en Setup → Object Manager → Fields & Relationships → New, me sorprendió que la primera pantalla me obligara a elegir el tipo de dato. No puedes crear un campo «que ya veremos qué guarda». Apex es igual de estricto, y por la misma razón: el tipo es lo que le permite a la plataforma protegerte de guardar «mañana» en un campo de importe.",
+        en: "The first time I created a field, in Setup → Object Manager → Fields & Relationships → New, I was surprised that the very first screen made me pick the data type. You cannot create a field «we'll see what it holds». Apex is just as strict, and for the same reason: the type is what lets the platform stop you from storing «tomorrow» in an amount field.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -210,9 +211,10 @@ MAX_RETRIES = 5;   // ❌ does not compile: it is final`,
       variant: "admin",
       title: { es: "El encargo de Ventas, tal cual lo dijeron", en: "The Sales request, word for word" },
       text: {
-        es: "«Para la campaña de renovaciones de primavera queremos una ficha por oportunidad que nos diga: de qué cuenta es y con el nombre bien escrito, cuánto vale con impuestos y si necesita aprobación, cuándo se firmó y cuántos días faltan para la renovación, en qué región cae el cliente —y si no la sabemos, que ponga algo—, qué cuota tiene esa región, y todo listo para mostrarlo en pantalla». Eso, entero, todavía no lo puedes escribir: te faltan ocho sub-lecciones. Pero el primer trozo sí.",
-        en: "“For the spring renewals campaign we want one summary per opportunity telling us: which account it belongs to, with the name properly written, how much it is worth with tax and whether it needs approval, when it was signed and how many days until renewal, which region the customer falls in — and if we do not know, put something — what quota that region carries, and all of it ready to show on screen.” You cannot write all of that yet: eight sub-lessons are missing. But the first piece you can.",
+        es: "Vengo de la reunión con Ventas y esto es lo que pidieron, tal cual: «Para la campaña de renovaciones de primavera queremos una ficha por oportunidad que nos diga: de qué cuenta es y con el nombre bien escrito, cuánto vale con impuestos y si necesita aprobación, cuándo se firmó y cuántos días faltan para la renovación, en qué región cae el cliente —y si no la sabemos, que ponga algo—, qué cuota tiene esa región, y todo listo para mostrarlo en pantalla». A mí también me asustó la primera vez. Entero, todavía no lo puedes escribir: te faltan ocho sub-lecciones. Pero el primer trozo sí, y lo hacemos juntos.",
+        en: "I have just come out of the meeting with Sales, and this is what they asked for, word for word: «For the spring renewals campaign we want a sheet per opportunity telling us which account it belongs to, with the name spelled properly, what it is worth with tax and whether it needs approval, when it was signed and how many days are left until renewal, which region the customer falls in — and if we don't know, show something —, what quota that region has, and all of it ready to show on screen». It scared me the first time too. You cannot write all of it yet: eight sub-lessons are still missing. But the first piece you can, and we will do it together.",
       },
+      voice: "otter",
     },
     {
       type: "p",
@@ -396,16 +398,16 @@ Integer opportunityCount = 7;`,
     },
     hints: [
       {
-        es: "Revisa línea por línea: cada declaración necesita cuatro partes y un cierre. ¿Alguna se quedó sin tipo, sin punto y coma, o con el nombre mal escrito?",
-        en: "Go line by line: each declaration needs four parts and a closing character. Did one end up without a type, without a semicolon, or with a misspelled name?",
+        es: "Yo lo repaso como reviso un campo antes de guardarlo: línea por línea. Cada declaración necesita cuatro partes y un cierre. ¿Alguna se quedó sin tipo, sin punto y coma, o con el nombre mal escrito?",
+        en: "I go over it the way I check a field before saving it: line by line. Every declaration needs four parts and a closing. Is any of them missing its type or its semicolon, or has a misspelt name?",
       },
       {
-        es: "El tipo sale de la frase: «nombre» es texto, «cuántos» es un entero, «si es…» es verdadero o falso, y «no debe poder cambiarse» pide la palabra clave que bloquea la reasignación.",
-        en: "The type comes from the sentence: “name” is text, “how many” is a whole number, “whether it is…” is true or false, and “must not be changeable” asks for the keyword that blocks reassignment.",
+        es: "El tipo sale de la frase, igual que cuando eliges el tipo de un campo: «nombre» es texto, «cuántos» es un entero, «si es…» es verdadero o falso —tu checkbox— y «no debe poder cambiarse» pide la palabra clave que bloquea la reasignación.",
+        en: "The type comes out of the sentence, just like when you pick a field type: «name» is text, «how many» is a whole number, «whether it is…» is true or false — your checkbox — and «must not be changeable» calls for the keyword that blocks reassignment.",
       },
       {
-        es: "Pseudocódigo: Tipo nombreVariable = valor; — y para la última, final Tipo NOMBRE_CONSTANTE = valor;",
-        en: "Pseudocode: Type variableName = value; — and for the last one, final Type CONSTANT_NAME = value;",
+        es: "Te dejo el molde: Tipo nombreVariable = valor; — y para la última, final Tipo NOMBRE_CONSTANTE = valor;",
+        en: "Here is the template: Type variableName = value; — and for the last one, final Type CONSTANT_NAME = value;",
       },
     ],
     solution: {
@@ -433,6 +435,10 @@ final Integer MAX_DISCOUNT = 15;`,
           es: "Un nombre de cuenta es texto, así que el tipo es String y el valor va entre comillas simples. Comprueba también el punto y coma.",
           en: "An account name is text, so the type is String and the value goes in single quotes. Check the semicolon too.",
         },
+        otter: {
+          es: "accountName es como un campo de tipo Text: guarda letras, así que el tipo es String y el valor va entre comillas simples. Revisa también que la línea termine en punto y coma.",
+          en: "accountName is like a Text field: it holds letters, so the type is String and the value goes in single quotes. Also check that the line ends with a semicolon.",
+        },
       },
       {
         id: "l01-c2",
@@ -445,6 +451,10 @@ final Integer MAX_DISCOUNT = 15;`,
           es: "«Cuántos contactos» se cuenta en unidades enteras: no hay medio contacto. El tipo es Integer y el valor va sin comillas.",
             en: "“How many contacts” is counted in whole units: there is no half contact. The type is Integer and the value takes no quotes.",
         },
+        otter: {
+          es: "contactCount es como un campo Number sin decimales: no existe medio contacto. En Apex eso es Integer, y el 12 va sin comillas; con comillas sería un texto que dice 12.",
+          en: "contactCount is like a Number field with no decimals: there is no such thing as half a contact. In Apex that is an Integer, and the 12 goes without quotes; in quotes it would be text that says 12.",
+        },
       },
       {
         id: "l01-c3",
@@ -456,6 +466,10 @@ final Integer MAX_DISCOUNT = 15;`,
         onFail: {
           es: "«Si es cliente estratégico» solo admite dos respuestas: es el checkbox de Salesforce, y en Apex se llama Boolean con valor true (sin comillas).",
           en: "“Whether it is a strategic client” has only two answers: it is the Salesforce checkbox, and in Apex that is a Boolean with value true (no quotes).",
+        },
+        otter: {
+          es: "isStrategic es tu checkbox de toda la vida: marcado o desmarcado. En Apex se llama Boolean y vale true, sin comillas: 'true' entre comillas sería un texto.",
+          en: "isStrategic is your good old checkbox: ticked or not. In Apex it is called Boolean and it is true, with no quotes: 'true' in quotes would be text.",
         },
       },
       {
@@ -471,6 +485,10 @@ final Integer MAX_DISCOUNT = 15;`,
         onFail: {
           es: "«No debe poder cambiarse» es exactamente lo que hace final. Declárala como final Integer y en MAYÚSCULAS, que es la convención para constantes.",
           en: "“Must not be changeable” is exactly what final does. Declare it as a final Integer in UPPER_SNAKE_CASE, the convention for constants.",
+        },
+        otter: {
+          es: "MAX_DISCOUNT es como un campo de solo lectura: se le da valor una vez y nadie lo cambia después. Eso lo consigue final. Declárala final Integer y en MAYÚSCULAS, que es como los developers marcan las constantes.",
+          en: "MAX_DISCOUNT is like a read-only field: it gets its value once and nobody changes it afterwards. That is what final does. Declare it final Integer and in CAPITALS, which is how developers mark constants.",
         },
         onPass: {
           es: "Usar final donde el valor es fijo convierte un posible bug en un error de compilación. Es gratis y evita disgustos.",
@@ -507,5 +525,6 @@ final Integer MAX_DISCOUNT = 15;`,
         en: "Task 2: Sales will hand you the renewal contract's numbers — the amount, the employees, the record Id — and there, picking the right type stops being cosmetic.",
       },
     ],
+    voice: "otter",
   },
 };

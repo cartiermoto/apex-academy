@@ -43,9 +43,10 @@ export const l05SObjects: Lesson = {
       variant: "admin",
       title: { es: "Object Manager es la definición; el sObject es la fila", en: "Object Manager is the definition; the sObject is the row" },
       text: {
-        es: "En Setup defines el objeto Account una vez: qué campos tiene, de qué tipo, con qué nombre de API. Eso es el molde. Cada cuenta que existe en la org es una fila hecha con ese molde. Cuando en Apex escribes Account, estás usando el molde; cuando escribes new Account(), estás fabricando una fila nueva.",
-        en: "In Setup you define the Account object once: which fields it has, of what type, under which API names. That is the mould. Every account in the org is a row cast from it. When you write Account in Apex you are using the mould; when you write new Account() you are producing a fresh row.",
+        es: "Así lo entendí yo: en Setup defines el objeto Account una vez —qué campos tiene, de qué tipo, con qué nombre de API—. Eso es el molde. Cada cuenta que existe en la org es una fila hecha con ese molde. Cuando en Apex escribes Account, estás usando el molde; cuando escribes new Account(), estás fabricando una fila nueva.",
+        en: "This is how it clicked for me: in Setup you define the Account object once — which fields it has, of what type, with which API name. That is the mould. Every account in the org is a row made from that mould. When you write Account in Apex you are using the mould; when you write new Account() you are making a new row.",
       },
+      voice: "otter",
     },
     {
       type: "diagram",
@@ -214,9 +215,10 @@ Integer nameLength = account.Name.length();`,
       variant: "admin",
       title: { es: "En account.Name.trim() el punto hace dos trabajos", en: "In account.Name.trim() the dot does two jobs" },
       text: {
-        es: "El primer punto significa «el campo de»: account.Name es como el campo de combinación {!Account.Name} de una plantilla de email. El segundo punto es el de los métodos: a ese String le pides trim(). Se lee de izquierda a derecha, igual que cualquier cadena: registro → campo → método. En fórmula sería TRIM(Account.Name). Cómo distinguirlos: si lleva paréntesis es un método; si no los lleva, es un campo.",
-        en: "The first dot means “the field of”: account.Name is like the {!Account.Name} merge field in an email template. The second dot is the method dot: you ask that String for trim(). It reads left to right like any chain: record → field → method. As a formula it would be TRIM(Account.Name). How to tell them apart: brackets mean a method; no brackets means a field.",
+        es: "Esto me confundió al principio, porque el punto hace dos trabajos. El primero significa «el campo de»: account.Name es como el campo de combinación {!Account.Name} de una plantilla de email. El segundo es el de los métodos: a ese String le pides trim(). Se lee de izquierda a derecha, igual que cualquier cadena: registro → campo → método. En fórmula sería TRIM(Account.Name). Mi forma de distinguirlos: si lleva paréntesis es un método; si no los lleva, es un campo.",
+        en: "This confused me at first, because the dot does two jobs. The first means «the field of»: account.Name is like the merge field {!Account.Name} in an email template. The second is the method one: you ask that String for trim(). It reads left to right like any chain: record → field → method. In a formula it would be TRIM(Account.Name). My way of telling them apart: with brackets it is a method; without them, it is a field.",
       },
+      voice: "otter",
     },
     {
       type: "code",
@@ -448,16 +450,16 @@ a.Nmae = 'Acme';`,
     },
     hints: [
       {
-        es: "Fíjate en de dónde sacas cleanCompany: ¿lo estás leyendo del registro que acabas de crear, o volviste a escribir el texto?",
-        en: "Look at where cleanCompany comes from: are you reading it off the record you just created, or did you retype the text?",
+        es: "Yo miraría de dónde sacas cleanCompany: ¿lo estás leyendo del registro que acabas de crear, como un campo de combinación, o volviste a escribir el texto?",
+        en: "I would look at where cleanCompany comes from: are you reading it from the record you just created, like a merge field, or did you type the text again?",
       },
       {
-        es: "Los campos de un sObject se leen con el mismo punto con el que se escriben, y lo que devuelven es un tipo normal de Apex con todos sus métodos: newLead.Company es un String.",
-        en: "An sObject's fields are read with the same dot used to write them, and what they return is an ordinary Apex type with all its methods: newLead.Company is a String.",
+        es: "Lo que me ayudó: los campos de un sObject se leen con el mismo punto con el que se escriben, y lo que devuelven es un tipo normal de Apex con todos sus métodos. newLead.Company es un String, igual que el campo Company es de tipo Text en Setup.",
+        en: "What helped me: an sObject's fields are read with the same dot they are written with, and what they return is a normal Apex type with all its methods. newLead.Company is a String, just as the Company field is a Text field in Setup.",
       },
       {
-        es: "Pseudocódigo: String cleanCompany = newLead.Company.trim(); — y recuerda que un campo personalizado lleva __c.",
-        en: "Pseudocode: String cleanCompany = newLead.Company.trim(); — and remember a custom field carries __c.",
+        es: "Te lo dejo casi hecho: String cleanCompany = newLead.Company.trim(); — y recuerda que un campo personalizado lleva __c, igual que en su nombre de API.",
+        en: "Here it is nearly done: String cleanCompany = newLead.Company.trim(); — and remember a custom field carries __c, just like its API name.",
       },
     ],
     solution: {
@@ -502,6 +504,10 @@ Date capturedOn = Date.today();`,
           es: "El registro se fabrica con new Lead(...) y los campos se escriben con su nombre de API exacto: Company, LastName, NumberOfEmployees.",
           en: "The record is produced with new Lead(...) and the fields are written with their exact API names: Company, LastName, NumberOfEmployees.",
         },
+        otter: {
+          es: "El Lead se fabrica con new Lead(...), y los campos se escriben con su nombre de API exacto, el que ves en Object Manager, no la etiqueta: Company, LastName, NumberOfEmployees.",
+          en: "The Lead is made with new Lead(...), and the fields are written with their exact API name, the one you see in Object Manager, not the label: Company, LastName, NumberOfEmployees.",
+        },
       },
       {
         id: "l05-c2",
@@ -519,6 +525,10 @@ Date capturedOn = Date.today();`,
         onFail: {
           es: "Los campos personalizados llevan dos guiones bajos antes de la c: Region__c. Con uno solo, Apex no encuentra el campo y no compila.",
           en: "Custom fields carry two underscores before the c: Region__c. With only one, Apex cannot find the field and will not compile.",
+        },
+        otter: {
+          es: "Region__c es un campo personalizado, y su nombre de API lleva dos guiones bajos antes de la c, tal como lo ves en Fields & Relationships. Con uno solo, Apex no encuentra el campo y no compila.",
+          en: "Region__c is a custom field, and its API name has two underscores before the c, exactly as you see it in Fields & Relationships. With just one, Apex cannot find the field and it does not compile.",
         },
       },
       {
@@ -540,6 +550,10 @@ Date capturedOn = Date.today();`,
         onFail: {
           es: "Tiene que salir del registro: newLead.Company.trim(). Si vuelves a escribir el texto a mano, el día que cambie el Lead el panel seguirá mostrando lo de antes.",
           en: "It must come off the record: newLead.Company.trim(). Retype the text by hand and the day the Lead changes, the dashboard keeps showing the old value.",
+        },
+        otter: {
+          es: "cleanCompany tiene que salir del registro, como un campo de combinación: newLead.Company.trim(). Si vuelves a escribir el texto a mano, el día que cambie el Lead la ficha seguirá mostrando lo de antes.",
+          en: "cleanCompany has to come from the record, like a merge field: newLead.Company.trim(). If you type the text again by hand, the day the Lead changes the sheet will still show the old value.",
         },
         onPass: {
           es: "Leer del registro en vez de repetir el literal es lo que hace que el código siga sirviendo con el siguiente Lead.",
@@ -563,6 +577,10 @@ Date capturedOn = Date.today();`,
           es: "Un recuento de empleados es Integer, y el valor tiene que leerse del campo del registro, no volver a escribirse.",
           en: "An employee count is an Integer, and the value has to be read from the record's field rather than retyped.",
         },
+        otter: {
+          es: "employeeCount es el campo Employees del Lead: un número entero, Integer. Y el valor se lee del registro (newLead.NumberOfEmployees), no se vuelve a teclear.",
+          en: "employeeCount is the Lead's Employees field: a whole number, an Integer. And the value is read from the record (newLead.NumberOfEmployees), not typed again.",
+        },
       },
       {
         id: "l05-c5",
@@ -575,6 +593,10 @@ Date capturedOn = Date.today();`,
           es: "«El día en que se captura» es un día, no un instante: Date.today(). Datetime.now() añadiría una hora y una zona horaria que nadie pidió.",
           en: "“The day it is captured” is a day, not an instant: Date.today(). Datetime.now() would add a time and a zone nobody asked for.",
         },
+        otter: {
+          es: "capturedOn es como un campo Date: solo importa el día, así que Date.today(). Datetime.now() sería un campo Date/Time, con una hora y una zona horaria que nadie pidió.",
+          en: "capturedOn is like a Date field: only the day matters, so Date.today(). Datetime.now() would be a Date/Time field, with a time and a time zone nobody asked for.",
+        },
       },
     ],
     rubric: [
@@ -583,5 +605,6 @@ Date capturedOn = Date.today();`,
         en: "If this Lead came from a form and Company arrived empty, what would .trim() do? That question is precisely the next sub-lesson.",
       },
     ],
+    voice: "otter",
   },
 };

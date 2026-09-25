@@ -161,9 +161,10 @@ String dateText = String.valueOf(Date.today());`,
       variant: "admin",
       title: { es: "Convertir y redondear en una línea: TEXT(ROUND(…)) en Apex", en: "Convert and round in one line: TEXT(ROUND(…)) in Apex" },
       text: {
-        es: "La última línea de arriba ya anidaba: Date.today() se resuelve primero y su resultado entra en String.valueOf(). Lo más habitual en la vida real es convertir un importe a texto ya redondeado, lo que en una fórmula sería TEXT(ROUND(Amount, 2)). En Apex: String.valueOf(total.setScale(2)). Se lee de dentro hacia fuera: primero total.setScale(2) da un Decimal con dos decimales, y ese Decimal es el que String.valueOf() convierte a texto. (Simplificación: ROUND() de fórmulas y setScale() no redondean igual en el caso exacto del medio, como 0.125; para importes normales dan lo mismo).",
-        en: "The last line above was already nesting: Date.today() resolves first and its result goes into String.valueOf(). The everyday case is turning an amount into already-rounded text — in a formula, TEXT(ROUND(Amount, 2)). In Apex: String.valueOf(total.setScale(2)). Read it inside out: first total.setScale(2) gives a Decimal with two decimals, and that Decimal is what String.valueOf() turns into text. (Simplification: formula ROUND() and setScale() do not round the same way in the exact halfway case, such as 0.125; for normal amounts they agree.)",
+        es: "La última línea de arriba ya anidaba: Date.today() se resuelve primero y su resultado entra en String.valueOf(). Lo que yo más usaba en la vida real era convertir un importe a texto ya redondeado, lo que en una fórmula sería TEXT(ROUND(Amount, 2)). En Apex: String.valueOf(total.setScale(2)). Se lee de dentro hacia fuera: primero total.setScale(2) da un Decimal con dos decimales, y ese Decimal es el que String.valueOf() convierte a texto. (Simplificación: ROUND() de fórmulas y setScale() no redondean igual en el caso exacto del medio, como 0.125; para importes normales dan lo mismo).",
+        en: "The last line above was already nesting: Date.today() is solved first and its result goes into String.valueOf(). What I used most in real life was turning an amount into text already rounded, which in a formula would be TEXT(ROUND(Amount, 2)). In Apex: String.valueOf(total.setScale(2)). It reads from the inside out: first total.setScale(2) gives a Decimal with two decimals, and that Decimal is what String.valueOf() turns into text. (Simplification: formula ROUND() and setScale() do not round the same way in the exact halfway case, such as 0.125; for normal amounts they give the same result).",
       },
+      voice: "otter",
     },
     {
       type: "code",
@@ -240,9 +241,10 @@ String name = account.Name;`,
       variant: "admin",
       title: { es: "Como abrir un registro sin saber de qué objeto es", en: "Like opening a record without knowing its object" },
       text: {
-        es: "Un sObject es «un registro de algo»: sabes que es una fila, pero no de qué objeto. El casting es el momento en que dices «esto es una Account» y, a partir de ahí, puedes pedirle Name, Industry o AnnualRevenue. Si te equivocas de objeto, el error no llega al compilar sino al ejecutar, con un TypeException.",
-        en: "An sObject is “a record of something”: you know it is a row, but not of which object. The cast is the moment you say “this is an Account” and, from there, you can ask for Name, Industry or AnnualRevenue. Get the object wrong and the error does not arrive at compile time but at runtime, as a TypeException.",
+        es: "A mí me ayudó imaginarlo así: un sObject es «un registro de algo»; sabes que es una fila, pero no de qué objeto. El casting es el momento en que dices «esto es una Account» y, a partir de ahí, puedes pedirle Name, Industry o AnnualRevenue. Si te equivocas de objeto, el error no llega al compilar sino al ejecutar, con un TypeException.",
+        en: "Picturing it like this helped me: an sObject is «a record of something»; you know it is a row, but not of which object. Casting is the moment you say «this is an Account», and from then on you can ask it for Name, Industry or AnnualRevenue. Get the object wrong and the error does not arrive at compile time but at run time, as a TypeException.",
       },
+      voice: "otter",
     },
     {
       type: "code",
@@ -464,16 +466,16 @@ sObject genericRecord = new Account(Name = 'Northwind Trading');
     },
     hints: [
       {
-        es: "Mira cómo estás bajando de decimales a entero y de un tipo genérico a uno concreto: ¿son el mismo tipo de conversión? No lo son.",
-        en: "Look at how you go from decimals to whole numbers and from a generic type to a concrete one: are those the same kind of conversion? They are not.",
+        es: "Yo miraría cómo estás bajando de decimales a entero y de un tipo genérico a uno concreto: ¿son el mismo tipo de conversión? No lo son.",
+        en: "I would look at how you go from decimals to a whole number and from a generic type to a specific one: are they the same kind of conversion? They are not.",
       },
       {
-        es: "De texto a número se usa valueOf() sobre el tipo destino; para ajustar decimales redondeando, setScale(); y para tratar un sObject como un objeto concreto, el tipo entre paréntesis delante.",
-        en: "Text to number uses valueOf() on the destination type; adjusting decimals with rounding is setScale(); and treating an sObject as a concrete object is the type in brackets in front.",
+        es: "Lo que a mí me ordenó la cabeza: de texto a número se usa valueOf() sobre el tipo destino (tu VALUE() de fórmulas); para ajustar decimales redondeando, setScale(); y para tratar un sObject como un objeto concreto, el tipo entre paréntesis delante.",
+        en: "What put my head in order: from text to number you use valueOf() on the target type (your formula VALUE()); to adjust decimals with rounding, setScale(); and to treat an sObject as a specific object, the type in brackets in front.",
       },
       {
-        es: "Pseudocódigo: Decimal roundedTotal = orderTotal.setScale(2); y Account accountRecord = (Account) genericRecord;",
-        en: "Pseudocode: Decimal roundedTotal = orderTotal.setScale(2); and Account accountRecord = (Account) genericRecord;",
+        es: "Te dejo dos líneas casi hechas: Decimal roundedTotal = orderTotal.setScale(2); y Account accountRecord = (Account) genericRecord;",
+        en: "Here are two lines nearly done: Decimal roundedTotal = orderTotal.setScale(2); and Account accountRecord = (Account) genericRecord;",
       },
     ],
     solution: {
@@ -509,6 +511,10 @@ String accountName = accountRecord.Name;`,
           es: "Un texto no se convierte en número con paréntesis ni por asignación: hace falta Integer.valueOf(rawQuantity).",
           en: "Text does not become a number through brackets or assignment: it needs Integer.valueOf(rawQuantity).",
         },
+        otter: {
+          es: "quantity: un texto no se convierte en número con paréntesis ni asignándolo. Es tu VALUE() de fórmulas, que en Apex se le pide al tipo destino: Integer.valueOf(rawQuantity).",
+          en: "quantity: text does not become a number with brackets or by assigning it. It is your formula VALUE(), which in Apex you ask of the target type: Integer.valueOf(rawQuantity).",
+        },
       },
       {
         id: "l09-c2",
@@ -530,6 +536,10 @@ String accountName = accountRecord.Name;`,
           es: "Es un precio: Decimal. Con Integer.valueOf('19.99') perderías los céntimos antes incluso de multiplicar.",
           en: "It is a price: Decimal. With Integer.valueOf('19.99') you would lose the cents before you even multiplied.",
         },
+        otter: {
+          es: "unitPrice es un precio, como un campo Currency: Decimal. Con Integer.valueOf('19.99') perderías los céntimos antes incluso de multiplicar.",
+          en: "unitPrice is a price, like a Currency field: Decimal. With Integer.valueOf('19.99') you would lose the cents before even multiplying.",
+        },
         onPass: {
           es: "Elegir Decimal al convertir evita que el redondeo ocurra en el peor sitio posible: al principio.",
           en: "Choosing Decimal at conversion time keeps the rounding from happening in the worst possible place: at the start.",
@@ -548,6 +558,10 @@ String accountName = accountRecord.Name;`,
         onFail: {
           es: "El total sale de multiplicar las variables ya convertidas, no los textos originales: '25' * '19.99' no compila.",
           en: "The total comes from multiplying the already-converted variables, not the original strings: '25' * '19.99' does not compile.",
+        },
+        otter: {
+          es: "orderTotal es como un campo fórmula Quantity * UnitPrice: multiplica las variables ya convertidas, no los textos originales. '25' * '19.99' no compila, igual que una fórmula no multiplica dos campos de texto.",
+          en: "orderTotal is like a Quantity * UnitPrice formula field: it multiplies the variables already converted, not the original text. '25' * '19.99' does not compile, just as a formula will not multiply two text fields.",
         },
       },
       {
@@ -568,6 +582,10 @@ String accountName = accountRecord.Name;`,
           es: "intValue() cortaría los céntimos enteros. setScale(2) ajusta a dos decimales redondeando, que es lo que pide un importe.",
           en: "intValue() would chop the cents off entirely. setScale(2) adjusts to two decimals by rounding, which is what an amount needs.",
         },
+        otter: {
+          es: "roundedTotal es tu ROUND(Total, 2): setScale(2) ajusta a dos decimales redondeando. intValue() cortaría los céntimos enteros.",
+          en: "roundedTotal is your ROUND(Total, 2): setScale(2) adjusts to two decimals with rounding. intValue() would chop the cents off entirely.",
+        },
       },
       {
         id: "l09-c5",
@@ -582,6 +600,10 @@ String accountName = accountRecord.Name;`,
         onFail: {
           es: "Para mostrarlo hace falta texto, y la conversión de vuelta también se pide: String.valueOf(roundedTotal).",
           en: "Displaying it needs text, and the conversion back must also be requested: String.valueOf(roundedTotal).",
+        },
+        otter: {
+          es: "totalLabel es el TEXT() de las fórmulas: para mostrarlo hace falta texto, y la conversión de vuelta también se pide: String.valueOf(roundedTotal).",
+          en: "totalLabel is the formula TEXT(): to show it you need text, and the conversion back also has to be asked for: String.valueOf(roundedTotal).",
         },
       },
       {
@@ -604,6 +626,10 @@ String accountName = accountRecord.Name;`,
           es: "Un sObject no deja leer Name directamente: hay que decirle a Apex qué objeto es, con el tipo entre paréntesis delante. Aquí sí se usa el casting de verdad.",
           en: "An sObject will not let you read Name directly: you have to tell Apex which object it is, with the type in brackets in front. This is where a real cast belongs.",
         },
+        otter: {
+          es: "accountRecord: un sObject genérico no deja leer Name, como un registro del que no sabes el objeto. Dile a Apex qué es, con el tipo entre paréntesis delante: (Account) genericRecord. Aquí sí es casting de verdad.",
+          en: "accountRecord: a generic sObject will not let you read Name, like a record whose object you do not know. Tell Apex what it is, with the type in brackets in front: (Account) genericRecord. This one is real casting.",
+        },
       },
     ],
     rubric: [
@@ -612,5 +638,6 @@ String accountName = accountRecord.Name;`,
         en: "If the integration sent 'N/A' in rawQuantity tomorrow, which line would break and what would the user see? That question is Module 8.",
       },
     ],
+    voice: "otter",
   },
 };

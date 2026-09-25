@@ -202,9 +202,10 @@ Boolean hasDiscount;        // null, not false`,
       variant: "admin",
       title: { es: "Lo mismo que ya te pasó en un VLOOKUP", en: "The same thing that bit you in a VLOOKUP" },
       text: {
-        es: "Si alguna vez cruzaste dos exportaciones de Salesforce en Excel y no te cuadraron las filas, probablemente estabas comparando un Id de 15 con uno de 18. En Apex esto se nota menos porque la plataforma te devuelve siempre 18, pero el día que recibas Ids de un sistema externo, esa diferencia volverá.",
-        en: "If you ever cross-referenced two Salesforce exports in Excel and the rows refused to match, you were probably comparing a 15-character Id against an 18-character one. In Apex you notice it less because the platform always hands you 18 — but the day Ids arrive from an external system, that difference comes back.",
+        es: "A mí me pasó: crucé dos exportaciones de Salesforce en Excel con un VLOOKUP y no me cuadraban las filas. Estaba comparando un Id de 15 caracteres con uno de 18. En Apex esto se nota menos porque la plataforma te devuelve siempre 18, pero el día que recibas Ids de un sistema externo, esa diferencia volverá.",
+        en: "It happened to me: I matched two Salesforce exports in Excel with a VLOOKUP and the rows would not line up. I was comparing a 15-character Id with an 18-character one. In Apex you notice it less because the platform always hands you 18, but the day you receive Ids from an external system, that difference will be back.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -460,16 +461,16 @@ final Integer MAX_DISCOUNT = 15;
     },
     hints: [
       {
-        es: "Mira una por una las variables numéricas: ¿alguna guarda un importe en un tipo que redondea o aproxima?",
-        en: "Look at your numeric variables one by one: is any amount sitting in a type that rounds or approximates?",
+        es: "Yo miraría una por una las variables numéricas, como revisas los campos de moneda de un objeto: ¿alguna guarda un importe en un tipo que redondea o aproxima?",
+        en: "I would look at the numeric variables one by one, the way you review an object's currency fields: is any of them holding an amount in a type that rounds or approximates?",
       },
       {
-        es: "El dinero va siempre en Decimal, nunca en Double ni en Integer. Y el identificador de un registro tiene su propio tipo en Apex, que valida el formato al asignarlo.",
-        en: "Money always goes in a Decimal, never a Double or an Integer. And a record identifier has its own Apex type, which validates the format on assignment.",
+        es: "Lo que me salvó a mí: el dinero va siempre en Decimal, nunca en Double ni en Integer, igual que en Setup elegirías un campo Currency para dinero. Y el identificador de un registro tiene su propio tipo en Apex, que valida el formato al asignarlo.",
+        en: "What saved me: money always goes in Decimal, never in Double or Integer, just as in Setup you would pick a Currency field for money. And a record identifier has its own type in Apex, which checks the format when you assign it.",
       },
       {
-        es: "Pseudocódigo para la última: Decimal amountWithTax = contractAmount * 1.21;",
-        en: "Pseudocode for the last one: Decimal amountWithTax = contractAmount * 1.21;",
+        es: "Te dejo la última casi hecha: Decimal amountWithTax = contractAmount * 1.21;",
+        en: "Here is the last one nearly done: Decimal amountWithTax = contractAmount * 1.21;",
       },
     ],
     solution: {
@@ -502,6 +503,10 @@ Decimal amountWithTax = contractAmount * 1.21;`,
           es: "Un importe firmado es dinero, y el dinero va en Decimal: es el único tipo decimal que guarda la cifra tal cual, sin desviarse un céntimo al acumular.",
           en: "A signed amount is money, and money goes in a Decimal: the only decimal type that stores the figure exactly, without drifting a cent as it accumulates.",
         },
+        otter: {
+          es: "contractAmount es dinero, como un campo Currency. En Apex el dinero va en Decimal: Double aproxima y puede desviarse un céntimo al acumular, e Integer se come los decimales directamente.",
+          en: "contractAmount is money, like a Currency field. In Apex money goes in Decimal: Double approximates and can drift by a cent as it adds up, and Integer simply swallows the decimals.",
+        },
         onPass: {
           es: "Decimal para el dinero. Suena obvio hasta que ves un informe cuadrado al céntimo gracias a esa decisión.",
           en: "Decimal for money. It sounds obvious until you see a report balance to the cent because of that one decision.",
@@ -515,6 +520,10 @@ Decimal amountWithTax = contractAmount * 1.21;`,
           es: "Los empleados se cuentan en unidades enteras. Integer, sin comillas y sin decimales.",
           en: "Employees are counted in whole units. Integer, no quotes and no decimals.",
         },
+        otter: {
+          es: "employeeCount es un recuento, como el campo Employees de la cuenta: un número entero. Integer, sin comillas y sin decimales, con valor 340.",
+          en: "employeeCount is a count, like the account's Employees field: a whole number. Integer, no quotes and no decimals, with the value 340.",
+        },
       },
       {
         id: "l02-c3",
@@ -523,6 +532,10 @@ Decimal amountWithTax = contractAmount * 1.21;`,
         onFail: {
           es: "«Si la cuenta es estratégica» es el checkbox de siempre: Boolean con true, sin comillas.",
           en: "“Whether the account is strategic” is the familiar checkbox: a Boolean set to true, no quotes.",
+        },
+        otter: {
+          es: "isKeyAccount vuelve a ser un checkbox: Boolean con true, sin comillas.",
+          en: "isKeyAccount is a checkbox again: Boolean with true, no quotes.",
         },
       },
       {
@@ -541,6 +554,10 @@ Decimal amountWithTax = contractAmount * 1.21;`,
         onFail: {
           es: "En un String cabría cualquier cosa. Declarándolo como Id, la plataforma comprueba el formato en el momento de asignarlo y te avisa antes de que ese valor llegue a una consulta.",
           en: "A String would swallow anything. Declared as an Id, the platform checks the format at assignment time and warns you before that value reaches a query.",
+        },
+        otter: {
+          es: "accountRecordId es el Id del registro, el de 18 caracteres que ves en la URL. Si lo guardas como String cabe cualquier cosa; con el tipo Id, la plataforma comprueba el formato al asignarlo y te avisa antes de que llegue a una consulta.",
+          en: "accountRecordId is the record Id, the 18-character one you see in the URL. Stored as a String, anything fits; with the Id type, the platform checks the format on assignment and warns you before it reaches a query.",
         },
       },
       {
@@ -562,6 +579,10 @@ Decimal amountWithTax = contractAmount * 1.21;`,
           es: "El valor tiene que salir de la multiplicación, no escrito a mano: si mañana cambia contractAmount, el total debe cambiar solo.",
           en: "The value must come from the multiplication, not be typed in: if contractAmount changes tomorrow, the total has to follow on its own.",
         },
+        otter: {
+          es: "amountWithTax tiene que comportarse como un campo fórmula: contractAmount * 1.21. Si lo escribes a mano, es un número muerto que nadie actualiza cuando cambia el importe.",
+          en: "amountWithTax has to behave like a formula field: contractAmount * 1.21. Typed by hand, it is a dead number nobody updates when the amount changes.",
+        },
       },
     ],
     rubric: [
@@ -574,5 +595,6 @@ Decimal amountWithTax = contractAmount * 1.21;`,
         en: "Task 3: the summary has to show the contact's name “properly written”, and what the web form sends arrives in capitals, with spaces and with the email mistyped.",
       },
     ],
+    voice: "otter",
   },
 };

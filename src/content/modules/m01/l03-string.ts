@@ -210,9 +210,10 @@ String quoted = 'The client said \\'yes\\' yesterday';`,
       variant: "admin",
       title: { es: "Lo mismo que anidar funciones en una fórmula", en: "The same thing as nesting functions in a formula" },
       text: {
-        es: "Ya hiciste esto en un campo fórmula: UPPER(LEFT(Company_Name__c, 4)) primero recorta y luego pone en mayúsculas, aunque lo escribas de fuera hacia dentro. La diferencia es el orden de lectura: la fórmula se lee de dentro hacia fuera (LEFT ocurre primero aunque esté más adentro), y el encadenado de Apex se lee de izquierda a derecha en el mismo orden en que ocurre. Es más fácil de seguir precisamente porque no hay que leerlo al revés.",
-        en: "You already did this in a formula field: UPPER(LEFT(Company_Name__c, 4)) trims first and capitalises second, even though you write it from the outside in. The difference is the reading order: a formula reads inside out (LEFT happens first even though it sits deeper in), while Apex chaining reads left to right in the very order things happen. It is easier to follow precisely because you never have to read it backwards.",
+        es: "Yo ya hacía esto en campos fórmula sin llamarlo así: UPPER(LEFT(Company_Name__c, 4)) primero recorta y luego pone en mayúsculas, aunque lo escribas de fuera hacia dentro. La diferencia está en el orden de lectura: la fórmula se lee de dentro hacia fuera (LEFT ocurre primero aunque esté más adentro), y el encadenado de Apex se lee de izquierda a derecha en el mismo orden en que ocurre. A mí me resultó más fácil de seguir precisamente porque no hay que leerlo al revés.",
+        en: "I was already doing this in formula fields without calling it that: UPPER(LEFT(Company_Name__c, 4)) first trims and then uppercases, even though you write it from the outside in. The difference is the reading order: the formula reads from the inside out (LEFT happens first even though it sits deeper), and Apex chaining reads left to right in the same order it happens. I found it easier to follow precisely because you do not have to read it backwards.",
       },
+      voice: "otter",
     },
     {
       type: "p",
@@ -398,9 +399,10 @@ Boolean found = rawName.contains(keyword.toLowerCase());    // true`,
       variant: "admin",
       title: { es: "Esto sí es anidar como en fórmulas", en: "This is formula-style nesting, for real" },
       text: {
-        es: "TEXT(LEN(TRIM(Name))) en un campo fórmula es exactamente String.valueOf(name.trim().length()): una función dentro de otra, resuelta de dentro hacia fuera. La única diferencia es que Apex mezcla los dos estilos en la misma línea: la parte encadenada (name.trim().length()) se lee de izquierda a derecha, y la parte anidada (String.valueOf(…)) de dentro hacia fuera. Truco para leer cualquier línea: busca el paréntesis más interno, resuélvelo en tu cabeza y sustitúyelo por su valor. Repite hasta que no quede nada.",
-        en: "TEXT(LEN(TRIM(Name))) in a formula field is exactly String.valueOf(name.trim().length()): one function inside another, resolved inside out. The only difference is that Apex mixes both styles on the same line: the chained part (name.trim().length()) reads left to right, and the nested part (String.valueOf(…)) reads inside out. A trick for reading any line: find the innermost brackets, resolve them in your head and replace them with their value. Repeat until nothing is left.",
+        es: "TEXT(LEN(TRIM(Name))) en un campo fórmula es exactamente String.valueOf(name.trim().length()): una función dentro de otra, resuelta de dentro hacia fuera. Lo que a mí me descolocó es que Apex mezcla los dos estilos en la misma línea: la parte encadenada (name.trim().length()) se lee de izquierda a derecha, y la parte anidada (String.valueOf(…)) de dentro hacia fuera. Mi truco para leer cualquier línea: busco el paréntesis más interno, lo resuelvo en la cabeza y lo sustituyo por su valor. Repito hasta que no queda nada.",
+        en: "TEXT(LEN(TRIM(Name))) in a formula field is exactly String.valueOf(name.trim().length()): one function inside another, solved from the inside out. What threw me is that Apex mixes both styles on the same line: the chained part (name.trim().length()) reads left to right, and the nested part (String.valueOf(…)) from the inside out. My trick for reading any line: find the innermost parenthesis, solve it in my head and replace it with its value. Repeat until nothing is left.",
       },
+      voice: "otter",
     },
     {
       type: "table",
@@ -464,9 +466,10 @@ Boolean loose2 = 'EMEA'.equalsIgnoreCase('emea'); // true, and it reads better`,
       variant: "admin",
       title: { es: "Por qué esto te suena", en: "Why this rings a bell" },
       text: {
-        es: "Es el mismo comportamiento de un filtro de informe: si filtras Industry igual a «technology» te salen también los «Technology». Cómodo el 90 % de las veces, y una fuente silenciosa de bugs el 10 % restante, cuando comparas códigos o claves donde la mayúscula sí significa algo.",
-        en: "It is the same behaviour as a report filter: filter Industry equals “technology” and you also get the “Technology” rows. Convenient 90% of the time, and a silent source of bugs the other 10%, when you are comparing codes or keys where case actually means something.",
+        es: "Es el mismo comportamiento de un filtro de informe: si filtras Industry igual a «technology» te salen también los «Technology». Cómodo el 90 % de las veces… y yo caí en el 10 % restante, comparando códigos donde la mayúscula sí significaba algo. Ahí es una fuente silenciosa de bugs.",
+        en: "It is the same behaviour as a report filter: filter Industry equals «technology» and you also get the «Technology» ones. Handy 90% of the time… and I fell into the other 10%, comparing codes where the capital letter did mean something. There it is a silent source of bugs.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -738,16 +741,16 @@ String rawEmail = ' Ventas@Northwind.COM ';
     },
     hints: [
       {
-        es: "Antes de escribir, hazte dos preguntas por cada valor: ¿de qué dato parto? ¿de qué tipo tiene que ser el resultado? Si el tipo de salida no es texto, el último método de la línea no puede ser uno de String.",
-        en: "Before writing, ask two questions for each value: what value do I start from? what type must the result be? If the output type is not text, the last method on the line cannot be a String one.",
+        es: "Antes de escribir, yo me hago dos preguntas por cada valor, como al diseñar un campo fórmula: ¿de qué dato parto? ¿de qué tipo tiene que ser el resultado? Si el tipo de salida no es texto, el último método de la línea no puede ser uno de String.",
+        en: "Before writing, I ask myself two questions for each value, as when designing a formula field: which data do I start from? What type must the result be? If the output type is not text, the last method on the line cannot be a String one.",
       },
       {
-        es: "En displayName el orden lo decide todo: capitalize() solo toca la primera letra y deja el resto como estaba, así que lo de en medio ya tiene que llegar en minúsculas. Son tres métodos seguidos.",
-        en: "In displayName the order decides everything: capitalize() only touches the first letter and leaves the rest as it was, so the middle has to arrive already in lower case. It is three methods in a row.",
+        es: "Aquí tropecé yo: en displayName el orden lo decide todo. capitalize() solo toca la primera letra y deja el resto como estaba, así que lo de en medio ya tiene que llegar en minúsculas. Son tres métodos seguidos.",
+        en: "This is where I tripped: in displayName the order decides everything. capitalize() only touches the first letter and leaves the rest as it was, so whatever is in the middle has to arrive in lowercase already. Three methods in a row.",
       },
       {
-        es: "lengthLabel es el único que se anida: dentro de los paréntesis de String.valueOf() va el recuento, y ese recuento se le pide al correo ya limpio, no a rawEmail.",
-        en: "lengthLabel is the only nested one: inside String.valueOf()'s brackets goes the count, and that count is asked of the already-clean email, not of rawEmail.",
+        es: "Te dejo la clave de lengthLabel: es el único que se anida. Dentro de los paréntesis de String.valueOf() va el recuento, y ese recuento se le pide al correo ya limpio, no a rawEmail.",
+        en: "Here is the key to lengthLabel: it is the only one that nests. The count goes inside the brackets of String.valueOf(), and that count is asked of the email that is already clean, not of rawEmail.",
       },
     ],
     solution: {
@@ -790,6 +793,10 @@ String summary = displayName + ' <' + cleanEmail + '>';`,
           es: "Son tres métodos encadenados sobre rawName. capitalize() solo cambia la primera letra: si llega 'ANA MARÍA TORRES', devuelve 'ANA MARÍA TORRES'. Hay que pasar a minúsculas ANTES de capitalizar.",
           en: "It is three methods chained on rawName. capitalize() only changes the first letter: if 'ANA MARÍA TORRES' arrives, it returns 'ANA MARÍA TORRES'. You must lower-case BEFORE capitalising.",
         },
+        otter: {
+          es: "displayName es como limpiar un dato antes de importarlo: quitar espacios, bajar todo a minúsculas y solo entonces capitalizar, en ese orden. capitalize() solo cambia la primera letra: si le llega 'ANA MARÍA TORRES', devuelve 'ANA MARÍA TORRES'.",
+          en: "displayName is like cleaning data before an import: remove the spaces, lowercase everything and only then capitalize, in that order. capitalize() only changes the first letter: given 'ANA MARÍA TORRES', it returns 'ANA MARÍA TORRES'.",
+        },
         onPass: {
           es: "Ese es el punto: en una cadena, cada método recibe lo que dejó el anterior, así que el orden cambia el resultado.",
           en: "That is the point: in a chain each method receives what the previous one left, so the order changes the result.",
@@ -813,6 +820,10 @@ String summary = displayName + ' <' + cleanEmail + '>';`,
           es: "Un correo se compara y se guarda siempre en minúsculas. Aquí el orden da igual —trim() y toLowerCase() no se estorban—, pero los dos tienen que estar, y partiendo de rawEmail.",
           en: "An email is always stored and compared in lower case. Here the order does not matter — trim() and toLowerCase() do not interfere — but both must be there, starting from rawEmail.",
         },
+        otter: {
+          es: "cleanEmail es la limpieza que harías en Excel antes de importar contactos: sin espacios y en minúsculas, porque un correo se compara siempre en minúsculas. Aquí el orden da igual, pero los dos métodos tienen que estar, partiendo de rawEmail.",
+          en: "cleanEmail is the clean-up you would do in Excel before importing contacts: no spaces and lowercase, because an email is always compared in lowercase. The order does not matter here, but both methods must be there, starting from rawEmail.",
+        },
       },
       {
         id: "l03-c3",
@@ -830,6 +841,10 @@ String summary = displayName + ' <' + cleanEmail + '>';`,
         onFail: {
           es: "«¿Acaba en algo?» es una pregunta de sí o no: el tipo es Boolean y el método es endsWith('.com'), pedido sobre cleanEmail. Sobre rawEmail fallaría por el espacio final y por las mayúsculas.",
           en: "“Does it end with something?” is a yes/no question: the type is Boolean and the method is endsWith('.com'), asked of cleanEmail. On rawEmail it would fail because of the trailing space and the capitals.",
+        },
+        otter: {
+          es: "isDotCom es un checkbox: «¿acaba en .com?» es de sí o no, así que es Boolean. En una fórmula usarías RIGHT(Email, 4) = '.com'; en Apex es endsWith('.com'), pedido sobre cleanEmail: sobre rawEmail fallaría por el espacio final y las mayúsculas.",
+          en: "isDotCom is a checkbox: «does it end in .com?» is yes or no, so it is a Boolean. In a formula you would use RIGHT(Email, 4) = '.com'; in Apex it is endsWith('.com'), asked of cleanEmail: on rawEmail it would fail because of the trailing space and the capitals.",
         },
       },
       {
@@ -851,6 +866,10 @@ String summary = displayName + ' <' + cleanEmail + '>';`,
           es: "Un solo carácter, el de la posición 0: substring(0, 1), porque el segundo número marca dónde parar sin incluirlo. Y después, en mayúscula. Escribir 'V' a mano funciona con este correo y con ninguno más.",
           en: "A single character, the one at position 0: substring(0, 1), because the second number marks where to stop, exclusive. And then upper-cased. Typing 'V' by hand works for this email and no other.",
         },
+        otter: {
+          es: "initial es como LEFT(Email, 1) en una fórmula, pero en Apex se dice substring(0, 1): se empieza a contar en 0 y el segundo número marca dónde parar sin incluirlo. Después, en mayúscula. Escribir 'V' a mano sirve para este correo y para ninguno más.",
+          en: "initial is like LEFT(Email, 1) in a formula, but in Apex you say substring(0, 1): counting starts at 0 and the second number marks where to stop, without including it. Then uppercase it. Typing 'V' by hand works for this email and no other.",
+        },
       },
       {
         id: "l03-c5",
@@ -869,6 +888,10 @@ String summary = displayName + ' <' + cleanEmail + '>';`,
         onFail: {
           es: "length() devuelve un Integer y lo que pides es un texto, así que el recuento va DENTRO de los paréntesis de String.valueOf(). Y se cuenta el correo ya limpio: rawEmail tiene dos caracteres de más.",
           en: "length() returns an Integer and what you want is text, so the count goes INSIDE String.valueOf()'s brackets. And it counts the clean email: rawEmail has two characters too many.",
+        },
+        otter: {
+          es: "lengthLabel es el TEXT(LEN(…)) de las fórmulas: length() devuelve un número y tú quieres texto, así que el recuento va DENTRO de los paréntesis de String.valueOf(). Y se cuenta el correo ya limpio: rawEmail tiene dos caracteres de más.",
+          en: "lengthLabel is the TEXT(LEN(…)) of formulas: length() returns a number and you want text, so the count goes INSIDE the brackets of String.valueOf(). And you count the email that is already clean: rawEmail has two characters too many.",
         },
         onPass: {
           es: "Anidado de libro: primero se resuelve lo de dentro, y su resultado entra en el método de fuera.",
@@ -892,6 +915,10 @@ String summary = displayName + ' <' + cleanEmail + '>';`,
         onFail: {
           es: "Los trozos fijos —el espacio y los signos < y >— van entre comillas; los que cambian son displayName y cleanEmail, unidos con el signo más. Si escribes el nombre dentro de las comillas, el resumen será el mismo para todos los contactos.",
           en: "The fixed bits — the space and the < > signs — go in quotes; the changing ones are displayName and cleanEmail, joined with plus. If you type the name inside the quotes, the summary will be identical for every contact.",
+        },
+        otter: {
+          es: "summary es como una plantilla de email con campos de combinación: los trozos fijos (el espacio y los signos < y >) van entre comillas, y los que cambian son displayName y cleanEmail, unidos con el signo más. Si escribes el nombre dentro de las comillas, todos los contactos recibirían el mismo resumen.",
+          en: "summary is like an email template with merge fields: the fixed bits (the space and the < and > signs) go in quotes, and the changing ones are displayName and cleanEmail, joined with the plus sign. Type the name inside the quotes and every contact would get the same summary.",
         },
       },
       {
@@ -918,5 +945,6 @@ String summary = displayName + ' <' + cleanEmail + '>';`,
         en: "Two questions to chew on: if the form sent an empty email, at which exact point in your chains would it blow up? And if tomorrow they ask for the email's domain — what comes after the @ — which method would you start looking with?",
       },
     ],
+    voice: "otter",
   },
 };

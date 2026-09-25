@@ -202,9 +202,10 @@ Boolean broken = region.toUpperCase() == 'EMEA' && region != null;`,
       variant: "admin",
       title: { es: "Como las condiciones de entrada de un Flow", en: "Like a Flow's entry conditions" },
       text: {
-        es: "En un Flow desencadenado por registro, las condiciones de entrada deciden si el Flow ni siquiera arranca: si el registro no las cumple, ningún elemento de dentro llega a ejecutarse. region != null && … funciona igual: la primera condición es la condición de entrada, y lo que va detrás del && solo corre si la supera. (Simplificación: en un Flow no tienes que preocuparte del orden de las condiciones; en Apex es justo lo que te protege).",
-        en: "In a record-triggered Flow, the entry conditions decide whether the Flow even starts: if the record fails them, no element inside ever runs. region != null && … works the same way: the first condition is the entry condition, and whatever sits after && only runs if it passes. (Simplification: in a Flow you need not worry about condition order; in Apex it is exactly what protects you.)",
+        es: "Cuando yo hacía Flows desencadenados por registro, las condiciones de entrada decidían si el Flow ni siquiera arrancaba: si el registro no las cumplía, ningún elemento de dentro llegaba a ejecutarse. region != null && … funciona igual: la primera condición es la condición de entrada, y lo que va detrás del && solo corre si la supera. (Simplificación: en un Flow no tienes que preocuparte del orden de las condiciones; en Apex es justo lo que te protege).",
+        en: "When I built record-triggered Flows, the entry conditions decided whether the Flow even started: if the record did not meet them, no element inside ever ran. region != null && … works the same way: the first condition is the entry condition, and whatever comes after the && only runs if it passes. (Simplification: in a Flow you do not have to worry about the order of the conditions; in Apex it is exactly what protects you).",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -241,9 +242,10 @@ Decimal safeAmount = amount == null ? 0 : amount;`,
       variant: "admin",
       title: { es: "Lo mismo que hacías en el campo fórmula", en: "The same thing you did in the formula field" },
       text: {
-        es: "IF(ISBLANK(Region__c), 'Sin región', Region__c) y String.isBlank(region) ? 'Sin región' : region son la misma decisión escrita de dos formas. La diferencia es que en Apex el resultado se guarda en una variable que puedes reutilizar diez líneas más abajo.",
-        en: "IF(ISBLANK(Region__c), 'No region', Region__c) and String.isBlank(region) ? 'No region' : region are the same decision written two ways. The difference is that in Apex the result lands in a variable you can reuse ten lines further down.",
+        es: "IF(ISBLANK(Region__c), 'Sin región', Region__c) lo escribí mil veces en campos fórmula, y String.isBlank(region) ? 'Sin región' : region es la misma decisión escrita de otra forma. La diferencia es que en Apex el resultado se guarda en una variable que puedes reutilizar diez líneas más abajo.",
+        en: "I wrote IF(ISBLANK(Region__c), 'No region', Region__c) a thousand times in formula fields, and String.isBlank(region) ? 'No region' : region is the same decision written another way. The difference is that in Apex the result is stored in a variable you can reuse ten lines further down.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -474,16 +476,16 @@ incompleteLead.Company = 'Northwind Trading';
     },
     hints: [
       {
-        es: "Repasa el orden dentro de tus condiciones combinadas: ¿alguna usa un dato antes de comprobar que existe?",
-        en: "Check the order inside your combined conditions: does any of them use a value before checking it exists?",
+        es: "Yo repasaría el orden dentro de tus condiciones combinadas, como el de las condiciones de entrada de un Flow: ¿alguna usa un dato antes de comprobar que existe?",
+        en: "I would go over the order inside your combined conditions, like the entry conditions of a Flow: does any of them use a value before checking it exists?",
       },
       {
-        es: "El operador condicional se escribe condición ? valorSiVerdadero : valorSiFalso y produce un valor, así que se puede asignar directamente. Y && evalúa en corto: la condición protectora va siempre primero.",
-        en: "The conditional operator is written condition ? valueIfTrue : valueIfFalse and produces a value, so it can be assigned directly. And && short-circuits: the guarding condition always goes first.",
+        es: "Lo que me ayudó: el operador condicional se escribe condición ? valorSiVerdadero : valorSiFalso; es tu IF() de fórmulas y produce un valor, así que se asigna directamente. Y && evalúa en corto: la condición protectora va siempre primero.",
+        en: "What helped me: the conditional operator is written condition ? valueIfTrue : valueIfFalse; it is your formula IF() and produces a value, so you assign it directly. And && short-circuits: the protecting condition always goes first.",
       },
       {
-        es: "Pseudocódigo: String displayRegion = String.isBlank(x) ? 'Sin región' : x; e Integer safeEmployees = y == null ? 0 : y;",
-        en: "Pseudocode: String displayRegion = String.isBlank(x) ? 'No region' : x; and Integer safeEmployees = y == null ? 0 : y;",
+        es: "Te dejo el molde: String displayRegion = String.isBlank(x) ? 'Sin región' : x; e Integer safeEmployees = y == null ? 0 : y;",
+        en: "Here is the template: String displayRegion = String.isBlank(x) ? 'No region' : x; and Integer safeEmployees = y == null ? 0 : y;",
       },
     ],
     solution: {
@@ -531,6 +533,10 @@ Boolean isAssignable = String.isNotBlank(incompleteLead.Company)
           es: "Necesitas decidir en una expresión: String.isBlank(campo) ? 'Sin región' : campo. Es el IF() de las fórmulas, con otra puntuación.",
           en: "You need to decide inside one expression: String.isBlank(field) ? 'No region' : field. It is the formula IF() with different punctuation.",
         },
+        otter: {
+          es: "displayRegion es tu IF(ISBLANK(Region__c), 'Sin región', Region__c) de fórmulas, con otra puntuación: String.isBlank(campo) ? 'Sin región' : campo.",
+          en: "displayRegion is your formula IF(ISBLANK(Region__c), 'No region', Region__c), with different punctuation: String.isBlank(field) ? 'No region' : field.",
+        },
       },
       {
         id: "l07-c2",
@@ -549,6 +555,10 @@ Boolean isAssignable = String.isNotBlank(incompleteLead.Company)
         onFail: {
           es: "Para un número la comprobación es == null, no isBlank(). Y el valor por defecto tiene que ser 0, no dejar el null: lo siguiente que hagas con él sería una suma.",
           en: "For a number the check is == null, not isBlank(). And the default has to be 0, not the null left in place: the next thing you do with it would be arithmetic.",
+        },
+        otter: {
+          es: "safeEmployees es como BLANKVALUE(NumberOfEmployees, 0): si falta, 0. En Apex, para un número se compara con == null, no con isBlank(). Y el 0 importa: lo siguiente que hagas con él es comparar o sumar.",
+          en: "safeEmployees is like BLANKVALUE(NumberOfEmployees, 0): if it is missing, 0. In Apex, for a number you compare with == null, not isBlank(). And the 0 matters: the next thing you do with it is compare or add.",
         },
         onPass: {
           es: "Sustituir el null por 0 antes de operar es lo que evita el NullPointerException tres líneas más abajo.",
@@ -569,6 +579,10 @@ Boolean isAssignable = String.isNotBlank(incompleteLead.Company)
           es: "«100 o más» es >=, no >. Y tiene que comparar safeEmployees, no el campo original: ese puede ser null y la comparación fallaría.",
           en: "“100 or more” is >=, not >. And it must compare safeEmployees, not the original field: that one can be null and the comparison would fail.",
         },
+        otter: {
+          es: "isLargeAccount: «100 o más» es >=, como el operador «mayor o igual que» de un filtro de informe. Y compara safeEmployees, no el campo original, que puede ser null.",
+          en: "isLargeAccount: «100 or more» is >=, like the «greater or equal» operator in a report filter. And it compares safeEmployees, not the original field, which can be null.",
+        },
       },
       {
         id: "l07-c4",
@@ -588,6 +602,10 @@ Boolean isAssignable = String.isNotBlank(incompleteLead.Company)
           es: "«Y además» es &&, y las dos condiciones tienen que comprobar que el texto sirve de verdad —isNotBlank—, no solo que no sea null.",
           en: "“And also” is &&, and both conditions must check the text is genuinely usable — isNotBlank — not merely non-null.",
         },
+        otter: {
+          es: "isAssignable es como una vista de lista con dos filtros que tienen que cumplirse a la vez: eso es &&. Y cada condición tiene que comprobar que el texto sirve de verdad (isNotBlank), no solo que no sea null.",
+          en: "isAssignable is like a list view with two filters that must both hold: that is &&. And each condition has to check the text is really usable (isNotBlank), not just that it is not null.",
+        },
       },
       {
         id: "l07-c5",
@@ -604,6 +622,10 @@ Boolean isAssignable = String.isNotBlank(incompleteLead.Company)
           es: "Sigue habiendo un método llamado directamente sobre Region__c, que en este Lead es null. Protégelo con la comprobación o con ?.",
           en: "There is still a method called straight on Region__c, which is null for this Lead. Guard it with the check or with ?.",
         },
+        otter: {
+          es: "Sigue habiendo un método llamado directamente sobre Region__c, que en este Lead viene vacío: es el error rojo al guardar esperando su momento. Protégelo con la comprobación o con ?.",
+          en: "There is still a method called straight on Region__c, which is empty in this Lead: it is the red save error waiting for its moment. Protect it with the check or with ?.",
+        },
       },
     ],
     rubric: [
@@ -612,5 +634,6 @@ Boolean isAssignable = String.isNotBlank(incompleteLead.Company)
         en: "What if tomorrow you had to pick between five default regions depending on the country? The conditional operator stops being readable there: that is if/else's job.",
       },
     ],
+    voice: "otter",
   },
 };
