@@ -6,6 +6,17 @@ export const l07Operadores: Lesson = {
   n: 7,
   kind: "lesson",
   minutes: 24,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 6", en: "Remember? · Review of lesson 6" },
+    prompt: { es: "Region__c viene vacío. ¿Qué pasa con incompleteLead.Region__c.toUpperCase()?", en: "Region__c is empty. What happens with incompleteLead.Region__c.toUpperCase()?" },
+    options: [
+      { es: "Lanza NullPointerException", en: "It throws NullPointerException" },
+      { es: "Devuelve null", en: "It returns null" },
+      { es: "Devuelve un texto vacío", en: "It returns an empty string" },
+    ],
+    answer: 0,
+    explain: { es: "Con el punto normal revienta y para la transacción. Con ?. en lugar del punto, devolvería null y el código seguiría.", en: "With the plain dot it blows up and stops the transaction. With ?. instead of the dot, it would return null and the code would carry on." },
+  },
   title: { es: "Operadores", en: "Operators" },
   summary: {
     es: "Los símbolos que hacen cuentas, comparan y deciden. Incluido el que te deja poner un valor por defecto sin escribir un solo if.",
@@ -634,6 +645,10 @@ Boolean isAssignable = String.isNotBlank(incompleteLead.Company)
         en: "What if tomorrow you had to pick between five default regions depending on the country? The conditional operator stops being readable there: that is if/else's job.",
       },
     ],
+    outro: {
+      es: "Ya decides valores en una línea con el operador condicional y proteges tus condiciones con &&. En la tarea 8 la ficha deja de ser de una sola oportunidad: llegan varias, y con ellas las colecciones.",
+      en: "You can now decide values in one line with the conditional operator and protect your conditions with &&. In task 8 the sheet stops being about a single opportunity: several arrive, and collections with them.",
+    },
     voice: "otter",
   },
 };

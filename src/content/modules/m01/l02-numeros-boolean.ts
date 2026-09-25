@@ -6,6 +6,17 @@ export const l02NumerosBoolean: Lesson = {
   n: 2,
   kind: "lesson",
   minutes: 22,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 1", en: "Remember? · Review of lesson 1" },
+    prompt: { es: "¿Qué hace la palabra final delante de una variable?", en: "What does the word final do in front of a variable?" },
+    options: [
+      { es: "La hace obligatoria", en: "Makes it required" },
+      { es: "La borra al terminar la transacción", en: "Deletes it when the transaction ends" },
+      { es: "Impide cambiarle el valor después", en: "Stops its value being changed afterwards" },
+    ],
+    answer: 2,
+    explain: { es: "final es tu campo de solo lectura: recibe un valor una vez y nadie lo cambia. Como el MAX_DISCOUNT de la tarea 1.", en: "final is your read-only field: it gets a value once and nobody changes it. Like MAX_DISCOUNT in task 1." },
+  },
   title: {
     es: "Tipos Numéricos y Boolean",
     en: "Numeric Types and Boolean",
@@ -590,11 +601,11 @@ Decimal amountWithTax = contractAmount * 1.21;`,
         es: "¿Qué pasaría con este cálculo si el IVA dejara de ser el 21 %? Una constante final lo haría evidente.",
         en: "What would happen to this calculation if the tax stopped being 21%? A final constant would make that obvious.",
       },
-      {
-        es: "Tarea 3: la ficha tiene que mostrar el nombre del contacto «bien escrito», y lo que llega del formulario web viene en mayúsculas, con espacios y con el correo mal tecleado.",
-        en: "Task 3: the summary has to show the contact's name “properly written”, and what the web form sends arrives in capitals, with spaces and with the email mistyped.",
-      },
     ],
+    outro: {
+      es: "Ya distingues Integer, Decimal, Double, Boolean e Id, y sabes por qué el dinero va siempre en Decimal. En la tarea 3 el contacto llega del formulario web con el nombre hecho un desastre, y toca limpiarlo con métodos de String.",
+      en: "You can now tell Integer, Decimal, Double, Boolean and Id apart, and you know why money always goes in Decimal. In task 3 the contact arrives from the web form with a messy name, and it is time to clean it with String methods.",
+    },
     voice: "otter",
   },
 };

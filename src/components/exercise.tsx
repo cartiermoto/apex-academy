@@ -270,7 +270,12 @@ export function ExercisePanel({
           {/* ----------------------------------------------- otter reaction */}
           {otter && result.passed && (
             <OtterSays tone="cheer" lang={lang} eyebrow={lang === "es" ? "¡Tarea resuelta!" : "Task solved!"} className="mt-4">
-              {t(cheer, lang)}
+              <p>{t(cheer, lang)}</p>
+              {data.outro && (
+                <p className="mt-2">
+                  <RichText text={t(data.outro, lang)} lang={lang} />
+                </p>
+              )}
             </OtterSays>
           )}
           {otterMiss && firstMiss && (

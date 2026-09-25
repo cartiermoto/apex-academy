@@ -6,6 +6,17 @@ export const l03String: Lesson = {
   n: 3,
   kind: "lesson",
   minutes: 34,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 2", en: "Remember? · Review of lesson 2" },
+    prompt: { es: "Vas a guardar el importe de un contrato. ¿Qué tipo usas?", en: "You are going to store a contract amount. Which type do you use?" },
+    options: [
+      { es: "Decimal", en: "Decimal" },
+      { es: "Double", en: "Double" },
+      { es: "Integer", en: "Integer" },
+    ],
+    answer: 0,
+    explain: { es: "Decimal, siempre para dinero, como un campo Currency: Double aproxima e Integer se come los céntimos.", en: "Decimal, always for money, like a Currency field: Double approximates and Integer eats the cents." },
+  },
   title: { es: "String y qué es un método", en: "String and what a method is" },
   summary: {
     es: "El texto es el tipo con el que más vas a pelear. Antes de listar sus herramientas, hay que entender qué es exactamente una «herramienta» en Apex.",
@@ -945,6 +956,10 @@ String summary = displayName + ' <' + cleanEmail + '>';`,
         en: "Two questions to chew on: if the form sent an empty email, at which exact point in your chains would it blow up? And if tomorrow they ask for the email's domain — what comes after the @ — which method would you start looking with?",
       },
     ],
+    outro: {
+      es: "Ya limpias texto con métodos, y sabes encadenarlos y anidarlos. En la tarea 4 toca la parte del calendario de la ficha: cuándo se firmó, cuándo se renueva y cuántos días quedan.",
+      en: "You can now clean text with methods, and you know how to chain and nest them. Task 4 brings the calendar part of the sheet: when it was signed, when it renews and how many days are left.",
+    },
     voice: "otter",
   },
 };

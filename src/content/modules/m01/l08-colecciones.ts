@@ -6,6 +6,17 @@ export const l08Colecciones: Lesson = {
   n: 8,
   kind: "lesson",
   minutes: 28,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 7", en: "Remember? · Review of lesson 7" },
+    prompt: { es: "Si region vale '   ' (solo espacios), ¿qué devuelve String.isBlank(region) ? 'Sin región' : region?", en: "If region is '   ' (just spaces), what does String.isBlank(region) ? 'No region' : region return?" },
+    options: [
+      { es: "'   '", en: "'   '" },
+      { es: "'Sin región'", en: "'No region'" },
+      { es: "null", en: "null" },
+    ],
+    answer: 1,
+    explain: { es: "isBlank() cuenta los espacios como vacío, así que gana el valor por defecto. Es tu IF(ISBLANK(…)) de fórmulas.", en: "isBlank() treats spaces as empty, so the default wins. It is your formula IF(ISBLANK(…))." },
+  },
   title: { es: "Colecciones: List, Set y Map", en: "Collections: List, Set and Map" },
   summary: {
     es: "Una variable guarda un dato. Estas tres guardan muchos, y elegir mal entre ellas es lo que separa el código que aguanta 200 registros del que no.",
@@ -677,6 +688,10 @@ Decimal apacQuota = quotaByRegion.containsKey('APAC')
         en: "With 200 opportunities, which of your three collections would still answer “what is EMEA's quota?” just as fast?",
       },
     ],
+    outro: {
+      es: "Ya eliges entre List, Set y Map según lo que te piden, y sabes que un get() puede devolver null sin avisar. En la tarea 9, la integración de pedidos lo manda todo como texto, y toca convertirlo.",
+      en: "You can now pick List, Set or Map for what is asked, and you know get() can return null without warning. In task 9 the orders integration sends everything as text, and it is time to convert it.",
+    },
     voice: "otter",
   },
 };

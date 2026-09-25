@@ -6,6 +6,17 @@ export const l09Casting: Lesson = {
   n: 9,
   kind: "lesson",
   minutes: 22,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 8", en: "Remember? · Review of lesson 8" },
+    prompt: { es: "Quieres las regiones distintas de una lista de cuentas, sin repetidos. ¿Qué colección usas?", en: "You want the distinct regions from a list of accounts, with no repeats. Which collection do you use?" },
+    options: [
+      { es: "List", en: "List" },
+      { es: "Map", en: "Map" },
+      { es: "Set", en: "Set" },
+    ],
+    answer: 2,
+    explain: { es: "Sin repetidos es un Set, como la columna de grupos cuando agrupas un informe por región.", en: "No repeats is a Set, like the group column when you group a report by region." },
+  },
   title: { es: "Casting y conversión de tipos", en: "Casting and type conversion" },
   summary: {
     es: "Cuando el dato que tienes no es del tipo que necesitas. Unas conversiones las hace Apex solo; otras las pides tú, y alguna puede fallar en ejecución.",
@@ -638,6 +649,10 @@ String accountName = accountRecord.Name;`,
         en: "If the integration sent 'N/A' in rawQuantity tomorrow, which line would break and what would the user see? That question is Module 8.",
       },
     ],
+    outro: {
+      es: "Ya conviertes texto en números, redondeas importes y haces casting de un sObject. La tarea 10 es la entrega: la ficha completa que pidió Ventas en la primera reunión, de una vez.",
+      en: "You can now turn text into numbers, round amounts and cast an sObject. Task 10 is the delivery: the full sheet Sales asked for in the first meeting, in one go.",
+    },
     voice: "otter",
   },
 };

@@ -6,6 +6,17 @@ export const l10Checkpoint: Lesson = {
   n: 10,
   kind: "checkpoint",
   minutes: 45,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 9", en: "Remember? · Review of lesson 9" },
+    prompt: { es: "¿Cómo conviertes el texto '25' en un número entero?", en: "How do you turn the text '25' into a whole number?" },
+    options: [
+      { es: "(Integer) '25'", en: "(Integer) '25'" },
+      { es: "Integer.valueOf('25')", en: "Integer.valueOf('25')" },
+      { es: "'25'.toInteger()", en: "'25'.toInteger()" },
+    ],
+    answer: 1,
+    explain: { es: "De texto a número se le pide al tipo destino, con valueOf(): es tu VALUE() de fórmulas. El casting entre paréntesis no convierte texto en número.", en: "From text to number you ask the target type, with valueOf(): it is your formula VALUE(). Casting in brackets does not turn text into a number." },
+  },
   title: { es: "Checkpoint del Módulo 1", en: "Module 1 Checkpoint" },
   summary: {
     es: "Las nueve sub-lecciones, un caso de negocio real resuelto con todas ellas, y un quiz que no se aprueba de memoria.",
@@ -959,6 +970,10 @@ summaryLines.add(String.valueOf(amountWithTax.setScale(2)));`,
         en: "Read your variable names out loud. Can the whole summary be understood without reading the code underneath?",
       },
     ],
+    outro: {
+      es: "¡Entregaste la ficha que pidió Ventas en la primera reunión! Lo que en la sub-lección 1 parecía gigante lo has construido pieza a pieza. En el Módulo 2 llegan las decisiones y los bucles, y con ellos las reglas de negocio de las cuentas clave.",
+      en: "You delivered the sheet Sales asked for in the first meeting! What looked huge in sub-lesson 1 you have built piece by piece. Module 2 brings decisions and loops, and with them the business rules for key accounts.",
+    },
     voice: "otter",
   },
 };

@@ -127,6 +127,18 @@ export interface Exercise {
   rubric?: L[];
   /** "otter": the hints and the check feedback are voiced by the mascot */
   voice?: "otter";
+  /** the otter's close once solved: what you can do now and what the next task brings */
+  outro?: L;
+}
+
+/** The otter's opening question: a quick recall of the previous lesson. */
+export interface Warmup {
+  /** bubble title, e.g. "¿Te acuerdas? · Lección 3" */
+  title: L;
+  prompt: L;
+  options: L[];
+  answer: number;
+  explain: L;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -148,6 +160,8 @@ export interface Lesson {
   objectives: L[];
   /** rough minutes */
   minutes: number;
+  /** the otter's opening question, shown above the theory */
+  warmup?: Warmup;
   theory: TheoryBlock[];
   quiz: QuizQuestion[];
   exercise: Exercise;

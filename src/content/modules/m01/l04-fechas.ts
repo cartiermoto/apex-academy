@@ -6,6 +6,17 @@ export const l04Fechas: Lesson = {
   n: 4,
   kind: "lesson",
   minutes: 22,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 3", en: "Remember? · Review of lesson 3" },
+    prompt: { es: "En rawName.trim().toLowerCase(), ¿qué método se ejecuta primero?", en: "In rawName.trim().toLowerCase(), which method runs first?" },
+    options: [
+      { es: "toLowerCase()", en: "toLowerCase()" },
+      { es: "trim()", en: "trim()" },
+      { es: "Los dos a la vez", en: "Both at once" },
+    ],
+    answer: 1,
+    explain: { es: "El encadenado se lee de izquierda a derecha, en el mismo orden en que ocurre: primero trim(), y a su resultado se le pide toLowerCase().", en: "Chaining reads left to right, in the same order it happens: first trim(), and toLowerCase() is asked of its result." },
+  },
   title: { es: "Date, Time y Datetime", en: "Date, Time and Datetime" },
   summary: {
     es: "Tres tipos para el tiempo, y una zona horaria que explica el 90 % de los «pero si en el informe salía otro día».",
@@ -580,11 +591,11 @@ Datetime reminderSentAt = Datetime.now();`,
         es: "¿Cuál de estas cinco variables cambiaría de valor según quién ejecute el código? Esa es la que lleva zona horaria.",
         en: "Which of these five variables would change value depending on who runs the code? That is the one carrying a time zone.",
       },
-      {
-        es: "Tarea 5: hasta aquí has trabajado con variables sueltas, como quien apunta en un papel. Mañana todos estos datos entran donde de verdad viven: dentro de un registro.",
-        en: "Task 5: so far you have worked with loose variables, like jotting on a sheet of paper. Tomorrow all this data goes where it really lives: inside a record.",
-      },
     ],
+    outro: {
+      es: "Ya eliges entre Date, Time y Datetime, y haces cuentas con fechas sin escribirlas a mano. En la tarea 5, todo lo que llevabas en variables sueltas entra donde de verdad vive: dentro de un registro.",
+      en: "You can now choose between Date, Time and Datetime, and do date arithmetic without typing dates by hand. In task 5, everything you kept in loose variables goes where it really lives: inside a record.",
+    },
     voice: "otter",
   },
 };
