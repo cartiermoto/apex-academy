@@ -193,9 +193,10 @@ Boolean missing = String.isBlank(region);   // the opposite`,
       variant: "admin",
       title: { es: "Ya escribiste esto en una fórmula", en: "You already wrote this in a formula" },
       text: {
-        es: "ISBLANK(Region__c) y BLANKVALUE(Region__c, 'Sin región') son exactamente la misma idea: comprobar el hueco antes de usarlo y decidir qué poner si está vacío. Apex te obliga a hacerlo explícito, pero la lógica es la que ya aplicabas.",
-        en: "ISBLANK(Region__c) and BLANKVALUE(Region__c, 'No region') are exactly the same idea: check the gap before using it and decide what goes there if it is empty. Apex forces you to be explicit, but the logic is the one you already applied.",
+        es: "Yo ya escribía esto en fórmulas: ISBLANK(Region__c) y BLANKVALUE(Region__c, 'Sin región') son exactamente la misma idea: comprobar el hueco antes de usarlo y decidir qué poner si está vacío. Apex te obliga a hacerlo explícito, pero la lógica es la que ya aplicabas.",
+        en: "I was already writing this in formulas: ISBLANK(Region__c) and BLANKVALUE(Region__c, 'No region') are exactly the same idea: check the gap before using it and decide what to show if it is empty. Apex makes you spell it out, but the logic is the one you already applied.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -443,16 +444,16 @@ incompleteLead.Company = '   ';
     },
     hints: [
       {
-        es: "Mira cada línea y pregúntate: si ese campo fuera null, ¿esta línea sobreviviría? Hay una que llama a un método directamente sobre un campo vacío.",
-        en: "Read each line and ask: if that field were null, would this line survive? One of them calls a method straight on an empty field.",
+        es: "Hazle a cada línea la pregunta que yo me hago con un campo que no es obligatorio: si ese campo viniera vacío, ¿esta línea sobreviviría? Hay una que llama a un método directamente sobre un campo vacío.",
+        en: "Ask each line the question I ask about a field that is not required: if that field came in empty, would this line survive? There is one that calls a method straight on an empty field.",
       },
       {
-        es: "Para texto, String.isBlank() e isNotBlank() aceptan null sin quejarse. Para un número no existe isBlank: la comprobación es comparar con null usando == o !=. Y para leer sin riesgo está ?.",
-        en: "For text, String.isBlank() and isNotBlank() accept null without complaining. For a number there is no isBlank: the check is comparing against null with == or !=. And to read without risk there is ?.",
+        es: "Lo que a mí me ordenó la cabeza: para texto, String.isBlank() e isNotBlank() aceptan null sin quejarse, como ISBLANK() en una fórmula. Para un número no existe isBlank: se compara con null usando == o !=. Y para leer sin riesgo está ?.",
+        en: "What put my head in order: for text, String.isBlank() and isNotBlank() accept null without complaining, like ISBLANK() in a formula. For a number there is no isBlank: you compare with null using == or !=. And for reading safely there is ?.",
       },
       {
-        es: "Pseudocódigo: Boolean regionMissing = String.isBlank(incompleteLead.Region__c); y String safeRegionUpper = incompleteLead.Region__c?.toUpperCase();",
-        en: "Pseudocode: Boolean regionMissing = String.isBlank(incompleteLead.Region__c); and String safeRegionUpper = incompleteLead.Region__c?.toUpperCase();",
+        es: "Te dejo dos líneas casi hechas: Boolean regionMissing = String.isBlank(incompleteLead.Region__c); y String safeRegionUpper = incompleteLead.Region__c?.toUpperCase();",
+        en: "Here are two lines nearly done: Boolean regionMissing = String.isBlank(incompleteLead.Region__c); and String safeRegionUpper = incompleteLead.Region__c?.toUpperCase();",
       },
     ],
     solution: {
@@ -480,6 +481,10 @@ Boolean employeesMissing = incompleteLead.NumberOfEmployees == null;`,
         onFail: {
           es: "Comparar solo con null dejaría pasar la cadena vacía y la de espacios, que es exactamente lo que manda un formulario web. String.isBlank() cubre los tres casos de una vez.",
           en: "Comparing against null alone would let the empty string and the whitespace string through — exactly what a web form sends. String.isBlank() covers all three at once.",
+        },
+        otter: {
+          es: "regionMissing es tu ISBLANK(Region__c). Comparar solo con null dejaría pasar la cadena vacía y la de espacios, que es exactamente lo que manda un formulario web. String.isBlank() cubre los tres casos de una vez.",
+          en: "regionMissing is your ISBLANK(Region__c). Comparing only with null would let through the empty string and the string of spaces, which is exactly what a web form sends. String.isBlank() covers all three cases at once.",
         },
         onPass: {
           es: "isBlank() en vez de == null: has cubierto el caso que de verdad llega en producción, no solo el de manual.",
@@ -511,6 +516,10 @@ Boolean employeesMissing = incompleteLead.NumberOfEmployees == null;`,
           es: "La empresa de este Lead es '   ': existe, pero no sirve para nada. isNotBlank() responde a «¿puedo usarlo?», que es la pregunta real.",
           en: "This Lead's company is '   ': it exists, but it is useless. isNotBlank() answers “can I use it?”, which is the real question.",
         },
+        otter: {
+          es: "companyUsable: la empresa de este Lead es '   '. Es como un campo que parece relleno pero solo tiene espacios: existe, pero no sirve para nada. isNotBlank() responde a «¿puedo usarlo?», que es la pregunta real.",
+          en: "companyUsable: this Lead's company is '   '. It is like a field that looks filled in but only holds spaces: it exists, but it is no use. isNotBlank() answers «can I use it?», which is the real question.",
+        },
       },
       {
         id: "l06-c3",
@@ -528,6 +537,10 @@ Boolean employeesMissing = incompleteLead.NumberOfEmployees == null;`,
         onFail: {
           es: "Con el punto normal, toUpperCase() sobre un campo vacío lanza NullPointerException y para la transacción. Con ?. la expresión devuelve null y el código sigue.",
           en: "With the plain dot, toUpperCase() on an empty field throws a NullPointerException and halts the transaction. With ?. the expression returns null and the code carries on.",
+        },
+        otter: {
+          es: "safeRegionUpper: con el punto normal, toUpperCase() sobre un campo vacío lanza NullPointerException y se para todo, como el error rojo que impide guardar. Con ?. la expresión devuelve null y el código sigue.",
+          en: "safeRegionUpper: with the plain dot, toUpperCase() on an empty field throws NullPointerException and everything stops, like the red error that blocks a save. With ?. the expression returns null and the code carries on.",
         },
       },
       {
@@ -550,6 +563,10 @@ Boolean employeesMissing = incompleteLead.NumberOfEmployees == null;`,
           es: "isBlank() solo existe para texto. Para un número, la comprobación es comparar con null: NumberOfEmployees == null.",
           en: "isBlank() only exists for text. For a number, the check is a comparison against null: NumberOfEmployees == null.",
         },
+        otter: {
+          es: "employeesMissing: en una fórmula, ISBLANK() vale también para números, pero en Apex isBlank() solo existe para texto. Para un número se compara con null: NumberOfEmployees == null.",
+          en: "employeesMissing: in a formula, ISBLANK() also works for numbers, but in Apex isBlank() only exists for text. For a number you compare with null: NumberOfEmployees == null.",
+        },
       },
       {
         id: "l06-c5",
@@ -566,6 +583,10 @@ Boolean employeesMissing = incompleteLead.NumberOfEmployees == null;`,
           es: "Queda una llamada directa sobre un campo que puede venir vacío. O la envuelves en una comprobación, o usas ?. — pero tal cual, un solo Lead sin región tira la carga entera.",
           en: "There is still a direct call on a field that can arrive empty. Either guard it or use ?. — as written, one region-less Lead brings the whole load down.",
         },
+        otter: {
+          es: "Queda una línea que llama a un método directamente sobre un campo que puede venir vacío. Es el error rojo al guardar, esperando su momento: o la envuelves en una comprobación, o usas ?. — tal cual, un solo Lead sin región tira la carga entera.",
+          en: "There is still a line calling a method straight on a field that can come in empty. It is the red save error, waiting for its moment: either wrap it in a check or use ?. — as it is, a single Lead without a region brings the whole load down.",
+        },
       },
     ],
     rubric: [
@@ -574,5 +595,6 @@ Boolean employeesMissing = incompleteLead.NumberOfEmployees == null;`,
         en: "You have the diagnosis, but the data is unchanged. What would you substitute when a value is missing? That decision is sub-lesson 7.",
       },
     ],
+    voice: "otter",
   },
 };

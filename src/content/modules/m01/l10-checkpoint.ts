@@ -684,16 +684,16 @@ quotaByRegion.put('AMER', 220000);
     },
     hints: [
       {
-        es: "Recorre tu código línea por línea preguntando «¿y si este dato no existe?». Hay dos datos ausentes en este ejercicio y tres sitios donde eso se nota: la multiplicación, la clave del mapa y la concatenación final.",
-        en: "Walk your code line by line asking “what if this value is missing?”. Two values are absent in this exercise and there are three places where it shows: the multiplication, the map key and the final concatenation.",
+        es: "Yo recorrería el código línea por línea preguntando lo mismo que antes de una carga con Data Loader: «¿y si este dato viene vacío?». Hay dos datos ausentes y tres sitios donde eso se nota: la multiplicación, la clave del mapa y la concatenación final.",
+        en: "I would walk through the code line by line asking what I ask before a Data Loader load: «what if this value comes in empty?». There are two missing values and three places where it shows: the multiplication, the map key and the final concatenation.",
       },
       {
-        es: "Para un número ausente la comprobación es == null; para un texto, String.isBlank(); y para una clave de mapa, containsKey(). Las tres decisiones se resuelven con el operador condicional, que devuelve un valor y se asigna directamente.",
-        en: "For a missing number the check is == null; for text, String.isBlank(); and for a map key, containsKey(). All three decisions are settled with the conditional operator, which returns a value you assign directly.",
+        es: "Lo que a mí me sirvió: para un número ausente la comprobación es == null; para un texto, String.isBlank(); y para una clave de mapa, containsKey(). Las tres se resuelven con el operador condicional, tu IF() de fórmulas, que devuelve un valor y se asigna directamente.",
+        en: "What worked for me: for a missing number the check is == null; for text, String.isBlank(); and for a map key, containsKey(). All three are solved with the conditional operator, your formula IF(), which returns a value you assign directly.",
       },
       {
-        es: "Pseudocódigo: Decimal safeAmount = opp.Amount == null ? 0 : opp.Amount; y Decimal regionQuota = quotaByRegion.containsKey(displayRegion) ? quotaByRegion.get(displayRegion) : 0;",
-        en: "Pseudocode: Decimal safeAmount = opp.Amount == null ? 0 : opp.Amount; and Decimal regionQuota = quotaByRegion.containsKey(displayRegion) ? quotaByRegion.get(displayRegion) : 0;",
+        es: "Te dejo dos líneas casi hechas: Decimal safeAmount = opp.Amount == null ? 0 : opp.Amount; y Decimal regionQuota = quotaByRegion.containsKey(displayRegion) ? quotaByRegion.get(displayRegion) : 0;",
+        en: "Here are two lines nearly done: Decimal safeAmount = opp.Amount == null ? 0 : opp.Amount; and Decimal regionQuota = quotaByRegion.containsKey(displayRegion) ? quotaByRegion.get(displayRegion) : 0;",
       },
     ],
     solution: {
@@ -751,6 +751,10 @@ summaryLines.add(String.valueOf(amountWithTax.setScale(2)));`,
           es: "El nombre sale del registro y se limpia con trim(). Volver a escribirlo a mano rompe el ejercicio en cuanto cambie la oportunidad.",
           en: "The name comes off the record and is cleaned with trim(). Retyping it by hand breaks the moment the opportunity changes.",
         },
+        otter: {
+          es: "cleanName sale del registro, como un campo de combinación, y se limpia con trim(). Si lo vuelves a escribir a mano, la ficha dejará de servir en cuanto cambie la oportunidad.",
+          en: "cleanName comes from the record, like a merge field, and is cleaned with trim(). Type it again by hand and the sheet stops working the moment the opportunity changes.",
+        },
       },
       {
         id: "cp-c2",
@@ -769,6 +773,10 @@ summaryLines.add(String.valueOf(amountWithTax.setScale(2)));`,
         onFail: {
           es: "Este es el caso que obliga el ejercicio: Amount está vacío. Sin sustituirlo por 0, la multiplicación siguiente lanza NullPointerException y la ficha no se genera.",
           en: "This is the case the exercise forces: Amount is empty. Without replacing it with 0, the next multiplication throws a NullPointerException and no summary is produced.",
+        },
+        otter: {
+          es: "safeAmount: el importe de esta oportunidad viene vacío. Es tu BLANKVALUE(Amount, 0): sin ese 0, la multiplicación siguiente lanza NullPointerException y la ficha no se genera.",
+          en: "safeAmount: this opportunity's amount is empty. It is your BLANKVALUE(Amount, 0): without that 0, the next multiplication throws NullPointerException and the sheet is never produced.",
         },
         onPass: {
           es: "Normalizar el dato ausente justo después de leerlo, y no diez líneas más abajo, es lo que mantiene limpio el resto del método.",
@@ -793,6 +801,10 @@ summaryLines.add(String.valueOf(amountWithTax.setScale(2)));`,
           es: "Tiene que multiplicar safeAmount, no opp.Amount — si usas el campo directamente vuelves a tener el null — y usar la constante TAX_RATE en vez de escribir 1.21.",
           en: "It must multiply safeAmount, not opp.Amount — using the field directly brings the null straight back — and use the TAX_RATE constant rather than typing 1.21.",
         },
+        otter: {
+          es: "amountWithTax es un campo fórmula sobre safeAmount, no sobre opp.Amount —ahí vuelve el null—, y usa la constante TAX_RATE en vez de escribir 1.21: si el impuesto cambia, se cambia en un solo sitio.",
+          en: "amountWithTax is a formula over safeAmount, not over opp.Amount — that is where the null comes back — and it uses the TAX_RATE constant instead of typing 1.21: if the tax changes, it changes in one place.",
+        },
       },
       {
         id: "cp-c4",
@@ -815,6 +827,10 @@ summaryLines.add(String.valueOf(amountWithTax.setScale(2)));`,
           es: "Comparar solo con null dejaría pasar la cadena de espacios, que es lo que manda un formulario. String.isBlank() cubre los tres casos, y el operador condicional elige el texto por defecto.",
           en: "Comparing against null alone lets the whitespace string through, which is what a form sends. String.isBlank() covers all three, and the conditional operator picks the default text.",
         },
+        otter: {
+          es: "displayRegion: comparar solo con null dejaría pasar la cadena de espacios que manda un formulario. Es tu IF(ISBLANK(Region__c), 'Sin región', Region__c): String.isBlank() y el operador condicional.",
+          en: "displayRegion: comparing only with null would let through the string of spaces a form sends. It is your IF(ISBLANK(Region__c), 'No region', Region__c): String.isBlank() and the conditional operator.",
+        },
       },
       {
         id: "cp-c5",
@@ -832,6 +848,10 @@ summaryLines.add(String.valueOf(amountWithTax.setScale(2)));`,
         onFail: {
           es: "Un recuento de días es un Integer, y se calcula desde hoy: Date.today().daysBetween(opp.CloseDate).",
           en: "A count of days is an Integer, computed from today: Date.today().daysBetween(opp.CloseDate).",
+        },
+        otter: {
+          es: "daysToClose es tu CloseDate - TODAY() de fórmulas: un número, así que Integer, y contado desde hoy: Date.today().daysBetween(opp.CloseDate).",
+          en: "daysToClose is your formula CloseDate - TODAY(): a number, so an Integer, counted from today: Date.today().daysBetween(opp.CloseDate).",
         },
       },
       {
@@ -851,6 +871,10 @@ summaryLines.add(String.valueOf(amountWithTax.setScale(2)));`,
         onFail: {
           es: "'Sin región' no está en el mapa, así que get() devolvería null en silencio. containsKey() lo detecta antes y el operador condicional pone el 0.",
           en: "'No region' is not in the map, so get() would quietly return null. containsKey() catches it first and the conditional operator supplies the 0.",
+        },
+        otter: {
+          es: "regionQuota: 'Sin región' no está en el mapa, y get() devolvería null en silencio, como un VLOOKUP sin coincidencia. containsKey() lo detecta antes y el operador condicional pone el 0.",
+          en: "regionQuota: 'No region' is not in the map, and get() would quietly return null, like a VLOOKUP with no match. containsKey() catches it first and the conditional operator puts in the 0.",
         },
       },
       {
@@ -875,6 +899,10 @@ summaryLines.add(String.valueOf(amountWithTax.setScale(2)));`,
           es: "La lista hay que crearla con new antes de añadirle nada, y la última línea necesita dos conversiones: setScale(2) para los céntimos y String.valueOf() para poder concatenarla.",
           en: "The list must be created with new before anything is added, and the last line needs two conversions: setScale(2) for the cents and String.valueOf() so it can be concatenated.",
         },
+        otter: {
+          es: "summaryLines: la lista se crea con new antes de añadirle nada, y la última línea necesita dos conversiones, como TEXT(ROUND(…, 2)) en una fórmula: setScale(2) para los céntimos y String.valueOf() para poder concatenarla.",
+          en: "summaryLines: the list is created with new before anything is added, and the last line needs two conversions, like TEXT(ROUND(…, 2)) in a formula: setScale(2) for the cents and String.valueOf() so it can be concatenated.",
+        },
       },
       {
         id: "cp-c8",
@@ -893,6 +921,10 @@ summaryLines.add(String.valueOf(amountWithTax.setScale(2)));`,
         onFail: {
           es: "Este ejercicio se resuelve entero con el operador condicional. Si necesitaste un if, no es que esté mal: es que el Módulo 2 te va a gustar.",
           en: "This exercise is solved entirely with the conditional operator. If you reached for an if, that is not wrong: it means you are going to enjoy Module 2.",
+        },
+        otter: {
+          es: "Aquí no hacen falta if ni bucles: todo se resuelve con el operador condicional, igual que resolvías campos fórmula sin montar un Flow. Si el cuerpo te pidió un if, no está mal: es que el Módulo 2 te va a gustar.",
+          en: "No ifs or loops needed here: everything is solved with the conditional operator, just as you solved formula fields without building a Flow. If you felt the urge for an if, that is not wrong: it means you are going to like Module 2.",
         },
       },
       {
@@ -927,5 +959,6 @@ summaryLines.add(String.valueOf(amountWithTax.setScale(2)));`,
         en: "Read your variable names out loud. Can the whole summary be understood without reading the code underneath?",
       },
     ],
+    voice: "otter",
   },
 };

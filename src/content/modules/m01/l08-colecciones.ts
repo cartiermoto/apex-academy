@@ -186,9 +186,10 @@ Boolean hasRetail = industries.contains('Retail');  // true`,
       variant: "admin",
       title: { es: "El Set que ya usabas sin saberlo", en: "The Set you already used without knowing" },
       text: {
-        es: "Cuando agrupas un informe por Industry, la columna de grupos es un Set: cada valor aparece una vez aunque haya 4.000 cuentas detrás. Y cuando en Apex quieras recoger los Ids de cuenta de [[lote|200 Leads]] para [[soql|consultarlos]] de una vez, el Set es lo que evita pedir el mismo Id veinte veces.",
-        en: "When you group a report by Industry, the group column is a Set: each value shows once even with 4,000 accounts behind it. And when in Apex you gather account Ids from [[lote|200 Leads]] to [[soql|query them]] in one go, the Set is what stops you asking for the same Id twenty times.",
+        es: "Yo usaba Sets sin saberlo: cuando agrupas un informe por Industry, la columna de grupos es un Set, porque cada valor aparece una vez aunque haya 4.000 cuentas detrás. Y cuando en Apex quieras recoger los Ids de cuenta de [[lote|200 Leads]] para [[soql|consultarlos]] de una vez, el Set es lo que evita pedir el mismo Id veinte veces.",
+        en: "I was using Sets without knowing it: when you group a report by Industry, the group column is a Set, because each value appears once even with 4,000 accounts behind it. And when in Apex you want to collect the account Ids of [[lote|200 Leads]] to [[soql|query them]] in one go, the Set is what stops you asking for the same Id twenty times.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -477,16 +478,16 @@ regions.add('EMEA');`,
     },
     hints: [
       {
-        es: "Revisa la última variable: ¿qué devuelve exactamente un get() con una clave que no está en el mapa, y qué pasaría si alguien sumara ese valor?",
-        en: "Look at the last variable: what exactly does a get() return for a key that is not in the map, and what would happen if someone added that value up?",
+        es: "Yo miraría la última variable: ¿qué devuelve exactamente un get() con una clave que no está en el mapa? Es como un VLOOKUP que no encuentra la fila: ¿qué pasaría si alguien sumara ese valor?",
+        en: "I would look at the last variable: what exactly does get() return for a key that is not in the map? It is like a VLOOKUP that cannot find the row: what would happen if someone added that value up?",
       },
       {
-        es: "containsKey() responde si la clave existe antes de pedir el valor, y el operador condicional de la sub-lección anterior te deja elegir el valor por defecto en la misma línea.",
-        en: "containsKey() tells you whether the key exists before you ask for the value, and the conditional operator from the previous sub-lesson lets you pick the default on the same line.",
+        es: "Lo que me ayudó: containsKey() responde si la clave existe antes de pedir el valor, y el operador condicional de la sub-lección anterior te deja elegir el valor por defecto en la misma línea, como BLANKVALUE().",
+        en: "What helped me: containsKey() tells you whether the key exists before you ask for the value, and the conditional operator from the previous sub-lesson lets you choose the default on the same line, like BLANKVALUE().",
       },
       {
-        es: "Pseudocódigo: Decimal apacQuota = quotaByRegion.containsKey('APAC') ? quotaByRegion.get('APAC') : 0;",
-        en: "Pseudocode: Decimal apacQuota = quotaByRegion.containsKey('APAC') ? quotaByRegion.get('APAC') : 0;",
+        es: "Te la dejo casi hecha: Decimal apacQuota = quotaByRegion.containsKey('APAC') ? quotaByRegion.get('APAC') : 0;",
+        en: "Here it is nearly done: Decimal apacQuota = quotaByRegion.containsKey('APAC') ? quotaByRegion.get('APAC') : 0;",
       },
     ],
     solution: {
@@ -552,6 +553,10 @@ Decimal apacQuota = quotaByRegion.containsKey('APAC')
           es: "«En orden y admitiendo repeticiones» solo lo cumple una List — y hay que crearla con new, no solo declararla.",
           en: "“In order and allowing repeats” is only a List — and it must be created with new, not merely declared.",
         },
+        otter: {
+          es: "stageHistory es como el historial de etapas de una oportunidad: en orden y admitiendo repeticiones, porque puede volver a una etapa anterior. Eso solo lo cumple una List, y hay que crearla con new, no solo declararla.",
+          en: "stageHistory is like an opportunity's stage history: in order and allowing repeats, because it can go back to an earlier stage. Only a List does that, and it has to be created with new, not just declared.",
+        },
       },
       {
         id: "l08-c2",
@@ -572,6 +577,10 @@ Decimal apacQuota = quotaByRegion.containsKey('APAC')
         onFail: {
           es: "«Distintas, sin repetidos» es un Set. Con una List tendrías 'EMEA' dos veces y el recuento saldría mal.",
           en: "“Distinct, no duplicates” is a Set. With a List you would hold 'EMEA' twice and the count would come out wrong.",
+        },
+        otter: {
+          es: "activeRegions es como agrupar un informe por región: cada valor una sola vez. Eso es un Set. Con una List tendrías 'EMEA' dos veces y el recuento saldría mal.",
+          en: "activeRegions is like grouping a report by region: each value only once. That is a Set. With a List you would have 'EMEA' twice and the count would be wrong.",
         },
         onPass: {
           es: "Elegir el Set hace que la deduplicación sea gratis: no hay que escribir ni comprobar nada.",
@@ -598,6 +607,10 @@ Decimal apacQuota = quotaByRegion.containsKey('APAC')
           es: "«Consultarla por nombre» es un Map con clave String. Y las cuotas son dinero: el valor va en Decimal, no en Integer.",
           en: "“Looked up by name” is a Map keyed by String. And quotas are money: the value goes in a Decimal, not an Integer.",
         },
+        otter: {
+          es: "quotaByRegion es una tabla de consulta: das el nombre de la región y te devuelve su cuota, como un VLOOKUP. Eso es un Map con clave String. Y las cuotas son dinero, así que el valor va en Decimal.",
+          en: "quotaByRegion is a lookup table: you give the region name and it returns its quota, like a VLOOKUP. That is a Map with a String key. And quotas are money, so the value goes in Decimal.",
+        },
       },
       {
         id: "l08-c4",
@@ -618,6 +631,10 @@ Decimal apacQuota = quotaByRegion.containsKey('APAC')
         onFail: {
           es: "Escribir 3 y 2 a mano funciona con estos datos exactos y con ningunos otros. size() los cuenta siempre bien.",
           en: "Typing 3 and 2 by hand works with these exact values and no others. size() always counts correctly.",
+        },
+        otter: {
+          es: "Los recuentos, como el Record Count de un informe, se calculan: size(). Escribir 3 y 2 a mano funciona con estos datos exactos y con ningunos otros.",
+          en: "Counts, like a report's Record Count, are calculated: size(). Typing 3 and 2 by hand works with this exact data and no other.",
         },
       },
       {
@@ -644,6 +661,10 @@ Decimal apacQuota = quotaByRegion.containsKey('APAC')
           es: "get('APAC') devuelve null sin avisar. Comprueba con containsKey() y decide el valor por defecto con el operador condicional, o la primera suma que toque esa variable reventará.",
           en: "get('APAC') returns null without warning. Check with containsKey() and pick the default with the conditional operator, or the first sum touching that variable will blow up.",
         },
+        otter: {
+          es: "apacQuota: get('APAC') devuelve null sin avisar, como un VLOOKUP que no encuentra la fila. Compruébalo con containsKey() y pon el valor por defecto con el operador condicional, o la primera suma con esa variable reventará.",
+          en: "apacQuota: get('APAC') returns null without warning, like a VLOOKUP that finds no row. Check it with containsKey() and set the default with the conditional operator, or the first sum using that variable will blow up.",
+        },
         onPass: {
           es: "Comprobar la clave antes de usar el valor es el reflejo que evita la mitad de los NullPointerException de una org.",
           en: "Checking the key before using the value is the reflex that prevents half of an org's NullPointerExceptions.",
@@ -656,5 +677,6 @@ Decimal apacQuota = quotaByRegion.containsKey('APAC')
         en: "With 200 opportunities, which of your three collections would still answer “what is EMEA's quota?” just as fast?",
       },
     ],
+    voice: "otter",
   },
 };
