@@ -6,6 +6,17 @@ export const l04While: Lesson = {
   n: 4,
   kind: "lesson",
   minutes: 18,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 3", en: "Remember? · Review of lesson 3" },
+    prompt: { es: "¿Cuál de estas líneas es una expresión (calcula un valor) y no una sentencia?", en: "Which of these lines is an expression (it calculates a value) rather than a statement?" },
+    options: [
+      { es: "update opp;", en: "update opp;" },
+      { es: "opp.Amount >= 50000", en: "opp.Amount >= 50000" },
+      { es: "System.debug(opp);", en: "System.debug(opp);" },
+    ],
+    answer: 1,
+    explain: { es: "La comparación calcula un Boolean, como un campo fórmula. update y System.debug actúan, como elementos de Flow.", en: "The comparison calculates a Boolean, like a formula field. update and System.debug act, like Flow elements." },
+  },
   title: { es: "While Loop", en: "While Loop" },
   summary: {
     es: "Repetir mientras algo siga siendo cierto: el bucle para cuando no sabes de antemano cuántas vueltas harán falta.",
@@ -43,9 +54,10 @@ export const l04While: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "En Flow puedes conectar un elemento de vuelta a un Decision anterior: Decision → Assignment → otra vez el Decision, hasta que el Decision mande por la salida de «terminado». Ese circuito es un while. El Decision es la condición y lo que hay en el circuito es el cuerpo del bucle.",
-        en: "In Flow you can connect an element back to an earlier Decision: Decision → Assignment → back to the Decision, until the Decision sends you down the “done” outcome. That circuit is a while. The Decision is the condition and what sits in the circuit is the loop body.",
+        es: "En Flow yo conectaba un elemento de vuelta a un Decision anterior: Decision → Assignment → otra vez el Decision, hasta que el Decision mandaba por la salida de «terminado». Ese circuito es un while. El Decision es la condición y lo que hay en el circuito es el cuerpo del bucle.",
+        en: "In Flow I used to connect an element back to an earlier Decision: Decision → Assignment → the Decision again, until the Decision sent it down the «done» outcome. That circuit is a while. The Decision is the condition and whatever sits in the circuit is the body of the loop.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -417,16 +429,16 @@ Decimal target = 80000;
     },
     hints: [
       {
-        es: "Tres cosas tienen que estar en su sitio: un contador que empiece en 0, una condición que mire pipeline y target, y un cuerpo que cambie pipeline y el contador.",
-        en: "Three things need to be in place: a counter starting at 0, a condition that looks at pipeline and target, and a body that changes both pipeline and the counter.",
+        es: "Yo revisaría las tres piezas del circuito, como en aquel Flow que volvía al Decision: un contador que empiece en 0, una condición que mire pipeline y target, y un cuerpo que cambie pipeline y el contador.",
+        en: "I would check the three pieces of the circuit, as in that Flow going back to the Decision: a counter starting at 0, a condition looking at pipeline and target, and a body that changes pipeline and the counter.",
       },
       {
-        es: "Crecer un 10 % es multiplicar por 1.10. El tope se añade a la condición con &&: el bucle sigue solo si no ha llegado al objetivo y además no ha llegado a 120.",
-        en: "Growing by 10% means multiplying by 1.10. The cap is added to the condition with &&: the loop continues only if it has not reached the target and has not reached 120 either.",
+        es: "Lo que me ayudó: crecer un 10 % es multiplicar por 1.10. Y el tope se añade a la condición con &&: el bucle sigue solo si no ha llegado al objetivo y además no ha llegado a 120. Es la salida de emergencia de tu circuito.",
+        en: "What helped me: growing 10% is multiplying by 1.10. And the cap is added to the condition with &&: the loop carries on only if it has not reached the target and has not reached 120 either. It is your circuit's emergency exit.",
       },
       {
-        es: "Pseudocódigo: Integer months = 0; mientras (pipeline < target && months < 120) { pipeline = pipeline * 1.10; months++; }",
-        en: "Pseudocode: Integer months = 0; while (pipeline < target && months < 120) { pipeline = pipeline * 1.10; months++; }",
+        es: "Te dejo el esquema: Integer months = 0; mientras (pipeline < target && months < 120) { pipeline = pipeline * 1.10; months++; }",
+        en: "Here is the outline: Integer months = 0; while (pipeline < target && months < 120) { pipeline = pipeline * 1.10; months++; }",
       },
     ],
     solution: {
@@ -458,6 +470,10 @@ System.debug(months);   // 5`,
           es: "Los meses se cuentan desde cero: Integer months = 0; antes del bucle, fuera de él.",
           en: "Months are counted from zero: Integer months = 0; before the loop, outside it.",
         },
+        otter: {
+          es: "months es un contador, y los contadores empiezan en 0 antes del circuito, fuera de él: Integer months = 0;",
+          en: "months is a counter, and counters start at 0 before the circuit, outside it: Integer months = 0;",
+        },
       },
       {
         id: "m02-l04-c2",
@@ -469,6 +485,10 @@ System.debug(months);   // 5`,
         onFail: {
           es: "La condición de negocio es «todavía no hemos llegado»: pipeline < target.",
           en: "The business condition is “we are not there yet”: pipeline < target.",
+        },
+        otter: {
+          es: "La condición de tu Decision de vuelta es «todavía no hemos llegado»: while (pipeline < target).",
+          en: "The condition of your looping Decision is «we are not there yet»: while (pipeline < target).",
         },
       },
       {
@@ -484,6 +504,10 @@ System.debug(months);   // 5`,
         onFail: {
           es: "Si el crecimiento fuese 0, pipeline nunca llegaría. Añade && months < 120 a la condición para que el bucle tenga siempre una salida.",
           en: "If growth were 0, pipeline would never get there. Add && months < 120 to the condition so the loop always has a way out.",
+        },
+        otter: {
+          es: "Si el crecimiento fuese 0, pipeline nunca llegaría y el circuito no terminaría, como un Flow que vuelve al Decision una y otra vez hasta chocar con un límite. Añade && months < 120 a la condición para que siempre tenga salida.",
+          en: "If growth were 0, pipeline would never get there and the circuit would never end, like a Flow looping back to the Decision again and again until it hits a limit. Add && months < 120 to the condition so there is always a way out.",
         },
         onPass: {
           es: "Un tope razonable convierte un posible límite de CPU en un resultado que puedes revisar.",
@@ -509,6 +533,10 @@ System.debug(months);   // 5`,
           es: "Si pipeline no cambia dentro del bucle, la condición no cambia nunca. Crecer un 10 % es pipeline = pipeline * 1.10;",
           en: "If pipeline does not change inside the loop, the condition never changes. Growing 10% is pipeline = pipeline * 1.10;",
         },
+        otter: {
+          es: "Si pipeline no cambia dentro del bucle, la condición no cambia nunca: es el Assignment que falta en tu circuito. Crecer un 10 % es pipeline = pipeline * 1.10;",
+          en: "If pipeline does not change inside the loop, the condition never changes: it is the Assignment missing from your circuit. Growing 10% is pipeline = pipeline * 1.10;",
+        },
       },
       {
         id: "m02-l04-c5",
@@ -526,6 +554,10 @@ System.debug(months);   // 5`,
           es: "Sin sumar 1 a months, el tope nunca llega y el resultado siempre es 0.",
           en: "Without adding 1 to months, the cap never arrives and the result is always 0.",
         },
+        otter: {
+          es: "Sin sumar 1 a months, es como un Assignment que nunca actualiza el contador: el tope no llega y el resultado siempre es 0. months++;",
+          en: "Without adding 1 to months, it is like an Assignment that never updates the counter: the cap never arrives and the result is always 0. months++;",
+        },
       },
     ],
     rubric: [
@@ -533,10 +565,11 @@ System.debug(months);   // 5`,
         es: "Cambia target a 5000000 y el crecimiento a 1.0. ¿Termina? ¿Qué valor da months?",
         en: "Change target to 5000000 and the growth to 1.0. Does it finish? What value does months give?",
       },
-      {
-        es: "Tarea 5: se acabó mirar una oportunidad; el lunes llega la lista entera del pipeline y hay que recorrerla.",
-        en: "Task 5: no more looking at one opportunity; on Monday the whole pipeline list arrives and it has to be walked.",
-      },
     ],
+    outro: {
+      es: "Ya montas un bucle while con su condición, su cuerpo y su salida de emergencia. En la tarea 5 se acabó mirar una sola oportunidad: llega la lista entera del pipeline y hay que recorrerla.",
+      en: "You can now build a while loop with its condition, its body and its emergency exit. In task 5 you stop looking at a single opportunity: the whole pipeline list arrives and you have to walk through it.",
+    },
+    voice: "otter",
   },
 };

@@ -6,6 +6,17 @@ export const l01IfElse: Lesson = {
   n: 1,
   kind: "lesson",
   minutes: 20,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso del Módulo 1", en: "Remember? · Review of Module 1" },
+    prompt: { es: "Con String tier = amount >= 100000 ? 'Gold' : 'Standard';, ¿qué vale tier si amount es 50000?", en: "With String tier = amount >= 100000 ? 'Gold' : 'Standard';, what is tier if amount is 50000?" },
+    options: [
+      { es: "'Gold'", en: "'Gold'" },
+      { es: "'Standard'", en: "'Standard'" },
+      { es: "null", en: "null" },
+    ],
+    answer: 1,
+    explain: { es: "50000 no llega a 100000, así que gana el valor de después de los dos puntos. Hoy verás la versión larga de esa misma decisión: if / else.", en: "50000 does not reach 100000, so the value after the colon wins. Today you will see the long version of that same decision: if / else." },
+  },
   title: { es: "If / Else / Else If", en: "If / Else / Else If" },
   summary: {
     es: "El nodo Decision de Flow, escrito en código: una pregunta de sí o no, y qué hacer en cada caso.",
@@ -43,9 +54,10 @@ export const l01IfElse: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "En Flow arrastras un Decision, creas una salida «Gran cuenta» con la condición Amount ≥ 100000 y dejas la salida por defecto para todo lo demás. En Apex, la salida es if, la condición va entre paréntesis y lo que cuelga de la salida va entre llaves. La salida por defecto se llama else.",
-        en: "In Flow you drag in a Decision, create a “Big account” outcome with the condition Amount ≥ 100000, and leave the default outcome for everything else. In Apex the outcome is if, the condition goes in brackets, and what hangs off the outcome goes in braces. The default outcome is called else.",
+        es: "Cuando yo hacía esto en Flow, arrastraba un Decision, creaba una salida «Gran cuenta» con la condición Amount ≥ 100000 y dejaba la salida por defecto para todo lo demás. En Apex es lo mismo con otra ropa: la salida es if, la condición va entre paréntesis y lo que cuelga de la salida va entre llaves. La salida por defecto se llama else.",
+        en: "When I did this in Flow, I dragged in a Decision, created a «Big account» outcome with the condition Amount ≥ 100000 and left the default outcome for everything else. In Apex it is the same thing in different clothes: the outcome is if, the condition goes in brackets and whatever hangs off the outcome goes in braces. The default outcome is called else.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -266,9 +278,10 @@ if (opp.Amount != null && opp.Amount > 50000) {
       variant: "admin",
       title: { es: "Lo que pidieron, regla por regla", en: "What they asked for, rule by rule" },
       text: {
-        es: "«Queremos que el sistema decida solo: el nivel de servicio de cada cuenta según lo que factura; en cuántas horas se responde cada caso según su prioridad; quién aprueba cada renovación y si pasa por Legal; cuántos meses faltan para el objetivo; el resumen del pipeline del lunes; cuál es el primer caso urgente de la cola; qué leads de la feria son de clientes que ya tenemos; y la revisión trimestral con todo eso junto». Como Admin lo habrías intentado con reglas de validación, fórmulas y Flows repartidos por la org. Aquí va todo en código, y la primera regla es la de hoy.",
-        en: "“We want the system to decide on its own: each account's service tier from what it bills; how many hours each case gets for a response from its priority; who approves each renewal and whether it goes through Legal; how many months until the target; Monday's pipeline summary; which is the first urgent case in the queue; which trade-show leads come from customers we already have; and the quarterly review with all of that together.” As an Admin you would have tried it with validation rules, formulas and Flows scattered across the org. Here it all goes in code, and the first rule is today's.",
+        es: "Vuelvo de la reunión de Northwind y esto es lo que pidieron, regla por regla: «Queremos que el sistema decida solo: el nivel de servicio de cada cuenta según lo que factura; en cuántas horas se responde cada caso según su prioridad; quién aprueba cada renovación y si pasa por Legal; cuántos meses faltan para el objetivo; el resumen del pipeline del lunes; cuál es el primer caso urgente de la cola; qué leads de la feria son de clientes que ya tenemos; y la revisión trimestral con todo eso junto». Yo, como Admin, lo habría intentado con reglas de validación, fórmulas y Flows repartidos por la org. Aquí va todo en código, y la primera regla es la de hoy.",
+        en: "I have just come back from the Northwind meeting and this is what they asked for, rule by rule: “We want the system to decide on its own: each account's service tier from what it bills; how many hours each case gets for a response from its priority; who approves each renewal and whether it goes through Legal; how many months until the target; Monday's pipeline summary; which is the first urgent case in the queue; which trade-show leads come from customers we already have; and the quarterly review with all of that together.” As an Admin I would have tried it with validation rules, formulas and Flows scattered across the org. Here it all goes in code, and the first rule is today's.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -513,16 +526,16 @@ Decimal annualRevenue = 250000;
     },
     hints: [
       {
-        es: "Hay tres resultados posibles y un caso especial (el vacío). Revisa que cada resultado tenga su rama y que el caso vacío no llegue nunca a una comparación con >=.",
-        en: "There are three possible results and a special case (the empty one). Check that each result has its branch and that the empty case never reaches a >= comparison.",
+        es: "Yo lo veo como las salidas de un Decision: hay tres resultados posibles y un caso especial, el vacío. Revisa que cada resultado tenga su rama y que el vacío no llegue nunca a una comparación con >=.",
+        en: "I see it as the outcomes of a Decision: there are three possible results and one special case, the empty one. Check that each result has its branch and that the empty value never reaches a >= comparison.",
       },
       {
-        es: "En una cadena de else if gana la primera condición verdadera: 1.000.000 también es ≥ 100.000, así que el umbral alto tiene que ir antes. Para el null, compruébalo en la primera condición o conviértelo en 0 con ?? antes de comparar.",
-        en: "In an else if chain the first true condition wins: 1,000,000 is also ≥ 100,000, so the high threshold must come first. For null, check it in the first condition or turn it into 0 with ?? before comparing.",
+        es: "Donde yo tropecé: en una cadena de else if gana la primera condición verdadera, igual que en un Decision gana la primera salida que se cumple. 1.000.000 también es ≥ 100.000, así que el umbral alto va antes. Para el null, compruébalo en la primera condición o conviértelo en 0 con ?? antes de comparar.",
+        en: "Where I tripped: in an else if chain the first true condition wins, just as in a Decision the first outcome that is met wins. 1,000,000 is also ≥ 100,000, so the high threshold goes first. For the null, check it in the first condition or turn it into 0 with ?? before comparing.",
       },
       {
-        es: "Pseudocódigo: String tier; si revenue es null → 'Standard'; si no, si revenue ≥ 1000000 → 'Platinum'; si no, si revenue ≥ 100000 → 'Gold'; si no → 'Standard'.",
-        en: "Pseudocode: String tier; if revenue is null → 'Standard'; else if revenue ≥ 1000000 → 'Platinum'; else if revenue ≥ 100000 → 'Gold'; else → 'Standard'.",
+        es: "Te dejo el esquema: String tier; si revenue es null → 'Standard'; si no, si revenue ≥ 1000000 → 'Platinum'; si no, si revenue ≥ 100000 → 'Gold'; si no → 'Standard'.",
+        en: "Here is the outline: String tier; if revenue is null → 'Standard'; otherwise, if revenue ≥ 1000000 → 'Platinum'; otherwise, if revenue ≥ 100000 → 'Gold'; otherwise → 'Standard'.",
       },
     ],
     solution: {
@@ -562,6 +575,10 @@ System.debug(tier);`,
           es: "El nivel es un texto: declara String tier; antes de la cadena de if.",
           en: "The tier is text: declare String tier; before the if chain.",
         },
+        otter: {
+          es: "tier es donde guardas el resultado, como la variable de texto que crearías en Flow antes del Decision: String tier;, declarada antes de la cadena de if.",
+          en: "tier is where you store the result, like the text variable you would create in Flow before the Decision: String tier;, declared before the if chain.",
+        },
       },
       {
         id: "m02-l01-c2",
@@ -580,6 +597,10 @@ System.debug(tier);`,
         onFail: {
           es: "Tres niveles piden al menos un if, un else if y un else final para lo que no encaje en nada.",
           en: "Three tiers call for at least an if, an else if and a final else for whatever fits nowhere.",
+        },
+        otter: {
+          es: "Tres niveles son tres salidas de un Decision: un if, un else if y un else final, que es tu salida por defecto.",
+          en: "Three tiers are three outcomes of a Decision: an if, an else if and a final else, which is your default outcome.",
         },
       },
       {
@@ -600,6 +621,10 @@ System.debug(tier);`,
           es: "Cada rama debe asignar su nivel a tier, con el texto exacto entre comillas simples.",
           en: "Each branch must assign its tier to tier, with the exact text in single quotes.",
         },
+        otter: {
+          es: "Cada rama tiene que asignar su nivel a tier, igual que cada salida del Decision llevaría su Assignment: 'Platinum', 'Gold' y 'Standard', con el texto exacto entre comillas simples.",
+          en: "Each branch has to assign its tier to tier, just as each Decision outcome would carry its own Assignment: 'Platinum', 'Gold' and 'Standard', with the exact text in single quotes.",
+        },
       },
       {
         id: "m02-l01-c4",
@@ -614,6 +639,10 @@ System.debug(tier);`,
         onFail: {
           es: "Gana la primera condición verdadera: una cuenta de 2.000.000 también es ≥ 100.000, así que si esa comprobación va primero, nunca llegará a 'Platinum'.",
           en: "The first true condition wins: a 2,000,000 account is also ≥ 100,000, so if that check comes first it will never reach 'Platinum'.",
+        },
+        otter: {
+          es: "Como en un Decision, gana la primera salida que se cumple: una cuenta de 2.000.000 también es ≥ 100.000, así que si esa comprobación va primero, nunca llegará a 'Platinum'. Ordena de mayor a menor.",
+          en: "As in a Decision, the first outcome that is met wins: an account of 2,000,000 is also ≥ 100,000, so if that check comes first it will never reach 'Platinum'. Order them from highest to lowest.",
         },
         onPass: {
           es: "De lo más exigente a lo menos exigente: así se ordena cualquier cadena de rangos.",
@@ -638,6 +667,10 @@ System.debug(tier);`,
           es: "Compara null con >= y la transacción se cae. Comprueba annualRevenue == null en la primera rama, o conviértelo con annualRevenue ?? 0 antes de comparar.",
           en: "Compare null with >= and the transaction falls over. Check annualRevenue == null in the first branch, or convert it with annualRevenue ?? 0 before comparing.",
         },
+        otter: {
+          es: "annualRevenue puede venir vacío, y comparar null con >= tumba la transacción. Es tu ISBLANK() antes de comparar: comprueba annualRevenue == null en la primera rama, o conviértelo con annualRevenue ?? 0.",
+          en: "annualRevenue can come in empty, and comparing null with >= brings the transaction down. It is your ISBLANK() before comparing: check annualRevenue == null in the first branch, or convert it with annualRevenue ?? 0.",
+        },
       },
     ],
     rubric: [
@@ -645,10 +678,11 @@ System.debug(tier);`,
         es: "¿Podría otra persona añadir un nivel 'Silver' sin tener que reordenar nada más que una línea?",
         en: "Could someone else add a 'Silver' tier without reordering more than one line?",
       },
-      {
-        es: "Tarea 2: ya sabes qué nivel tiene cada cuenta; Soporte necesita ahora en cuántas horas responder a sus casos, y ahí un if tras otro empieza a hacerse largo.",
-        en: "Task 2: you now know each account's tier; Support now needs how many hours to answer its cases in, and there one if after another starts getting long.",
-      },
     ],
+    outro: {
+      es: "Ya traduces un Decision de Flow a if / else if / else, y sabes que el orden de las salidas importa. En la tarea 2, Soporte necesita saber en cuántas horas responder a sus casos, y ahí un if tras otro empieza a hacerse largo.",
+      en: "You can now translate a Flow Decision into if / else if / else, and you know the order of the outcomes matters. In task 2, Support needs to know how many hours they have to answer their cases, and there one if after another starts to get long.",
+    },
+    voice: "otter",
   },
 };

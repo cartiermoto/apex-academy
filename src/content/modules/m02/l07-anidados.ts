@@ -6,6 +6,17 @@ export const l07Anidados: Lesson = {
   n: 7,
   kind: "lesson",
   minutes: 22,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 6", en: "Remember? · Review of lesson 6" },
+    prompt: { es: "Recorres casos y quieres saltarte los cerrados y seguir con el siguiente. ¿Qué usas?", en: "You are walking through cases and want to skip the closed ones and carry on with the next. What do you use?" },
+    options: [
+      { es: "break", en: "break" },
+      { es: "return", en: "return" },
+      { es: "continue", en: "continue" },
+    ],
+    answer: 2,
+    explain: { es: "continue salta a la siguiente vuelta; break sale del bucle entero. Es tu salida «no aplica» que vuelve al Loop.", en: "continue jumps to the next pass; break leaves the whole loop. It is your «does not apply» outcome going back to the Loop." },
+  },
   title: { es: "Loops Anidados", en: "Nested Loops" },
   summary: {
     es: "Un bucle dentro de otro multiplica las vueltas. Aprende a leerlo, a reconocer cuándo sobra y a sustituirlo por una búsqueda en un Set o un Map.",
@@ -43,9 +54,10 @@ export const l07Anidados: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "Exportas dos informes a Excel y quieres marcar los leads cuya empresa aparece en la lista de clientes. Puedes coger cada lead y bajar con el dedo por toda la lista de clientes: eso es un bucle anidado. O puedes hacer un BUSCARV, que va directo a la fila. En Apex, el BUSCARV es un Set o un Map.",
-        en: "You export two reports to Excel and want to flag the leads whose company appears in the customer list. You can take each lead and run your finger down the entire customer list: that is a nested loop. Or you can do a VLOOKUP, which goes straight to the row. In Apex, the VLOOKUP is a Set or a Map.",
+        es: "Me pasó exportando dos informes a Excel: quería marcar los leads cuya empresa aparecía en la lista de clientes. Puedes coger cada lead y bajar con el dedo por toda la lista de clientes: eso es un bucle anidado. O puedes hacer un BUSCARV, que va directo a la fila. En Apex, el BUSCARV es un Set o un Map.",
+        en: "It happened to me exporting two reports to Excel: I wanted to flag the leads whose company appeared in the customer list. You can take each lead and run your finger down the whole customer list: that is a nested loop. Or you can use a VLOOKUP, which goes straight to the row. In Apex, the VLOOKUP is a Set or a Map.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -407,16 +419,16 @@ List<Lead> leads = new List<Lead>{
     },
     hints: [
       {
-        es: "Dos bucles, uno detrás de otro, y dos variables que se declaran antes de su bucle: el Set y la lista de resultado.",
-        en: "Two loops, one after the other, and two variables declared before their loop: the Set and the result list.",
+        es: "Yo lo haría como en Excel: primero preparas la lista de clientes y luego haces el BUSCARV. Dos bucles, uno detrás de otro, y dos variables que se declaran antes de su bucle: el Set y la lista de resultado.",
+        en: "I would do it as in Excel: first you prepare the customer list and then you run the VLOOKUP. Two loops, one after the other, and two variables declared before their loop: the Set and the result list.",
       },
       {
-        es: "El primer bucle solo llena el Set con customerNames.add(a.Name). El segundo pregunta customerNames.contains(l.Company) y, si es true, hace existingCustomerLeads.add(l).",
-        en: "The first loop only fills the Set with customerNames.add(a.Name). The second asks customerNames.contains(l.Company) and, if true, does existingCustomerLeads.add(l).",
+        es: "Lo que me ayudó: el primer bucle solo llena el Set con customerNames.add(a.Name). El segundo pregunta customerNames.contains(l.Company), tu BUSCARV, y si es true hace existingCustomerLeads.add(l).",
+        en: "What helped me: the first loop only fills the Set with customerNames.add(a.Name). The second asks customerNames.contains(l.Company), your VLOOKUP, and if it is true does existingCustomerLeads.add(l).",
       },
       {
-        es: "Pseudocódigo: Set<String> customerNames = new Set<String>(); para cada cuenta → add(nombre). List<Lead> existingCustomerLeads = new List<Lead>(); para cada lead → si contains(empresa) → add(lead).",
-        en: "Pseudocode: Set<String> customerNames = new Set<String>(); for each account → add(name). List<Lead> existingCustomerLeads = new List<Lead>(); for each lead → if contains(company) → add(lead).",
+        es: "Te dejo el esquema: Set<String> customerNames = new Set<String>(); para cada cuenta → add(nombre). List<Lead> existingCustomerLeads = new List<Lead>(); para cada lead → si contains(empresa) → add(lead).",
+        en: "Here is the outline: Set<String> customerNames = new Set<String>(); for each account → add(name). List<Lead> existingCustomerLeads = new List<Lead>(); for each lead → if contains(company) → add(lead).",
       },
     ],
     solution: {
@@ -484,6 +496,10 @@ System.debug(existingCustomerLeads.size());   // 2`,
           es: "Declara el Set vacío antes del primer bucle: Set<String> customerNames = new Set<String>();",
           en: "Declare the empty Set before the first loop: Set<String> customerNames = new Set<String>();",
         },
+        otter: {
+          es: "customerNames es la columna de clientes que preparas antes del BUSCARV: un Set<String> vacío, declarado antes del primer bucle. Set<String> customerNames = new Set<String>();",
+          en: "customerNames is the customer column you prepare before the VLOOKUP: an empty Set<String>, declared before the first loop. Set<String> customerNames = new Set<String>();",
+        },
       },
       {
         id: "m02-l07-c2",
@@ -499,6 +515,10 @@ System.debug(existingCustomerLeads.size());   // 2`,
           es: "Recorre customers con un for-each y, en cada vuelta, customerNames.add(a.Name);",
           en: "Walk customers with a for-each and, on each pass, customerNames.add(a.Name);",
         },
+        otter: {
+          es: "El primer bucle solo prepara la columna: recorre customers con un for-each y, en cada vuelta, customerNames.add(a.Name);",
+          en: "The first loop only prepares the column: walk customers with a for-each and, on each pass, customerNames.add(a.Name);",
+        },
       },
       {
         id: "m02-l07-c3",
@@ -513,6 +533,10 @@ System.debug(existingCustomerLeads.size());   // 2`,
         onFail: {
           es: "La lista de resultado se declara vacía antes del segundo bucle: List<Lead> existingCustomerLeads = new List<Lead>();",
           en: "The result list is declared empty before the second loop: List<Lead> existingCustomerLeads = new List<Lead>();",
+        },
+        otter: {
+          es: "existingCustomerLeads es tu lista de resultado, como la hoja donde copias las coincidencias: vacía, antes del segundo bucle. List<Lead> existingCustomerLeads = new List<Lead>();",
+          en: "existingCustomerLeads is your result list, like the sheet where you copy the matches: empty, before the second loop. List<Lead> existingCustomerLeads = new List<Lead>();",
         },
       },
       {
@@ -532,6 +556,10 @@ System.debug(existingCustomerLeads.size());   // 2`,
         onFail: {
           es: "Dentro del bucle de leads: if (customerNames.contains(l.Company)) { existingCustomerLeads.add(l); }",
           en: "Inside the leads loop: if (customerNames.contains(l.Company)) { existingCustomerLeads.add(l); }",
+        },
+        otter: {
+          es: "Dentro del bucle de leads va tu BUSCARV: if (customerNames.contains(l.Company)) { existingCustomerLeads.add(l); }",
+          en: "Inside the lead loop goes your VLOOKUP: if (customerNames.contains(l.Company)) { existingCustomerLeads.add(l); }",
         },
         onPass: {
           es: "Con 200 cuentas y 200 leads, esto son 400 vueltas. El anidado habría hecho 40.000 comparaciones.",
@@ -555,6 +583,10 @@ System.debug(existingCustomerLeads.size());   // 2`,
           es: "El objetivo es no anidar: el bucle de cuentas termina antes de que empiece el de leads, y dentro del de leads la búsqueda la hace contains().",
           en: "The goal is not to nest: the accounts loop ends before the leads loop begins, and inside the leads loop the lookup is done by contains().",
         },
+        otter: {
+          es: "El objetivo es no bajar con el dedo por toda la lista para cada lead: el bucle de cuentas termina antes de que empiece el de leads, y dentro del de leads la búsqueda la hace contains().",
+          en: "The goal is not to run your finger down the whole list for every lead: the account loop ends before the lead loop starts, and inside the lead loop the lookup is done by contains().",
+        },
       },
     ],
     rubric: [
@@ -562,10 +594,11 @@ System.debug(existingCustomerLeads.size());   // 2`,
         es: "Añade un lead con Company = 'ACME CORP'. ¿Lo encuentra tu código? ¿Qué cambiarías para que sí?",
         en: "Add a lead with Company = 'ACME CORP'. Does your code find it? What would you change so it does?",
       },
-      {
-        es: "Tarea 8: la entrega. La revisión trimestral junta todo lo anterior sobre el pipeline real: niveles, reglas, recorridos y paradas.",
-        en: "Task 8: delivery. The quarterly review brings everything before together on the real pipeline: tiers, rules, walks and stops.",
-      },
     ],
+    outro: {
+      es: "Ya sabes cambiar un bucle anidado por un Set, tu BUSCARV en Apex. La tarea 8 es la entrega: la revisión trimestral junta todo lo anterior sobre el pipeline real.",
+      en: "You can now swap a nested loop for a Set, your VLOOKUP in Apex. Task 8 is the delivery: the quarterly review brings everything so far together on the real pipeline.",
+    },
+    voice: "otter",
   },
 };
