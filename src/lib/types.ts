@@ -48,6 +48,8 @@ export type TheoryBlock =
       variant: "admin" | "tip" | "warn" | "recall";
       title: L;
       text: L;
+      /** "otter": told by the mascot, in first person, as a speech bubble */
+      voice?: "otter";
     }
   | { type: "table"; head: L[]; rows: L[][] }
   | { type: "diagram"; id: string; caption?: L }
@@ -106,6 +108,8 @@ export interface Check {
   onFail?: L;
   /** qualitative note when it passes — used by the feedback engine */
   onPass?: L;
+  /** what the otter says, in Admin terms, when this is the first failing check */
+  otter?: L;
   /** a check that is nice-to-have rather than required */
   optional?: boolean;
 }
@@ -121,6 +125,8 @@ export interface Exercise {
   checks: Check[];
   /** extra qualitative angles for the feedback engine */
   rubric?: L[];
+  /** "otter": the hints and the check feedback are voiced by the mascot */
+  voice?: "otter";
 }
 
 /* -------------------------------------------------------------------------- */

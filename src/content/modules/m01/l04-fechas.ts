@@ -155,9 +155,10 @@ Integer daysToRenewal = today.daysBetween(renewal);`,
       variant: "admin",
       title: { es: "Date.today().daysBetween(): una cadena que empieza en el tipo", en: "Date.today().daysBetween(): a chain that starts on the type" },
       text: {
-        es: "En una fórmula escribirías Renewal_Date__c - TODAY() y el resultado ya sería un número de días. En Apex, las dos líneas de arriba (Date today = Date.today(); y luego today.daysBetween(renewal)) se suelen escribir en una sola: Date.today().daysBetween(renewal). Es el encadenado de la sub-lección de String: Date.today() se le pide al tipo Date y devuelve un Date —el de hoy—, y a ESE Date le pides daysBetween(). Si te cuesta leerlo, desármalo en dos líneas como arriba: es exactamente lo mismo. Ojo al orden: la fecha desde la que cuentas va delante del punto; al revés, el número sale negativo.",
-        en: "In a formula you would write Renewal_Date__c - TODAY() and the result would already be a number of days. In Apex, the two lines above (Date today = Date.today(); then today.daysBetween(renewal)) are usually written as one: Date.today().daysBetween(renewal). It is the chaining from the String sub-lesson: Date.today() is asked of the Date type and returns a Date — today's — and you ask THAT Date for daysBetween(). If it is hard to read, break it into two lines as above: it is exactly the same. Mind the order: the date you count from goes before the dot; the other way round, the number comes out negative.",
+        es: "Cuando yo era Admin, en una fórmula escribía Renewal_Date__c - TODAY() y ya tenía los días. En Apex, las dos líneas de arriba (Date today = Date.today(); y luego today.daysBetween(renewal)) se suelen escribir en una sola: Date.today().daysBetween(renewal). Es el encadenado de la sub-lección de String: Date.today() se le pide al tipo Date y devuelve un Date —el de hoy—, y a ESE Date le pides daysBetween(). A mí me costó leerlo al principio, y mi truco fue desarmarlo en dos líneas como arriba: es exactamente lo mismo. Y un tropiezo que tuve: la fecha desde la que cuentas va delante del punto; al revés, el número sale negativo.",
+        en: "Back when I was an Admin, I wrote Renewal_Date__c - TODAY() in a formula and already had the days. In Apex, the two lines above (Date today = Date.today(); then today.daysBetween(renewal)) are usually written as one: Date.today().daysBetween(renewal). It is the chaining from the String sub-lesson: Date.today() is asked of the Date type and returns a Date — today's — and you ask THAT Date for daysBetween(). I found it hard to read at first, and my trick was to break it into two lines as above: it is exactly the same. And one slip I made: the date you count from goes before the dot; the other way round, the number comes out negative.",
       },
+      voice: "otter",
     },
     {
       type: "code",
@@ -194,9 +195,10 @@ String closeLabel = String.valueOf(closeDate.addMonths(1)); // nested: the new d
       variant: "admin",
       title: { es: "El informe que «estaba mal»", en: "The report that was “wrong”" },
       text: {
-        es: "Aquel informe agrupado por CreatedDate en el que un pedido de última hora de la noche aparecía en el día siguiente: no estaba mal, estaba agrupando en GMT mientras tú mirabas en hora local. En Apex la decisión es explícita: date() te da el día en la zona del usuario y dateGMT() te lo da en GMT.",
-        en: "That report grouped by CreatedDate where a late-night order landed on the following day: it was not wrong, it was grouping in GMT while you were reading in local time. In Apex the choice is explicit: date() gives you the day in the user's zone and dateGMT() gives it in GMT.",
+        es: "¿Te acuerdas de aquel informe agrupado por CreatedDate en el que un pedido de última hora de la noche aparecía en el día siguiente? A mí me pasó, y abrí un caso a soporte pensando que era un bug. No estaba mal: agrupaba en GMT mientras yo miraba en hora local. En Apex esa decisión la tomas tú, y de forma explícita: date() te da el día en la zona del usuario y dateGMT() te lo da en GMT.",
+        en: "Remember that report grouped by CreatedDate where a late-night order landed on the following day? It happened to me, and I opened a support case thinking it was a bug. It was not wrong: it was grouping in GMT while I was reading in local time. In Apex you make that choice yourself, explicitly: date() gives you the day in the user's zone and dateGMT() gives it in GMT.",
       },
+      voice: "otter",
     },
     {
       type: "code",
@@ -433,16 +435,16 @@ Decimal contractAmount = 24500.75;
     },
     hints: [
       {
-        es: "Repasa los tipos que elegiste: ¿hay alguna fecha escrita entre comillas, o algún recuento guardado en un tipo de fecha?",
-        en: "Review the types you chose: is there a date written in quotes, or a count stored in a date type?",
+        es: "Haz lo que harías antes de crear un campo: mira el tipo de cada dato. ¿Hay alguna fecha escrita entre comillas, o algún recuento guardado en un tipo de fecha?",
+        en: "Do what you would do before creating a field: look at each data type. Is there a date written in quotes, or a count stored in a date type?",
       },
       {
-        es: "Una fecha se construye con Date.newInstance(año, mes, día), nunca con comillas. Y daysBetween() cuenta días, así que lo que devuelve es un número entero, no una fecha.",
-        en: "A date is built with Date.newInstance(year, month, day), never with quotes. And daysBetween() counts days, so what it returns is a whole number, not a date.",
+        es: "Lo que a mí me ayudó: una fecha se construye con Date.newInstance(año, mes, día), nunca con comillas. Y daysBetween() cuenta días, así que devuelve un número entero, no una fecha, igual que Renewal_Date__c - TODAY() te daba un Number en una fórmula.",
+        en: "What helped me: a date is built with Date.newInstance(year, month, day), never with quotes. And daysBetween() counts days, so it returns a whole number, not a date, just like Renewal_Date__c - TODAY() gave you a Number in a formula.",
       },
       {
-        es: "Pseudocódigo: Date renewalDate = signedDate.addYears(1); e Integer daysUntilRenewal = Date.today().daysBetween(renewalDate);",
-        en: "Pseudocode: Date renewalDate = signedDate.addYears(1); and Integer daysUntilRenewal = Date.today().daysBetween(renewalDate);",
+        es: "Te dejo casi todo: Date renewalDate = signedDate.addYears(1); e Integer daysUntilRenewal = Date.today().daysBetween(renewalDate); Lo demás ya lo tienes.",
+        en: "Here is nearly all of it: Date renewalDate = signedDate.addYears(1); and Integer daysUntilRenewal = Date.today().daysBetween(renewalDate); You already have the rest.",
       },
     ],
     solution: {
@@ -478,6 +480,10 @@ Datetime reminderSentAt = Datetime.now();`,
           es: "Una fecha entre comillas es texto: no sabe sumar años. Constrúyela con Date.newInstance(2026, 3, 15).",
           en: "A date in quotes is text: it cannot add years. Build it with Date.newInstance(2026, 3, 15).",
         },
+        otter: {
+          es: "Mira signedDate. Si la escribiste entre comillas, es como guardar una fecha en un campo de texto: se ve igual, pero no puedes sumarle días ni filtrar por rango en un informe. Constrúyela como una fecha de verdad: Date.newInstance(2026, 3, 15).",
+          en: "Look at signedDate. If you wrote it in quotes, it is like storing a date in a text field: it looks the same, but you cannot add days to it or filter it by range in a report. Build it as a real date: Date.newInstance(2026, 3, 15).",
+        },
       },
       {
         id: "l04-c2",
@@ -494,6 +500,10 @@ Datetime reminderSentAt = Datetime.now();`,
         onFail: {
           es: "«Un año después» se calcula, no se escribe: signedDate.addYears(1). Si mañana cambia la fecha de firma, la renovación debe seguirla sola.",
           en: "“One year later” is computed, not typed: signedDate.addYears(1). If the signing date changes tomorrow, the renewal has to follow on its own.",
+        },
+        otter: {
+          es: "renewalDate tiene que comportarse como un campo fórmula que depende de la firma: si cambia signedDate, la renovación se mueve sola. Si la escribes a mano, es como un campo que alguien tiene que acordarse de actualizar. Sácala de signedDate con addYears(1).",
+          en: "renewalDate has to behave like a formula field based on the signing date: if signedDate changes, the renewal moves on its own. Typing it by hand is like a field someone has to remember to update. Derive it from signedDate with addYears(1).",
         },
         onPass: {
           es: "Derivar la fecha en vez de escribirla es lo que hace que el código siga siendo correcto el año que viene.",
@@ -518,6 +528,10 @@ Datetime reminderSentAt = Datetime.now();`,
           es: "Un recuento de días es un número entero, no una fecha. Y tiene que contarse desde hoy: Date.today().daysBetween(renewalDate).",
           en: "A count of days is a whole number, not a date. And it must count from today: Date.today().daysBetween(renewalDate).",
         },
+        otter: {
+          es: "daysUntilRenewal es un recuento, igual que el resultado de Renewal_Date__c - TODAY() en una fórmula: un Number, no un Date. Decláralo Integer y cuenta desde hoy, con hoy delante del punto: Date.today().daysBetween(renewalDate).",
+          en: "daysUntilRenewal is a count, just like the result of Renewal_Date__c - TODAY() in a formula: a Number, not a Date. Declare it as an Integer and count from today, with today before the dot: Date.today().daysBetween(renewalDate).",
+        },
       },
       {
         id: "l04-c4",
@@ -536,6 +550,10 @@ Datetime reminderSentAt = Datetime.now();`,
           es: "Escribir 2027 a mano funciona hasta el primer contrato firmado en otra fecha. year() te lo da a partir de renewalDate.",
           en: "Typing 2027 by hand works until the first contract signed on another date. year() derives it from renewalDate.",
         },
+        otter: {
+          es: "Con renewalYear, piensa en YEAR(Renewal_Date__c) en una fórmula: nunca pondrías 2027 fijo, porque el siguiente contrato sería de otro año. Pídeselo a la propia fecha: renewalDate.year().",
+          en: "For renewalYear, think of YEAR(Renewal_Date__c) in a formula: you would never hard-code 2027, because the next contract would be another year. Ask the date itself: renewalDate.year().",
+        },
       },
       {
         id: "l04-c5",
@@ -551,6 +569,10 @@ Datetime reminderSentAt = Datetime.now();`,
           es: "«El instante exacto» es lo único de este ejercicio que sí necesita hora y zona horaria: Datetime.now(). Date.today() perdería la hora.",
           en: "“The exact instant” is the only thing here that genuinely needs a time and a zone: Datetime.now(). Date.today() would drop the time.",
         },
+        otter: {
+          es: "reminderSentAt es el único dato que necesita la hora exacta: es la diferencia entre un campo Date y uno Date/Time. Datetime.now() guarda el instante con su hora; Date.today() la perdería.",
+          en: "reminderSentAt is the only piece that needs the exact time: it is the difference between a Date field and a Date/Time one. Datetime.now() keeps the instant with its time; Date.today() would lose it.",
+        },
       },
     ],
     rubric: [
@@ -563,5 +585,6 @@ Datetime reminderSentAt = Datetime.now();`,
         en: "Task 5: so far you have worked with loose variables, like jotting on a sheet of paper. Tomorrow all this data goes where it really lives: inside a record.",
       },
     ],
+    voice: "otter",
   },
 };

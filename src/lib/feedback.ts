@@ -16,6 +16,8 @@ export interface Note {
   tone: Tone;
   title: L;
   text: L;
+  /** the check this note comes from, when it comes from one */
+  checkId?: string;
 }
 
 export interface FeedbackReport {
@@ -152,6 +154,7 @@ export function buildFeedback(
     const check = checks.find((c) => c.id === r.id);
     if (!check?.onFail) continue;
     notes.push({
+      checkId: check.id,
       tone: r.optional ? "info" : "bad",
       title: check.label,
       text: check.onFail,

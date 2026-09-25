@@ -8,6 +8,7 @@ import { buildFeedback, type FeedbackReport } from "@/lib/feedback";
 import { CodeEditor } from "./code-editor";
 import { CodeBlock } from "./code-block";
 import { RichText } from "./term";
+import { OtterSays } from "./otter";
 import { useProgress } from "./providers";
 
 /**
@@ -112,6 +113,29 @@ export function ExercisePanel({
   // One hint per failed attempt: the next one only opens after failing again.
   const hintsAvailable = Math.min(3, failedAttempts);
   const canShowNextHint = hintsShown < 3 && hintsShown < hintsAvailable;
+
+  // Otter voice: it comments on the FIRST failing required check only, so the
+  // student fixes one thing at a time; that check's plain note is then dropped
+  // from the feedback list to avoid saying it twice.
+  const otter = data.voice === "otter";
+  const firstMiss =
+    otter && result && !result.passed && !result.untouched
+      ? result.results.map((r) => (!r.passed && !r.optional ? checksById.get(r.id) : undefined)).find(Boolean)
+      : undefined;
+  const otterMiss = firstMiss ? (firstMiss.otter ?? firstMiss.onFail) : undefined;
+  const notes = report ? report.notes.filter((n) => !(otterMiss && firstMiss && n.checkId === firstMiss.id)) : [];
+  const cheer =
+    hintsShown === 0
+      ? { es: "¡Resuelto sin pistas! Esta tarea ya es tuya.", en: "Solved without hints! This task is yours now." }
+      : hintsShown === 1
+        ? {
+            es: "Resuelto con 1 pista. En la próxima tarea, intenta llegar sin ninguna.",
+            en: "Solved with 1 hint. On the next task, try to get there with none.",
+          }
+        : {
+            es: `Resuelto con ${hintsShown} pistas. Lo que cuenta es que ahora sabes por qué funciona: vuelve a hacerlo en unos días y verás que sale sin ayuda.`,
+            en: `Solved with ${hintsShown} hints. What counts is that you now know why it works: do it again in a few days and you will see it comes out unaided.`,
+          };
 
   return (
     <div className="max-w-[68ch]">
@@ -243,11 +267,31 @@ export function ExercisePanel({
             </ul>
           </div>
 
+          {/* ----------------------------------------------- otter reaction */}
+          {otter && result.passed && (
+            <OtterSays tone="cheer" lang={lang} eyebrow={lang === "es" ? "¡Tarea resuelta!" : "Task solved!"} className="mt-4">
+              {t(cheer, lang)}
+            </OtterSays>
+          )}
+          {otterMiss && firstMiss && (
+            <OtterSays
+              tone="oops"
+              lang={lang}
+              eyebrow={lang === "es" ? "Vamos por partes: empieza por aquí" : "One thing at a time: start here"}
+              className="mt-4"
+            >
+              <p className="t-micro text-faint">✗ {t(firstMiss.label, lang)}</p>
+              <p className="mt-1">
+                <RichText text={t(otterMiss, lang)} lang={lang} />
+              </p>
+            </OtterSays>
+          )}
+
           {/* ------------------------------------------ qualitative feedback */}
-          {report && report.notes.length > 0 && (
+          {notes.length > 0 && (
             <div className="mt-4 space-y-2">
               <p className="t-eyebrow">{t(ui.feedback, lang)}</p>
-              {report.notes.map((n, i) => {
+              {notes.map((n, i) => {
                 const color =
                   n.tone === "good"
                     ? "var(--c-brand)"
@@ -285,7 +329,18 @@ export function ExercisePanel({
         </div>
 
         <div className="mt-3 space-y-2">
-          {data.hints.slice(0, hintsShown).map((h, i) => (
+          {data.hints.slice(0, hintsShown).map((h, i) =>
+            otter ? (
+              <OtterSays
+                key={i}
+                tone="hint"
+                lang={lang}
+                eyebrow={`${t(ui.hint, lang)} ${i + 1} ${lang === "es" ? "de" : "of"} 3`}
+                className="fade-in"
+              >
+                <RichText text={t(h, lang)} lang={lang} />
+              </OtterSays>
+            ) : (
             <div
               key={i}
               className="fade-in rounded-[4px] bg-surface-2 px-4 py-3"
@@ -296,7 +351,8 @@ export function ExercisePanel({
               </p>
               <p className="t-small mt-1 text-ink">{t(h, lang)}</p>
             </div>
-          ))}
+            ),
+          )}
         </div>
 
         {hintsShown < 3 && (

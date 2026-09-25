@@ -82,9 +82,24 @@ export function Mark({
  * the inline script in layout.tsx sets before paint: choosing in React would
  * flash the light icon on a dark page until the settings load.
  */
-export function MascotMark({ size = 30, className = "" }: { size?: number; className?: string }) {
+export function MascotMark({
+  size = 30,
+  className = "",
+  label = "Apex Academy",
+}: {
+  size?: number;
+  className?: string;
+  /** accessible name; empty string makes it decorative */
+  label?: string;
+}) {
   return (
-    <span role="img" aria-label="Apex Academy" className={`inline-block ${className}`} style={{ width: size, height: size }}>
+    <span
+      role={label ? "img" : undefined}
+      aria-label={label || undefined}
+      aria-hidden={label ? undefined : true}
+      className={`inline-block ${className}`}
+      style={{ width: size, height: size }}
+    >
       {(["light", "dark"] as const).map((v) => (
         // eslint-disable-next-line @next/next/no-img-element -- fixed small icon from /public, no Image loader needed
         <img
