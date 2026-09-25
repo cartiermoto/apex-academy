@@ -6,6 +6,17 @@ export const l05For: Lesson = {
   n: 5,
   kind: "lesson",
   minutes: 24,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 4", en: "Remember? · Review of lesson 4" },
+    prompt: { es: "En un while, ¿qué pasa si nada dentro del cuerpo cambia la condición?", en: "In a while, what happens if nothing inside the body changes the condition?" },
+    options: [
+      { es: "El bucle no termina nunca", en: "The loop never ends" },
+      { es: "Se ejecuta una sola vez", en: "It runs only once" },
+      { es: "No compila", en: "It does not compile" },
+    ],
+    answer: 0,
+    explain: { es: "Si la condición es verdadera al entrar y nada la cambia, gira sin parar hasta chocar con un límite de la plataforma. Por eso el tope de 120 meses.", en: "If the condition is true on the way in and nothing changes it, it spins until it hits a platform limit. That is why there was a 120-month cap." },
+  },
   title: { es: "For Loop y sus variantes", en: "For Loop and its variants" },
   summary: {
     es: "Recorrer una lista registro a registro: el elemento Loop de Flow, en una línea. Y el for clásico, para cuando cuentas vueltas.",
@@ -43,9 +54,10 @@ export const l05For: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "En Flow, el elemento Loop pide dos cosas: la variable de colección que quieres recorrer y una variable para el «elemento actual». Dentro del bucle trabajas con ese elemento actual, y al terminar la colección sales por «After Last Item». El for-each de Apex pide exactamente lo mismo, en el mismo orden.",
-        en: "In Flow, the Loop element asks for two things: the collection variable you want to walk through, and a variable for the “current item”. Inside the loop you work with that current item, and when the collection runs out you leave through “After Last Item”. Apex's for-each asks for exactly the same, in the same order.",
+        es: "En Flow, el elemento Loop me pedía dos cosas: la variable de colección que quería recorrer y una variable para el «elemento actual». Dentro del bucle trabajaba con ese elemento actual, y al terminar la colección salía por «After Last Item». El for-each de Apex pide exactamente lo mismo, en el mismo orden.",
+        en: "In Flow, the Loop element asked me for two things: the collection variable I wanted to walk through and a variable for the «current item». Inside the loop I worked with that current item, and when the collection ran out I left through «After Last Item». Apex's for-each asks for exactly the same, in the same order.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -485,16 +497,16 @@ List<Opportunity> opps = new List<Opportunity>{
     },
     hints: [
       {
-        es: "Tres resultados, un solo bucle. Los tres se declaran antes del for; dentro del for solo se actualizan. Y una de las oportunidades hará fallar cualquier suma que no se proteja.",
-        en: "Three results, a single loop. All three are declared before the for; inside the for they are only updated. And one of the opportunities will break any sum that is not protected.",
+        es: "Yo lo pensaría como un Loop de Flow con tres variables de resultado: tres resultados, un solo bucle. Los tres se declaran antes del for; dentro del for solo se actualizan. Y una de las oportunidades hará fallar cualquier suma que no se proteja.",
+        en: "I would think of it as a Flow Loop with three result variables: three results, one single loop. All three are declared before the for; inside the for they are only updated. And one of the opportunities will break any sum that is not protected.",
       },
       {
-        es: "totalAmount es el patrón acumular; bigDealNames es el patrón filtrar con .add(); bigDealCount es un contador que sube dentro del mismo if. opp.Amount ?? 0 resuelve el vacío.",
-        en: "totalAmount is the accumulate pattern; bigDealNames is the filter pattern with .add(); bigDealCount is a counter that goes up inside that same if. opp.Amount ?? 0 handles the empty value.",
+        es: "Lo que me ayudó: totalAmount es acumular, como un Assignment con «Add»; bigDealNames es filtrar con .add(); bigDealCount es un contador que sube dentro del mismo if. opp.Amount ?? 0 resuelve el vacío.",
+        en: "What helped me: totalAmount is accumulating, like an Assignment with «Add»; bigDealNames is filtering with .add(); bigDealCount is a counter that goes up inside the same if. opp.Amount ?? 0 deals with the empty value.",
       },
       {
-        es: "Pseudocódigo: declarar los tres; para cada opp { Decimal amount = opp.Amount ?? 0; totalAmount += amount; si amount ≥ 50000 { bigDealCount++; bigDealNames.add(opp.Name); } }",
-        en: "Pseudocode: declare all three; for each opp { Decimal amount = opp.Amount ?? 0; totalAmount += amount; if amount ≥ 50000 { bigDealCount++; bigDealNames.add(opp.Name); } }",
+        es: "Te dejo el esquema: declarar los tres; para cada opp { Decimal amount = opp.Amount ?? 0; totalAmount += amount; si amount ≥ 50000 { bigDealCount++; bigDealNames.add(opp.Name); } }",
+        en: "Here is the outline: declare all three; for each opp { Decimal amount = opp.Amount ?? 0; totalAmount += amount; if amount ≥ 50000 { bigDealCount++; bigDealNames.add(opp.Name); } }",
       },
     ],
     solution: {
@@ -553,6 +565,10 @@ System.debug(totalAmount + ' · ' + bigDealCount + ' · ' + bigDealNames);`,
           es: "La forma es for (Opportunity opp : opps) { … }: el tipo del elemento, un nombre, dos puntos y la lista.",
           en: "The shape is for (Opportunity opp : opps) { … }: the item's type, a name, a colon and the list.",
         },
+        otter: {
+          es: "El for-each es tu Loop de Flow: for (Opportunity opp : opps) { … }. El tipo del elemento actual, un nombre para él, dos puntos y la colección.",
+          en: "The for-each is your Flow Loop: for (Opportunity opp : opps) { … }. The current item's type, a name for it, a colon and the collection.",
+        },
       },
       {
         id: "m02-l05-c2",
@@ -568,6 +584,10 @@ System.debug(totalAmount + ' · ' + bigDealCount + ' · ' + bigDealNames);`,
         onFail: {
           es: "Decimal totalAmount = 0; Integer bigDealCount = 0; List<String> bigDealNames = new List<String>(); — antes del for. Dentro se reiniciarían en cada vuelta.",
           en: "Decimal totalAmount = 0; Integer bigDealCount = 0; List<String> bigDealNames = new List<String>(); — before the for. Inside, they would reset on every pass.",
+        },
+        otter: {
+          es: "Los tres resultados son como las variables que creas en Flow antes del Loop: se declaran antes del for y con su tipo. Decimal totalAmount = 0; Integer bigDealCount = 0; List<String> bigDealNames = new List<String>(); Dentro del bucle se reiniciarían en cada vuelta.",
+          en: "The three results are like the variables you create in Flow before the Loop: declared before the for and with their type. Decimal totalAmount = 0; Integer bigDealCount = 0; List<String> bigDealNames = new List<String>(); Inside the loop they would reset on every pass.",
         },
       },
       {
@@ -588,6 +608,10 @@ System.debug(totalAmount + ' · ' + bigDealCount + ' · ' + bigDealNames);`,
           es: "La oportunidad de Umbrella no tiene importe: sumarla tal cual lanza una excepción. opp.Amount ?? 0 la convierte en 0.",
           en: "The Umbrella opportunity has no amount: adding it as-is throws an exception. opp.Amount ?? 0 turns it into 0.",
         },
+        otter: {
+          es: "Umbrella no tiene importe, y sumarlo tal cual lanza una excepción. Es tu BLANKVALUE(Amount, 0): opp.Amount ?? 0.",
+          en: "Umbrella has no amount, and adding it as it is throws an exception. It is your BLANKVALUE(Amount, 0): opp.Amount ?? 0.",
+        },
       },
       {
         id: "m02-l05-c4",
@@ -605,6 +629,10 @@ System.debug(totalAmount + ' · ' + bigDealCount + ' · ' + bigDealNames);`,
         onFail: {
           es: "Acumular es sumar al total que ya había: totalAmount += amount;",
           en: "Accumulating means adding to the total so far: totalAmount += amount;",
+        },
+        otter: {
+          es: "Acumular es sumar al total que ya había, como un Assignment con «Add» dentro del Loop: totalAmount += amount;",
+          en: "Accumulating is adding to the total you already had, like an Assignment with «Add» inside the Loop: totalAmount += amount;",
         },
       },
       {
@@ -632,6 +660,10 @@ System.debug(totalAmount + ' · ' + bigDealCount + ' · ' + bigDealNames);`,
           es: "Dentro de un if con importe >= 50000, sube el contador con bigDealCount++ y añade el nombre con bigDealNames.add(opp.Name).",
           en: "Inside an if with amount >= 50000, bump the counter with bigDealCount++ and add the name with bigDealNames.add(opp.Name).",
         },
+        otter: {
+          es: "Dentro del bucle, un if con importe >= 50000 es tu Decision: si se cumple, sube el contador (bigDealCount++) y añade el nombre a la colección (bigDealNames.add(opp.Name)).",
+          en: "Inside the loop, an if with amount >= 50000 is your Decision: if it is met, the counter goes up (bigDealCount++) and the name is added to the collection (bigDealNames.add(opp.Name)).",
+        },
         onPass: {
           es: "Un solo recorrido para tres resultados: con 200 registros, eso es la diferencia entre 200 vueltas y 600.",
           en: "One pass for three results: with 200 records, that is the difference between 200 iterations and 600.",
@@ -643,10 +675,11 @@ System.debug(totalAmount + ' · ' + bigDealCount + ' · ' + bigDealNames);`,
         es: "Si mañana piden también el importe medio, ¿qué añadirías y dónde?",
         en: "If tomorrow they also ask for the average amount, what would you add and where?",
       },
-      {
-        es: "Tarea 6: el mismo recorrido, pero sobre la cola de casos de Soporte… y parando en cuanto aparezca lo urgente.",
-        en: "Task 6: the same walk, but over Support's case queue… stopping as soon as something urgent turns up.",
-      },
     ],
+    outro: {
+      es: "Ya recorres una colección con for-each y sabes acumular, contar y filtrar en una sola pasada. En la tarea 6, el mismo recorrido sobre la cola de casos de Soporte… pero parando en cuanto aparezca lo urgente.",
+      en: "You can now walk a collection with for-each and accumulate, count and filter in a single pass. In task 6, the same walk over Support's case queue… but stopping as soon as something urgent shows up.",
+    },
+    voice: "otter",
   },
 };

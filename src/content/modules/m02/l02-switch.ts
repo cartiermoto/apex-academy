@@ -6,6 +6,17 @@ export const l02Switch: Lesson = {
   n: 2,
   kind: "lesson",
   minutes: 16,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 1", en: "Remember? · Review of lesson 1" },
+    prompt: { es: "En una cadena if / else if / else, si dos condiciones son verdaderas, ¿qué rama se ejecuta?", en: "In an if / else if / else chain, if two conditions are true, which branch runs?" },
+    options: [
+      { es: "La última verdadera", en: "The last true one" },
+      { es: "Las dos", en: "Both" },
+      { es: "La primera verdadera", en: "The first true one" },
+    ],
+    answer: 2,
+    explain: { es: "Gana la primera condición verdadera, igual que en un Decision gana la primera salida que se cumple. Por eso el umbral alto iba antes.", en: "The first true condition wins, just as in a Decision the first outcome that is met wins. That is why the high threshold went first." },
+  },
   title: { es: "Switch Statement", en: "Switch Statement" },
   summary: {
     es: "Cuando la pregunta es «¿qué valor tiene este picklist?», switch lo resuelve con una salida por valor.",
@@ -43,9 +54,10 @@ export const l02Switch: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "Piensa en un Decision sobre Case.Origin con una salida para Phone, otra para Email y Web juntos, y la salida por defecto para lo demás. Cada salida compara el mismo campo con un valor distinto del picklist. switch es exactamente eso: nombras el campo una vez y listas los valores.",
-        en: "Think of a Decision on Case.Origin with one outcome for Phone, another for Email and Web together, and the default outcome for the rest. Each outcome compares the same field against a different picklist value. switch is exactly that: you name the field once and list the values.",
+        es: "Yo hice mil veces este Decision sobre Case.Origin: una salida para Phone, otra para Email y Web juntos, y la salida por defecto para lo demás. Cada salida compara el mismo campo con un valor distinto del picklist. switch es exactamente eso: nombras el campo una vez y listas los valores.",
+        en: "I built this Decision on Case.Origin a thousand times: one outcome for Phone, another for Email and Web together, and the default outcome for everything else. Each outcome compares the same field with a different picklist value. switch is exactly that: you name the field once and list the values.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -410,16 +422,16 @@ Case support = new Case(Subject = 'Duplicate invoice', Priority = 'High');
     },
     hints: [
       {
-        es: "Cuenta los resultados distintos: 4, 24, 72 y 48. Cada uno es una rama, y el 72 tiene que atrapar dos cosas.",
-        en: "Count the distinct results: 4, 24, 72 and 48. Each is a branch, and 72 has to catch two things.",
+        es: "Yo contaría los resultados distintos, como las salidas de un Decision: 4, 24, 72 y 48. Cada uno es una rama, y el 72 tiene que atrapar dos cosas.",
+        en: "I would count the distinct results, like the outcomes of a Decision: 4, 24, 72 and 48. Each one is a branch, and the 72 has to catch two things.",
       },
       {
-        es: "Lo que se evalúa en switch on puede ser una expresión: support.Priority ?? 'Low' convierte el vacío en 'Low' antes de repartir. Lo que no encaja en nada va a when else.",
-        en: "What switch on evaluates can be an expression: support.Priority ?? 'Low' turns the empty value into 'Low' before routing. Whatever fits nowhere goes to when else.",
+        es: "Lo que me ayudó: lo que se evalúa en switch on puede ser una expresión. support.Priority ?? 'Low' convierte el vacío en 'Low' antes de repartir, como un BLANKVALUE(). Lo que no encaja en nada va a when else, tu salida por defecto.",
+        en: "What helped me: what switch on evaluates can be an expression. support.Priority ?? 'Low' turns the empty value into 'Low' before sorting, like a BLANKVALUE(). Whatever fits nothing goes to when else, your default outcome.",
       },
       {
-        es: "Pseudocódigo: Integer slaHours; switch on (support.Priority ?? 'Low') { when 'High' → 4; when 'Medium' → 24; when 'Low' → 72; when else → 48 }",
-        en: "Pseudocode: Integer slaHours; switch on (support.Priority ?? 'Low') { when 'High' → 4; when 'Medium' → 24; when 'Low' → 72; when else → 48 }",
+        es: "Te dejo el esquema: Integer slaHours; switch on (support.Priority ?? 'Low') { when 'High' → 4; when 'Medium' → 24; when 'Low' → 72; when else → 48 }",
+        en: "Here is the outline: Integer slaHours; switch on (support.Priority ?? 'Low') { when 'High' → 4; when 'Medium' → 24; when 'Low' → 72; when else → 48 }",
       },
     ],
     solution: {
@@ -469,6 +481,10 @@ System.debug(slaHours);`,
           es: "Las horas se cuentan en unidades enteras: declara Integer slaHours;",
           en: "Hours are counted in whole units: declare Integer slaHours;",
         },
+        otter: {
+          es: "slaHours son horas enteras, como un campo Number sin decimales: Integer slaHours;",
+          en: "slaHours are whole hours, like a Number field with no decimals: Integer slaHours;",
+        },
       },
       {
         id: "m02-l02-c2",
@@ -480,6 +496,10 @@ System.debug(slaHours);`,
         onFail: {
           es: "La estructura es switch on support.Priority { … }: nombras el campo una vez y después listas los valores.",
           en: "The shape is switch on support.Priority { … }: you name the field once and then list the values.",
+        },
+        otter: {
+          es: "switch on support.Priority { … } es tu Decision sobre un picklist: nombras el campo una vez y después listas los valores.",
+          en: "switch on support.Priority { … } is your Decision on a picklist: you name the field once and then list the values.",
         },
       },
       {
@@ -498,6 +518,10 @@ System.debug(slaHours);`,
         onFail: {
           es: "Cada valor necesita su when con el texto exacto del picklist y la asignación dentro de sus llaves.",
           en: "Each value needs its when with the exact picklist text and the assignment inside its braces.",
+        },
+        otter: {
+          es: "Cada valor del picklist necesita su when, con el texto exacto del valor y la asignación dentro de sus llaves: High da 4 y Medium da 24.",
+          en: "Each picklist value needs its own when, with the exact value text and the assignment inside its braces: High gives 4 and Medium gives 24.",
         },
       },
       {
@@ -523,6 +547,10 @@ System.debug(slaHours);`,
           es: "Low necesita su when con 72. Y el vacío tiene que acabar igual: o con switch on (support.Priority ?? 'Low'), o con una rama when null que también dé 72. Sin eso, un caso sin prioridad caería en when else y recibiría 48.",
           en: "Low needs its when with 72. And the empty value has to end up the same: either with switch on (support.Priority ?? 'Low'), or with a when null branch that also gives 72. Without it, a case with no priority would fall into when else and get 48.",
         },
+        otter: {
+          es: "Low da 72, y un caso sin prioridad también. Es como un BLANKVALUE(Priority, 'Low') antes del Decision: switch on (support.Priority ?? 'Low'), o una rama when null que también dé 72. Sin eso, el caso vacío caería en when else y recibiría 48.",
+          en: "Low gives 72, and so does a case with no priority. It is like a BLANKVALUE(Priority, 'Low') before the Decision: switch on (support.Priority ?? 'Low'), or a when null branch that also gives 72. Without it, the empty case would fall into when else and get 48.",
+        },
         onPass: {
           es: "Si usaste ??, el vacío y Low comparten una sola asignación: no hay dos copias del 72 que puedan desincronizarse.",
           en: "If you used ??, empty and Low share a single assignment: there are no two copies of 72 that could drift apart.",
@@ -538,6 +566,10 @@ System.debug(slaHours);`,
         onFail: {
           es: "Los valores futuros del picklist no tienen rama propia: los recoge when else, que va la última.",
           en: "Future picklist values have no branch of their own: when else catches them, and it goes last.",
+        },
+        otter: {
+          es: "when else es tu salida por defecto: recoge los valores del picklist que alguien añada mañana en Setup. Va la última y da 48.",
+          en: "when else is your default outcome: it catches the picklist values someone adds in Setup tomorrow. It goes last and gives 48.",
         },
       },
       {
@@ -559,10 +591,11 @@ System.debug(slaHours);`,
         es: "Si mañana Soporte añade la prioridad 'Critical', ¿cuántas líneas tendrías que tocar?",
         en: "If Support adds a 'Critical' priority tomorrow, how many lines would you have to touch?",
       },
-      {
-        es: "Tarea 3: la renovación de Northwind llega a negociación y hay que decidir quién la aprueba. Un compañero lo empezó con if… y no compila.",
-        en: "Task 3: Northwind's renewal reaches negotiation and someone must decide who approves it. A colleague started it with ifs… and it does not compile.",
-      },
     ],
+    outro: {
+      es: "Ya repartes por los valores de un picklist con switch, con su when else para lo imprevisto. En la tarea 3, la renovación de Northwind llega a negociación y hay que decidir quién la aprueba; un compañero lo empezó con if… y no compila.",
+      en: "You can now sort by picklist values with switch, with its when else for the unexpected. In task 3, the Northwind renewal reaches negotiation and someone has to decide who approves it; a colleague started it with if… and it does not compile.",
+    },
+    voice: "otter",
   },
 };

@@ -6,6 +6,17 @@ export const l03Expresiones: Lesson = {
   n: 3,
   kind: "lesson",
   minutes: 18,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 2", en: "Remember? · Review of lesson 2" },
+    prompt: { es: "En un switch, ¿qué rama recoge los valores del picklist que no tienen su propio when?", en: "In a switch, which branch catches the picklist values that have no when of their own?" },
+    options: [
+      { es: "when else", en: "when else" },
+      { es: "when null", en: "when null" },
+      { es: "default", en: "default" },
+    ],
+    answer: 0,
+    explain: { es: "when else, tu salida por defecto del Decision. En Apex no existe default como en otros lenguajes.", en: "when else, your Decision's default outcome. Apex has no default as other languages do." },
+  },
   title: { es: "Expresiones vs Sentencias", en: "Expressions vs Statements" },
   summary: {
     es: "Una expresión calcula un valor, como un campo fórmula. Una sentencia hace algo, como un elemento de Flow. Y cada variable vive solo dentro de sus llaves.",
@@ -43,9 +54,10 @@ export const l03Expresiones: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "Un campo fórmula nunca hace nada: solo calcula y devuelve un valor. Un elemento de Flow —Assignment, Update Records— no devuelve nada que puedas pegar en otra fórmula: actúa. En Apex, lo primero se llama expresión y lo segundo sentencia.",
-        en: "A formula field never does anything: it only computes and returns a value. A Flow element — Assignment, Update Records — returns nothing you could paste into another formula: it acts. In Apex, the first is called an expression and the second a statement.",
+        es: "Así lo separé yo en la cabeza: un campo fórmula nunca hace nada, solo calcula y devuelve un valor. Un elemento de Flow —Assignment, Update Records— no devuelve nada que puedas pegar en otra fórmula: actúa. En Apex, lo primero se llama expresión y lo segundo sentencia.",
+        en: "This is how I split it in my head: a formula field never does anything, it only calculates and returns a value. A Flow element — Assignment, Update Records — returns nothing you could paste into another formula: it acts. In Apex, the first is called an expression and the second a statement.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -412,16 +424,16 @@ System.debug(approver + ' · Legal: ' + needsLegal);
     },
     hints: [
       {
-        es: "El error de compilación es de ámbito: approver se declara dentro de las ramas y se usa fuera. Y needsLegal ni siquiera existe todavía.",
-        en: "The compile error is about scope: approver is declared inside the branches and used outside. And needsLegal does not even exist yet.",
+        es: "Yo empezaría por el error de compilación, que es de ámbito: approver se declara dentro de las ramas y se usa fuera, como si una variable solo existiera dentro de una salida del Decision. Y needsLegal ni siquiera existe todavía.",
+        en: "I would start with the compile error, which is about scope: approver is declared inside the branches and used outside, as if a variable only existed inside one outcome of the Decision. And needsLegal does not even exist yet.",
       },
       {
-        es: "Para elegir un valor entre dos está el operador condicional: condición ? valorSi : valorNo. Para un sí/no, la propia comparación ya es un Boolean, y && une las dos condiciones.",
-        en: "To pick one value out of two there is the conditional operator: condition ? valueIfTrue : valueIfFalse. For a yes/no, the comparison itself is already a Boolean, and && joins the two conditions.",
+        es: "Lo que me ordenó la cabeza: para elegir un valor entre dos está el operador condicional, tu IF() de fórmulas: condición ? valorSi : valorNo. Para un sí/no, la propia comparación ya es un Boolean, como un campo fórmula de tipo Checkbox, y && une las dos condiciones.",
+        en: "What put my head in order: to choose one value out of two there is the conditional operator, your formula IF(): condition ? valueIfTrue : valueIfFalse. For a yes/no, the comparison itself is already a Boolean, like a Checkbox formula field, and && joins the two conditions.",
       },
       {
-        es: "Pseudocódigo: String approver = importe ≥ 50000 ? 'Director' : '…'; Boolean needsLegal = importe ≥ 75000 && etapa == 'Negotiation';",
-        en: "Pseudocode: String approver = amount ≥ 50000 ? 'Director' : '…'; Boolean needsLegal = amount ≥ 75000 && stage == 'Negotiation';",
+        es: "Te dejo el esquema: String approver = importe ≥ 50000 ? 'Director' : '…'; Boolean needsLegal = importe ≥ 75000 && etapa == 'Negotiation';",
+        en: "Here is the outline: String approver = amount ≥ 50000 ? 'Director' : '…'; Boolean needsLegal = amount ≥ 75000 && stage == 'Negotiation';",
       },
     ],
     solution: {
@@ -450,6 +462,10 @@ System.debug(approver + ' · Legal: ' + needsLegal);`,
           es: "Si declaras approver dentro de cada rama, hay dos variables que mueren al cerrar sus llaves. Tiene que haber una sola declaración, fuera de cualquier bloque.",
           en: "If you declare approver inside each branch, there are two variables that die when their braces close. There must be a single declaration, outside any block.",
         },
+        otter: {
+          es: "approver tiene que declararse una sola vez, fuera de cualquier bloque. Si la declaras dentro de cada rama, son dos variables distintas que desaparecen al cerrar sus llaves, y la última línea no las ve.",
+          en: "approver has to be declared once, outside any block. Declare it inside each branch and they are two different variables that disappear when their braces close, and the last line cannot see them.",
+        },
       },
       {
         id: "m02-l03-c2",
@@ -464,6 +480,10 @@ System.debug(approver + ' · Legal: ' + needsLegal);`,
         onFail: {
           es: "Lo que cambia es solo el valor: String approver = opp.Amount >= 50000 ? 'Director' : '…';",
           en: "Only the value changes: String approver = opp.Amount >= 50000 ? 'Director' : '…';",
+        },
+        otter: {
+          es: "Lo que cambia es solo el valor, así que es un campo fórmula, no un Flow: String approver = opp.Amount >= 50000 ? 'Director' : '…';",
+          en: "Only the value changes, so it is a formula field, not a Flow: String approver = opp.Amount >= 50000 ? 'Director' : '…';",
         },
       },
       {
@@ -484,6 +504,10 @@ System.debug(approver + ' · Legal: ' + needsLegal);`,
           es: "La comparación ya es un Boolean: Boolean needsLegal = opp.Amount >= 75000 && opp.StageName == 'Negotiation';",
           en: "The comparison is already a Boolean: Boolean needsLegal = opp.Amount >= 75000 && opp.StageName == 'Negotiation';",
         },
+        otter: {
+          es: "needsLegal es como un campo fórmula de tipo Checkbox: la comparación ya da verdadero o falso. Boolean needsLegal = opp.Amount >= 75000 && opp.StageName == 'Negotiation';",
+          en: "needsLegal is like a Checkbox formula field: the comparison already gives true or false. Boolean needsLegal = opp.Amount >= 75000 && opp.StageName == 'Negotiation';",
+        },
         onPass: {
           es: "Una línea que se lee como la regla de negocio. Eso es lo que hace fácil revisarla dentro de un año.",
           en: "One line that reads like the business rule. That is what makes it easy to review a year from now.",
@@ -497,6 +521,10 @@ System.debug(approver + ' · Legal: ' + needsLegal);`,
           es: "Las dos decisiones eligen un valor, no una acción: se resuelven con expresiones y el if sobra.",
           en: "Both decisions pick a value, not an action: they are solved with expressions and the if is not needed.",
         },
+        otter: {
+          es: "Las dos decisiones eligen un valor, no una acción: son fórmulas, no un Flow. Se resuelven con expresiones y el if sobra.",
+          en: "Both decisions choose a value, not an action: they are formulas, not a Flow. They are solved with expressions and the if is not needed.",
+        },
       },
       {
         id: "m02-l03-c5",
@@ -509,6 +537,10 @@ System.debug(approver + ' · Legal: ' + needsLegal);`,
           es: "No borres la última línea: es la prueba de que las dos variables están en el ámbito correcto.",
           en: "Do not delete the last line: it is the proof that both variables are in the right scope.",
         },
+        otter: {
+          es: "No borres el System.debug final: es tu prueba, como mirar el valor del campo después de guardar, de que las dos variables están en el ámbito correcto.",
+          en: "Do not delete the final System.debug: it is your proof, like checking the field value after saving, that both variables are in the right scope.",
+        },
       },
     ],
     rubric: [
@@ -516,10 +548,11 @@ System.debug(approver + ' · Legal: ' + needsLegal);`,
         es: "Lee cada línea en voz alta. ¿Suena como la regla que te dio el negocio?",
         en: "Read each line aloud. Does it sound like the rule the business gave you?",
       },
-      {
-        es: "Tarea 4: con las reglas de una sola oportunidad resueltas, Dirección levanta la vista hacia el objetivo del año: ¿cuántos meses faltan?",
-        en: "Task 4: with the single-opportunity rules solved, Management looks up at the year's target: how many months to go?",
-      },
     ],
+    outro: {
+      es: "Ya distingues lo que calcula un valor de lo que ejecuta una acción, y eliges el operador condicional cuando solo cambia el valor. En la tarea 4, Dirección levanta la vista hacia el objetivo del año: ¿cuántos meses faltan?",
+      en: "You can now tell what calculates a value from what performs an action, and you pick the conditional operator when only the value changes. In task 4, Management looks up at the year's target: how many months to go?",
+    },
+    voice: "otter",
   },
 };

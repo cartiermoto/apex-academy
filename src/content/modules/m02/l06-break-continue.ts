@@ -6,6 +6,17 @@ export const l06BreakContinue: Lesson = {
   n: 6,
   kind: "lesson",
   minutes: 16,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 5", en: "Remember? · Review of lesson 5" },
+    prompt: { es: "Quieres sumar los importes de una lista de oportunidades. ¿Dónde declaras Decimal total = 0;?", en: "You want to add up the amounts of a list of opportunities. Where do you declare Decimal total = 0;?" },
+    options: [
+      { es: "Dentro del for", en: "Inside the for" },
+      { es: "Antes del for", en: "Before the for" },
+      { es: "Después del for", en: "After the for" },
+    ],
+    answer: 1,
+    explain: { es: "Antes del bucle, como las variables que creas en Flow antes del Loop. Dentro se reiniciaría a 0 en cada vuelta.", en: "Before the loop, like the variables you create in Flow before the Loop. Inside it, it would reset to 0 on every pass." },
+  },
   title: { es: "Break y Continue", en: "Break and Continue" },
   summary: {
     es: "continue salta al siguiente registro; break deja de recorrer en cuanto encuentras lo que buscabas.",
@@ -43,9 +54,10 @@ export const l06BreakContinue: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "En un Loop de Flow, cuando un registro no aplica, pones un Decision cuya salida «no aplica» vuelve directa al Loop, sin pasar por las acciones. Eso es continue. break no tiene un botón en Flow: es lo que haces cuando buscas un registro en una vista de lista y dejas de leer en cuanto lo ves.",
-        en: "In a Flow Loop, when a record does not apply, you add a Decision whose “not applicable” outcome goes straight back to the Loop, skipping the actions. That is continue. break has no button in Flow: it is what you do when you look for a record in a list view and stop reading the moment you see it.",
+        es: "En un Loop de Flow, cuando un registro no aplicaba, yo ponía un Decision cuya salida «no aplica» volvía directa al Loop, sin pasar por las acciones. Eso es continue. break no tiene un botón en Flow: es lo que haces cuando buscas un registro en una vista de lista y dejas de leer en cuanto lo ves.",
+        en: "In a Flow Loop, when a record did not apply, I would add a Decision whose «does not apply» outcome went straight back to the Loop, skipping the actions. That is continue. break has no button in Flow: it is what you do when you look for a record in a list view and stop reading as soon as you see it.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -412,16 +424,16 @@ List<Case> cases = new List<Case>{
     },
     hints: [
       {
-        es: "Son dos preguntas distintas y por eso dos bucles: contar necesita recorrer todo; buscar el primero puede parar antes. Declara openCount y firstUrgent antes de sus bucles.",
-        en: "These are two different questions and so two loops: counting needs to walk everything; finding the first can stop early. Declare openCount and firstUrgent before their loops.",
+        es: "Yo separaría las dos preguntas, porque son distintas: contar necesita recorrer todo; buscar el primero puede parar antes. Por eso son dos bucles. Declara openCount y firstUrgent antes de sus bucles.",
+        en: "I would split the two questions, because they are different: counting needs to walk everything; finding the first can stop early. That is why there are two loops. Declare openCount and firstUrgent before their loops.",
       },
       {
-        es: "En el primero, la guarda va arriba: si Status es 'Closed', continue; debajo, openCount++. En el segundo, cuando se cumplan las dos condiciones con &&, guarda el caso en firstUrgent y haz break.",
-        en: "In the first, the guard goes at the top: if Status is 'Closed', continue; below it, openCount++. In the second, when both conditions hold with &&, store the case in firstUrgent and break.",
+        es: "Lo que me ayudó: en el primero, la guarda va arriba, como el Decision de «no aplica» al principio del Loop: si Status es 'Closed', continue; debajo, openCount++. En el segundo, cuando se cumplan las dos condiciones con &&, guarda el caso en firstUrgent y haz break.",
+        en: "What helped me: in the first one the guard goes at the top, like the «does not apply» Decision at the start of the Loop: if Status is 'Closed', continue; below it, openCount++. In the second one, when both conditions are met with &&, store the case in firstUrgent and break.",
       },
       {
-        es: "Pseudocódigo: Integer openCount = 0; para cada c { si cerrado → continue; openCount++; } Case firstUrgent; para cada c { si High && New { firstUrgent = c; break; } } si firstUrgent == null → aviso; si no → Subject.",
-        en: "Pseudocode: Integer openCount = 0; for each c { if closed → continue; openCount++; } Case firstUrgent; for each c { if High && New { firstUrgent = c; break; } } if firstUrgent == null → notice; else → Subject.",
+        es: "Te dejo el esquema: Integer openCount = 0; para cada c { si cerrado → continue; openCount++; } Case firstUrgent; para cada c { si High && New { firstUrgent = c; break; } } si firstUrgent == null → aviso; si no → Subject.",
+        en: "Here is the outline: Integer openCount = 0; for each c { if closed → continue; openCount++; } Case firstUrgent; for each c { if High && New { firstUrgent = c; break; } } if firstUrgent == null → notice; otherwise → Subject.",
       },
     ],
     solution: {
@@ -498,6 +510,10 @@ if (firstUrgent == null) {
           es: "Un contador se declara antes del bucle: Integer openCount = 0;",
           en: "A counter is declared before the loop: Integer openCount = 0;",
         },
+        otter: {
+          es: "openCount es un contador: se declara antes del bucle y empieza en 0, como la variable numérica que crearías en Flow antes del Loop. Integer openCount = 0;",
+          en: "openCount is a counter: declared before the loop and starting at 0, like the number variable you would create in Flow before the Loop. Integer openCount = 0;",
+        },
       },
       {
         id: "m02-l06-c2",
@@ -512,6 +528,10 @@ if (firstUrgent == null) {
         onFail: {
           es: "La guarda es: if (c.Status == 'Closed') { continue; } — arriba del cuerpo, antes de contar.",
           en: "The guard is: if (c.Status == 'Closed') { continue; } — at the top of the body, before counting.",
+        },
+        otter: {
+          es: "Los cerrados se saltan con la guarda arriba del cuerpo, como el Decision de «no aplica» que vuelve directo al Loop: if (c.Status == 'Closed') { continue; }",
+          en: "Closed ones are skipped with the guard at the top of the body, like the «does not apply» Decision going straight back to the Loop: if (c.Status == 'Closed') { continue; }",
         },
       },
       {
@@ -529,6 +549,10 @@ if (firstUrgent == null) {
           es: "Debajo del continue, cada vuelta que llega hasta ahí es un caso abierto: openCount++;",
           en: "Below the continue, every pass that gets that far is an open case: openCount++;",
         },
+        otter: {
+          es: "Debajo del continue, cada vuelta que llega hasta ahí es un caso abierto: es el Assignment que suma 1. openCount++;",
+          en: "Below the continue, every pass that gets that far is an open case: it is the Assignment that adds 1. openCount++;",
+        },
       },
       {
         id: "m02-l06-c4",
@@ -540,6 +564,10 @@ if (firstUrgent == null) {
         onFail: {
           es: "La variable del hallazgo va antes del bucle y empieza vacía: Case firstUrgent;",
           en: "The finding's variable goes before the loop and starts empty: Case firstUrgent;",
+        },
+        otter: {
+          es: "firstUrgent es donde guardas el hallazgo, como una variable de registro de Flow: se declara antes del bucle y empieza vacía. Case firstUrgent;",
+          en: "firstUrgent is where you keep the find, like a Flow record variable: declared before the loop and starting empty. Case firstUrgent;",
         },
       },
       {
@@ -559,6 +587,10 @@ if (firstUrgent == null) {
         onFail: {
           es: "Las dos condiciones van unidas con &&; dentro del if, firstUrgent = c; y justo después break;",
           en: "Both conditions go together with &&; inside the if, firstUrgent = c; and right after, break;",
+        },
+        otter: {
+          es: "Es tu búsqueda en la vista de lista: en cuanto lo ves, dejas de leer. Las dos condiciones van unidas con &&; dentro del if, firstUrgent = c; y justo después break;",
+          en: "It is your list-view search: as soon as you see it, you stop reading. Both conditions are joined with &&; inside the if, firstUrgent = c; and right after that, break;",
         },
         onPass: {
           es: "En una cola de 200 casos, si el urgente es el tercero, el bucle hace 3 vueltas en vez de 200.",
@@ -583,6 +615,10 @@ if (firstUrgent == null) {
           es: "Si ningún caso cumple, firstUrgent sigue en null y firstUrgent.Subject lanza una excepción. Pregunta antes if (firstUrgent == null).",
           en: "If no case matches, firstUrgent is still null and firstUrgent.Subject throws an exception. Ask first: if (firstUrgent == null).",
         },
+        otter: {
+          es: "Si ningún caso cumple, firstUrgent sigue en null, y leer firstUrgent.Subject lanza una excepción. Es el mismo motivo por el que en Flow ponías un Decision «¿se encontró?» después de un Get Records: pregunta antes if (firstUrgent == null).",
+          en: "If no case matches, firstUrgent stays null, and reading firstUrgent.Subject throws an exception. It is the same reason you put a «was it found?» Decision after a Get Records in Flow: ask first with if (firstUrgent == null).",
+        },
       },
     ],
     rubric: [
@@ -590,10 +626,11 @@ if (firstUrgent == null) {
         es: "Cambia el último caso a Priority 'Low' y el tercero a Status 'Working'. ¿Tu código muestra el aviso en vez de fallar?",
         en: "Change the last case to Priority 'Low' and the third to Status 'Working'. Does your code show the notice instead of failing?",
       },
-      {
-        es: "Tarea 7: Marketing vuelve de una feria con leads y pregunta cuáles son de empresas que ya son clientes. Dos listas a la vez: cuidado con el bucle dentro del bucle.",
-        en: "Task 7: Marketing comes back from a trade show with leads and asks which come from companies that are already customers. Two lists at once: beware the loop inside the loop.",
-      },
     ],
+    outro: {
+      es: "Ya saltas lo que no aplica con continue y paras en cuanto encuentras lo que buscas con break. En la tarea 7, Marketing vuelve de una feria con leads y hay dos listas a la vez: cuidado con el bucle dentro del bucle.",
+      en: "You can now skip what does not apply with continue and stop as soon as you find what you want with break. In task 7, Marketing comes back from a trade show with leads and there are two lists at once: watch out for the loop inside the loop.",
+    },
+    voice: "otter",
   },
 };

@@ -6,6 +6,17 @@ export const l08Checkpoint: Lesson = {
   n: 8,
   kind: "checkpoint",
   minutes: 45,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 7", en: "Remember? · Review of lesson 7" },
+    prompt: { es: "Quieres saber si la empresa de un lead está en la lista de clientes, sin recorrer la lista entera. ¿Qué usas?", en: "You want to know whether a lead's company is in the customer list, without walking the whole list. What do you use?" },
+    options: [
+      { es: "Un Set y contains()", en: "A Set and contains()" },
+      { es: "Un bucle dentro de otro", en: "A loop inside another" },
+      { es: "Un while", en: "A while" },
+    ],
+    answer: 0,
+    explain: { es: "El Set es tu BUSCARV: contains() va directo a la respuesta, sin bajar con el dedo por la lista.", en: "The Set is your VLOOKUP: contains() goes straight to the answer, without running your finger down the list." },
+  },
   title: { es: "Checkpoint del Módulo 2", en: "Module 2 Checkpoint" },
   summary: {
     es: "Las siete sub-lecciones juntas en una revisión de pipeline real: decidir, repartir, recorrer, saltar y parar.",
@@ -523,16 +534,16 @@ List<Opportunity> opps = new List<Opportunity>{
     },
     hints: [
       {
-        es: "Organízalo por piezas: variables antes de los bucles; en el primer bucle, guarda → importe seguro → if por tamaño → switch por etapa → acumular; en el segundo, guarda → condición → guardar y break. Fíjate en que la oportunidad más grande de la lista está cerrada.",
-        en: "Organise it in pieces: variables before the loops; in the first loop, guard → safe amount → size if → stage switch → accumulate; in the second, guard → condition → store and break. Note that the biggest opportunity in the list is closed.",
+        es: "Yo lo organizaría por piezas, como un Flow grande que diseñas por tramos: variables antes de los bucles; en el primer bucle, guarda → importe seguro → if por tamaño → switch por etapa → acumular; en el segundo, guarda → condición → guardar y break. Fíjate en que la oportunidad más grande de la lista está cerrada.",
+        en: "I would organise it in pieces, like a big Flow you design section by section: variables before the loops; in the first loop, guard → safe amount → if by size → switch by stage → accumulate; in the second, guard → condition → store and break. Notice that the biggest opportunity in the list is closed.",
       },
       {
-        es: "La guarda es if (opp.StageName == 'Closed Won' || opp.StageName == 'Closed Lost') { continue; }. El tamaño es una cadena if / else if / else de mayor a menor. La probabilidad es un Decimal declarado dentro del primer bucle y asignado en cada when.",
-        en: "The guard is if (opp.StageName == 'Closed Won' || opp.StageName == 'Closed Lost') { continue; }. Size is an if / else if / else chain from highest to lowest. The probability is a Decimal declared inside the first loop and assigned in each when.",
+        es: "Lo que me ayudó: la guarda es if (opp.StageName == 'Closed Won' || opp.StageName == 'Closed Lost') { continue; }. El tamaño es una cadena if / else if / else de mayor a menor, como las salidas ordenadas de un Decision. La probabilidad es un Decimal declarado dentro del primer bucle y asignado en cada when.",
+        en: "What helped me: the guard is if (opp.StageName == 'Closed Won' || opp.StageName == 'Closed Lost') { continue; }. The size is an if / else if / else chain from highest to lowest, like the ordered outcomes of a Decision. The probability is a Decimal declared inside the first loop and assigned in each when.",
       },
       {
-        es: "Pseudocódigo: para cada opp { si cerrada → continue; amount = opp.Amount ?? 0; si ≥100000 large++ / si no si ≥20000 medium++ / si no small++; switch etapa → probability; weightedPipeline += amount * probability; } — Opportunity legalReview; para cada opp { si cerrada → continue; si amount ≥ 250000 { legalReview = opp; break; } }",
-        en: "Pseudocode: for each opp { if closed → continue; amount = opp.Amount ?? 0; if ≥100000 large++ / else if ≥20000 medium++ / else small++; switch stage → probability; weightedPipeline += amount * probability; } — Opportunity legalReview; for each opp { if closed → continue; if amount ≥ 250000 { legalReview = opp; break; } }",
+        es: "Te dejo el esquema: para cada opp { si cerrada → continue; amount = opp.Amount ?? 0; si ≥100000 large++ / si no si ≥20000 medium++ / si no small++; switch etapa → probability; weightedPipeline += amount * probability; } — Opportunity legalReview; para cada opp { si cerrada → continue; si amount ≥ 250000 { legalReview = opp; break; } }",
+        en: "Here is the outline: for each opp { if closed → continue; amount = opp.Amount ?? 0; if ≥100000 large++ / else if ≥20000 medium++ / else small++; switch stage → probability; weightedPipeline += amount * probability; } — Opportunity legalReview; for each opp { if closed → continue; if amount ≥ 250000 { legalReview = opp; break; } }",
       },
     ],
     solution: {
@@ -673,6 +684,10 @@ if (legalReview != null) {
           es: "Contadores y acumuladores van antes del bucle y empiezan en 0. Dentro se reiniciarían en cada vuelta y morirían al terminar.",
           en: "Counters and accumulators go before the loop and start at 0. Inside, they would reset on every pass and die at the end.",
         },
+        otter: {
+          es: "Contadores y acumuladores son como las variables que creas en Flow antes del Loop: van antes del bucle y empiezan en 0. Dentro se reiniciarían en cada vuelta.",
+          en: "Counters and accumulators are like the variables you create in Flow before the Loop: they go before the loop and start at 0. Inside it they would reset on every pass.",
+        },
       },
       {
         id: "m02-l08-c2",
@@ -692,6 +707,10 @@ if (legalReview != null) {
           es: "La guarda arriba del cuerpo: if (opp.StageName == 'Closed Won' || opp.StageName == 'Closed Lost') { continue; }",
           en: "The guard at the top of the body: if (opp.StageName == 'Closed Won' || opp.StageName == 'Closed Lost') { continue; }",
         },
+        otter: {
+          es: "Las cerradas no aplican: la guarda arriba del cuerpo, como el Decision de «no aplica» que vuelve al Loop. if (opp.StageName == 'Closed Won' || opp.StageName == 'Closed Lost') { continue; }",
+          en: "Closed ones do not apply: the guard at the top of the body, like the «does not apply» Decision going back to the Loop. if (opp.StageName == 'Closed Won' || opp.StageName == 'Closed Lost') { continue; }",
+        },
       },
       {
         id: "m02-l08-c3",
@@ -710,6 +729,10 @@ if (legalReview != null) {
         onFail: {
           es: "Umbrella no tiene importe: compararla con >= o multiplicarla lanza una excepción. Decimal amount = opp.Amount ?? 0;",
           en: "Umbrella has no amount: comparing it with >= or multiplying it throws an exception. Decimal amount = opp.Amount ?? 0;",
+        },
+        otter: {
+          es: "Umbrella no tiene importe: compararla o multiplicarla lanza una excepción. Tu BLANKVALUE(Amount, 0): Decimal amount = opp.Amount ?? 0;",
+          en: "Umbrella has no amount: comparing or multiplying it throws an exception. Your BLANKVALUE(Amount, 0): Decimal amount = opp.Amount ?? 0;",
         },
       },
       {
@@ -749,6 +772,10 @@ if (legalReview != null) {
           es: "Primero ≥ 100000 (largeCount++), después else if ≥ 20000 (mediumCount++) y un else final (smallCount++). Gana la primera condición verdadera.",
           en: "First ≥ 100000 (largeCount++), then else if ≥ 20000 (mediumCount++) and a final else (smallCount++). The first true condition wins.",
         },
+        otter: {
+          es: "El tamaño son tres salidas de un Decision, ordenadas de mayor a menor porque gana la primera que se cumple: ≥ 100000 (largeCount++), else if ≥ 20000 (mediumCount++) y un else final (smallCount++).",
+          en: "The size is three outcomes of a Decision, ordered from highest to lowest because the first one met wins: ≥ 100000 (largeCount++), else if ≥ 20000 (mediumCount++) and a final else (smallCount++).",
+        },
       },
       {
         id: "m02-l08-c5",
@@ -769,6 +796,10 @@ if (legalReview != null) {
           es: "Valores exactos de un picklist: switch on opp.StageName con when 'Prospecting' → 0.1, when 'Negotiation' → 0.7 y when else → 0.3.",
           en: "Exact picklist values: switch on opp.StageName with when 'Prospecting' → 0.1, when 'Negotiation' → 0.7 and when else → 0.3.",
         },
+        otter: {
+          es: "La probabilidad depende de valores exactos de un picklist, así que es un switch, tu Decision sobre StageName: when 'Prospecting' → 0.1, when 'Negotiation' → 0.7 y when else → 0.3.",
+          en: "The probability depends on exact picklist values, so it is a switch, your Decision on StageName: when 'Prospecting' → 0.1, when 'Negotiation' → 0.7 and when else → 0.3.",
+        },
       },
       {
         id: "m02-l08-c6",
@@ -783,6 +814,10 @@ if (legalReview != null) {
         onFail: {
           es: "En cada vuelta abierta: weightedPipeline += amount * probability;",
           en: "On every open pass: weightedPipeline += amount * probability;",
+        },
+        otter: {
+          es: "weightedPipeline es como el campo Expected Revenue de la oportunidad: importe × probabilidad, acumulado en cada vuelta abierta. weightedPipeline += amount * probability;",
+          en: "weightedPipeline is like the opportunity's Expected Revenue field: amount × probability, accumulated on every open pass. weightedPipeline += amount * probability;",
         },
         onPass: {
           es: "Con los datos del ejercicio, el pipeline ponderado sale 251.000.",
@@ -803,6 +838,10 @@ if (legalReview != null) {
           es: "La variable del hallazgo va antes del bucle de búsqueda: Opportunity legalReview;",
           en: "The finding's variable goes before the search loop: Opportunity legalReview;",
         },
+        otter: {
+          es: "legalReview es donde guardas el hallazgo, como una variable de registro en Flow: se declara antes del bucle de búsqueda. Opportunity legalReview;",
+          en: "legalReview is where you keep the find, like a Flow record variable: declared before the search loop. Opportunity legalReview;",
+        },
       },
       {
         id: "m02-l08-c8",
@@ -821,6 +860,10 @@ if (legalReview != null) {
           es: "Dentro del if con ≥ 250000: legalReview = opp; y justo después break;",
           en: "Inside the if with ≥ 250000: legalReview = opp; and right after, break;",
         },
+        otter: {
+          es: "Es tu búsqueda en la vista de lista: en cuanto aparece una de 250.000 o más, dejas de leer. Dentro del if: legalReview = opp; y justo después break;",
+          en: "It is your list-view search: as soon as one of 250,000 or more shows up, you stop reading. Inside the if: legalReview = opp; and right after that, break;",
+        },
       },
       {
         id: "m02-l08-c9",
@@ -832,6 +875,10 @@ if (legalReview != null) {
         onFail: {
           es: "Stark está cerrada y es la primera de 250.000 o más. Si el segundo bucle no la salta, legalReview acaba en una oportunidad perdida.",
           en: "Stark is closed and is the first one worth 250,000 or more. If the second loop does not skip it, legalReview ends up on a lost opportunity.",
+        },
+        otter: {
+          es: "Stark está cerrada y es la primera de 250.000 o más. Si el segundo bucle no la salta, legalReview acaba en una oportunidad perdida: la guarda de las cerradas también va aquí.",
+          en: "Stark is closed and is the first one of 250,000 or more. If the second loop does not skip it, legalReview ends up on a lost opportunity: the closed-ones guard goes here too.",
         },
         onPass: {
           es: "Bien visto: la condición de negocio era «abierta y ≥ 250.000», no solo «≥ 250.000».",
@@ -856,6 +903,10 @@ if (legalReview != null) {
           es: "Si ninguna cumpliera, legalReview.Name lanzaría una excepción. Pregunta antes if (legalReview != null).",
           en: "If none matched, legalReview.Name would throw an exception. Ask first: if (legalReview != null).",
         },
+        otter: {
+          es: "Si ninguna cumpliera, legalReview.Name lanzaría una excepción. Es el Decision «¿se encontró?» que ponías después de un Get Records en Flow: if (legalReview != null).",
+          en: "If none matched, legalReview.Name would throw an exception. It is the «was it found?» Decision you put after a Get Records in Flow: if (legalReview != null).",
+        },
       },
     ],
     rubric: [
@@ -868,5 +919,10 @@ if (legalReview != null) {
         en: "Change Acme's Amount to 200000. Does your code print the result without failing when there is no legal review?",
       },
     ],
+    outro: {
+      es: "¡Entregaste la revisión trimestral con todas las reglas que pidió Northwind! Ya decides y repites como en un Flow, pero en código. Hasta ahora los datos venían escritos en el propio código; en el Módulo 3 se los pides a la org con SOQL, empezando por ver qué cuentas hay en la cartera.",
+      en: "You delivered the quarterly review with every rule Northwind asked for! You now decide and repeat as in a Flow, but in code. Until now the data was written into the code itself; in Module 3 you ask the org for it with SOQL, starting with which accounts are in the portfolio.",
+    },
+    voice: "otter",
   },
 };
