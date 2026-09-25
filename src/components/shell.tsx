@@ -102,7 +102,7 @@ function StatusDot({ status }: { status: LessonStatus }) {
 }
 
 function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
-  const { lang, theme } = useSettings();
+  const { lang } = useSettings();
   const { snapshot, authed } = useProgress();
   const pathname = usePathname();
 
@@ -120,7 +120,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
       <div className="flex items-center justify-between px-5 pt-5 pb-4">
         <Link href="/" onClick={onNavigate} className="inline-flex min-h-[44px] items-center rounded-[4px]">
           <span className="inline-flex items-center gap-2.5">
-            <MascotMark theme={theme} size={30} className="shrink-0" />
+            <MascotMark size={30} className="shrink-0" />
             <span className="flex items-baseline gap-1.5 leading-none">
               <span className="text-[0.975rem] font-bold tracking-[-0.025em] text-heading">Apex</span>
               <span className="text-[0.975rem] tracking-[-0.01em] text-muted">Academy</span>
@@ -297,7 +297,6 @@ function SignOutButton() {
 export function Shell({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const { theme } = useSettings();
 
   useEffect(() => {
     setOpen(false);
@@ -333,7 +332,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
           </svg>
         </button>
         <Link href="/" className="flex min-h-[44px] items-center gap-2 px-1">
-          <MascotMark theme={theme} size={28} className="shrink-0" />
+          <MascotMark size={28} className="shrink-0" />
           <span className="text-[0.925rem] font-bold tracking-[-0.025em] text-heading">
             Apex Academy
           </span>

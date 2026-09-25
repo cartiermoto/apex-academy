@@ -7,58 +7,58 @@
 /* ---------------------------------------------------------------------------
    Apex Academy — app-wide tokens (lessons, challenges, sidebar, login)
 
-   Derived from the official webyaber palette
-   (apex-academy-propuesta2-design-tokens.json). Every value is tagged:
-     JSON  → copied from the brand token file
-     NUEVO → proposed to cover a role the brand file does not define
-             (errors, warnings, code syntax, text-safe blue). Pending sign-off.
-   ⚠ #12262E (navy) is itself provisional — not in the official brand sheet.
+   Propuesta 4, versión verde (apex-academy-paleta-mascota-verde.json): the
+   otter's green hoodie is the lead colour, on a warm page. Every value is tagged:
+     JSON  → copied from the palette file
+     NUEVO → proposed to cover a role the palette does not define
+             (secondary text, errors, warnings, code syntax, hover tints).
 
    All text/background pairs verified against WCAG 2 (≥ 4.5:1). Notably:
-   - The JSON blue #1E7FB8 is only 4.39:1 on white, so it cannot carry small
-     text; text, links and icons use #1A6FA1 (NUEVO, same hue, 5.48:1).
-   - #858585 from the brand sheet is 3.7:1 on white and is not used.
+   - The fill green #2E7A4C carries white button text (5.24:1) but small text
+     and links use accentText #26593A (7.65:1 on the page).
+   - Dark surface-2 is #1E4250 (NUEVO) instead of #204B5E: the green #6BC08A
+     is only 4.28:1 on #204B5E and 4.89:1 on #1E4250.
    --------------------------------------------------------------------------- */
 :root {
-  --c-bg: #ffffff;              /* JSON */
-  --c-surface: #ffffff;         /* JSON */
-  --c-surface-2: #e8ecef;       /* JSON */
-  --c-border: #cdd8dd;          /* JSON divider */
-  --c-border-strong: #b0b0b0;   /* JSON */
-  --c-heading: #4d4d4d;         /* JSON ink */
-  --c-text: #4d4d4d;            /* JSON ink */
-  --c-text-muted: #5c5c5c;      /* NUEVO — 6.69:1 on white */
-  --c-text-faint: #666666;      /* NUEVO — 4.83:1 on #E8ECEF, 5.74:1 on white */
+  --c-bg: #fbf7f1;              /* JSON bg */
+  --c-surface: #ffffff;         /* NUEVO — white cards on the warm page */
+  --c-surface-2: #f7eee0;       /* JSON bannerSurface */
+  --c-border: #e8d9c6;          /* JSON divider */
+  --c-border-strong: rgba(74, 63, 53, 0.3); /* JSON legendBorder */
+  --c-heading: #4a3f35;         /* JSON ink */
+  --c-text: #4a3f35;            /* JSON ink */
+  --c-text-muted: #5e5247;      /* NUEVO — 7.09:1 on the page, 6.58:1 on surface-2 */
+  --c-text-faint: #6b5e52;      /* NUEVO — 5.88:1 on the page, 5.45:1 on surface-2 */
 
-  --c-brand: #1a6fa1;           /* NUEVO — text-safe version of #1E7FB8 */
-  --c-brand-hover: #204b5e;     /* JSON */
-  --c-brand-deco: #3da6d9;      /* JSON accent (decorative only) */
-  --c-brand-soft: #eaf5fb;      /* NUEVO — light tint of #3DA6D9 */
-  --c-brand-ring: #3da6d966;    /* JSON accent, translucent */
-  --c-on-brand: #ffffff;        /* JSON */
-  --c-fill: #3da6d9;            /* JSON accent — primary buttons, as on the home */
-  --c-on-fill: #12262e;         /* JSON onAccent (provisional navy) */
-  --c-sky: #bbe0f2;             /* JSON */
+  --c-brand: #26593a;           /* JSON accentText — text, links, icons */
+  --c-brand-hover: #1d4630;     /* NUEVO — darker step of the same green */
+  --c-brand-deco: #2e7a4c;      /* JSON accent (decorative) */
+  --c-brand-soft: #d9eddf;      /* JSON fund surface — 6.66:1 under brand text */
+  --c-brand-ring: #2e7a4c66;    /* JSON accent, translucent */
+  --c-on-brand: #ffffff;        /* JSON onAccent */
+  --c-fill: #2e7a4c;            /* JSON accent — primary buttons, progress */
+  --c-on-fill: #ffffff;         /* JSON onAccent — 5.24:1 */
+  --c-sky: #d9eaf5;             /* JSON logic surface */
 
-  --c-accent: #204b5e;          /* JSON — challenges */
-  --c-accent-soft: #e8ecef;     /* JSON */
+  --c-accent: #26593a;          /* JSON challengeBg — challenges */
+  --c-accent-soft: #d9eddf;     /* JSON fund surface */
 
   --c-danger: #b42318;          /* NUEVO — errors only */
   --c-danger-soft: #fdecea;     /* NUEVO */
   --c-warn: #8c5a00;            /* NUEVO — warnings only */
   --c-warn-soft: #fff3e0;       /* NUEVO */
 
-  --c-dot: rgba(77, 77, 77, 0.12); /* JSON ink, translucent */
+  --c-dot: rgba(74, 63, 53, 0.12); /* JSON ink, translucent */
 
   /* code surface */
-  --c-code-bg: #f3f8fa;         /* JSON */
-  --c-code-border: #cdd8dd;     /* JSON */
-  --c-code-text: #4d4d4d;       /* JSON */
-  --c-code-key: #1a6fa1;        /* NUEVO (= brand) */
-  --c-code-type: #204b5e;       /* JSON */
+  --c-code-bg: #f7eee0;         /* JSON bannerSurface */
+  --c-code-border: #e8d9c6;     /* JSON divider */
+  --c-code-text: #4a3f35;       /* JSON ink */
+  --c-code-key: #26593a;        /* JSON accentText (= brand) */
+  --c-code-type: #204b5e;       /* NUEVO — 8.19:1 */
   --c-code-str: #8c5a00;        /* NUEVO (= warn) */
   --c-code-num: #7a3e9d;        /* NUEVO */
-  --c-code-com: #666666;        /* NUEVO (= faint) */
+  --c-code-com: #6b5e52;        /* NUEVO (= faint) */
 
   --radius: 4px;
   --shadow-card: 0 1px 2px rgb(18 38 46 / 0.06);
@@ -66,9 +66,9 @@
 }
 
 [data-theme="dark"] {
-  --c-bg: #12262e;              /* JSON (provisional navy) */
+  --c-bg: #12262e;              /* JSON */
   --c-surface: #1b3644;         /* JSON */
-  --c-surface-2: #204b5e;       /* JSON */
+  --c-surface-2: #1e4250;       /* NUEVO — green text passes here (4.89:1) */
   --c-border: rgba(255, 255, 255, 0.14); /* JSON divider */
   --c-border-strong: rgba(255, 255, 255, 0.35); /* JSON legendBorder */
   --c-heading: #f3f8fa;         /* JSON */
@@ -76,20 +76,20 @@
   --c-text-muted: #cdd8dd;      /* JSON */
   --c-text-faint: #a2c2d2;      /* JSON */
 
-  --c-brand: #66b7e7;           /* JSON accent */
-  --c-brand-hover: #bbe0f2;     /* JSON */
-  --c-brand-deco: #66b7e7;      /* JSON */
-  --c-brand-soft: #163b4d;      /* NUEVO — between #1B3644 and #204B5E */
-  --c-brand-ring: #66b7e766;    /* JSON, translucent */
-  --c-on-brand: #12262e;        /* JSON */
-  --c-fill: #66b7e7;            /* JSON */
-  --c-on-fill: #12262e;         /* JSON */
-  --c-sky: #bbe0f2;             /* JSON */
+  --c-brand: #6bc08a;           /* JSON accent / accentText */
+  --c-brand-hover: #a8ddbb;     /* NUEVO — lighter step of the same green */
+  --c-brand-deco: #6bc08a;      /* JSON */
+  --c-brand-soft: #1e4636;      /* NUEVO — green-tinted navy, 4.80:1 under brand */
+  --c-brand-ring: #6bc08a66;    /* JSON, translucent */
+  --c-on-brand: #12262e;        /* JSON onAccent */
+  --c-fill: #6bc08a;            /* JSON accent */
+  --c-on-fill: #12262e;         /* JSON onAccent — 7.1:1 */
+  --c-sky: #66b7e7;             /* JSON logic accent */
 
-  --c-accent: #a2c2d2;          /* JSON */
-  --c-accent-soft: #204b5e;     /* JSON */
+  --c-accent: #6bc08a;          /* JSON */
+  --c-accent-soft: #1e4636;     /* NUEVO (= brand-soft) */
 
-  --c-danger: #f28b7d;          /* NUEVO */
+  --c-danger: #f4978a;          /* NUEVO — 4.94:1 on surface-2 */
   --c-danger-soft: #3a2325;     /* NUEVO */
   --c-warn: #f2c27b;            /* NUEVO */
   --c-warn-soft: #33301f;       /* NUEVO */
@@ -99,7 +99,7 @@
   --c-code-bg: #0f2028;         /* NUEVO — a notch below the navy */
   --c-code-border: rgba(255, 255, 255, 0.14); /* JSON */
   --c-code-text: #f3f8fa;       /* JSON */
-  --c-code-key: #66b7e7;        /* JSON */
+  --c-code-key: #6bc08a;        /* JSON accent (= brand) */
   --c-code-type: #a2c2d2;       /* JSON */
   --c-code-str: #f2c27b;        /* NUEVO (= warn) */
   --c-code-num: #d4a5f0;        /* NUEVO */
@@ -409,52 +409,46 @@ body {
 
 /* ---------------------------------------------------------------------------
    Editorial por categorías — home / dashboard de módulos
-   Source: apex-academy-propuesta2-design-tokens.json (paleta oficial webyaber).
-   Every value below is copied verbatim from that file; do not add new tones.
-
-   ⚠ PROVISIONAL: #12262E (navy) is NOT part of the official brand sheet — it
-   is an extrapolation for dark mode. It is used as the dark background, as
-   the text on accent buttons ("onAccent") and as the light-mode challenge
-   card. It is the only value in this system awaiting brand sign-off.
+   Source: apex-academy-paleta-mascota-verde.json (Propuesta 4, versión verde).
+   Every value below is copied verbatim from that file, except the credit
+   accent in light mode (see below).
    --------------------------------------------------------------------------- */
 .editorial {
-  --e-bg: #ffffff;
-  --e-ink: #4d4d4d;
-  --e-accent: #3da6d9;
-  --e-on-accent: #12262e; /* provisional navy */
-  --e-divider: #cdd8dd;
-  --e-track-bg: #cdd8dd;
-  --e-legend-border: rgba(77, 77, 77, 0.3);
-  --e-challenge-bg: #12262e; /* provisional navy */
+  --e-bg: #fbf7f1;
+  --e-ink: #4a3f35;
+  --e-accent: #2e7a4c;
+  --e-accent-text: #26593a;
+  --e-on-accent: #ffffff; /* 5.24:1 on the green */
+  --e-divider: #e8d9c6;
+  --e-track-bg: #e8d9c6;
+  --e-legend-border: rgba(74, 63, 53, 0.3);
+  --e-banner-surface: #f7eee0;
+  --e-challenge-bg: #26593a;
+  --e-challenge-border: none;
   --e-challenge-text: #ffffff;
-  /* footer credit "claude code": mascot orange darkened for AA on white (5.0:1) — NUEVO */
-  --e-credit-accent: #b4531b;
-  /* "Siguiente" floating card: a soft lift built from the navy */
-  --e-float-shadow: 0 24px 48px rgba(18, 38, 46, 0.16), 0 4px 10px rgba(18, 38, 46, 0.08);
+  /* footer credit "claude code": #CC785C is only 3.07:1 on the warm page, so
+     light mode uses the same hue darkened to 4.69:1 — NUEVO */
+  --e-credit-accent: #a85a3f;
+  /* "Siguiente" floating card: a soft lift built from the ink */
+  --e-float-shadow: 0 24px 48px rgba(74, 63, 53, 0.16), 0 4px 10px rgba(74, 63, 53, 0.08);
 
-  /* light: every module number uses the single blue; titles use ink */
-  --e-module-num: #1e7fb8;
+  /* light: every module number uses the single green; titles use ink */
+  --e-module-num: #26593a;
 
-  --e-cat-fund-accent: #3da6d9;
-  --e-cat-fund-surface: #bbe0f2;
+  --e-cat-fund-accent: #6bc08a;
+  --e-cat-fund-surface: #d9eddf;
   --e-cat-logic-accent: #66b7e7;
-  --e-cat-logic-surface: #c9e6f7;
-  --e-cat-obj-accent: #a2c2d2;
-  --e-cat-obj-surface: #a2c2d2;
+  --e-cat-logic-surface: #d9eaf5;
+  --e-cat-obj-accent: #d9a66c;
+  --e-cat-obj-surface: #ede0d2;
   --e-cat-robust-accent: #b0b0b0;
-  --e-cat-robust-surface: #e8ecef;
+  --e-cat-robust-surface: #eae6df;
   --e-cat-scope-accent: #cdd8dd;
-  --e-cat-scope-surface: #cdd8dd;
+  --e-cat-scope-surface: #f7eee0;
 
-  /* light: robust + scope surfaces are near-white, so they get a border */
-  --e-card-border-robust: 1px solid rgba(77, 77, 77, 0.3);
-  --e-card-border-scope: 1px solid rgba(77, 77, 77, 0.3);
-
-  /* WCAG exception, decided with the owner: #1E7FB8 on the "obj" surface
-     #A2C2D2 is only 2.34:1 (fails even 3:1 for large text), so modules 05–07
-     use the navy instead — 8.33:1. Light mode only; dark keeps the rule of
-     "number = category accent". */
-  --e-module-num-obj: #12262e; /* provisional navy */
+  /* light: robust + scope surfaces are near the page colour, so they get a border */
+  --e-card-border-robust: 1px solid rgba(74, 63, 53, 0.3);
+  --e-card-border-scope: 1px solid rgba(74, 63, 53, 0.3);
 
   background: var(--e-bg);
   color: var(--e-ink);
@@ -462,17 +456,20 @@ body {
 }
 
 [data-theme="dark"] .editorial {
-  --e-bg: #12262e; /* provisional navy */
+  --e-bg: #12262e;
   --e-ink: #f3f8fa;
-  --e-accent: #66b7e7;
-  --e-on-accent: #12262e; /* provisional navy */
+  --e-accent: #6bc08a;
+  --e-accent-text: #6bc08a;
+  --e-on-accent: #12262e; /* 7.1:1 on the green */
   --e-divider: rgba(255, 255, 255, 0.14);
   --e-track-bg: rgba(255, 255, 255, 0.14);
   --e-legend-border: rgba(255, 255, 255, 0.35);
-  --e-challenge-bg: #204b5e;
+  --e-banner-surface: #1b3644;
+  --e-challenge-bg: #26593a;
+  --e-challenge-border: 1px solid rgba(107, 192, 138, 0.4);
   --e-challenge-text: #ffffff;
-  /* mascot orange as-is: 4.8:1 on the navy page */
-  --e-credit-accent: #e8722c;
+  /* Claude's #CC785C as-is: 4.77:1 on the navy page */
+  --e-credit-accent: #cc785c;
   /* on a navy page a navy shadow is invisible, so dark mode uses black */
   --e-float-shadow: 0 24px 48px rgba(0, 0, 0, 0.45), 0 4px 10px rgba(0, 0, 0, 0.3);
 
@@ -488,10 +485,10 @@ body {
 
 /* Match the page behind the dashboard (visible on iOS overscroll). */
 body:has(.editorial) {
-  background: #ffffff;
+  background: #fbf7f1;
 }
 [data-theme="dark"] body:has(.editorial) {
-  background: #12262e; /* provisional navy */
+  background: #12262e;
 }
 
 .editorial .e-mono {
@@ -543,6 +540,9 @@ body:has(.editorial) {
   }
 }
 .e-challenge {
+  background: var(--e-challenge-bg);
+  color: var(--e-challenge-text);
+  border: var(--e-challenge-border);
   transition:
     transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
     box-shadow 0.35s ease;
@@ -554,7 +554,6 @@ body:has(.editorial) {
 .e-module[data-cat="obj"] {
   --e-surface: var(--e-cat-obj-surface);
   --e-cat-accent: var(--e-cat-obj-accent);
-  --e-num: var(--e-module-num-obj);
 }
 .e-module[data-cat="robust"] {
   --e-surface: var(--e-cat-robust-surface);
@@ -613,7 +612,34 @@ body:has(.editorial) {
   color: var(--e-ink);
 }
 .e-btn-secondary:hover {
-  background: rgba(77, 77, 77, 0.06);
+  background: rgba(74, 63, 53, 0.06);
+}
+[data-theme="dark"] .e-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Welcome strip under the header: the otter, full size. */
+.e-banner {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  background: var(--e-banner-surface);
+  padding: 26px 32px;
+}
+.e-banner img {
+  width: 96px;
+  height: 96px;
+  flex-shrink: 0;
+}
+@media (max-width: 639px) {
+  .e-banner {
+    gap: 16px;
+    padding: 18px 16px;
+  }
+  .e-banner img {
+    width: 72px;
+    height: 72px;
+  }
 }
 
 .editorial :where(a, button):focus-visible {
@@ -677,4 +703,17 @@ body:has(.editorial) {
     opacity: 1;
     transform: none;
   }
+}
+
+/* Mascot icon: both variants are in the DOM (see MascotMark); the theme picks one before paint. */
+.mascot-light,
+.mascot-dark {
+  display: block;
+}
+.mascot-dark,
+[data-theme="dark"] .mascot-light {
+  display: none;
+}
+[data-theme="dark"] .mascot-dark {
+  display: block;
 }
