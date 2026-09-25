@@ -11,7 +11,7 @@ import type { L, Lesson, LessonStatus, Module, ModuleCategory } from "@/lib/type
  * Home — "Editorial por categorías".
  *
  * Colours come exclusively from the .editorial tokens in globals.css (copied
- * from apex-academy-propuesta2-design-tokens.json). No sidebar on this page:
+ * from apex-academy-paleta-mascota-verde.json). No sidebar on this page:
  * it appears once a module is opened.
  */
 
@@ -38,13 +38,10 @@ function Header() {
   return (
     <header className="flex items-center justify-between gap-3">
       <Link href="/" className="inline-flex min-h-[44px] min-w-[44px] items-center gap-2.5 text-[var(--e-ink)]">
-        <MascotMark theme={theme} size={30} className="shrink-0" />
+        <MascotMark size={44} className="shrink-0" />
         {/* Under 400px the controls leave no room: the mascot alone carries the
             brand (its alt text still names it for screen readers). */}
-        <span className="text-[1.05rem] leading-none max-[399px]:hidden">
-          <span className="font-bold tracking-[-0.02em]">Apex</span>{" "}
-          <span className="font-normal">Academy</span>
-        </span>
+        <span className="text-[20px] font-bold leading-none tracking-[-0.01em] max-[399px]:hidden">Apex Academy</span>
       </Link>
 
       <div className="flex shrink-0 items-center gap-1.5">
@@ -150,7 +147,7 @@ function UpNext({
   status: LessonStatus;
   steps: { theory: boolean; quiz: boolean; exercise: boolean };
 }) {
-  const { lang, theme } = useSettings();
+  const { lang } = useSettings();
   const statusLabel =
     status === "completed"
       ? t(ui.completed, lang)
@@ -174,7 +171,7 @@ function UpNext({
       }}
     >
       <div className="flex items-center gap-3">
-        <MascotMark theme={theme} size={30} className="shrink-0" />
+        <MascotMark size={30} className="shrink-0" />
         <span className="e-mono flex-1 text-[12px] uppercase tracking-[0.08em]">
           {lang === "es" ? "Siguiente" : "Up next"} — M{mod.n}.{pad(lesson.n)}
         </span>
@@ -282,6 +279,22 @@ export default function HomePage() {
     <div className="editorial min-h-dvh">
       <main className="mx-auto flex w-full max-w-[1440px] flex-col gap-12 px-5 py-8 sm:px-8 sm:py-12 lg:gap-[72px] lg:px-12 lg:py-16 xl:px-24 xl:py-[88px]">
         <Header />
+
+        {/* -------------------------------------------------- welcome banner */}
+        <section className="e-banner" aria-label={lang === "es" ? "Bienvenida" : "Welcome"}>
+          {/* eslint-disable-next-line @next/next/no-img-element -- fixed illustration from /public */}
+          <img src="/mascot/apex-academy-mascota-verde-full-illustration.png" alt="" width={96} height={96} />
+          <div className="min-w-0">
+            <p className="e-mono m-0 text-[11px] uppercase tracking-[0.1em]" style={{ color: "var(--e-accent-text)" }}>
+              {lang === "es" ? "Tu guía en el curso" : "Your guide through the course"}
+            </p>
+            <p className="m-0 mt-1.5 max-w-[720px] text-[15px] leading-[1.55]">
+              {lang === "es"
+                ? "¡Hola! Soy tu nutria trailblazer — voy módulo a módulo contigo, sin dar nada por sabido."
+                : "Hi! I'm your trailblazer otter — I go module by module with you, taking nothing for granted."}
+            </p>
+          </div>
+        </section>
 
         {/* ------------------------------------------------------------ hero */}
         <section className="flex flex-col gap-12 lg:flex-row lg:items-start lg:gap-[72px]">
@@ -446,10 +459,7 @@ export default function HomePage() {
               return (
                 <li key={c.id}>
                   <Link href={`/c/${c.id}`} className="block h-full">
-                    <article
-                      className="e-challenge flex h-full flex-col gap-3.5 p-6 sm:p-[30px]"
-                      style={{ background: "var(--e-challenge-bg)", color: "var(--e-challenge-text)" }}
-                    >
+                    <article className="e-challenge flex h-full flex-col gap-3.5 p-6 sm:p-[30px]">
                       <div className="e-mono flex items-center justify-between text-[11px] uppercase tracking-[0.08em] opacity-[0.72]">
                         <span>
                           {t(ui.challenge, lang)} {pad(c.n)}
