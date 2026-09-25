@@ -6,6 +6,17 @@ export const l01Variables: Lesson = {
   n: 1,
   kind: "lesson",
   minutes: 18,
+  warmup: {
+    title: { es: "Antes de empezar, una de Admin", en: "Before we start, an Admin one" },
+    prompt: { es: "Cuando creas un campo nuevo en Object Manager, ¿qué es lo primero que Salesforce te obliga a elegir?", en: "When you create a new field in Object Manager, what is the first thing Salesforce makes you choose?" },
+    options: [
+      { es: "El nombre de API", en: "The API name" },
+      { es: "El tipo de dato", en: "The data type" },
+      { es: "El formato de página", en: "The page layout" },
+    ],
+    answer: 1,
+    explain: { es: "El tipo va primero, antes que el nombre. En Apex pasa exactamente lo mismo, y es la idea de toda esta lección.", en: "The type comes first, before the name. Exactly the same happens in Apex, and it is the idea behind this whole lesson." },
+  },
   title: { es: "Variables y Declaración", en: "Variables and Declaration" },
   summary: {
     es: "Una variable es un campo personalizado que vive un instante. Aprende a crearlo: tipo, nombre y valor.",
@@ -520,11 +531,11 @@ final Integer MAX_DISCOUNT = 15;`,
         es: "¿Se entiende qué guarda cada variable sin leer la nota de Ventas? Ese es el listón.",
         en: "Can you tell what each variable holds without re-reading the Sales note? That is the bar.",
       },
-      {
-        es: "Tarea 2: Ventas te pasará los números del contrato de renovación —el importe, los empleados, el Id del registro— y ahí elegir bien el tipo deja de ser cosmético.",
-        en: "Task 2: Sales will hand you the renewal contract's numbers — the amount, the employees, the record Id — and there, picking the right type stops being cosmetic.",
-      },
     ],
+    outro: {
+      es: "Ya sabes apuntar los datos del cliente con su tipo correcto: texto, número, checkbox y constante. En la tarea 2 llegan los números del contrato, y ahí un tipo mal elegido se come los céntimos.",
+      en: "You can now jot down the customer's data with the right type: text, number, checkbox and constant. In task 2 the contract figures arrive, and there a badly chosen type eats the cents.",
+    },
     voice: "otter",
   },
 };

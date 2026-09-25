@@ -6,6 +6,17 @@ export const l06Null: Lesson = {
   n: 6,
   kind: "lesson",
   minutes: 24,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 5", en: "Remember? · Review of lesson 5" },
+    prompt: { es: "En newLead.Company.trim(), ¿qué es Company?", en: "In newLead.Company.trim(), what is Company?" },
+    options: [
+      { es: "Un método", en: "A method" },
+      { es: "Una variable suelta", en: "A loose variable" },
+      { es: "Un campo del registro", en: "A field of the record" },
+    ],
+    answer: 2,
+    explain: { es: "Sin paréntesis es un campo, como {!Lead.Company} en una plantilla; con paréntesis, como trim(), es un método.", en: "Without brackets it is a field, like {!Lead.Company} in a template; with brackets, like trim(), it is a method." },
+  },
   title: { es: "Null", en: "Null" },
   summary: {
     es: "El campo en blanco, llevado al código. Es la causa número uno de errores en Apex y la más fácil de evitar.",
@@ -595,6 +606,10 @@ Boolean employeesMissing = incompleteLead.NumberOfEmployees == null;`,
         en: "You have the diagnosis, but the data is unchanged. What would you substitute when a value is missing? That decision is sub-lesson 7.",
       },
     ],
+    outro: {
+      es: "Ya detectas los huecos: isBlank() para texto, == null para números y ?. para leer sin riesgo. En la tarea 7, saber qué falta ya no basta: toca decidir qué mostrar cuando falta.",
+      en: "You can now spot the gaps: isBlank() for text, == null for numbers and ?. for reading safely. In task 7, knowing what is missing is no longer enough: you decide what to show when it is.",
+    },
     voice: "otter",
   },
 };

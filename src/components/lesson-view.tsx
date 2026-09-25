@@ -8,6 +8,7 @@ import { useProgress, useSettings } from "./providers";
 import { Theory } from "./theory";
 import { Quiz } from "./quiz";
 import { ExercisePanel } from "./exercise";
+import { OtterWarmup } from "./otter";
 
 type Tab = "theory" | "quiz" | "exercise";
 
@@ -141,6 +142,11 @@ export function LessonView({
       <section className="py-10">
         {tab === "theory" && (
           <div className="fade-in">
+            {lesson.warmup && (
+              <div className="max-w-[68ch]">
+                <OtterWarmup key={lesson.id} data={lesson.warmup} lang={lang} />
+              </div>
+            )}
             <Theory blocks={lesson.theory} lang={lang} />
             <div className="mt-12 flex flex-wrap items-center gap-3 border-t border-line pt-6">
               <button

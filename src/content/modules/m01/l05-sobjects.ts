@@ -6,6 +6,17 @@ export const l05SObjects: Lesson = {
   n: 5,
   kind: "lesson",
   minutes: 24,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 4", en: "Remember? · Review of lesson 4" },
+    prompt: { es: "¿Qué devuelve Date.today().daysBetween(renewalDate)?", en: "What does Date.today().daysBetween(renewalDate) return?" },
+    options: [
+      { es: "Un Integer con los días", en: "An Integer with the days" },
+      { es: "Un Date", en: "A Date" },
+      { es: "Un Datetime", en: "A Datetime" },
+    ],
+    answer: 0,
+    explain: { es: "Un número de días, igual que CloseDate - TODAY() en una fórmula te da un Number.", en: "A number of days, just as CloseDate - TODAY() in a formula gives you a Number." },
+  },
   title: { es: "sObjects", en: "sObjects" },
   summary: {
     es: "El tipo que convierte un registro de Salesforce en una variable. Aquí es donde Apex deja de parecer un lenguaje genérico.",
@@ -605,6 +616,10 @@ Date capturedOn = Date.today();`,
         en: "If this Lead came from a form and Company arrived empty, what would .trim() do? That question is precisely the next sub-lesson.",
       },
     ],
+    outro: {
+      es: "Ya creas registros en memoria y lees sus campos con el punto. En la tarea 6 llega un Lead a medias, sin región y sin empleados, y hay que saber qué falta sin que nada reviente.",
+      en: "You can now create records in memory and read their fields with the dot. In task 6 a half-filled Lead arrives, with no region and no employees, and you have to find out what is missing without anything blowing up.",
+    },
     voice: "otter",
   },
 };
