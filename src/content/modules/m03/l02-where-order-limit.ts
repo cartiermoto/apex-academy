@@ -6,6 +6,17 @@ export const l02WhereOrderLimit: Lesson = {
   n: 2,
   kind: "lesson",
   minutes: 25,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 1", en: "Remember? · Review of lesson 1" },
+    prompt: { es: "Tu código lee a.Industry, pero en el SELECT solo pediste Id y Name. ¿Qué pasa?", en: "Your code reads a.Industry, but in the SELECT you only asked for Id and Name. What happens?" },
+    options: [
+      { es: "Devuelve null", en: "It returns null" },
+      { es: "Da error al leer el campo", en: "Reading the field gives an error" },
+      { es: "Salesforce lo trae solo", en: "Salesforce fetches it by itself" },
+    ],
+    answer: 1,
+    explain: { es: "Da error: un campo que no pediste en el SELECT no viene, igual que una columna que no añadiste al informe.", en: "It gives an error: a field you did not ask for in the SELECT does not come, just like a column you did not add to the report." },
+  },
   title: {
     es: "WHERE, ORDER BY, LIMIT",
     en: "WHERE, ORDER BY, LIMIT",
@@ -46,9 +57,10 @@ export const l02WhereOrderLimit: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "En un informe añades filtros (Sector igual a Tecnología, Fecha de cierre este trimestre), escribes la lógica de filtros (1 AND (2 OR 3)), ordenas por una columna y, si quieres, limitas las filas con «Mostrar las 10 primeras». SOQL tiene exactamente esas cuatro piezas: WHERE, AND/OR con paréntesis, ORDER BY y LIMIT.",
-        en: "In a report you add filters (Industry equals Technology, Close Date this quarter), write the filter logic (1 AND (2 OR 3)), sort by a column and, if you want, cap the rows with “Show the top 10”. SOQL has exactly those four pieces: WHERE, AND/OR with brackets, ORDER BY and LIMIT.",
+        es: "Yo lo hacía todo en el informe: añadía filtros (Sector igual a Tecnología, Fecha de cierre este trimestre), escribía la lógica de filtros (1 AND (2 OR 3)), ordenaba por una columna y, si quería, limitaba las filas con «Mostrar las 10 primeras». SOQL tiene exactamente esas cuatro piezas: WHERE, AND/OR con paréntesis, ORDER BY y LIMIT.",
+        en: "I did it all in the report: I added filters (Industry equals Technology, Close Date this quarter), wrote the filter logic (1 AND (2 OR 3)), sorted by a column and, if I wanted, limited the rows with «Show the first 10». SOQL has exactly those four pieces: WHERE, AND/OR with brackets, ORDER BY and LIMIT.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -461,16 +473,16 @@ List<Opportunity> bigDeals = [
     },
     hints: [
       {
-        es: "Te faltan dos campos en el SELECT y las tres cláusulas que vienen después de FROM, en su orden.",
-        en: "You are missing two fields in the SELECT and the three clauses that come after FROM, in their order.",
+        es: "Yo lo revisaría como un informe a medio configurar: te faltan dos columnas en el SELECT y las tres cláusulas que vienen después de FROM, en su orden.",
+        en: "I would review it like a half-configured report: two columns are missing from the SELECT, and the three clauses that come after FROM, in their order.",
       },
       {
-        es: "Las tres condiciones van unidas con AND. El trimestre actual tiene un literal de fecha, sin comillas. DESC ordena de mayor a menor.",
-        en: "The three conditions are joined with AND. The current quarter has a date literal, no quotes. DESC sorts largest first.",
+        es: "Lo que me ayudó: las tres condiciones van unidas con AND, como una lógica de filtros 1 AND 2 AND 3. El trimestre actual tiene un literal de fecha, sin comillas, como el filtro relativo «Este trimestre» del informe. DESC ordena de mayor a menor.",
+        en: "What helped me: the three conditions are joined with AND, like filter logic 1 AND 2 AND 3. The current quarter has a date literal, with no quotes, like the report's relative «This quarter» filter. DESC sorts from highest to lowest.",
       },
       {
-        es: "Pseudocódigo: WHERE IsClosed = false AND Amount > 50000 AND CloseDate = THIS_QUARTER ORDER BY Amount DESC LIMIT 10 — y después un for (Opportunity o : bigDeals) con System.debug.",
-        en: "Pseudocode: WHERE IsClosed = false AND Amount > 50000 AND CloseDate = THIS_QUARTER ORDER BY Amount DESC LIMIT 10 — then a for (Opportunity o : bigDeals) with System.debug.",
+        es: "Te dejo el esquema: WHERE IsClosed = false AND Amount > 50000 AND CloseDate = THIS_QUARTER ORDER BY Amount DESC LIMIT 10 — y después un for (Opportunity o : bigDeals) con System.debug.",
+        en: "Here is the outline: WHERE IsClosed = false AND Amount > 50000 AND CloseDate = THIS_QUARTER ORDER BY Amount DESC LIMIT 10 — and then a for (Opportunity o : bigDeals) with System.debug.",
       },
     ],
     solution: {
@@ -519,6 +531,10 @@ for (Opportunity o : bigDeals) {
           es: "Vas a leer el importe y la fecha: pídelos en el SELECT.",
           en: "You will read the amount and the date: ask for them in the SELECT.",
         },
+        otter: {
+          es: "Vas a leer el importe y la fecha, así que son columnas de tu informe: pídelos en el SELECT.",
+          en: "You are going to read the amount and the date, so they are columns of your report: ask for them in the SELECT.",
+        },
       },
       {
         id: "m03-l02-c2",
@@ -538,6 +554,10 @@ for (Opportunity o : bigDeals) {
           es: "Las tres condiciones van en el WHERE unidas con AND: IsClosed = false, Amount > 50000 y CloseDate = THIS_QUARTER.",
           en: "All three conditions go in the WHERE joined with AND: IsClosed = false, Amount > 50000 and CloseDate = THIS_QUARTER.",
         },
+        otter: {
+          es: "Son tres filtros de informe unidos con AND: IsClosed = false, Amount > 50000 y CloseDate = THIS_QUARTER, todos en el WHERE.",
+          en: "They are three report filters joined with AND: IsClosed = false, Amount > 50000 and CloseDate = THIS_QUARTER, all in the WHERE.",
+        },
       },
       {
         id: "m03-l02-c3",
@@ -550,6 +570,10 @@ for (Opportunity o : bigDeals) {
           es: "Una fecha escrita a mano deja de valer el trimestre que viene. Usa el literal THIS_QUARTER.",
           en: "A hand-typed date stops working next quarter. Use the THIS_QUARTER literal.",
         },
+        otter: {
+          es: "Una fecha escrita a mano es como un filtro de informe con fechas fijas: el trimestre que viene ya no vale. Usa el literal THIS_QUARTER, tu filtro relativo «Este trimestre».",
+          en: "A hand-typed date is like a report filter with fixed dates: next quarter it is no longer valid. Use the THIS_QUARTER literal, your relative «This quarter» filter.",
+        },
       },
       {
         id: "m03-l02-c4",
@@ -561,6 +585,10 @@ for (Opportunity o : bigDeals) {
         onFail: {
           es: "Después del WHERE: ORDER BY Amount DESC y, al final, LIMIT 10.",
           en: "After the WHERE: ORDER BY Amount DESC and, last, LIMIT 10.",
+        },
+        otter: {
+          es: "Es como ordenar la columna de importe de mayor a menor y mostrar solo las 10 primeras filas: ORDER BY Amount DESC y, al final, LIMIT 10.",
+          en: "It is like sorting the amount column from highest to lowest and showing only the first 10 rows: ORDER BY Amount DESC and, at the end, LIMIT 10.",
         },
       },
       {
@@ -580,6 +608,10 @@ for (Opportunity o : bigDeals) {
           es: "for (Opportunity o : bigDeals) { System.debug(o.Name + ' · ' + o.Amount); }",
           en: "for (Opportunity o : bigDeals) { System.debug(o.Name + ' · ' + o.Amount); }",
         },
+        otter: {
+          es: "Recorre las filas y muestra sus dos columnas: for (Opportunity o : bigDeals) { System.debug(o.Name + ' · ' + o.Amount); }",
+          en: "Walk the rows and show their two columns: for (Opportunity o : bigDeals) { System.debug(o.Name + ' · ' + o.Amount); }",
+        },
         onPass: {
           es: "La base de datos filtra, ordena y corta: a tu código solo llegan 10 filas.",
           en: "The database filters, sorts and cuts: only 10 rows reach your code.",
@@ -591,10 +623,11 @@ for (Opportunity o : bigDeals) {
         es: "Si la directora pide «también las de más de 50.000 del trimestre que viene», ¿qué cambias y qué queda igual?",
         en: "If the director asks for “also the ones over 50,000 next quarter”, what do you change and what stays the same?",
       },
-      {
-        es: "Tarea 3: las oportunidades no viven solas; el responsable de Retail quiere ver cada cuenta con su propietario y sus contactos, de una vez.",
-        en: "Task 3: opportunities do not live alone; the Retail lead wants each account with its owner and its contacts, in one go.",
-      },
     ],
+    outro: {
+      es: "Ya filtras, ordenas y recortas como en un informe, con fechas relativas en vez de fechas escritas a mano. En la tarea 3, las oportunidades no viven solas: el responsable de Retail quiere cada cuenta con su propietario y sus contactos, de una vez.",
+      en: "You can now filter, sort and trim as in a report, with relative dates instead of hand-typed ones. In task 3, opportunities do not live alone: the Retail manager wants each account with its owner and its contacts, in one go.",
+    },
+    voice: "otter",
   },
 };
