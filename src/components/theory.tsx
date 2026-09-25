@@ -5,6 +5,7 @@ import { t } from "@/lib/i18n";
 import { CodeBlock } from "./code-block";
 import { Diagram } from "@/content/diagrams";
 import { RichText } from "./term";
+import { OtterSays } from "./otter";
 
 const CALLOUT = {
   admin: {
@@ -106,6 +107,13 @@ export function Theory({ blocks, lang }: { blocks: TheoryBlock[]; lang: Lang }) 
             );
 
           case "callout": {
+            if (b.voice === "otter") {
+              return (
+                <OtterSays key={i} tone="admin" lang={lang} eyebrow={t(b.title, lang)} className="my-7">
+                  <RichText text={t(b.text, lang)} lang={lang} />
+                </OtterSays>
+              );
+            }
             const style = CALLOUT[b.variant];
             return (
               <aside
