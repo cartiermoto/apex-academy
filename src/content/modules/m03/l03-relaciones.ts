@@ -6,6 +6,17 @@ export const l03Relaciones: Lesson = {
   n: 3,
   kind: "lesson",
   minutes: 30,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 2", en: "Remember? · Review of lesson 2" },
+    prompt: { es: "¿En qué orden van estas cláusulas en una consulta?", en: "In which order do these clauses go in a query?" },
+    options: [
+      { es: "LIMIT, WHERE, ORDER BY", en: "LIMIT, WHERE, ORDER BY" },
+      { es: "ORDER BY, WHERE, LIMIT", en: "ORDER BY, WHERE, LIMIT" },
+      { es: "WHERE, ORDER BY, LIMIT", en: "WHERE, ORDER BY, LIMIT" },
+    ],
+    answer: 2,
+    explain: { es: "Primero filtras las filas, luego las ordenas y al final recortas, como en el informe: filtros, orden y «Mostrar las 10 primeras».", en: "First you filter the rows, then you sort them and finally you trim, as in the report: filters, sort and «Show the first 10»." },
+  },
   title: {
     es: "Consultas de relación (padre e hijo)",
     en: "Relationship queries (parent and child)",
@@ -62,9 +73,10 @@ export const l03Relaciones: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "Cuando creas una fórmula en Contacto que muestra el sector de su cuenta, escribes Account.Industry. Con un punto subes por el campo de búsqueda hasta el padre. En SOQL es exactamente el mismo punto, y funciona igual: puedes subir hasta cinco niveles, como en Account.Owner.Manager.Name.",
-        en: "When you build a formula on Contact that shows its account's industry, you write Account.Industry. With a dot you climb the lookup field up to the parent. In SOQL it is exactly the same dot, and it works the same way: you can climb up to five levels, as in Account.Owner.Manager.Name.",
+        es: "Cuando yo creaba una fórmula en Contacto que mostraba el sector de su cuenta, escribía Account.Industry: con un punto subía por el campo de búsqueda hasta el padre. En SOQL es exactamente el mismo punto, y funciona igual: puedes subir hasta cinco niveles, como en Account.Owner.Manager.Name.",
+        en: "When I created a formula on Contact showing its account's industry, I wrote Account.Industry: with a dot I went up the lookup field to the parent. In SOQL it is exactly the same dot, and it works the same way: you can go up to five levels, as in Account.Owner.Manager.Name.",
       },
+      voice: "otter",
     },
     {
       type: "code",
@@ -146,9 +158,10 @@ for (Contact c : contacts) {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "En la página de una cuenta, la related list de Contactos te enseña todos sus hijos debajo del registro. Una subconsulta hace lo mismo: dentro del SELECT de la cuenta, entre paréntesis, pides los contactos, y cada cuenta llega con su propia lista de contactos colgando.",
-        en: "On an account page, the Contacts related list shows all its children under the record. A subquery does the same: inside the account's SELECT, in brackets, you ask for the contacts, and each account arrives with its own list of contacts attached.",
+        es: "Yo la entendí pensando en la página de una cuenta: la related list de Contactos te enseña todos sus hijos debajo del registro. Una subconsulta hace lo mismo: dentro del SELECT de la cuenta, entre paréntesis, pides los contactos, y cada cuenta llega con su propia lista de contactos colgando.",
+        en: "I understood it by thinking of an account's page: the Contacts related list shows you all its children under the record. A subquery does the same: inside the account's SELECT, in brackets, you ask for the contacts, and each account arrives with its own list of contacts hanging off it.",
       },
+      voice: "otter",
     },
     {
       type: "code",
@@ -480,16 +493,16 @@ for (Account a : accounts) {
     },
     hints: [
       {
-        es: "Dos direcciones en una consulta: hacia el propietario (un punto) y hacia los contactos (una subconsulta en el SELECT).",
-        en: "Two directions in one query: towards the owner (a dot) and towards the contacts (a subquery in the SELECT).",
+        es: "Yo lo veo como la página de una cuenta: arriba, el propietario (un punto, como en una fórmula); abajo, la related list de contactos (una subconsulta en el SELECT). Dos direcciones en una consulta.",
+        en: "I see it as an account's page: at the top, the owner (a dot, as in a formula); below, the contacts related list (a subquery in the SELECT). Two directions in one query.",
       },
       {
-        es: "La subconsulta va entre paréntesis y su FROM usa el nombre de la relación: Contacts. Dentro del for de cuentas, otro for recorre a.Contacts.",
-        en: "The subquery goes in brackets and its FROM uses the relationship name: Contacts. Inside the accounts for, another for walks a.Contacts.",
+        es: "Lo que me ayudó: la subconsulta va entre paréntesis y su FROM usa el nombre de la relación, Contacts, en plural, como la related list. Dentro del for de cuentas, otro for recorre a.Contacts.",
+        en: "What helped me: the subquery goes in brackets and its FROM uses the relationship name, Contacts, in the plural, like the related list. Inside the account for, another for walks a.Contacts.",
       },
       {
-        es: "Pseudocódigo: SELECT Id, Name, Owner.Name, (SELECT LastName, Email FROM Contacts ORDER BY LastName) FROM Account WHERE Industry = 'Retail' — luego for (Contact c : a.Contacts) { ... }",
-        en: "Pseudocode: SELECT Id, Name, Owner.Name, (SELECT LastName, Email FROM Contacts ORDER BY LastName) FROM Account WHERE Industry = 'Retail' — then for (Contact c : a.Contacts) { ... }",
+        es: "Te dejo el esquema: SELECT Id, Name, Owner.Name, (SELECT LastName, Email FROM Contacts ORDER BY LastName) FROM Account WHERE Industry = 'Retail' — luego for (Contact c : a.Contacts) { ... }",
+        en: "Here is the outline: SELECT Id, Name, Owner.Name, (SELECT LastName, Email FROM Contacts ORDER BY LastName) FROM Account WHERE Industry = 'Retail' — then for (Contact c : a.Contacts) { ... }",
       },
     ],
     solution: {
@@ -532,6 +545,10 @@ for (Account a : accounts) {
           es: "Sube al propietario con un punto en el SELECT: Owner.Name.",
           en: "Climb to the owner with a dot in the SELECT: Owner.Name.",
         },
+        otter: {
+          es: "El propietario es el padre, así que subes con un punto, igual que en una fórmula entre objetos: Owner.Name en el SELECT.",
+          en: "The owner is the parent, so you go up with a dot, just as in a cross-object formula: Owner.Name in the SELECT.",
+        },
       },
       {
         id: "m03-l03-c2",
@@ -550,6 +567,10 @@ for (Account a : accounts) {
           es: "Dentro del SELECT: (SELECT LastName, Email FROM Contacts ...). Ojo: Contacts, en plural.",
           en: "Inside the SELECT: (SELECT LastName, Email FROM Contacts ...). Careful: Contacts, plural.",
         },
+        otter: {
+          es: "Los contactos son la related list de la cuenta: una subconsulta dentro del SELECT, (SELECT LastName, Email FROM Contacts ...). Ojo: Contacts, en plural, el nombre de la relación.",
+          en: "The contacts are the account's related list: a subquery inside the SELECT, (SELECT LastName, Email FROM Contacts ...). Careful: Contacts, plural, the relationship name.",
+        },
       },
       {
         id: "m03-l03-c3",
@@ -562,6 +583,10 @@ for (Account a : accounts) {
           es: "El orden de la related list va dentro de la subconsulta: FROM Contacts ORDER BY LastName.",
           en: "The related list's sort goes inside the subquery: FROM Contacts ORDER BY LastName.",
         },
+        otter: {
+          es: "El orden de la related list va dentro de la subconsulta: FROM Contacts ORDER BY LastName.",
+          en: "The related list's order goes inside the subquery: FROM Contacts ORDER BY LastName.",
+        },
       },
       {
         id: "m03-l03-c4",
@@ -573,6 +598,10 @@ for (Account a : accounts) {
         onFail: {
           es: "Después de FROM Account: WHERE Industry = 'Retail'.",
           en: "After FROM Account: WHERE Industry = 'Retail'.",
+        },
+        otter: {
+          es: "Es el filtro de tu informe: después de FROM Account, WHERE Industry = 'Retail'.",
+          en: "It is your report filter: after FROM Account, WHERE Industry = 'Retail'.",
         },
       },
       {
@@ -592,6 +621,10 @@ for (Account a : accounts) {
           es: "Muestra a.Owner.Name en el for de cuentas, y dentro recorre for (Contact c : a.Contacts).",
           en: "Show a.Owner.Name in the accounts loop, and inside walk for (Contact c : a.Contacts).",
         },
+        otter: {
+          es: "Primero la cuenta y su propietario, luego su related list: muestra a.Owner.Name en el for de cuentas y, dentro, recorre for (Contact c : a.Contacts).",
+          en: "First the account and its owner, then its related list: show a.Owner.Name in the account for and, inside it, walk for (Contact c : a.Contacts).",
+        },
         onPass: {
           es: "Una consulta, tres niveles de información: cuenta, propietario y contactos. Así piensa SOQL.",
           en: "One query, three levels of information: account, owner and contacts. That is how SOQL thinks.",
@@ -603,10 +636,11 @@ for (Account a : accounts) {
         es: "¿Cuántas consultas harías si trajeras las cuentas primero y luego, dentro del bucle, los contactos de cada una? ¿Qué pasaría con 150 cuentas?",
         en: "How many queries would you run if you fetched the accounts first and then, inside the loop, each one's contacts? What would happen with 150 accounts?",
       },
-      {
-        es: "Tarea 4: la ronda de visitas solo tiene sentido en cuentas con negocio abierto. Hace falta filtrar los padres por sus hijos.",
-        en: "Task 4: the visit round only makes sense for accounts with open business. The parents must be filtered by their children.",
-      },
     ],
+    outro: {
+      es: "Ya subes al padre con un punto y bajas a los hijos con una subconsulta, en una sola consulta. En la tarea 4, la ronda de visitas solo tiene sentido en cuentas con negocio abierto: hace falta filtrar los padres por sus hijos.",
+      en: "You can now go up to the parent with a dot and down to the children with a subquery, in a single query. In task 4, the round of visits only makes sense for accounts with open business: you need to filter parents by their children.",
+    },
+    voice: "otter",
   },
 };

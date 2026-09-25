@@ -7,6 +7,17 @@ export const l09Practica: Lesson = {
   kind: "lesson",
   optional: true,
   minutes: 40,
+  warmup: {
+    title: { es: "Antes de practicar, una rápida", en: "Before you practise, a quick one" },
+    prompt: { es: "En el checkpoint, ¿por qué el importe de cada cuenta salía de un agregado y no de una consulta por cuenta dentro del bucle?", en: "In the checkpoint, why did each account's amount come from an aggregate and not from one query per account inside the loop?" },
+    options: [
+      { es: "Por el límite de consultas de la transacción", en: "Because of the transaction's query limit" },
+      { es: "Porque los agregados son más exactos", en: "Because aggregates are more accurate" },
+      { es: "Porque SOQL no deja sumar de otra forma", en: "Because SOQL cannot add up any other way" },
+    ],
+    answer: 0,
+    explain: { es: "Una consulta por cuenta dentro del bucle es el Get Records dentro de un Loop: con 200 cuentas choca con el límite de 100 consultas.", en: "One query per account inside the loop is the Get Records inside a Loop: with 200 accounts it hits the 100-query limit." },
+  },
   title: { es: "Práctica: cinco encargos de Ventas", en: "Practice: five requests from Sales" },
   summary: {
     es: "Opcional. Cinco peticiones reales de un equipo de Sales Cloud, cada una resuelta con una herramienta distinta del módulo. No hay teoría nueva: solo decidir qué consulta responde a qué pregunta.",
@@ -98,9 +109,10 @@ export const l09Practica: Lesson = {
       variant: "admin",
       title: { es: "Cómo lo harías con clics, para orientarte", en: "How you would do it with clicks, to get your bearings" },
       text: {
-        es: "Los cuatro primeros son informes: un informe de Leads con filtro de fecha relativa; uno de Oportunidades con columnas de la cuenta y del propietario; uno con Report Type «Cuentas con Casos» y filtro en el caso; y uno resumido agrupado por Lead Source. El quinto es la búsqueda global de la barra de arriba. Si sabes montar el informe, sabes qué tiene que llevar la consulta: solo cambia la sintaxis.",
-        en: "The first four are reports: a Leads report with a relative date filter; an Opportunities report with account and owner columns; one with the “Accounts with Cases” report type and a filter on the case; and a summary report grouped by Lead Source. The fifth is the global search bar at the top. If you can build the report, you know what the query must contain: only the syntax changes.",
+        es: "Para orientarme, yo empiezo siempre por cómo lo haría con clics. Los cuatro primeros son informes: uno de Leads con filtro de fecha relativa; uno de Oportunidades con columnas de la cuenta y del propietario; uno con Report Type «Cuentas con Casos» y filtro en el caso; y uno resumido agrupado por Lead Source. El quinto es la búsqueda global de la barra de arriba. Si sabes montar el informe, sabes qué tiene que llevar la consulta: solo cambia la sintaxis.",
+        en: "To find my bearings, I always start with how I would do it with clicks. The first four are reports: a Leads one with a relative date filter; an Opportunities one with account and owner columns; one with the «Accounts with Cases» Report Type and a filter on the case; and a summary one grouped by Lead Source. The fifth is the global search at the top. If you know how to build the report, you know what the query needs: only the syntax changes.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -284,16 +296,16 @@ export const l09Practica: Lesson = {
     },
     hints: [
       {
-        es: "Antes de escribir cada consulta, di en voz alta qué informe montarías con clics para responderla. El objeto principal del informe es el FROM; sus filtros, el WHERE; sus columnas de objetos relacionados, los puntos o la subconsulta.",
-        en: "Before writing each query, say out loud which report you would build with clicks to answer it. The report's primary object is the FROM; its filters, the WHERE; its related-object columns, the dots or the subquery.",
+        es: "Mi truco: antes de escribir cada consulta, di en voz alta qué informe montarías con clics para responderla. El objeto principal del informe es el FROM; sus filtros, el WHERE; sus columnas de objetos relacionados, los puntos o la subconsulta.",
+        en: "My trick: before writing each query, say out loud which report you would build with clicks to answer it. The report's main object is the FROM; its filters, the WHERE; its columns from related objects, the dots or the subquery.",
       },
       {
-        es: "Los rangos de fechas se escriben igual que los que ya viste cambiando el número: LAST_N_DAYS:7, NEXT_N_DAYS:30. El encargo 3 necesita el mismo filtro dos veces —en la subconsulta y en el IN—. El 4 agrupa por LeadSource. En el 5, los casos son el tercer elemento de found.",
-        en: "Date ranges are written like the ones you saw, changing the number: LAST_N_DAYS:7, NEXT_N_DAYS:30. Request 3 needs the same filter twice — in the subquery and in the IN. Request 4 groups by LeadSource. In request 5, the cases are found's third element.",
+        es: "Lo que me ayudó: los rangos de fechas se escriben igual que los que ya viste cambiando el número: LAST_N_DAYS:7, NEXT_N_DAYS:30. El encargo 3 necesita el mismo filtro dos veces —en la subconsulta y en el IN—. El 4 agrupa por LeadSource. En el 5, los casos son el tercer elemento de found.",
+        en: "What helped me: date ranges are written like the ones you already saw, changing the number: LAST_N_DAYS:7, NEXT_N_DAYS:30. Request 3 needs the same filter twice — in the subquery and in the IN. Number 4 groups by LeadSource. In 5, the cases are the third element of found.",
       },
       {
-        es: "Pseudocódigo del 3: [SELECT Name, (SELECT CaseNumber, Subject FROM Cases WHERE IsClosed = false AND Priority = 'High') FROM Account WHERE Id IN (SELECT AccountId FROM Case WHERE IsClosed = false AND Priority = 'High')]. Y del 5: List<Case> openCases = (List<Case>) found[2];",
-        en: "Pseudocode for 3: [SELECT Name, (SELECT CaseNumber, Subject FROM Cases WHERE IsClosed = false AND Priority = 'High') FROM Account WHERE Id IN (SELECT AccountId FROM Case WHERE IsClosed = false AND Priority = 'High')]. And for 5: List<Case> openCases = (List<Case>) found[2];",
+        es: "Te dejo el del 3: [SELECT Name, (SELECT CaseNumber, Subject FROM Cases WHERE IsClosed = false AND Priority = 'High') FROM Account WHERE Id IN (SELECT AccountId FROM Case WHERE IsClosed = false AND Priority = 'High')]. Y del 5: List<Case> openCases = (List<Case>) found[2];",
+        en: "Here is number 3: [SELECT Name, (SELECT CaseNumber, Subject FROM Cases WHERE IsClosed = false AND Priority = 'High') FROM Account WHERE Id IN (SELECT AccountId FROM Case WHERE IsClosed = false AND Priority = 'High')]. And number 5: List<Case> openCases = (List<Case>) found[2];",
       },
     ],
     solution: {
@@ -414,6 +426,10 @@ List<Case> openCases = (List<Case>) found[2];`,
           es: "Tres filtros con AND (Rating, Status y fecha) y el orden. «Última semana» es LAST_N_DAYS:7: el mismo rango que viste con 30, con otro número. «Los más nuevos arriba» es DESC.",
           en: "Three filters joined with AND (Rating, Status and date) and the order. “Last week” is LAST_N_DAYS:7: the same range you saw with 30, with another number. “Newest on top” is DESC.",
         },
+        otter: {
+          es: "Es un informe de Leads con tres filtros y un orden: Rating, Status y fecha, unidos con AND. «Última semana» es LAST_N_DAYS:7, el mismo filtro relativo que viste con 30. «Los más nuevos arriba» es DESC.",
+          en: "It is a Leads report with three filters and a sort: Rating, Status and date, joined with AND. «Last week» is LAST_N_DAYS:7, the same relative filter you saw with 30. «Newest at the top» is DESC.",
+        },
       },
       {
         id: "l09-c2",
@@ -431,6 +447,10 @@ List<Case> openCases = (List<Case>) found[2];`,
         onFail: {
           es: "La cuenta y el comercial son padres de la oportunidad: Account.Name y Owner.Name. «Próximos 30 días» es NEXT_N_DAYS:30, y abierta es IsClosed = false. «Lo más urgente primero» es la fecha de cierre ascendente: ORDER BY CloseDate (ASC es el orden por defecto).",
           en: "The account and the rep are the opportunity's parents: Account.Name and Owner.Name. “Next 30 days” is NEXT_N_DAYS:30, and open is IsClosed = false. “Most urgent first” is close date ascending: ORDER BY CloseDate (ASC is the default).",
+        },
+        otter: {
+          es: "Un informe de Oportunidades con columnas de la cuenta y del comercial, que son padres: Account.Name y Owner.Name. «Próximos 30 días» es NEXT_N_DAYS:30 y abierta es IsClosed = false. Lo más urgente primero es la fecha de cierre ascendente: ORDER BY CloseDate.",
+          en: "An Opportunities report with columns from the account and the sales rep, which are parents: Account.Name and Owner.Name. «Next 30 days» is NEXT_N_DAYS:30 and open is IsClosed = false. Most urgent first is close date ascending: ORDER BY CloseDate.",
         },
       },
       {
@@ -456,6 +476,10 @@ List<Case> openCases = (List<Case>) found[2];`,
           es: "Hacen falta las dos piezas: la subconsulta FROM Cases con el filtro de urgentes (qué casos viajan) y Id IN (SELECT AccountId FROM Case WHERE …) con el mismo filtro (qué cuentas entran). Abierto y prioridad alta, en los dos sitios.",
           en: "Both pieces are needed: the FROM Cases subquery with the urgent filter (which cases travel) and Id IN (SELECT AccountId FROM Case WHERE …) with the same filter (which accounts get in). Open and high priority, in both places.",
         },
+        otter: {
+          es: "Es tu Report Type «Cuentas con Casos» con filtro en el caso, y hacen falta las dos piezas: la subconsulta FROM Cases con el filtro de urgentes (qué casos viajan) y Id IN (SELECT AccountId FROM Case WHERE …) con el mismo filtro (qué cuentas entran).",
+          en: "It is your «Accounts with Cases» Report Type with a filter on the case, and it needs both pieces: the FROM Cases subquery with the urgent filter (which cases travel) and Id IN (SELECT AccountId FROM Case WHERE …) with the same filter (which accounts get in).",
+        },
       },
       {
         id: "l09-c4",
@@ -474,6 +498,10 @@ List<Case> openCases = (List<Case>) found[2];`,
           es: "«Por cada origen» es GROUP BY LeadSource, y lo que se suma es Amount. Ganado es StageName = 'Closed Won' y este trimestre, THIS_QUARTER. Para el «de mayor a menor» se ordena por el propio agregado: ORDER BY SUM(Amount) DESC.",
           en: "“Per source” is GROUP BY LeadSource, and what gets summed is Amount. Won is StageName = 'Closed Won' and this quarter, THIS_QUARTER. For “largest first” you order by the aggregate itself: ORDER BY SUM(Amount) DESC.",
         },
+        otter: {
+          es: "Un informe de resumen agrupado por Lead Source: GROUP BY LeadSource, sumando Amount. Ganado es StageName = 'Closed Won', este trimestre es THIS_QUARTER, y de mayor a menor se ordena por el propio total: ORDER BY SUM(Amount) DESC.",
+          en: "A summary report grouped by Lead Source: GROUP BY LeadSource, adding up Amount. Won is StageName = 'Closed Won', this quarter is THIS_QUARTER, and highest first is sorting by the total itself: ORDER BY SUM(Amount) DESC.",
+        },
       },
       {
         id: "l09-c5",
@@ -491,6 +519,10 @@ List<Case> openCases = (List<Case>) found[2];`,
           es: "FIND 'northwind' (con * al final si quieres que también encuentre «Northwind Trading») IN ALL FIELDS RETURNING Account(…), Contact(…), Case(… WHERE IsClosed = false). Los resultados salen en el orden del RETURNING, así que los casos son found[2], convertidos con (List<Case>).",
           en: "FIND 'northwind' (with a trailing * if you also want “Northwind Trading”) IN ALL FIELDS RETURNING Account(…), Contact(…), Case(… WHERE IsClosed = false). Results come back in RETURNING order, so the cases are found[2], converted with (List<Case>).",
         },
+        otter: {
+          es: "Es la búsqueda global: FIND 'northwind' (con * al final si quieres que encuentre también «Northwind Trading») IN ALL FIELDS RETURNING Account(…), Contact(…), Case(… WHERE IsClosed = false). Los casos son el tercer grupo, found[2], convertido con (List<Case>).",
+          en: "It is global search: FIND 'northwind' (with * at the end if you also want it to find «Northwind Trading») IN ALL FIELDS RETURNING Account(…), Contact(…), Case(… WHERE IsClosed = false). The cases are the third group, found[2], converted with (List<Case>).",
+        },
       },
       {
         id: "l09-c6",
@@ -500,6 +532,10 @@ List<Case> openCases = (List<Case>) found[2];`,
           es: "Un encargo, una consulta. Si hay más de cinco, alguna sobra —o está repetida, o hay una dentro de un bucle—; si hay menos, falta un encargo.",
           en: "One request, one query. More than five means one is spare — repeated, or inside a loop; fewer means a request is missing.",
         },
+        otter: {
+          es: "Cinco encargos, cinco consultas, como cinco informes. Si hay más, alguna sobra o está dentro de un bucle; si hay menos, falta un encargo.",
+          en: "Five requests, five queries, like five reports. If there are more, one is surplus or sits inside a loop; if there are fewer, a request is missing.",
+        },
       },
     ],
     rubric: [
@@ -508,5 +544,10 @@ List<Case> openCases = (List<Case>) found[2];`,
         en: "Once you have them, run each one in your Developer Org's Query Editor and compare the row count with the equivalent report built with clicks. If they differ, one of the two is wrong: find out which.",
       },
     ],
+    outro: {
+      es: "¡Cinco encargos, cinco consultas! Si montas los informes equivalentes en tu Developer Org y comparas el número de filas, verás que SOQL es tu informe de siempre, escrito. En el Módulo 4 pasas de leer datos a escribirlos, con DML.",
+      en: "Five requests, five queries! If you build the equivalent reports in your Developer Org and compare the row counts, you will see SOQL is your usual report, written down. In Module 4 you move from reading data to writing it, with DML.",
+    },
+    voice: "otter",
   },
 };

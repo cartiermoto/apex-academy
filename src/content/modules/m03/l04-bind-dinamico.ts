@@ -6,6 +6,17 @@ export const l04BindDinamico: Lesson = {
   n: 5,
   kind: "lesson",
   minutes: 30,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 4", en: "Remember? · Review of lesson 4" },
+    prompt: { es: "La subconsulta (SELECT Id FROM Opportunities WHERE IsClosed = false) en el SELECT de cuentas, ¿quita las cuentas sin oportunidades abiertas?", en: "Does the subquery (SELECT Id FROM Opportunities WHERE IsClosed = false) in the accounts' SELECT remove the accounts with no open opportunities?" },
+    options: [
+      { es: "Sí, desaparecen", en: "Yes, they disappear" },
+      { es: "No: salen con la lista vacía", en: "No: they come out with an empty list" },
+      { es: "Solo si añades LIMIT", en: "Only if you add LIMIT" },
+    ],
+    answer: 1,
+    explain: { es: "La subconsulta decide qué hijos viajan, no qué padres entran. Para quitar cuentas hace falta Id IN (…) en el WHERE de fuera.", en: "The subquery decides which children travel, not which parents get in. To remove accounts you need Id IN (…) in the outer WHERE." },
+  },
   title: {
     es: "Variables de enlace y SOQL dinámico",
     en: "Bind variables and dynamic SOQL",
@@ -46,9 +57,10 @@ export const l04BindDinamico: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "En un Flow, el elemento Get Records filtra con «AccountId Equals {!$Record.AccountId}»: no escribes un Id, apuntas a una variable del Flow y el valor se pone en el momento. En SOQL eso se llama [[variable-enlace|variable de enlace]] y se escribe con dos puntos: WHERE AccountId = :accId.",
-        en: "In a Flow, the Get Records element filters with “AccountId Equals {!$Record.AccountId}”: you do not type an Id, you point to a Flow variable and the value is plugged in at runtime. In SOQL that is called a [[variable-enlace|bind variable]] and is written with a colon: WHERE AccountId = :accId.",
+        es: "En un Flow, yo filtraba el Get Records con «AccountId Equals {!$Record.AccountId}»: no escribía un Id, apuntaba a una variable del Flow y el valor se ponía en el momento. En SOQL eso se llama [[variable-enlace|variable de enlace]] y se escribe con dos puntos: WHERE AccountId = :accId.",
+        en: "In a Flow, I filtered the Get Records with «AccountId Equals {!$Record.AccountId}»: I did not type an Id, I pointed at a Flow variable and the value was filled in at that moment. In SOQL that is called a [[variable-enlace|bind variable]] and it is written with a colon: WHERE AccountId = :accId.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -184,9 +196,10 @@ List<Account> accs = Database.query(soql);`,
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "Es la diferencia entre un informe que tú dejas configurado y una list view donde cada usuario elige sus propias columnas y filtros. Más flexible, pero ahora lo que llega del usuario forma parte de la definición. Y ahí empieza el riesgo.",
-        en: "It is the difference between a report you leave configured and a list view where each user picks their own columns and filters. More flexible, but now what comes from the user is part of the definition. And that is where the risk begins.",
+        es: "Es la diferencia entre un informe que yo dejaba configurado y una list view donde cada usuario elige sus propias columnas y filtros. Más flexible, pero ahora lo que llega del usuario forma parte de la definición. Y ahí empieza el riesgo.",
+        en: "It is the difference between a report I left configured and a list view where every user picks their own columns and filters. More flexible, but now what comes from the user is part of the definition. And that is where the risk begins.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -435,16 +448,16 @@ List<Case> cases = Database.query(soql);
     },
     hints: [
       {
-        es: "Solo cambia el valor que se busca, no la forma de la consulta: no hace falta nada dinámico.",
-        en: "Only the searched value changes, not the query's shape: nothing dynamic is needed.",
+        es: "Yo me haría la pregunta del Get Records: ¿cambia la forma del filtro o solo el valor? Aquí solo cambia el valor que se busca, así que no hace falta nada dinámico.",
+        en: "I would ask the Get Records question: does the shape of the filter change, or only the value? Here only the searched value changes, so nothing dynamic is needed.",
       },
       {
-        es: "El % va dentro de la variable, no dentro de la consulta: String pattern = '%' + keyword + '%'; y luego Subject LIKE :pattern. Después, el patrón Set → IN → Map de la teoría.",
-        en: "The % goes inside the variable, not inside the query: String pattern = '%' + keyword + '%'; then Subject LIKE :pattern. After that, the Set → IN → Map pattern from the theory.",
+        es: "Lo que me ayudó: el % va dentro de la variable, no dentro de la consulta: String pattern = '%' + keyword + '%'; y luego Subject LIKE :pattern, como tu {!variable} en el filtro. Después, el patrón Set → IN → Map de la teoría.",
+        en: "What helped me: the % goes inside the variable, not inside the query: String pattern = '%' + keyword + '%'; and then Subject LIKE :pattern, like your {!variable} in the filter. After that, the Set → IN → Map pattern from the theory.",
       },
       {
-        es: "Pseudocódigo: List<Case> cases = [SELECT ... FROM Case WHERE IsClosed = false AND Subject LIKE :pattern]; for (Case c : cases) accountIds.add(c.AccountId); Map<Id, Account> accountsById = new Map<Id, Account>([SELECT Id, Name FROM Account WHERE Id IN :accountIds]);",
-        en: "Pseudocode: List<Case> cases = [SELECT ... FROM Case WHERE IsClosed = false AND Subject LIKE :pattern]; for (Case c : cases) accountIds.add(c.AccountId); Map<Id, Account> accountsById = new Map<Id, Account>([SELECT Id, Name FROM Account WHERE Id IN :accountIds]);",
+        es: "Te dejo el esquema: List<Case> cases = [SELECT ... FROM Case WHERE IsClosed = false AND Subject LIKE :pattern]; for (Case c : cases) accountIds.add(c.AccountId); Map<Id, Account> accountsById = new Map<Id, Account>([SELECT Id, Name FROM Account WHERE Id IN :accountIds]);",
+        en: "Here is the outline: List<Case> cases = [SELECT ... FROM Case WHERE IsClosed = false AND Subject LIKE :pattern]; for (Case c : cases) accountIds.add(c.AccountId); Map<Id, Account> accountsById = new Map<Id, Account>([SELECT Id, Name FROM Account WHERE Id IN :accountIds]);",
       },
     ],
     solution: {
@@ -501,6 +514,10 @@ Map<Id, Account> accountsById = new Map<Id, Account>(
           es: "Quita el texto soql y el Database.query: la consulta va entre corchetes.",
           en: "Remove the soql text and the Database.query: the query goes in square brackets.",
         },
+        otter: {
+          es: "Pegar el texto del usuario dentro de la consulta es el agujero que marcó Seguridad. Quita el texto soql y el Database.query: la consulta va entre corchetes, estática, como un Get Records bien configurado.",
+          en: "Pasting the user's text into the query is the hole Security flagged. Remove the soql text and the Database.query: the query goes in square brackets, static, like a well-configured Get Records.",
+        },
       },
       {
         id: "m03-l04-c2",
@@ -518,6 +535,10 @@ Map<Id, Account> accountsById = new Map<Id, Account>(
         onFail: {
           es: "String pattern = '%' + keyword + '%'; y en la consulta: Subject LIKE :pattern.",
           en: "String pattern = '%' + keyword + '%'; and in the query: Subject LIKE :pattern.",
+        },
+        otter: {
+          es: "Es tu {!variable} en el filtro del Get Records: el comodín se prepara en una variable, String pattern = '%' + keyword + '%';, y en la consulta se enlaza con Subject LIKE :pattern.",
+          en: "It is your {!variable} in the Get Records filter: the wildcard is prepared in a variable, String pattern = '%' + keyword + '%';, and bound in the query with Subject LIKE :pattern.",
         },
       },
       {
@@ -537,6 +558,10 @@ Map<Id, Account> accountsById = new Map<Id, Account>(
           es: "List<Case> cases = [SELECT Id, Subject, AccountId FROM Case WHERE IsClosed = false AND ...];",
           en: "List<Case> cases = [SELECT Id, Subject, AccountId FROM Case WHERE IsClosed = false AND ...];",
         },
+        otter: {
+          es: "La consulta de casos es fija y solo cambia el valor: List<Case> cases = [SELECT Id, Subject, AccountId FROM Case WHERE IsClosed = false AND ...];",
+          en: "The case query is fixed and only the value changes: List<Case> cases = [SELECT Id, Subject, AccountId FROM Case WHERE IsClosed = false AND ...];",
+        },
       },
       {
         id: "m03-l04-c4",
@@ -554,6 +579,10 @@ Map<Id, Account> accountsById = new Map<Id, Account>(
         onFail: {
           es: "Crea el Set vacío y, en un for sobre cases, accountIds.add(c.AccountId);",
           en: "Create the empty Set and, in a for over cases, accountIds.add(c.AccountId);",
+        },
+        otter: {
+          es: "Primero recoges los Ids de cuenta sin repetir, como la columna que preparas antes de un BUSCARV: un Set<Id> vacío y, en un for sobre cases, accountIds.add(c.AccountId);",
+          en: "First you collect the account Ids with no repeats, like the column you prepare before a VLOOKUP: an empty Set<Id> and, in a for over cases, accountIds.add(c.AccountId);",
         },
       },
       {
@@ -574,6 +603,10 @@ Map<Id, Account> accountsById = new Map<Id, Account>(
           es: "new Map<Id, Account>([SELECT Id, Name FROM Account WHERE Id IN :accountIds]) — y fuera de cualquier bucle.",
           en: "new Map<Id, Account>([SELECT Id, Name FROM Account WHERE Id IN :accountIds]) — and outside any loop.",
         },
+        otter: {
+          es: "Una sola consulta para todas las cuentas, fuera de cualquier bucle, nada de un Get Records por caso: new Map<Id, Account>([SELECT Id, Name FROM Account WHERE Id IN :accountIds]).",
+          en: "A single query for all the accounts, outside any loop, no Get Records per case: new Map<Id, Account>([SELECT Id, Name FROM Account WHERE Id IN :accountIds]).",
+        },
         onPass: {
           es: "Inmune a la inyección y con dos consultas en total, busque lo que busque el agente.",
           en: "Immune to injection and two queries in total, whatever the agent searches for.",
@@ -585,10 +618,11 @@ Map<Id, Account> accountsById = new Map<Id, Account>(
         es: "Si el agente escribe O'Brien en el buscador, ¿qué habría pasado con el código original? ¿Y con el tuyo?",
         en: "If the agent types O'Brien into the search box, what would have happened with the original code? And with yours?",
       },
-      {
-        es: "Tarea 6: el comité no quiere filas, quiere totales. Toca que la base de datos sume por ti.",
-        en: "Task 6: the committee does not want rows, it wants totals. Time for the database to add up for you.",
-      },
     ],
+    outro: {
+      es: "Ya enlazas variables con dos puntos y sabes por qué pegar texto del usuario en una consulta es un agujero de seguridad. En la tarea 6, el comité no quiere filas, quiere totales: toca que la base de datos sume por ti.",
+      en: "You can now bind variables with a colon and you know why pasting user text into a query is a security hole. In task 6, the committee does not want rows, it wants totals: time for the database to add up for you.",
+    },
+    voice: "otter",
   },
 };

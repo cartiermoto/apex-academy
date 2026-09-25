@@ -6,6 +6,17 @@ export const l05Agregados: Lesson = {
   n: 6,
   kind: "lesson",
   minutes: 25,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 5", en: "Remember? · Review of lesson 5" },
+    prompt: { es: "¿Cómo filtras por una variable accId en SOQL?", en: "How do you filter by an accId variable in SOQL?" },
+    options: [
+      { es: "WHERE AccountId = accId", en: "WHERE AccountId = accId" },
+      { es: "WHERE AccountId = :accId", en: "WHERE AccountId = :accId" },
+      { es: "WHERE AccountId = '{accId}'", en: "WHERE AccountId = '{accId}'" },
+    ],
+    answer: 1,
+    explain: { es: "Con dos puntos delante: es una variable de enlace, tu {!variable} del Get Records. Y además cierra la puerta a la inyección.", en: "With a colon in front: it is a bind variable, your Get Records {!variable}. And it also shuts the door on injection." },
+  },
   title: {
     es: "Funciones de agregación",
     en: "Aggregate functions",
@@ -46,9 +57,10 @@ export const l05Agregados: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "Un informe de resumen agrupa filas (Agrupar por: Etapa) y muestra totales por grupo (Suma de Importe, Recuento de registros). Un campo roll-up hace lo mismo en el registro padre: COUNT, SUM, MIN o MAX de sus hijos. SOQL tiene exactamente esas funciones, más AVG, y GROUP BY es tu «Agrupar filas por».",
-        en: "A summary report groups rows (Group by: Stage) and shows totals per group (Sum of Amount, Record Count). A roll-up summary field does the same on the parent record: COUNT, SUM, MIN or MAX of its children. SOQL has exactly those functions, plus AVG, and GROUP BY is your “Group rows by”.",
+        es: "Yo hacía esto con un informe de resumen: agrupaba filas (Agrupar por: Etapa) y mostraba totales por grupo (Suma de Importe, Recuento de registros). Un campo roll-up hace lo mismo en el registro padre: COUNT, SUM, MIN o MAX de sus hijos. SOQL tiene exactamente esas funciones, más AVG, y GROUP BY es tu «Agrupar filas por».",
+        en: "I did this with a summary report: I grouped rows (Group by: Stage) and showed totals per group (Sum of Amount, Record Count). A roll-up field does the same on the parent record: COUNT, SUM, MIN or MAX of its children. SOQL has exactly those functions, plus AVG, and GROUP BY is your «Group rows by».",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -412,16 +424,16 @@ for (Opportunity o : opps) {
     },
     hints: [
       {
-        es: "El código de partida suma a mano en un bucle y ni siquiera separa por etapa. Tira de funciones de agregación: la base de datos agrupa y suma.",
-        en: "The starter code sums by hand in a loop and does not even split by stage. Use aggregate functions: the database groups and sums.",
+        es: "Yo lo haría como pasar de un informe tabular a uno de resumen: el código de partida suma a mano en un bucle y ni siquiera separa por etapa. Tira de funciones de agregación y deja que la base de datos agrupe y sume.",
+        en: "I would do it like turning a tabular report into a summary one: the starter code adds up by hand in a loop and does not even split by stage. Use aggregate functions and let the database group and add.",
       },
       {
-        es: "SELECT StageName, COUNT(Id) deals, SUM(Amount) total ... GROUP BY StageName. El filtro de «más de 100.000» es sobre el grupo: HAVING, repitiendo la función.",
-        en: "SELECT StageName, COUNT(Id) deals, SUM(Amount) total ... GROUP BY StageName. The “over 100,000” filter is on the group: HAVING, repeating the function.",
+        es: "Lo que me ayudó: SELECT StageName, COUNT(Id) deals, SUM(Amount) total ... GROUP BY StageName. El filtro de «más de 100.000» es sobre el grupo, no sobre cada fila: HAVING, repitiendo la función.",
+        en: "What helped me: SELECT StageName, COUNT(Id) deals, SUM(Amount) total ... GROUP BY StageName. The «over 100,000» filter is on the group, not on each row: HAVING, repeating the function.",
       },
       {
-        es: "Pseudocódigo: ... WHERE IsClosed = false GROUP BY StageName HAVING SUM(Amount) > 100000 ORDER BY SUM(Amount) DESC]; for (AggregateResult ar : byStage) { String stage = (String) ar.get('StageName'); Decimal total = (Decimal) ar.get('total'); ... }",
-        en: "Pseudocode: ... WHERE IsClosed = false GROUP BY StageName HAVING SUM(Amount) > 100000 ORDER BY SUM(Amount) DESC]; for (AggregateResult ar : byStage) { String stage = (String) ar.get('StageName'); Decimal total = (Decimal) ar.get('total'); ... }",
+        es: "Te dejo el esquema: ... WHERE IsClosed = false GROUP BY StageName HAVING SUM(Amount) > 100000 ORDER BY SUM(Amount) DESC]; for (AggregateResult ar : byStage) { String stage = (String) ar.get('StageName'); Decimal total = (Decimal) ar.get('total'); ... }",
+        en: "Here is the outline: ... WHERE IsClosed = false GROUP BY StageName HAVING SUM(Amount) > 100000 ORDER BY SUM(Amount) DESC]; for (AggregateResult ar : byStage) { String stage = (String) ar.get('StageName'); Decimal total = (Decimal) ar.get('total'); ... }",
       },
     ],
     solution: {
@@ -475,6 +487,10 @@ for (AggregateResult ar : byStage) {
           es: "El resultado es List<AggregateResult>, y cada función lleva su alias detrás: COUNT(Id) deals, SUM(Amount) total.",
           en: "The result is List<AggregateResult>, and each function carries its alias after it: COUNT(Id) deals, SUM(Amount) total.",
         },
+        otter: {
+          es: "El resultado ya no son filas sino totales, como un informe de resumen: List<AggregateResult>, y cada función lleva su alias detrás, como el nombre de la columna: COUNT(Id) deals, SUM(Amount) total.",
+          en: "The result is no longer rows but totals, like a summary report: List<AggregateResult>, and each function carries its alias after it, like the column name: COUNT(Id) deals, SUM(Amount) total.",
+        },
       },
       {
         id: "m03-l05-c2",
@@ -492,6 +508,10 @@ for (AggregateResult ar : byStage) {
           es: "WHERE IsClosed = false y, después, GROUP BY StageName.",
           en: "WHERE IsClosed = false and, after it, GROUP BY StageName.",
         },
+        otter: {
+          es: "Primero el filtro de filas y luego tu «Agrupar filas por»: WHERE IsClosed = false y, después, GROUP BY StageName.",
+          en: "First the row filter and then your «Group rows by»: WHERE IsClosed = false and, after it, GROUP BY StageName.",
+        },
       },
       {
         id: "m03-l05-c3",
@@ -504,6 +524,10 @@ for (AggregateResult ar : byStage) {
           es: "Justo después del GROUP BY: HAVING SUM(Amount) > 100000. Se repite la función, no el alias.",
           en: "Right after the GROUP BY: HAVING SUM(Amount) > 100000. Repeat the function, not the alias.",
         },
+        otter: {
+          es: "Filtrar filas es WHERE; filtrar grupos ya sumados es HAVING, justo después del GROUP BY: HAVING SUM(Amount) > 100000. Se repite la función, no el alias.",
+          en: "Filtering rows is WHERE; filtering already-summed groups is HAVING, right after the GROUP BY: HAVING SUM(Amount) > 100000. You repeat the function, not the alias.",
+        },
       },
       {
         id: "m03-l05-c4",
@@ -515,6 +539,10 @@ for (AggregateResult ar : byStage) {
         onFail: {
           es: "ORDER BY SUM(Amount) DESC, al final.",
           en: "ORDER BY SUM(Amount) DESC, at the end.",
+        },
+        otter: {
+          es: "Es ordenar el informe de resumen por el total, de mayor a menor: ORDER BY SUM(Amount) DESC, al final.",
+          en: "It is sorting the summary report by the total, highest first: ORDER BY SUM(Amount) DESC, at the end.",
         },
       },
       {
@@ -535,6 +563,10 @@ for (AggregateResult ar : byStage) {
           es: "Dentro del for de AggregateResult: (String) ar.get('StageName') y (Decimal) ar.get('total'). Y quita el bucle que sumaba a mano.",
           en: "Inside the AggregateResult for: (String) ar.get('StageName') and (Decimal) ar.get('total'). And remove the loop that summed by hand.",
         },
+        otter: {
+          es: "Cada AggregateResult es una fila de totales, y sus columnas se leen con get() y casting: (String) ar.get('StageName') y (Decimal) ar.get('total'). Y quita el bucle que sumaba a mano: ahora suma la base de datos.",
+          en: "Each AggregateResult is a row of totals, and its columns are read with get() and casting: (String) ar.get('StageName') and (Decimal) ar.get('total'). And remove the loop that added up by hand: now the database adds.",
+        },
         onPass: {
           es: "A tu código llegan cuatro o cinco filas, una por etapa, aunque haya miles de oportunidades detrás.",
           en: "Four or five rows reach your code, one per stage, even with thousands of opportunities behind them.",
@@ -546,10 +578,11 @@ for (AggregateResult ar : byStage) {
         es: "Si mañana piden además la oportunidad más grande de cada etapa, ¿qué función añades al SELECT?",
         en: "If tomorrow they also want the largest opportunity per stage, which function do you add to the SELECT?",
       },
-      {
-        es: "Tarea 7: durante la revisión llaman clientes, y el agente no sabe si buscar una cuenta, un contacto o una oportunidad.",
-        en: "Task 7: during the review customers call, and the agent does not know whether to look for an account, a contact or an opportunity.",
-      },
     ],
+    outro: {
+      es: "Ya haces informes de resumen en una consulta: agrupar, sumar, contar y filtrar grupos con HAVING. En la tarea 7, durante la revisión llaman clientes, y el agente no sabe si buscar una cuenta, un contacto o una oportunidad.",
+      en: "You can now build summary reports in one query: group, add, count and filter groups with HAVING. In task 7, customers call during the review, and the agent does not know whether to look for an account, a contact or an opportunity.",
+    },
+    voice: "otter",
   },
 };

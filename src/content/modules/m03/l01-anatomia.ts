@@ -6,6 +6,17 @@ export const l01Anatomia: Lesson = {
   n: 1,
   kind: "lesson",
   minutes: 20,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso del Módulo 2", en: "Remember? · Review of Module 2" },
+    prompt: { es: "En el Módulo 2 comprobabas si la empresa de un lead estaba entre los clientes usando un Set. ¿Qué método respondía sí o no?", en: "In Module 2 you checked whether a lead's company was among the customers using a Set. Which method answered yes or no?" },
+    options: [
+      { es: "contains()", en: "contains()" },
+      { es: "get()", en: "get()" },
+      { es: "add()", en: "add()" },
+    ],
+    answer: 0,
+    explain: { es: "contains(), tu BUSCARV. Hasta ahora esas listas venían escritas en el código; desde hoy se las pides a la org con SOQL.", en: "contains(), your VLOOKUP. Until now those lists were written into the code; from today you ask the org for them with SOQL." },
+  },
   title: {
     es: "Anatomía de una consulta SOQL",
     en: "Anatomy of a SOQL query",
@@ -46,9 +57,10 @@ export const l01Anatomia: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "Cuando creas un informe, primero eliges el Report Type (Cuentas, Oportunidades…) y luego las columnas que quieres ver. SOQL es exactamente eso, escrito en una línea: FROM es el Report Type y SELECT son las columnas. Si una columna no está en el informe, no la ves; si un campo no está en el SELECT, tu código tampoco lo ve.",
-        en: "When you build a report, you first pick the Report Type (Accounts, Opportunities…) and then the columns you want. SOQL is exactly that, written in one line: FROM is the Report Type and SELECT is the columns. If a column is not in the report, you do not see it; if a field is not in the SELECT, your code does not see it either.",
+        es: "Cuando yo creaba un informe, primero elegía el Report Type (Cuentas, Oportunidades…) y luego las columnas que quería ver. SOQL es exactamente eso, escrito en una línea: FROM es el Report Type y SELECT son las columnas. Si una columna no está en el informe, no la ves; si un campo no está en el SELECT, tu código tampoco lo ve.",
+        en: "When I built a report, I first picked the Report Type (Accounts, Opportunities…) and then the columns I wanted to see. SOQL is exactly that, written on one line: FROM is the Report Type and SELECT is the columns. If a column is not in the report you do not see it; if a field is not in the SELECT, your code does not see it either.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -132,9 +144,10 @@ for (Account a : accounts) {
       variant: "admin",
       title: { es: "Ya has escrito SOQL sin saberlo", en: "You have already written SOQL without knowing" },
       text: {
-        es: "Si alguna vez exportaste datos con Data Loader, eligiendo objeto, campos y condiciones, al final del asistente aparecía una línea que empezaba por SELECT: Data Loader construye una consulta SOQL con lo que marcas. Lo mismo hace una list view con sus filtros, por dentro. La diferencia es que ahora la escribes tú y usas el resultado en código.",
-        en: "If you ever exported data with Data Loader, picking the object, fields and conditions, at the end of the wizard there was a line starting with SELECT: Data Loader builds a SOQL query from what you tick. A list view with its filters does the same under the hood. The difference is that now you write it yourself and use the result in code.",
+        es: "Yo me di cuenta tarde: cuando exportaba datos con Data Loader, eligiendo objeto, campos y condiciones, al final del asistente aparecía una línea que empezaba por SELECT. Data Loader construye una consulta SOQL con lo que marcas. Lo mismo hace una list view con sus filtros, por dentro. La diferencia es que ahora la escribes tú y usas el resultado en código.",
+        en: "I realised it late: when I exported data with Data Loader, picking object, fields and conditions, a line starting with SELECT appeared at the end of the wizard. Data Loader builds a SOQL query from what you tick. A list view does the same with its filters, under the hood. The difference is that now you write it yourself and use the result in code.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -231,9 +244,10 @@ if (!found.isEmpty()) {
       variant: "admin",
       title: { es: "Lo que pide el equipo de cuentas", en: "What the account team asks for" },
       text: {
-        es: "«Para la revisión trimestral queremos: ver la cartera; las diez oportunidades grandes del trimestre; cada cuenta de Retail con su propietario y sus contactos; cuáles tienen negocio abierto y cuáles no han comprado nunca; un buscador de casos que no sea un agujero de seguridad; el pipeline sumado por etapa; un buscador para cuando llaman y no sabemos qué es; y todo eso junto para una región». Hoy lo montarías con varios informes, un par de Report Types personalizados y alguna exportación a Excel. Aquí son consultas, y la primera es la de hoy: ver qué hay.",
-        en: "“For the quarterly review we want: to see the portfolio; the quarter's ten big opportunities; each Retail account with its owner and contacts; which have open business and which never bought; a case search that is not a security hole; the pipeline summed by stage; a search for when someone calls and we do not know what it is about; and all of that together for one region.” Today you would build it with several reports, a couple of custom Report Types and an export to Excel. Here it is queries, and the first one is today's: see what is there.",
+        es: "Vengo de hablar con el equipo de cuentas y esto es lo que quieren: «Para la revisión trimestral queremos: ver la cartera; las diez oportunidades grandes del trimestre; cada cuenta de Retail con su propietario y sus contactos; cuáles tienen negocio abierto y cuáles no han comprado nunca; un buscador de casos que no sea un agujero de seguridad; el pipeline sumado por etapa; un buscador para cuando llaman y no sabemos qué es; y todo eso junto para una región». Yo lo habría montado con varios informes, un par de Report Types personalizados y alguna exportación a Excel. Aquí son consultas, y la primera es la de hoy: ver qué hay.",
+        en: "I have just talked to the accounts team and this is what they want: “For the quarterly review we want: to see the portfolio; the quarter's ten big opportunities; each Retail account with its owner and contacts; which have open business and which never bought; a case search that is not a security hole; the pipeline summed by stage; a search for when someone calls and we do not know what it is about; and all of that together for one region.” I would have built it with several reports, a couple of custom Report Types and an export to Excel. Here it is queries, and the first one is today's: see what is there.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -436,16 +450,16 @@ System.debug(accs[0].Phone);`,
     },
     hints: [
       {
-        es: "La consulta va entre corchetes a la derecha del =. A la izquierda, el tipo que devuelve: una lista de cuentas.",
-        en: "The query goes in square brackets on the right of the =. On the left, the type it returns: a list of accounts.",
+        es: "Yo lo pienso como montar el informe: la consulta va entre corchetes a la derecha del =, y a la izquierda el tipo que devuelve, una lista de cuentas.",
+        en: "I think of it as building the report: the query goes in square brackets to the right of the =, and on the left the type it returns, a list of accounts.",
       },
       {
-        es: "SELECT lleva los tres campos separados por comas; FROM, el objeto Account. Para contar, las listas tienen size().",
-        en: "SELECT takes the three fields separated by commas; FROM, the Account object. To count, lists have size().",
+        es: "Lo que me ayudó: SELECT lleva los tres campos separados por comas, como las columnas del informe; FROM, el objeto Account, tu Report Type. Para contar, las listas tienen size(), tu Record Count.",
+        en: "What helped me: SELECT takes the three fields separated by commas, like the report columns; FROM, the Account object, your Report Type. To count, lists have size(), your Record Count.",
       },
       {
-        es: "Pseudocódigo: List<Account> accounts = [SELECT Id, Name, Industry FROM Account]; for (Account a : accounts) { System.debug(a.Name + ...); } System.debug(accounts.size());",
-        en: "Pseudocode: List<Account> accounts = [SELECT Id, Name, Industry FROM Account]; for (Account a : accounts) { System.debug(a.Name + ...); } System.debug(accounts.size());",
+        es: "Te dejo el esquema: List<Account> accounts = [SELECT Id, Name, Industry FROM Account]; for (Account a : accounts) { System.debug(a.Name + ...); } System.debug(accounts.size());",
+        en: "Here is the outline: List<Account> accounts = [SELECT Id, Name, Industry FROM Account]; for (Account a : accounts) { System.debug(a.Name + ...); } System.debug(accounts.size());",
       },
     ],
     solution: {
@@ -476,6 +490,10 @@ System.debug('Accounts read: ' + accounts.size());`,
           es: "Declara List<Account> accounts = [SELECT ... ];",
           en: "Declare List<Account> accounts = [SELECT ... ];",
         },
+        otter: {
+          es: "El resultado de un informe son filas; el de una consulta, una lista de registros: List<Account> accounts = [SELECT ... ];",
+          en: "A report's result is rows; a query's result is a list of records: List<Account> accounts = [SELECT ... ];",
+        },
       },
       {
         id: "m03-l01-c2",
@@ -495,6 +513,10 @@ System.debug('Accounts read: ' + accounts.size());`,
           es: "Los tres campos van en el SELECT, antes de FROM Account. Si no pides Industry, no podrás leerlo.",
           en: "All three fields go in the SELECT, before FROM Account. If you do not ask for Industry, you cannot read it.",
         },
+        otter: {
+          es: "Los tres campos van en el SELECT, como las columnas de tu informe, antes de FROM Account. Si no añades la columna Industry no la verás: en Apex, leer un campo que no pediste da error.",
+          en: "The three fields go in the SELECT, like your report columns, before FROM Account. If you do not add the Industry column you will not see it: in Apex, reading a field you did not ask for gives an error.",
+        },
       },
       {
         id: "m03-l01-c3",
@@ -506,6 +528,10 @@ System.debug('Accounts read: ' + accounts.size());`,
         onFail: {
           es: "Recorre la lista con for (Account a : accounts) { ... }",
           en: "Loop the list with for (Account a : accounts) { ... }",
+        },
+        otter: {
+          es: "Ahora recorres las filas de tu informe, igual que con el Loop de Flow: for (Account a : accounts) { ... }",
+          en: "Now you walk through your report's rows, just like the Flow Loop: for (Account a : accounts) { ... }",
         },
       },
       {
@@ -525,6 +551,10 @@ System.debug('Accounts read: ' + accounts.size());`,
           es: "Usa System.debug con a.Name y a.Industry (pueden ir en la misma línea).",
           en: "Use System.debug with a.Name and a.Industry (they can go on the same line).",
         },
+        otter: {
+          es: "Dentro del bucle muestra cada fila con sus dos columnas: System.debug con a.Name y a.Industry, en la misma línea si quieres.",
+          en: "Inside the loop, show each row with its two columns: System.debug with a.Name and a.Industry, on the same line if you like.",
+        },
       },
       {
         id: "m03-l01-c5",
@@ -533,6 +563,10 @@ System.debug('Accounts read: ' + accounts.size());`,
         onFail: {
           es: "Las listas saben cuántos elementos tienen: accounts.size().",
           en: "Lists know how many elements they hold: accounts.size().",
+        },
+        otter: {
+          es: "El total de filas, el Record Count del informe, lo da la propia lista: accounts.size().",
+          en: "The total number of rows, the report's Record Count, comes from the list itself: accounts.size().",
         },
         onPass: {
           es: "Consulta, recorrido y recuento: el esqueleto de casi todo el código que lee datos.",
@@ -545,10 +579,11 @@ System.debug('Accounts read: ' + accounts.size());`,
         es: "Si mañana Customer Success también quiere el teléfono, ¿qué dos líneas cambias?",
         en: "If tomorrow Customer Success also wants the phone number, which two lines do you change?",
       },
-      {
-        es: "Tarea 2: ver todo no sirve para una reunión; la directora de Ventas quiere solo lo que importa, ordenado y con un tope.",
-        en: "Task 2: seeing everything is useless in a meeting; the sales director wants only what matters, ordered and capped.",
-      },
     ],
+    outro: {
+      es: "Ya sabes pedirle datos a la org: el Report Type es el FROM y las columnas son el SELECT. En la tarea 2, ver todo no sirve para una reunión: la directora de Ventas quiere solo lo que importa, ordenado y con un tope.",
+      en: "You can now ask the org for data: the Report Type is the FROM and the columns are the SELECT. In task 2, seeing everything is no use for a meeting: the Sales director wants only what matters, sorted and capped.",
+    },
+    voice: "otter",
   },
 };

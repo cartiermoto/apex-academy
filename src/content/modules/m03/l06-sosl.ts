@@ -6,6 +6,17 @@ export const l06Sosl: Lesson = {
   n: 7,
   kind: "lesson",
   minutes: 20,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 6", en: "Remember? · Review of lesson 6" },
+    prompt: { es: "Quieres quedarte solo con las etapas cuyo total supere 100.000. ¿Qué cláusula usas?", en: "You want to keep only the stages whose total is over 100,000. Which clause do you use?" },
+    options: [
+      { es: "HAVING", en: "HAVING" },
+      { es: "WHERE", en: "WHERE" },
+      { es: "LIMIT", en: "LIMIT" },
+    ],
+    answer: 0,
+    explain: { es: "HAVING filtra grupos ya sumados; WHERE filtra filas antes de agrupar.", en: "HAVING filters groups that are already summed; WHERE filters rows before grouping." },
+  },
   title: {
     es: "SOSL: búsqueda en varios objetos",
     en: "SOSL: searching across objects",
@@ -46,9 +57,10 @@ export const l06Sosl: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "Escribes «Acme» en la barra de búsqueda global y Salesforce te enseña resultados agrupados: Cuentas (2), Contactos (5), Oportunidades (3). No elegiste objeto ni campo. Eso es SOSL. Y como en la búsqueda global, lo que se puede encontrar depende de qué objetos y campos están indexados para búsqueda.",
-        en: "You type “Acme” into the global search bar and Salesforce shows grouped results: Accounts (2), Contacts (5), Opportunities (3). You did not pick an object or a field. That is SOSL. And just like global search, what can be found depends on which objects and fields are indexed for search.",
+        es: "Es lo que yo hacía en la barra de búsqueda global: escribes «Acme» y Salesforce te enseña resultados agrupados, Cuentas (2), Contactos (5), Oportunidades (3). No eliges objeto ni campo. Eso es SOSL. Y como en la búsqueda global, lo que se puede encontrar depende de qué objetos y campos están indexados para búsqueda.",
+        en: "It is what I did in the global search bar: you type «Acme» and Salesforce shows grouped results, Accounts (2), Contacts (5), Opportunities (3). You pick no object and no field. That is SOSL. And as in global search, what can be found depends on which objects and fields are indexed for search.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -357,16 +369,16 @@ String term = 'Acme*';   // typed by the agent
     },
     hints: [
       {
-        es: "Buscas un texto en varios objetos a la vez: SOSL, con FIND :term.",
-        en: "You are searching for text across several objects at once: SOSL, with FIND :term.",
+        es: "Yo me haría la pregunta de siempre: ¿sé en qué objeto está? Si no, es la búsqueda global. Buscas un texto en varios objetos a la vez: SOSL, con FIND :term.",
+        en: "I would ask the usual question: do I know which object it is in? If not, it is global search. You are searching for text in several objects at once: SOSL, with FIND :term.",
       },
       {
-        es: "IN ALL FIELDS RETURNING Account(...), Contact(...), Opportunity(... WHERE IsClosed = false). Luego results[0], [1] y [2] con su casting.",
-        en: "IN ALL FIELDS RETURNING Account(...), Contact(...), Opportunity(... WHERE IsClosed = false). Then results[0], [1] and [2] with their cast.",
+        es: "Lo que me ayudó: IN ALL FIELDS RETURNING Account(...), Contact(...), Opportunity(... WHERE IsClosed = false). Los resultados llegan agrupados por objeto, como en la búsqueda global, en el orden del RETURNING: results[0], [1] y [2] con su casting.",
+        en: "What helped me: IN ALL FIELDS RETURNING Account(...), Contact(...), Opportunity(... WHERE IsClosed = false). The results arrive grouped by object, as in global search, in the RETURNING order: results[0], [1] and [2] with their casting.",
       },
       {
-        es: "Pseudocódigo: List<List<SObject>> results = [FIND :term IN ALL FIELDS RETURNING ...]; List<Account> accounts = (List<Account>) results[0]; ... System.debug(accounts.size());",
-        en: "Pseudocode: List<List<SObject>> results = [FIND :term IN ALL FIELDS RETURNING ...]; List<Account> accounts = (List<Account>) results[0]; ... System.debug(accounts.size());",
+        es: "Te dejo el esquema: List<List<SObject>> results = [FIND :term IN ALL FIELDS RETURNING ...]; List<Account> accounts = (List<Account>) results[0]; ... System.debug(accounts.size());",
+        en: "Here is the outline: List<List<SObject>> results = [FIND :term IN ALL FIELDS RETURNING ...]; List<Account> accounts = (List<Account>) results[0]; ... System.debug(accounts.size());",
       },
     ],
     solution: {
@@ -420,6 +432,10 @@ System.debug('Open opportunities: ' + opps.size());`,
           es: "List<List<SObject>> results = [FIND :term IN ALL FIELDS RETURNING ...];",
           en: "List<List<SObject>> results = [FIND :term IN ALL FIELDS RETURNING ...];",
         },
+        otter: {
+          es: "Es tu barra de búsqueda global en código: List<List<SObject>> results = [FIND :term IN ALL FIELDS RETURNING ...];, con una lista por cada objeto.",
+          en: "It is your global search bar in code: List<List<SObject>> results = [FIND :term IN ALL FIELDS RETURNING ...];, with one list per object.",
+        },
       },
       {
         id: "m03-l06-c2",
@@ -435,6 +451,10 @@ System.debug('Open opportunities: ' + opps.size());`,
           es: "RETURNING Account(Id, Name), Contact(Id, Name, Email), Opportunity(Id, Name, StageName ...) — en ese orden.",
           en: "RETURNING Account(Id, Name), Contact(Id, Name, Email), Opportunity(Id, Name, StageName ...) — in that order.",
         },
+        otter: {
+          es: "El RETURNING son los grupos de resultados, en este orden: Account(Id, Name), Contact(Id, Name, Email), Opportunity(Id, Name, StageName ...).",
+          en: "The RETURNING is the result groups, in this order: Account(Id, Name), Contact(Id, Name, Email), Opportunity(Id, Name, StageName ...).",
+        },
       },
       {
         id: "m03-l06-c3",
@@ -446,6 +466,10 @@ System.debug('Open opportunities: ' + opps.size());`,
         onFail: {
           es: "El filtro va dentro de los paréntesis de Opportunity: Opportunity(Id, Name, StageName WHERE IsClosed = false).",
           en: "The filter goes inside Opportunity's brackets: Opportunity(Id, Name, StageName WHERE IsClosed = false).",
+        },
+        otter: {
+          es: "El filtro de las oportunidades va dentro de sus paréntesis, como filtrar un solo grupo de resultados: Opportunity(Id, Name, StageName WHERE IsClosed = false).",
+          en: "The opportunity filter goes inside its brackets, like filtering a single group of results: Opportunity(Id, Name, StageName WHERE IsClosed = false).",
         },
       },
       {
@@ -466,6 +490,10 @@ System.debug('Open opportunities: ' + opps.size());`,
           es: "Account es results[0], Contact results[1] y Opportunity results[2], cada uno con su (List<...>) delante.",
           en: "Account is results[0], Contact results[1] and Opportunity results[2], each with its (List<...>) in front.",
         },
+        otter: {
+          es: "Cada grupo llega en la posición del RETURNING: Account es results[0], Contact results[1] y Opportunity results[2], cada uno con su (List<...>) delante.",
+          en: "Each group arrives in its RETURNING position: Account is results[0], Contact results[1] and Opportunity results[2], each with its (List<...>) in front.",
+        },
       },
       {
         id: "m03-l06-c5",
@@ -482,6 +510,10 @@ System.debug('Open opportunities: ' + opps.size());`,
           es: "Un System.debug por lista con .size().",
           en: "One System.debug per list with .size().",
         },
+        otter: {
+          es: "Como el número que ves junto a cada grupo en la búsqueda global: un System.debug por lista con .size().",
+          en: "Like the number you see next to each group in global search: one System.debug per list with .size().",
+        },
         onPass: {
           es: "Una búsqueda cubre tres objetos: la barra de búsqueda global, dentro de tu código.",
           en: "One search covers three objects: the global search bar, inside your code.",
@@ -493,10 +525,11 @@ System.debug('Open opportunities: ' + opps.size());`,
         es: "Si los agentes solo buscan por nombre de persona o empresa, ¿qué cambiarías en el IN para reducir ruido?",
         en: "If the agents only search by person or company name, what would you change in the IN to reduce noise?",
       },
-      {
-        es: "Tarea 8: la entrega. La revisión trimestral de una región entera, con todo lo anterior y sin una consulta dentro de un bucle.",
-        en: "Task 8: delivery. The quarterly review of a whole region, with everything before and not one query inside a loop.",
-      },
     ],
+    outro: {
+      es: "Ya buscas en varios objetos a la vez con SOSL, como en la búsqueda global. La tarea 8 es la entrega: la revisión trimestral de una región entera, con todo lo anterior y sin una consulta dentro de un bucle.",
+      en: "You can now search several objects at once with SOSL, as in global search. Task 8 is the delivery: the quarterly review of a whole region, with everything so far and no query inside a loop.",
+    },
+    voice: "otter",
   },
 };

@@ -6,6 +6,17 @@ export const l08Subconsultas: Lesson = {
   n: 4,
   kind: "lesson",
   minutes: 34,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 3", en: "Remember? · Review of lesson 3" },
+    prompt: { es: "¿Cómo pides el nombre del propietario de cada cuenta en la misma consulta?", en: "How do you ask for each account owner's name in the same query?" },
+    options: [
+      { es: "Owner.Name en el SELECT", en: "Owner.Name in the SELECT" },
+      { es: "Una subconsulta (SELECT Name FROM Owner)", en: "A subquery (SELECT Name FROM Owner)" },
+      { es: "Otra consulta dentro del bucle", en: "Another query inside the loop" },
+    ],
+    answer: 0,
+    explain: { es: "El propietario es el padre: se sube con un punto, como en una fórmula entre objetos. Las subconsultas son para bajar a los hijos.", en: "The owner is the parent: you go up with a dot, as in a cross-object formula. Subqueries are for going down to the children." },
+  },
   title: { es: "Subconsultas a fondo", en: "Subqueries in depth" },
   summary: {
     es: "La sub-lección anterior presentó las subconsultas. Esta las lleva al límite: su propio filtro y orden, cómo recorrerlas, cómo combinarlas con IN y NOT IN, y las reglas exactas que la plataforma no te deja saltar.",
@@ -58,9 +69,10 @@ export const l08Subconsultas: Lesson = {
       variant: "admin",
       title: { es: "Lo configuraste tú al crear el campo", en: "You set it yourself when you created the field" },
       text: {
-        es: "Object Manager → el objeto HIJO → Fields & Relationships → el campo de búsqueda o maestro-detalle que apunta al padre. En su página aparece «Child Relationship Name». Es el mismo nombre que viste en el asistente cuando creaste la relación, en el paso donde también eliges la etiqueta de la related list. Ese valor, con __r detrás, es lo que va en el FROM.",
-        en: "Object Manager → the CHILD object → Fields & Relationships → the lookup or master-detail field pointing at the parent. Its page shows “Child Relationship Name”. It is the same name you saw in the wizard when you created the relationship, on the step where you also choose the related list label. That value, with __r after it, is what goes in the FROM.",
+        es: "Yo lo busqué muchas veces sin saber que un día lo necesitaría: Object Manager → el objeto HIJO → Fields & Relationships → el campo de búsqueda o maestro-detalle que apunta al padre. En su página aparece «Child Relationship Name». Es el mismo nombre que viste en el asistente cuando creaste la relación, en el paso donde también eliges la etiqueta de la related list. Ese valor, con __r detrás, es lo que va en el FROM.",
+        en: "I looked it up many times without knowing I would need it one day: Object Manager → the CHILD object → Fields & Relationships → the lookup or master-detail field pointing at the parent. Its page shows «Child Relationship Name». It is the same name you saw in the wizard when you created the relationship, in the step where you also choose the related list label. That value, with __r after it, is what goes in the FROM.",
       },
+      voice: "otter",
     },
     {
       type: "table",
@@ -242,9 +254,10 @@ List<Account> neverSold = [
       variant: "admin",
       title: { es: "Traer hijos y filtrar por hijos no se sustituyen", en: "Bringing children back and filtering by them do not replace each other" },
       text: {
-        es: "En un informe con Report Type «Cuentas con Oportunidades» ves las oportunidades Y solo salen las cuentas que tienen alguna. En SOQL son dos piezas separadas: la subconsulta del SELECT trae los hijos pero no quita padres; el IN del WHERE quita padres pero no trae hijos. Para reproducir ese informe hacen falta las dos a la vez.",
-        en: "In a report with the “Accounts with Opportunities” report type you see the opportunities AND only accounts that have some appear. In SOQL those are two separate pieces: the SELECT subquery brings children but removes no parents; the WHERE IN removes parents but brings no children. To reproduce that report you need both at once.",
+        es: "Esto me costó entenderlo: en un informe con Report Type «Cuentas con Oportunidades» ves las oportunidades Y solo salen las cuentas que tienen alguna. En SOQL son dos piezas separadas: la subconsulta del SELECT trae los hijos pero no quita padres; el IN del WHERE quita padres pero no trae hijos. Para reproducir ese informe hacen falta las dos a la vez.",
+        en: "This took me a while: in a report with the «Accounts with Opportunities» Report Type you see the opportunities AND only the accounts that have some appear. In SOQL they are two separate pieces: the subquery in the SELECT brings the children but removes no parents; the IN in the WHERE removes parents but brings no children. To reproduce that report you need both at once.",
       },
+      voice: "otter",
     },
     {
       type: "code",
@@ -649,16 +662,16 @@ List<Account> support = [
     },
     hints: [
       {
-        es: "Hay dos filtros distintos escondidos en la primera lista: uno decide QUÉ oportunidades viajan con cada cuenta y otro decide QUÉ cuentas entran. ¿Dónde va cada uno?",
-        en: "Two different filters hide in the first list: one decides WHICH opportunities travel with each account, the other WHICH accounts get in. Where does each go?",
+        es: "Yo lo pensaría como el Report Type «Cuentas con Oportunidades»: hay dos filtros distintos escondidos en la primera lista. Uno decide QUÉ oportunidades viajan con cada cuenta y otro decide QUÉ cuentas entran. ¿Dónde va cada uno?",
+        en: "I would think of it as the «Accounts with Opportunities» Report Type: there are two different filters hidden in the first list. One decides WHICH opportunities travel with each account and the other decides WHICH accounts get in. Where does each one go?",
       },
       {
-        es: "Las tres mayores por cuenta son ORDER BY y LIMIT DENTRO de la subconsulta. «Solo las que tienen negocio abierto» es un Id IN (SELECT AccountId …) en el WHERE de fuera, con su propio IsClosed = false. La segunda lista es la misma idea con NOT IN.",
-        en: "The top three per account are ORDER BY and LIMIT INSIDE the subquery. “Only those with open business” is an Id IN (SELECT AccountId …) in the outer WHERE, with its own IsClosed = false. The second list is the same idea with NOT IN.",
+        es: "Lo que me ayudó: las tres mayores por cuenta son ORDER BY y LIMIT DENTRO de la subconsulta. «Solo las que tienen negocio abierto» es un Id IN (SELECT AccountId …) en el WHERE de fuera, con su propio IsClosed = false. La segunda lista es la misma idea con NOT IN, como un filtro cruzado «Cuentas sin Oportunidades».",
+        en: "What helped me: the three biggest per account are ORDER BY and LIMIT INSIDE the subquery. «Only those with open business» is an Id IN (SELECT AccountId …) in the outer WHERE, with its own IsClosed = false. The second list is the same idea with NOT IN, like an «Accounts without Opportunities» cross filter.",
       },
       {
-        es: "Pseudocódigo: [SELECT Id, Name, Owner.Name, (SELECT … FROM Opportunities WHERE IsClosed = false ORDER BY Amount DESC LIMIT 3) FROM Account WHERE Industry = 'Retail' AND Id IN (SELECT AccountId FROM Opportunity WHERE IsClosed = false)]",
-        en: "Pseudocode: [SELECT Id, Name, Owner.Name, (SELECT … FROM Opportunities WHERE IsClosed = false ORDER BY Amount DESC LIMIT 3) FROM Account WHERE Industry = 'Retail' AND Id IN (SELECT AccountId FROM Opportunity WHERE IsClosed = false)]",
+        es: "Te dejo el esquema: [SELECT Id, Name, Owner.Name, (SELECT … FROM Opportunities WHERE IsClosed = false ORDER BY Amount DESC LIMIT 3) FROM Account WHERE Industry = 'Retail' AND Id IN (SELECT AccountId FROM Opportunity WHERE IsClosed = false)]",
+        en: "Here is the outline: [SELECT Id, Name, Owner.Name, (SELECT … FROM Opportunities WHERE IsClosed = false ORDER BY Amount DESC LIMIT 3) FROM Account WHERE Industry = 'Retail' AND Id IN (SELECT AccountId FROM Opportunity WHERE IsClosed = false)]",
       },
     ],
     solution: {
@@ -733,6 +746,10 @@ Integer toAssign = noPipeline.size();`,
           es: "El propietario es el padre de la cuenta: se sube con un punto, Owner.Name, dentro del SELECT de pipeline.",
           en: "The owner is the account's parent: you go up with a dot, Owner.Name, in pipeline's SELECT.",
         },
+        otter: {
+          es: "El propietario es el padre de la cuenta, como en una fórmula entre objetos: se sube con un punto, Owner.Name, dentro del SELECT de pipeline.",
+          en: "The owner is the account's parent, as in a cross-object formula: you go up with a dot, Owner.Name, inside pipeline's SELECT.",
+        },
       },
       {
         id: "l08-c2",
@@ -747,6 +764,10 @@ Integer toAssign = noPipeline.size();`,
         onFail: {
           es: "Dentro de los paréntesis: FROM Opportunities (el nombre de la relación, en plural), ORDER BY Amount DESC y LIMIT 3. Ese LIMIT se aplica a cada cuenta por separado, que es justo lo que pide Ventas.",
           en: "Inside the brackets: FROM Opportunities (the relationship name, plural), ORDER BY Amount DESC and LIMIT 3. That LIMIT applies to each account separately, which is exactly what Sales asks for.",
+        },
+        otter: {
+          es: "Las tres mayores de cada cuenta son su related list ordenada y recortada: dentro de los paréntesis, FROM Opportunities (el nombre de la relación, en plural), ORDER BY Amount DESC y LIMIT 3. Ese LIMIT se aplica a cada cuenta por separado.",
+          en: "Each account's three biggest are its related list, sorted and trimmed: inside the brackets, FROM Opportunities (the relationship name, plural), ORDER BY Amount DESC and LIMIT 3. That LIMIT applies to each account separately.",
         },
         onPass: {
           es: "LIMIT dentro de la subconsulta = como mucho tres POR CUENTA, no tres en total.",
@@ -766,6 +787,10 @@ Integer toAssign = noPipeline.size();`,
         onFail: {
           es: "El WHERE de la subconsulta del SELECT no quita cuentas: una cuenta sin oportunidades abiertas saldría igualmente, con la lista vacía. Para dejarla fuera hace falta Id IN (SELECT AccountId FROM Opportunity WHERE IsClosed = false) en el WHERE de fuera.",
           en: "The SELECT subquery's WHERE removes no accounts: an account with no open opportunities would still come back, with an empty list. Keeping it out takes Id IN (SELECT AccountId FROM Opportunity WHERE IsClosed = false) in the outer WHERE.",
+        },
+        otter: {
+          es: "Aquí caí yo: el WHERE de la subconsulta decide qué oportunidades viajan, pero no quita cuentas. Una cuenta sin negocio abierto saldría igual, con la lista vacía. Es tu filtro cruzado «Cuentas con Oportunidades»: Id IN (SELECT AccountId FROM Opportunity WHERE IsClosed = false) en el WHERE de fuera.",
+          en: "This is where I fell: the subquery's WHERE decides which opportunities travel, but it removes no accounts. An account with no open business would still come out, with an empty list. It is your «Accounts with Opportunities» cross filter: Id IN (SELECT AccountId FROM Opportunity WHERE IsClosed = false) in the outer WHERE.",
         },
         onPass: {
           es: "Ese es el punto difícil del ejercicio: IsClosed = false aparece dos veces porque son dos filtros distintos —qué cuentas entran y qué oportunidades viajan con ellas—.",
@@ -787,6 +812,10 @@ Integer toAssign = noPipeline.size();`,
           es: "Cada consulta tiene su propio WHERE: las dos necesitan Industry = 'Retail'. Si la segunda no lo lleva, prospección recibiría cuentas de toda la org.",
           en: "Each query has its own WHERE: both need Industry = 'Retail'. If the second lacks it, prospecting would receive accounts from the whole org.",
         },
+        otter: {
+          es: "Cada consulta es un informe distinto, con sus propios filtros: las dos necesitan Industry = 'Retail'. Si la segunda no lo lleva, prospección recibiría cuentas de toda la org.",
+          en: "Each query is a different report, with its own filters: both need Industry = 'Retail'. If the second one lacks it, prospecting would get accounts from the whole org.",
+        },
       },
       {
         id: "l08-c5",
@@ -804,6 +833,10 @@ Integer toAssign = noPipeline.size();`,
         onFail: {
           es: "Un for por las cuentas de pipeline y, dentro, otro por a.Opportunities: los hijos viajan en una propiedad con el nombre de la relación.",
           en: "One for over pipeline's accounts and, inside, another over a.Opportunities: the children travel in a property named after the relationship.",
+        },
+        otter: {
+          es: "Como leer la página de cada cuenta con su related list: un for por las cuentas de pipeline y, dentro, otro por a.Opportunities.",
+          en: "Like reading each account's page with its related list: a for over pipeline's accounts and, inside it, another over a.Opportunities.",
         },
       },
       {
@@ -823,6 +856,10 @@ Integer toAssign = noPipeline.size();`,
           es: "«Nunca ha tenido una oportunidad» es el filtro cruzado SIN: Id NOT IN (SELECT AccountId FROM Opportunity). Sin filtro dentro: si le pones IsClosed = false, entrarían cuentas que sí tuvieron negocio, aunque ya esté cerrado.",
           en: "“Never had an opportunity” is the WITHOUT cross filter: Id NOT IN (SELECT AccountId FROM Opportunity). With no filter inside: add IsClosed = false and accounts that did have business, now closed, would get in.",
         },
+        otter: {
+          es: "«Nunca ha tenido una oportunidad» es tu filtro cruzado «Cuentas sin Oportunidades», sin condiciones: Id NOT IN (SELECT AccountId FROM Opportunity). Si le pones IsClosed = false, entrarían cuentas que sí tuvieron negocio, aunque ya esté cerrado.",
+          en: "«Has never had an opportunity» is your «Accounts without Opportunities» cross filter, with no conditions: Id NOT IN (SELECT AccountId FROM Opportunity). Add IsClosed = false and accounts that did have business, even if it is already closed, would get in.",
+        },
       },
       {
         id: "l08-c7",
@@ -837,6 +874,10 @@ Integer toAssign = noPipeline.size();`,
         onFail: {
           es: "Cuántas hay en una lista lo dice size(), y es un Integer.",
           en: "How many a list holds is size(), and it is an Integer.",
+        },
+        otter: {
+          es: "Cuántas cuentas hay que asignar es el Record Count de esa lista: size(), que es un Integer.",
+          en: "How many accounts need assigning is that list's Record Count: size(), which is an Integer.",
         },
       },
       {
@@ -855,6 +896,10 @@ Integer toAssign = noPipeline.size();`,
           es: "Ventas pidió dos listas y hacen falta dos consultas. Si hay más, lo normal es que una esté dentro del bucle, preguntando por las oportunidades de cada cuenta: eso es exactamente lo que la subconsulta evita, y con 200 cuentas revienta el límite de 100 consultas.",
           en: "Sales asked for two lists and two queries are needed. If there are more, usually one sits inside the loop asking for each account's opportunities: exactly what the subquery avoids, and with 200 accounts it blows the 100-query limit.",
         },
+        otter: {
+          es: "Dos listas, dos consultas. Si hay más, seguro que una está dentro del bucle, preguntando por cada cuenta: es el Get Records dentro de un Loop que tanto se desaconseja en Flow, y con 200 cuentas revienta el límite de 100 consultas.",
+          en: "Two lists, two queries. If there are more, one is surely inside the loop, asking about each account: it is the Get Records inside a Loop that Flow best practice warns against, and with 200 accounts it blows the 100-query limit.",
+        },
       },
     ],
     rubric: [
@@ -862,10 +907,11 @@ Integer toAssign = noPipeline.size();`,
         es: "Si mañana Ventas pide además «y que no tengan ningún caso abierto», ¿cabe en la primera consulta? Cuenta cuántos IN y NOT IN llevarías y compáralo con el límite.",
         en: "If tomorrow Sales also asks “and with no open cases”, does it fit in the first query? Count how many IN and NOT IN you would carry and compare it with the limit.",
       },
-      {
-        es: "Tarea 5: Soporte también entra en la revisión, y su buscador de casos tiene un agujero de seguridad que hay que cerrar.",
-        en: "Task 5: Support joins the review too, and its case search has a security hole to close.",
-      },
     ],
+    outro: {
+      es: "Ya distingues traer hijos (la subconsulta) de filtrar padres por sus hijos (IN y NOT IN), y sabes combinarlos. En la tarea 5, Soporte entra en la revisión, y su buscador de casos tiene un agujero de seguridad que hay que cerrar.",
+      en: "You can now tell bringing children (the subquery) from filtering parents by their children (IN and NOT IN), and you know how to combine them. In task 5, Support joins the review, and its case search has a security hole that needs closing.",
+    },
+    voice: "otter",
   },
 };

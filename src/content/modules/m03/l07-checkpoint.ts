@@ -6,6 +6,17 @@ export const l07Checkpoint: Lesson = {
   n: 8,
   kind: "checkpoint",
   minutes: 40,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 7", en: "Remember? · Review of lesson 7" },
+    prompt: { es: "Un agente busca «Acme» y no sabe si es una cuenta, un contacto o una oportunidad. ¿Qué usas?", en: "An agent searches for «Acme» and does not know whether it is an account, a contact or an opportunity. What do you use?" },
+    options: [
+      { es: "SOQL", en: "SOQL" },
+      { es: "SOSL", en: "SOSL" },
+      { es: "Tres consultas SOQL, una por objeto", en: "Three SOQL queries, one per object" },
+    ],
+    answer: 1,
+    explain: { es: "SOSL: es la búsqueda global, varios objetos a la vez. SOQL es para cuando sabes el objeto, como cuando eliges el Report Type.", en: "SOSL: it is global search, several objects at once. SOQL is for when you know the object, as when you pick the Report Type." },
+  },
   title: {
     es: "Checkpoint del Módulo 3",
     en: "Module 3 checkpoint",
@@ -113,9 +124,10 @@ export const l07Checkpoint: Lesson = {
       variant: "admin",
       title: { es: "Lo mismo que Flow te avisa", en: "The same thing Flow warns you about" },
       text: {
-        es: "Flow Builder marca en amarillo un Get Records metido dentro de un Loop, y la guía de buenas prácticas dice «saca los elementos de datos del bucle». Es exactamente esta regla: el límite de consultas es de la transacción, y Flow y Apex lo comparten.",
-        en: "Flow Builder flags a Get Records placed inside a Loop, and the best-practice guidance says “move data elements out of the loop”. It is exactly this rule: the query limit belongs to the transaction, and Flow and Apex share it.",
+        es: "En Flow me lo repitieron mil veces: nada de Get Records metido dentro de un Loop, y la guía de buenas prácticas lo dice claro, «saca los elementos de datos del bucle». Es exactamente esta regla: el límite de consultas es de la transacción, y Flow y Apex lo comparten.",
+        en: "In Flow I was told a thousand times: no Get Records inside a Loop, and the best-practice guide says it plainly, «take data elements out of the loop». It is exactly this rule: the query limit belongs to the transaction, and Flow and Apex share it.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -449,16 +461,16 @@ String region = 'CA';
     },
     hints: [
       {
-        es: "Lecciones 3, 4 y 5 juntas: una subconsulta para contar hijos, un Set con IN para la segunda consulta y un agregado para sumar.",
-        en: "Lessons 3, 4 and 5 together: a subquery to count children, a Set with IN for the second query and an aggregate to sum.",
+        es: "Yo lo montaría como tres informes que juntas: lecciones 3, 4 y 5. Una subconsulta para contar hijos, un Set con IN para la segunda consulta y un agregado para sumar.",
+        en: "I would build it like three reports you combine: lessons 3, 4 and 5. A subquery to count children, a Set with IN for the second query and an aggregate to add up.",
       },
       {
-        es: "La subconsulta es (SELECT Id FROM Opportunities WHERE IsClosed = false); la cuenta la sabes con a.Opportunities.size(). El agregado lee el Id con (Id) ar.get('AccountId') y el total con (Decimal) ar.get('total').",
-        en: "The subquery is (SELECT Id FROM Opportunities WHERE IsClosed = false); you get the count with a.Opportunities.size(). The aggregate reads the Id with (Id) ar.get('AccountId') and the total with (Decimal) ar.get('total').",
+        es: "Lo que me ayudó: la subconsulta es (SELECT Id FROM Opportunities WHERE IsClosed = false); cuántas hay lo sabes con a.Opportunities.size(), como un roll-up de recuento. El agregado lee el Id con (Id) ar.get('AccountId') y el total con (Decimal) ar.get('total').",
+        en: "What helped me: the subquery is (SELECT Id FROM Opportunities WHERE IsClosed = false); how many there are you get with a.Opportunities.size(), like a count roll-up. The aggregate reads the Id with (Id) ar.get('AccountId') and the total with (Decimal) ar.get('total').",
       },
       {
-        es: "Pseudocódigo: accounts = [SELECT Id, Name, Owner.Name, (SELECT Id FROM Opportunities WHERE IsClosed = false) FROM Account WHERE BillingState = :region]; for → accountIds.add(a.Id); for (AggregateResult ar : [SELECT AccountId, SUM(Amount) total FROM Opportunity WHERE IsClosed = false AND AccountId IN :accountIds GROUP BY AccountId]) pipelineByAccount.put(...); for → System.debug(...)",
-        en: "Pseudocode: accounts = [SELECT Id, Name, Owner.Name, (SELECT Id FROM Opportunities WHERE IsClosed = false) FROM Account WHERE BillingState = :region]; for → accountIds.add(a.Id); for (AggregateResult ar : [SELECT AccountId, SUM(Amount) total FROM Opportunity WHERE IsClosed = false AND AccountId IN :accountIds GROUP BY AccountId]) pipelineByAccount.put(...); for → System.debug(...)",
+        es: "Te dejo el esquema: accounts = [SELECT Id, Name, Owner.Name, (SELECT Id FROM Opportunities WHERE IsClosed = false) FROM Account WHERE BillingState = :region]; for → accountIds.add(a.Id); for (AggregateResult ar : [SELECT AccountId, SUM(Amount) total FROM Opportunity WHERE IsClosed = false AND AccountId IN :accountIds GROUP BY AccountId]) pipelineByAccount.put(...); for → System.debug(...)",
+        en: "Here is the outline: accounts = [SELECT Id, Name, Owner.Name, (SELECT Id FROM Opportunities WHERE IsClosed = false) FROM Account WHERE BillingState = :region]; for → accountIds.add(a.Id); for (AggregateResult ar : [SELECT AccountId, SUM(Amount) total FROM Opportunity WHERE IsClosed = false AND AccountId IN :accountIds GROUP BY AccountId]) pipelineByAccount.put(...); for → System.debug(...)",
       },
     ],
     solution: {
@@ -545,6 +557,10 @@ for (Account a : accounts) {
           es: "SELECT Id, Name, Owner.Name, ... FROM Account WHERE BillingState = :region",
           en: "SELECT Id, Name, Owner.Name, ... FROM Account WHERE BillingState = :region",
         },
+        otter: {
+          es: "Primera consulta: las cuentas de la región, subiendo al propietario con un punto y con la región enlazada como tu {!variable}: SELECT Id, Name, Owner.Name, ... FROM Account WHERE BillingState = :region",
+          en: "First query: the region's accounts, going up to the owner with a dot and with the region bound like your {!variable}: SELECT Id, Name, Owner.Name, ... FROM Account WHERE BillingState = :region",
+        },
       },
       {
         id: "m03-l07-c2",
@@ -556,6 +572,10 @@ for (Account a : accounts) {
         onFail: {
           es: "Dentro del SELECT de cuentas: (SELECT Id FROM Opportunities WHERE IsClosed = false).",
           en: "Inside the accounts SELECT: (SELECT Id FROM Opportunities WHERE IsClosed = false).",
+        },
+        otter: {
+          es: "Cuántas oportunidades abiertas tiene cada cuenta es su related list filtrada: dentro del SELECT de cuentas, (SELECT Id FROM Opportunities WHERE IsClosed = false).",
+          en: "How many open opportunities each account has is its filtered related list: inside the accounts' SELECT, (SELECT Id FROM Opportunities WHERE IsClosed = false).",
         },
       },
       {
@@ -577,6 +597,10 @@ for (Account a : accounts) {
           es: "SELECT AccountId, SUM(Amount) total FROM Opportunity WHERE IsClosed = false AND AccountId IN :accountIds GROUP BY AccountId",
           en: "SELECT AccountId, SUM(Amount) total FROM Opportunity WHERE IsClosed = false AND AccountId IN :accountIds GROUP BY AccountId",
         },
+        otter: {
+          es: "El importe es un informe de resumen agrupado por cuenta, solo de las cuentas que ya tienes: SELECT AccountId, SUM(Amount) total FROM Opportunity WHERE IsClosed = false AND AccountId IN :accountIds GROUP BY AccountId",
+          en: "The amount is a summary report grouped by account, only for the accounts you already have: SELECT AccountId, SUM(Amount) total FROM Opportunity WHERE IsClosed = false AND AccountId IN :accountIds GROUP BY AccountId",
+        },
       },
       {
         id: "m03-l07-c4",
@@ -594,6 +618,10 @@ for (Account a : accounts) {
         onFail: {
           es: "pipelineByAccount.put((Id) ar.get('AccountId'), (Decimal) ar.get('total'));",
           en: "pipelineByAccount.put((Id) ar.get('AccountId'), (Decimal) ar.get('total'));",
+        },
+        otter: {
+          es: "Guarda los totales en tu tabla de consulta, un BUSCARV por Id: pipelineByAccount.put((Id) ar.get('AccountId'), (Decimal) ar.get('total'));",
+          en: "Store the totals in your lookup table, a VLOOKUP by Id: pipelineByAccount.put((Id) ar.get('AccountId'), (Decimal) ar.get('total'));",
         },
       },
       {
@@ -613,6 +641,10 @@ for (Account a : accounts) {
         onFail: {
           es: "Exactamente dos consultas. En el bucle final: a.Opportunities.size() y pipelineByAccount.get(a.Id).",
           en: "Exactly two queries. In the final loop: a.Opportunities.size() and pipelineByAccount.get(a.Id).",
+        },
+        otter: {
+          es: "Exactamente dos consultas, nada de Get Records dentro del Loop. En el bucle final: a.Opportunities.size() y pipelineByAccount.get(a.Id).",
+          en: "Exactly two queries, no Get Records inside the Loop. In the final loop: a.Opportunities.size() and pipelineByAccount.get(a.Id).",
         },
         onPass: {
           es: "Dos consultas, da igual que la región tenga 5 cuentas o 5.000. Esa es la forma de pensar del Módulo 4.",
@@ -639,5 +671,10 @@ for (Account a : accounts) {
         en: "The open-opportunity count comes from the subquery and the amount from the aggregate. Could you get both from the aggregate? What would you gain and lose?",
       },
     ],
+    outro: {
+      es: "¡Entregaste la revisión trimestral de cartera! Ya le preguntas a la org lo que necesitas con dos consultas bien pensadas donde otros harían doscientas. Si quieres afianzarlo, tienes la práctica opcional con cinco encargos. En el Módulo 4 dejas de solo leer: con DML escribes en la base de datos, sin chocar con los governor limits.",
+      en: "You delivered the quarterly portfolio review! You now ask the org for what you need with two well-thought-out queries where others would run two hundred. If you want to lock it in, there is the optional practice with five requests. In Module 4 you stop just reading: with DML you write to the database, without hitting the governor limits.",
+    },
+    voice: "otter",
   },
 };
