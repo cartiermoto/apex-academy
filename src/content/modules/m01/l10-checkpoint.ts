@@ -56,7 +56,7 @@ export const l10Checkpoint: Lesson = {
     {
       type: "p",
       text: {
-        es: "1 · Variables y declaración. Declarar una variable es el asistente de campo personalizado en una línea: eliges el tipo antes que el valor, le pones nombre y decides si podrá cambiar. Integer maxDiscount = 20; tiene cuatro partes y todas hacen falta. Importa porque el tipo es una promesa que la plataforma verifica al compilar, y esa rigidez convierte errores de ejecución —los que ve el cliente— en errores de guardado, que solo ves tú.",
+        es: "1 · Variables y declaración. Declarar una variable es el asistente de campo personalizado en una línea: eliges el tipo antes que el valor, le pones nombre y decides si podrá cambiar. Integer maxDiscount = 20; tiene cuatro partes y todas hacen falta. Importa porque el tipo es una promesa que la plataforma verifica al compilar, y esa rigidez convierte errores de ejecución (los que ve el cliente) en errores de guardado, que solo ves tú.",
         en: "1 · Variables and declaration. Declaring a variable is the custom-field wizard on one line: you pick the type before the value, give it a name, and decide whether it can change. Integer maxDiscount = 20; has four parts and every one is needed. It matters because the type is a promise the platform verifies at compile time, and that rigidity turns runtime errors — the ones customers see — into save-time errors, which only you see.",
       },
     },
@@ -105,14 +105,14 @@ export const l10Checkpoint: Lesson = {
     {
       type: "p",
       text: {
-        es: "8 · Colecciones. List es la lista relacionada —orden y repetidos—, Set es la columna de agrupación de un informe —valores únicos— y Map es el cruce por Id que harías en una hoja de cálculo. Map<String, Decimal> quotaByRegion = new Map<String, Decimal>(); responde «¿cuál es la cuota de EMEA?» sin recorrer nada. Importa porque a partir del Módulo 3 todo llega en bloques de 200 registros, y elegir mal la colección es la diferencia entre código que aguanta y código que agota los [[governor-limits|límites]].",
+        es: "8 · Colecciones. List es la lista relacionada (orden y repetidos), Set es la columna de agrupación de un informe (valores únicos) y Map es el cruce por Id que harías en una hoja de cálculo. Map<String, Decimal> quotaByRegion = new Map<String, Decimal>(); responde «¿cuál es la cuota de EMEA?» sin recorrer nada. Importa porque a partir del Módulo 3 todo llega en bloques de 200 registros, y elegir mal la colección es la diferencia entre código que aguanta y código que agota los [[governor-limits|límites]].",
         en: "8 · Collections. List is the related list — order and duplicates — Set is a report's grouping column — unique values — and Map is the cross-reference by Id you would do in a spreadsheet. Map<String, Decimal> quotaByRegion = new Map<String, Decimal>(); answers “what is EMEA's quota?” without scanning anything. It matters because from Module 3 onwards everything arrives in blocks of 200 records, and choosing the wrong collection is the difference between code that holds and code that exhausts the [[governor-limits|limits]].",
       },
     },
     {
       type: "p",
       text: {
-        es: "9 · Casting y conversión. Es la advertencia de Setup al cambiar un campo de Texto a Número, hecha explícita: hacia arriba Apex convierte solo, hacia abajo lo pides tú con intValue() o setScale(), y entre texto y número nunca hay automatismo — Integer.valueOf('42'). El casting de verdad, (Account) record, no transforma nada: cambia cómo mira Apex un valor, y si te equivocas el error llega en ejecución. Importa porque los datos de integraciones y formularios siempre llegan como texto.",
+        es: "9 · Casting y conversión. Es la advertencia de Setup al cambiar un campo de Texto a Número, hecha explícita: hacia arriba Apex convierte solo, hacia abajo lo pides tú con intValue() o setScale(), y entre texto y número nunca hay automatismo: hace falta Integer.valueOf('42'). El casting de verdad, (Account) record, no transforma nada: cambia cómo mira Apex un valor, y si te equivocas el error llega en ejecución. Importa porque los datos de integraciones y formularios siempre llegan como texto.",
         en: "9 · Casting and conversion. It is Setup's warning when changing a field from Text to Number, made explicit: upwards Apex converts by itself, downwards you ask with intValue() or setScale(), and between text and number there is never anything automatic — Integer.valueOf('42'). The genuine cast, (Account) record, transforms nothing: it changes how Apex looks at a value, and if you get it wrong the error arrives at runtime. It matters because integration and form data always arrives as text.",
       },
     },
@@ -126,7 +126,7 @@ export const l10Checkpoint: Lesson = {
     {
       type: "p",
       text: {
-        es: "Dirección de Ventas quiere una ficha resumen por oportunidad: nombre limpio, código corto, importe con impuestos, si necesita aprobación, cuántos días faltan para el cierre y qué cuota tiene la región del cliente. Los datos llegan como llegan: el nombre con espacios y en minúsculas, la región del cliente sin rellenar. El código de abajo resuelve el caso completo usando las nueve sub-lecciones — y sin una sola condición ni un solo bucle, porque todavía no los has visto.",
+        es: "Dirección de Ventas quiere una ficha resumen por oportunidad: nombre limpio, código corto, importe con impuestos, si necesita aprobación, cuántos días faltan para el cierre y qué cuota tiene la región del cliente. Los datos llegan como llegan: el nombre con espacios y en minúsculas, la región del cliente sin rellenar. El código de abajo resuelve el caso completo usando las nueve sub-lecciones, y sin una sola condición ni un solo bucle, porque todavía no los has visto.",
         en: "Sales management wants a per-opportunity summary: a clean name, a short code, the amount with tax, whether it needs approval, how many days remain before close, and what quota the customer's region carries. The data arrives as it arrives: the name with spaces and in lower case, the customer's region unfilled. The code below solves the whole case using all nine sub-lessons — and without a single condition or loop, because you have not met those yet.",
       },
     },
@@ -241,7 +241,7 @@ summaryLines.add('Amount with tax: ' + amountLabel);
 System.debug(summaryLines);`,
       },
       caption: {
-        es: "Ni un if ni un for, y el caso queda resuelto — incluida la región que nunca llegó.",
+        es: "Ni un if ni un for, y el caso queda resuelto, incluida la región que nunca llegó.",
         en: "Not one if and not one for, and the case is solved — including the region that never arrived.",
       },
     },
@@ -279,7 +279,7 @@ System.debug(summaryLines);`,
     {
       type: "p",
       text: {
-        es: "No es un índice arbitrario. Los tipos básicos sostienen a los sObjects, los sObjects hacen que null deje de ser una curiosidad y pase a ser el caso habitual, y sin entender null no se pueden usar bien ni los operadores ni las colecciones ni las conversiones — las tres tienen un camino donde aparece un hueco.",
+        es: "No es un índice arbitrario. Los tipos básicos sostienen a los sObjects, los sObjects hacen que null deje de ser una curiosidad y pase a ser el caso habitual, y sin entender null no se pueden usar bien ni los operadores ni las colecciones ni las conversiones: las tres tienen un camino donde aparece un hueco.",
         en: "It is not an arbitrary index. The basic types hold up the sObjects, sObjects turn null from a curiosity into the normal case, and without understanding null you cannot properly use operators, collections or conversions — all three have a path where a gap shows up.",
       },
     },
@@ -330,7 +330,7 @@ System.debug(summaryLines);`,
       ],
       answer: 0,
       explain: {
-        es: "Operar aritméticamente con null es una de las tres formas de provocar un NullPointerException. Concatenar sí lo tolera —produce el texto 'null'—, pero multiplicar no.",
+        es: "Operar aritméticamente con null es una de las tres formas de provocar un NullPointerException. Concatenar sí lo tolera (produce el texto 'null'), pero multiplicar no.",
         en: "Arithmetic with null is one of the three ways to raise a NullPointerException. Concatenation tolerates it — producing the text 'null' — but multiplication does not.",
       },
       tags: ["interleaving"],
@@ -575,7 +575,7 @@ Boolean isStrategic = a.AnnualRevenue = 500000;`,
       ],
       placeholder: { es: "String displayName = …", en: "String displayName = …" },
       explain: {
-        es: "String displayName = String.isBlank(customer.Name) ? 'Sin nombre' : customer.Name; — la comprobación de texto va con isBlank, y la decisión con el operador condicional.",
+        es: "String displayName = String.isBlank(customer.Name) ? 'Sin nombre' : customer.Name; la comprobación de texto va con isBlank, y la decisión con el operador condicional.",
         en: "String displayName = String.isBlank(customer.Name) ? 'No name' : customer.Name; — the text check is isBlank, and the decision is the conditional operator.",
       },
       tags: ["recall", "interleaving"],
@@ -616,7 +616,7 @@ Boolean isStrategic = a.AnnualRevenue = 500000;`,
 
   exercise: {
     prompt: {
-      es: "TAREA 10 DE 10 · La entrega. Es el requisito completo que Ventas soltó en la reunión de la sub-lección 1, entero y de una vez: la ficha de la renovación de Northwind. Y llega en el peor estado posible —el nombre sucio, el importe vacío, la región sin rellenar—, que es como llegan los datos de verdad. No vas a inventar nada nuevo: cada línea es un trozo que ya resolviste en las nueve tareas anteriores. Sin una sola condición ni bucle, porque todavía no los has visto.",
+      es: "TAREA 10 DE 10 · La entrega. Es el requisito completo que Ventas soltó en la reunión de la sub-lección 1, entero y de una vez: la ficha de la renovación de Northwind. Y llega en el peor estado posible (el nombre sucio, el importe vacío, la región sin rellenar), que es como llegan los datos de verdad. No vas a inventar nada nuevo: cada línea es un trozo que ya resolviste en las nueve tareas anteriores. Sin una sola condición ni bucle, porque todavía no los has visto.",
       en: "TASK 10 OF 10 · Delivery day. This is the complete requirement Sales dropped in the sub-lesson 1 meeting, whole and all at once: Northwind's renewal summary. And it arrives in the worst possible shape — dirty name, empty amount, unfilled region — which is how real data arrives. You will invent nothing new: every line is a piece you already solved in the previous nine tasks. Without a single condition or loop, because you have not met those yet.",
     },
     brief: [
@@ -649,7 +649,7 @@ Boolean isStrategic = a.AnnualRevenue = 500000;`,
         en: "regionQuota: the quota for displayRegion in the quotaByRegion map, or 0 when that key is missing.",
       },
       {
-        es: "summaryLines: una List<String> con tres líneas — el nombre limpio, 'Región: ' más displayRegion, y el importe con impuestos convertido a texto con dos decimales.",
+        es: "summaryLines: una List<String> con tres líneas (el nombre limpio, 'Región: ' más displayRegion, y el importe con impuestos convertido a texto con dos decimales).",
         en: "summaryLines: a List<String> with three lines — the clean name, 'Region: ' plus displayRegion, and the amount with tax converted to text with two decimals.",
       },
     ],
@@ -809,11 +809,11 @@ summaryLines.add(String.valueOf(amountWithTax.setScale(2)));`,
           ],
         },
         onFail: {
-          es: "Tiene que multiplicar safeAmount, no opp.Amount — si usas el campo directamente vuelves a tener el null — y usar la constante TAX_RATE en vez de escribir 1.21.",
+          es: "Tiene que multiplicar safeAmount, no opp.Amount (si usas el campo directamente vuelves a tener el null) y usar la constante TAX_RATE en vez de escribir 1.21.",
           en: "It must multiply safeAmount, not opp.Amount — using the field directly brings the null straight back — and use the TAX_RATE constant rather than typing 1.21.",
         },
         otter: {
-          es: "amountWithTax es un campo fórmula sobre safeAmount, no sobre opp.Amount —ahí vuelve el null—, y usa la constante TAX_RATE en vez de escribir 1.21: si el impuesto cambia, se cambia en un solo sitio.",
+          es: "amountWithTax es un campo fórmula sobre safeAmount, no sobre opp.Amount (ahí vuelve el null), y usa la constante TAX_RATE en vez de escribir 1.21: si el impuesto cambia, se cambia en un solo sitio.",
           en: "amountWithTax is a formula over safeAmount, not over opp.Amount — that is where the null comes back — and it uses the TAX_RATE constant instead of typing 1.21: if the tax changes, it changes in one place.",
         },
       },
@@ -958,7 +958,7 @@ summaryLines.add(String.valueOf(amountWithTax.setScale(2)));`,
     ],
     rubric: [
       {
-        es: "¿Qué pasaría con este mismo código si en vez de una oportunidad llegaran 200? No cambiaría nada — y ese es precisamente el problema que resuelven los bucles del Módulo 2.",
+        es: "¿Qué pasaría con este mismo código si en vez de una oportunidad llegaran 200? No cambiaría nada, y ese es precisamente el problema que resuelven los bucles del Módulo 2.",
         en: "What would happen to this same code if 200 opportunities arrived instead of one? Nothing would change — and that is precisely the problem Module 2's loops solve.",
       },
       {

@@ -353,7 +353,7 @@ export const l05AdderrorEnTriggers: Lesson = {
       ],
       placeholder: { es: "o.…", en: "o.…" },
       explain: {
-        es: "o.Amount.addError('Importe obligatorio'); — el campo antes del addError decide dónde aparece el mensaje.",
+        es: "o.Amount.addError('Importe obligatorio'); el campo antes del addError decide dónde aparece el mensaje.",
         en: "o.Amount.addError('Amount required'); — the field before addError decides where the message appears.",
       },
       tags: ["recall"],

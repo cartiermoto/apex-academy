@@ -182,7 +182,7 @@ System.debug(training.cost(80));    // 0`,
     {
       type: "p",
       text: {
-        es: "Aquí está la confusión número uno de un Admin que empieza con Apex, así que conviene deshacerla pronto. Cuando creas un objeto personalizado en Object Manager, Salesforce crea una tabla en la base de datos: sus registros se guardan, salen en vistas de lista, en informes y en el formato de página. Cuando escribes una clase de Apex, no se crea nada de eso. La clase es solo un molde que vive en el código, y sus objetos existen en memoria mientras dura la transacción; al terminar, desaparecen. Si quieres que algo quede guardado, tienes que pasar los datos a un sObject —un Account, un Case, un objeto personalizado— y hacer DML, como en el Módulo 4.",
+        es: "Aquí está la confusión número uno de un Admin que empieza con Apex, así que conviene deshacerla pronto. Cuando creas un objeto personalizado en Object Manager, Salesforce crea una tabla en la base de datos: sus registros se guardan, salen en vistas de lista, en informes y en el formato de página. Cuando escribes una clase de Apex, no se crea nada de eso. La clase es solo un molde que vive en el código, y sus objetos existen en memoria mientras dura la transacción; al terminar, desaparecen. Si quieres que algo quede guardado, tienes que pasar los datos a un sObject (un Account, un Case, un objeto personalizado) y hacer DML, como en el Módulo 4.",
         en: "Here is an Admin's number-one confusion when starting with Apex, so it is worth clearing up early. When you create a custom object in Object Manager, Salesforce creates a table in the database: its records are saved, show up in list views, reports and the page layout. When you write an Apex class, none of that happens. The class is only a mould living in the code, and its objects exist in memory for as long as the transaction lasts; when it ends, they vanish. If you want something to stay saved, you have to move the data into an sObject — an Account, a Case, a custom object — and do DML, as in Module 4.",
       },
     },
@@ -211,7 +211,7 @@ System.debug(training.cost(80));    // 0`,
         ],
         [
           { es: "Vista de lista, informe, layout", en: "List view, report, layout" },
-          { es: "—", en: "—" },
+          { es: "Sin equivalente", en: "—" },
           { es: "El usuario no ve tus objetos hasta que los muestras en una pantalla o los guardas.", en: "Users do not see your objects until you show them on a screen or save them." },
         ],
       ],
@@ -538,7 +538,7 @@ Decimal internalCost = internalTicket.cost(95);   // 0`,
         label: { es: "Se declara public class WorkTicket", en: "public class WorkTicket is declared" },
         rule: { op: "match", pattern: "public\\s+class\\s+WorkTicket\\s*\\{" },
         onFail: {
-          es: "La clase empieza así: public class WorkTicket { … } — con mayúscula inicial, porque es un tipo.",
+          es: "La clase empieza así: public class WorkTicket { … }. Con mayúscula inicial, porque es un tipo.",
           en: "The class starts like this: public class WorkTicket { … } — with a leading capital, because it is a type.",
         },
         otter: {

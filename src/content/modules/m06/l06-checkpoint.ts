@@ -48,7 +48,7 @@ export const l06Checkpoint: Lesson = {
     {
       type: "lead",
       text: {
-        es: "Con este módulo tu código ha dejado de esperar a que lo ejecutes. Todo lo anterior —SOQL, DML, bulkificación, clases, static— servía para llegar aquí: código que reacciona solo, a cualquier volumen, dentro de la misma transacción que tus flows y tus reglas.",
+        es: "Con este módulo tu código ha dejado de esperar a que lo ejecutes. Todo lo anterior (SOQL, DML, bulkificación, clases, static) servía para llegar aquí: código que reacciona solo, a cualquier volumen, dentro de la misma transacción que tus flows y tus reglas.",
         en: "With this module your code has stopped waiting for you to run it. Everything before — SOQL, DML, bulkification, classes, static — was building up to this: code that reacts by itself, at any volume, inside the same transaction as your flows and rules.",
       },
     },
@@ -583,7 +583,7 @@ trigger CaseEscalation on Case (before insert, after insert) {
           ],
         },
         onFail: {
-          es: "new Map<Id, Account>([SELECT Id FROM Account WHERE Id IN :accountIds AND Rating = 'Hot']) — una sola consulta.",
+          es: "new Map<Id, Account>([SELECT Id FROM Account WHERE Id IN :accountIds AND Rating = 'Hot']). Una sola consulta.",
           en: "new Map<Id, Account>([SELECT Id FROM Account WHERE Id IN :accountIds AND Rating = 'Hot']) — a single query.",
         },
         otter: {
@@ -606,7 +606,7 @@ trigger CaseEscalation on Case (before insert, after insert) {
           ],
         },
         onFail: {
-          es: "if (hotAccounts.containsKey(c.AccountId)) { c.Priority = 'High'; } — en before, sin update.",
+          es: "if (hotAccounts.containsKey(c.AccountId)) { c.Priority = 'High'; }. En before, sin update.",
           en: "if (hotAccounts.containsKey(c.AccountId)) { c.Priority = 'High'; } — in before, no update.",
         },
         otter: {

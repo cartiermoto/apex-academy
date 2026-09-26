@@ -448,7 +448,7 @@ System.debug('Open opportunities: ' + opps.size());`,
           pattern: "RETURNING\\s+Account\\s*\\([^)]*\\bName\\b[^)]*\\)\\s*,\\s*Contact\\s*\\([^)]*\\bEmail\\b[^)]*\\)\\s*,\\s*Opportunity\\s*\\([^)]*\\bStageName\\b",
         },
         onFail: {
-          es: "RETURNING Account(Id, Name), Contact(Id, Name, Email), Opportunity(Id, Name, StageName ...) — en ese orden.",
+          es: "RETURNING Account(Id, Name), Contact(Id, Name, Email), Opportunity(Id, Name, StageName ...). En ese orden.",
           en: "RETURNING Account(Id, Name), Contact(Id, Name, Email), Opportunity(Id, Name, StageName ...) — in that order.",
         },
         otter: {

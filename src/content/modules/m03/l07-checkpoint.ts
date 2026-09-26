@@ -115,7 +115,7 @@ export const l07Checkpoint: Lesson = {
       variant: "warn",
       title: { es: "Nunca una consulta dentro de un bucle", en: "Never a query inside a loop" },
       text: {
-        es: "Cada consulta cuenta: una transacción puede lanzar 100 como máximo. Una consulta dentro de un for que recorre 200 registros son 200 consultas, y la transacción muere en la número 101. Todas las herramientas de este módulo —subconsultas, IN :conjunto, agregados— existen para que una sola consulta responda por todos los registros a la vez. En el Módulo 4 lo llamaremos bulkificación.",
+        es: "Cada consulta cuenta: una transacción puede lanzar 100 como máximo. Una consulta dentro de un for que recorre 200 registros son 200 consultas, y la transacción muere en la número 101. Todas las herramientas de este módulo (subconsultas, IN :conjunto, agregados) existen para que una sola consulta responda por todos los registros a la vez. En el Módulo 4 lo llamaremos bulkificación.",
         en: "Every query counts: a transaction can run 100 at most. A query inside a for that walks 200 records is 200 queries, and the transaction dies on number 101. Every tool in this module — subqueries, IN :set, aggregates — exists so that one query answers for all the records at once. In Module 4 we will call it bulkification.",
       },
     },
@@ -365,15 +365,15 @@ System.debug(r.size());`,
       },
       options: [
         {
-          es: "public static List<Account> byIndustry(String industry) — y dentro WHERE Industry = :industry",
+          es: "public static List<Account> byIndustry(String industry). Y dentro WHERE Industry = :industry",
           en: "public static List<Account> byIndustry(String industry) — and inside WHERE Industry = :industry",
         },
         {
-          es: "public static void byIndustry() — y dentro WHERE Industry = 'Retail'",
+          es: "public static void byIndustry(). Y dentro WHERE Industry = 'Retail'",
           en: "public static void byIndustry() — and inside WHERE Industry = 'Retail'",
         },
         {
-          es: "public static String byIndustry(String industry) — que devuelve el texto de la consulta",
+          es: "public static String byIndustry(String industry), que devuelve el texto de la consulta",
           en: "public static String byIndustry(String industry) — which returns the query text",
         },
       ],

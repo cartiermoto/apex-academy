@@ -290,8 +290,8 @@ export function MethodFlow({ lang }: P) {
         {pick(lang, "En un campo fórmula: ", "In a formula field: ")}
         <code className="font-mono text-[13px] text-ink">{f.formula}</code>
         {mode === 0
-          ? pick(lang, " — se escribe de fuera hacia dentro, pero ocurre en el mismo orden.", " — written outside in, but it happens in the same order.")
-          : pick(lang, " — el mismo «de dentro hacia fuera».", " — the same “inside out”.")}
+          ? pick(lang, ". Se escribe de fuera hacia dentro, pero ocurre en el mismo orden.", " — written outside in, but it happens in the same order.")
+          : pick(lang, ". Es el mismo «de dentro hacia fuera».", " — the same “inside out”.")}
       </p>
 
       <Controls lang={lang} s={s} />

@@ -49,7 +49,7 @@ export const l08Subconsultas: Lesson = {
     {
       type: "lead",
       text: {
-        es: "Abre una cuenta en Salesforce y baja hasta la related list de Oportunidades. Ahora pulsa «Ver todo» y fíjate: puedes ordenarla por importe y quedarte con las primeras. Eso, escrito como texto y para todas las cuentas a la vez, es una [[subconsulta]] con su propio ORDER BY y LIMIT. Y el filtro cruzado de un informe —«Cuentas con Oportunidades»— es la otra mitad de esta sub-lección.",
+        es: "Abre una cuenta en Salesforce y baja hasta la related list de Oportunidades. Ahora pulsa «Ver todo» y fíjate: puedes ordenarla por importe y quedarte con las primeras. Eso, escrito como texto y para todas las cuentas a la vez, es una [[subconsulta]] con su propio ORDER BY y LIMIT. Y el filtro cruzado de un informe («Cuentas con Oportunidades») es la otra mitad de esta sub-lección.",
         en: "Open an account in Salesforce and scroll to the Opportunities related list. Now click “View All” and notice: you can sort it by amount and keep the top ones. That, written as text and for every account at once, is a [[subconsulta|subquery]] with its own ORDER BY and LIMIT. And a report's cross filter — “Accounts with Opportunities” — is the other half of this sub-lesson.",
       },
     },
@@ -105,7 +105,7 @@ export const l08Subconsultas: Lesson = {
         [
           { es: "Renewal_Line__c (personalizado)", en: "Renewal_Line__c (custom)" },
           { es: "Contract__c", en: "Contract__c" },
-          { es: "Renewal_Lines__r — el que pusieras al crearlo", en: "Renewal_Lines__r — whatever you named it" },
+          { es: "Renewal_Lines__r (el que pusieras al crearlo)", en: "Renewal_Lines__r — whatever you named it" },
         ],
       ],
     },
@@ -456,7 +456,7 @@ List<Account> support = [
       ],
       answer: 0,
       explain: {
-        es: "El WHERE de dentro solo elige qué hijos cuelgan de cada padre; nunca quita padres. La lista llega vacía —no null—, así que recorrerla es seguro. Para quitar esa cuenta haría falta un IN en el WHERE de fuera.",
+        es: "El WHERE de dentro solo elige qué hijos cuelgan de cada padre; nunca quita padres. La lista llega vacía (no null), así que recorrerla es seguro. Para quitar esa cuenta haría falta un IN en el WHERE de fuera.",
         en: "The inner WHERE only picks which children hang off each parent; it never removes parents. The list arrives empty — not null — so looping it is safe. Removing that account would take an IN in the outer WHERE.",
       },
       tags: ["predict-output"],
@@ -611,7 +611,7 @@ List<Account> support = [
 
   exercise: {
     prompt: {
-      es: "TAREA 4 DE 8 · Revisión de cartera de Retail. Ventas prepara la reunión del lunes y pide dos listas: las cuentas de Retail que tienen negocio abierto —cada una con su propietario y sus tres oportunidades abiertas más grandes— y, aparte, las de Retail que no han tenido nunca una oportunidad, para asignarlas a prospección. Dos consultas, ni una más.",
+      es: "TAREA 4 DE 8 · Revisión de cartera de Retail. Ventas prepara la reunión del lunes y pide dos listas: las cuentas de Retail que tienen negocio abierto (cada una con su propietario y sus tres oportunidades abiertas más grandes) y, aparte, las de Retail que no han tenido nunca una oportunidad, para asignarlas a prospección. Dos consultas, ni una más.",
       en: "TASK 4 OF 8 · Retail portfolio review. Sales is preparing Monday's meeting and asks for two lists: the Retail accounts with open business — each with its owner and its three largest open opportunities — and, separately, the Retail accounts that never had an opportunity, to hand them to prospecting. Two queries, not one more.",
     },
     brief: [
@@ -793,7 +793,7 @@ Integer toAssign = noPipeline.size();`,
           en: "This is where I fell: the subquery's WHERE decides which opportunities travel, but it removes no accounts. An account with no open business would still come out, with an empty list. It is your «Accounts with Opportunities» cross filter: Id IN (SELECT AccountId FROM Opportunity WHERE IsClosed = false) in the outer WHERE.",
         },
         onPass: {
-          es: "Ese es el punto difícil del ejercicio: IsClosed = false aparece dos veces porque son dos filtros distintos —qué cuentas entran y qué oportunidades viajan con ellas—.",
+          es: "Ese es el punto difícil del ejercicio: IsClosed = false aparece dos veces porque son dos filtros distintos (qué cuentas entran y qué oportunidades viajan con ellas).",
           en: "That is the hard part of the exercise: IsClosed = false appears twice because they are two different filters — which accounts get in, and which opportunities travel with them.",
         },
       },

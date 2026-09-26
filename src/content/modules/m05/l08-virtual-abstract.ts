@@ -106,7 +106,7 @@ public class SmsNotification extends Notification {
     {
       type: "p",
       text: {
-        es: "A veces el padre no tiene ninguna versión sensata que ofrecer: ¿cómo se aplica «un descuento» en abstracto? Entonces la clase se declara abstract y el método también, sin cuerpo, terminado en punto y coma. Una clase abstracta no se puede instanciar —new Discount() no compila— y cada hija concreta está obligada a implementar sus métodos abstractos con override.",
+        es: "A veces el padre no tiene ninguna versión sensata que ofrecer: ¿cómo se aplica «un descuento» en abstracto? Entonces la clase se declara abstract y el método también, sin cuerpo, terminado en punto y coma. Una clase abstracta no se puede instanciar (new Discount() no compila) y cada hija concreta está obligada a implementar sus métodos abstractos con override.",
         en: "Sometimes the parent has no sensible version to offer: how do you apply “a discount” in the abstract? Then the class is declared abstract and so is the method, with no body, ending in a semicolon. An abstract class cannot be instantiated — new Discount() does not compile — and every concrete child must implement its abstract methods with override.",
       },
     },
@@ -238,7 +238,7 @@ public class PercentDiscount extends Discount {
       variant: "admin",
       title: { es: "El layout obligatorio y el valor por defecto que se puede cambiar", en: "The mandatory layout and the default you can change" },
       text: {
-        es: "Otro paralelo que me sirvió: todos los Record Types de Opportunity tienen que tener un page layout asignado —es obligatorio, no hay «ninguno»—: eso es abstract. En cambio, un picklist tiene un valor por defecto que cada Record Type puede mantener o cambiar por otro: eso es virtual. Y «Activity», que nunca creas directamente porque siempre es una Task o un Event, es la clase abstract por excelencia de la plataforma.",
+        es: "Otro paralelo que me sirvió: todos los Record Types de Opportunity tienen que tener un page layout asignado (es obligatorio, no hay «ninguno»): eso es abstract. En cambio, un picklist tiene un valor por defecto que cada Record Type puede mantener o cambiar por otro: eso es virtual. Y «Activity», que nunca creas directamente porque siempre es una Task o un Event, es la clase abstract por excelencia de la plataforma.",
         en: "Another parallel that worked for me: every Opportunity Record Type must have a page layout assigned — it is mandatory, there is no «none» —: that is abstract. A picklist, instead, has a default value each Record Type can keep or swap for another: that is virtual. And «Activity», which you never create directly because it is always a Task or an Event, is the platform's abstract class par excellence.",
       },
       voice: "otter",

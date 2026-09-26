@@ -196,7 +196,7 @@ for (Integer i = 0; i < results.size(); i++) {
     {
       type: "p",
       text: {
-        es: "La elección no es técnica, es de negocio, y se decide con una pregunta: ¿los registros de la lista dependen unos de otros? Si son independientes —leads de un formulario, casos de un correo—, guardar los buenos y apuntar los malos es lo sensato: un lead sin empresa no tiene por qué impedir que entren los otros 199. Si forman una unidad —una cuenta con sus contactos, un pedido con sus líneas—, una parte guardada sin la otra es un dato roto, y entonces quieres todo o nada. Esa segunda situación es la de la lección 5.",
+        es: "La elección no es técnica, es de negocio, y se decide con una pregunta: ¿los registros de la lista dependen unos de otros? Si son independientes (leads de un formulario, casos de un correo), guardar los buenos y apuntar los malos es lo sensato: un lead sin empresa no tiene por qué impedir que entren los otros 199. Si forman una unidad (una cuenta con sus contactos, un pedido con sus líneas), una parte guardada sin la otra es un dato roto, y entonces quieres todo o nada. Esa segunda situación es la de la lección 5.",
         en: "The choice is not technical, it is a business one, and it comes down to one question: do the records in the list depend on each other? If they are independent — leads from a form, cases from an email — saving the good ones and noting the bad ones is sensible: a lead with no company has no reason to stop the other 199. If they form a unit — an account with its contacts, an order with its lines — one part saved without the other is broken data, and then you want all or nothing. That second situation is lesson 5's.",
       },
     },
@@ -503,7 +503,7 @@ System.debug('Errors: ' + errors);`,
         },
         rule: { op: "match", pattern: "for\\s*\\(\\s*Integer\\s+(\\w+)\\s*=\\s*0\\s*;\\s*\\1\\s*<\\s*results\\.size\\(\\s*\\)\\s*;" },
         onFail: {
-          es: "for (Integer i = 0; i < results.size(); i++) — el índice enlaza results[i] con leads[i].",
+          es: "for (Integer i = 0; i < results.size(); i++). El índice enlaza results[i] con leads[i].",
           en: "for (Integer i = 0; i < results.size(); i++) — the index links results[i] to leads[i].",
         },
         otter: {

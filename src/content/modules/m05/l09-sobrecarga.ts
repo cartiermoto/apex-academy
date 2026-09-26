@@ -413,7 +413,7 @@ System.debug(r.title());`,
         en: "I would split it in two, like TEXT() and Record Types: in the first, both methods have the same name and live in the same class. In the second, the method has the same name in two different classes and two keywords are needed.",
       },
       {
-        es: "Lo que me ayudó: format(Decimal amount) { return format(amount, 'EUR'); } — public virtual class Report { public virtual String title() { … } } — public class SalesReport extends Report { public override String title() { … } }",
+        es: "Lo que me ayudó: format(Decimal amount) { return format(amount, 'EUR'); } · public virtual class Report { public virtual String title() { … } } · public class SalesReport extends Report { public override String title() { … } }",
         en: "What helped me: format(Decimal amount) { return format(amount, 'EUR'); } — public virtual class Report { public virtual String title() { … } } — public class SalesReport extends Report { public override String title() { … } }",
       },
       {
@@ -560,7 +560,7 @@ String reportTitle = monthly.title();              // Sales report`,
           ],
         },
         onFail: {
-          es: "public class SalesReport extends Report { public override String title() { … } } — mismos parámetros (ninguno) y override.",
+          es: "public class SalesReport extends Report { public override String title() { … } }. Mismos parámetros (ninguno) y override.",
           en: "public class SalesReport extends Report { public override String title() { … } } — same parameters (none) and override.",
         },
         otter: {

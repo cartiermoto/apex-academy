@@ -234,7 +234,7 @@ List<Opportunity> top10 = [
     {
       type: "p",
       text: {
-        es: "Abajo tienes una org de Sales Cloud en miniatura —cinco cuentas con sus contactos— y una consulta que puedes montar por piezas. Cambia el filtro, el orden, el límite y los campos: la consulta se reescribe sola y la tabla de resultados se recalcula al instante. Es el Developer Console sin salir de aquí.",
+        es: "Abajo tienes una org de Sales Cloud en miniatura (cinco cuentas con sus contactos) y una consulta que puedes montar por piezas. Cambia el filtro, el orden, el límite y los campos: la consulta se reescribe sola y la tabla de resultados se recalcula al instante. Es el Developer Console sin salir de aquí.",
         en: "Below is a miniature Sales Cloud org — five accounts with their contacts — and a query you can assemble piece by piece. Change the filter, the order, the limit and the fields: the query rewrites itself and the result table recomputes instantly. It is the Developer Console without leaving this page.",
       },
     },
@@ -481,7 +481,7 @@ List<Opportunity> bigDeals = [
         en: "What helped me: the three conditions are joined with AND, like filter logic 1 AND 2 AND 3. The current quarter has a date literal, with no quotes, like the report's relative «This quarter» filter. DESC sorts from highest to lowest.",
       },
       {
-        es: "Te dejo el esquema: WHERE IsClosed = false AND Amount > 50000 AND CloseDate = THIS_QUARTER ORDER BY Amount DESC LIMIT 10 — y después un for (Opportunity o : bigDeals) con System.debug.",
+        es: "Te dejo el esquema: WHERE IsClosed = false AND Amount > 50000 AND CloseDate = THIS_QUARTER ORDER BY Amount DESC LIMIT 10, y después un for (Opportunity o : bigDeals) con System.debug.",
         en: "Here is the outline: WHERE IsClosed = false AND Amount > 50000 AND CloseDate = THIS_QUARTER ORDER BY Amount DESC LIMIT 10 — and then a for (Opportunity o : bigDeals) with System.debug.",
       },
     ],

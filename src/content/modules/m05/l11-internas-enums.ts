@@ -119,7 +119,7 @@ System.debug(Tier.values());      // (STANDARD, PRIORITY, CRITICAL)`,
     {
       type: "p",
       text: {
-        es: "Una clase puede declarar otra dentro de sus llaves. Desde fuera se nombra como Externa.Interna. Se usa sobre todo para el patrón wrapper: un objeto pequeño que junta datos de varios registros —el nombre del caso, su nivel, sus horas de respuesta— y que solo tiene sentido para esa clase. Lo verás muchísimo cuando envíes datos a una pantalla con LWC.",
+        es: "Una clase puede declarar otra dentro de sus llaves. Desde fuera se nombra como Externa.Interna. Se usa sobre todo para el patrón wrapper: un objeto pequeño que junta datos de varios registros (el nombre del caso, su nivel, sus horas de respuesta) y que solo tiene sentido para esa clase. Lo verás muchísimo cuando envíes datos a una pantalla con LWC.",
         en: "A class can declare another inside its braces. From outside it is named as Outer.Inner. It is used above all for the wrapper pattern: a small object gathering data from several records — the case's subject, its tier, its response hours — that only makes sense for that class. You will see it constantly when sending data to a screen with LWC.",
       },
     },
@@ -452,11 +452,11 @@ switch on t {
         en: "I would think of it as an object with its picklist and its report row: everything lives inside CaseRouter's braces, the enum, the inner class and the method. From outside, the types are named with CaseRouter. in front.",
       },
       {
-        es: "Lo que me ayudó: public enum Tier { STANDARD, PRIORITY, CRITICAL } — public class Assignment { … public Tier tier; … } — en route: primero decide el tier con if/else if (o switch sobre Priority), después switch on result.tier con when CRITICAL, when PRIORITY y when else.",
+        es: "Lo que me ayudó: public enum Tier { STANDARD, PRIORITY, CRITICAL } · public class Assignment { … public Tier tier; … }. En route: primero decide el tier con if/else if (o switch sobre Priority), después switch on result.tier con when CRITICAL, when PRIORITY y when else.",
         en: "What helped me: public enum Tier { STANDARD, PRIORITY, CRITICAL } — public class Assignment { … public Tier tier; … } — in route: first decide the tier with if/else if (or a switch on Priority), then switch on result.tier with when CRITICAL, when PRIORITY and when else.",
       },
       {
-        es: "Te dejo el uso: CaseRouter.Assignment a = CaseRouter.route(new Case(Subject = '…', Priority = 'Medium')); — debería dar PRIORITY y 24 horas.",
+        es: "Te dejo el uso: CaseRouter.Assignment a = CaseRouter.route(new Case(Subject = '…', Priority = 'Medium')); debería dar PRIORITY y 24 horas.",
         en: "Here is the usage: CaseRouter.Assignment a = CaseRouter.route(new Case(Subject = '…', Priority = 'Medium')); — it should give PRIORITY and 24 hours.",
       },
     ],
@@ -583,7 +583,7 @@ System.debug(assignment.tier.name() + ' · ' + assignment.slaHours);   // PRIORI
           ],
         },
         onFail: {
-          es: "public class Assignment { public String caseSubject; public Tier tier; public Integer slaHours; } — dentro de CaseRouter.",
+          es: "public class Assignment { public String caseSubject; public Tier tier; public Integer slaHours; }. Dentro de CaseRouter.",
           en: "public class Assignment { public String caseSubject; public Tier tier; public Integer slaHours; } — inside CaseRouter.",
         },
         otter: {
@@ -632,7 +632,7 @@ System.debug(assignment.tier.name() + ' · ' + assignment.slaHours);   // PRIORI
           ],
         },
         onFail: {
-          es: "switch on result.tier { when CRITICAL { … 4 } when PRIORITY { … 24 } when else { … 72 } } — en los when de un enum va solo el valor.",
+          es: "switch on result.tier { when CRITICAL { … 4 } when PRIORITY { … 24 } when else { … 72 } }. En los when de un enum va solo el valor.",
           en: "switch on result.tier { when CRITICAL { … 4 } when PRIORITY { … 24 } when else { … 72 } } — an enum's whens take just the value.",
         },
         otter: {

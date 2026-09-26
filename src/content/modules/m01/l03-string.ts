@@ -58,7 +58,7 @@ export const l03String: Lesson = {
       variant: "tip",
       title: { es: "Por qué esto aparece justo aquí", en: "Why this shows up right here" },
       text: {
-        es: "Los métodos no son cosa del texto: en Apex los tienen todos los tipos —Decimal tiene setScale(), Date tiene addYears(), List tiene add()—. Pero el texto es el primer sitio donde no puedes hacer nada sin ellos: los números se manejan con símbolos que ya conoces (+, -, *, /) y para «quítale los espacios» o «ponlo en mayúsculas» no hay símbolo, hay método. Y es el sitio donde el concepto cae sobre algo que ya sabes hacer: TRIM() y UPPER() en un campo fórmula. A partir de aquí todas las sub-lecciones dan los métodos por sabidos; en el Módulo 5 se cierra el círculo y verás POR QUÉ un dato tiene comportamiento.",
+        es: "Los métodos no son cosa del texto: en Apex los tienen todos los tipos (Decimal tiene setScale(), Date tiene addYears(), List tiene add()). Pero el texto es el primer sitio donde no puedes hacer nada sin ellos: los números se manejan con símbolos que ya conoces (+, -, *, /) y para «quítale los espacios» o «ponlo en mayúsculas» no hay símbolo, hay método. Y es el sitio donde el concepto cae sobre algo que ya sabes hacer: TRIM() y UPPER() en un campo fórmula. A partir de aquí todas las sub-lecciones dan los métodos por sabidos; en el Módulo 5 se cierra el círculo y verás POR QUÉ un dato tiene comportamiento.",
         en: "Methods are not a text thing: in Apex every type has them — Decimal has setScale(), Date has addYears(), List has add(). But text is the first place where you can do nothing without them: numbers are handled with symbols you already know (+, -, *, /), and for “strip the spaces” or “upper-case it” there is no symbol, there is a method. It is also where the idea lands on something you already do: TRIM() and UPPER() in a formula field. From here on every sub-lesson assumes methods; Module 5 closes the circle and shows you WHY a value has behaviour.",
       },
     },
@@ -69,7 +69,7 @@ export const l03String: Lesson = {
     {
       type: "p",
       text: {
-        es: "Un método es una acción con nombre que un dato sabe hacer consigo mismo. Se escribe pegado al dato con un punto, lleva paréntesis —siempre, aunque estén vacíos— y termina devolviendo algo: un texto nuevo, un número, un sí o un no.",
+        es: "Un método es una acción con nombre que un dato sabe hacer consigo mismo. Se escribe pegado al dato con un punto, lleva paréntesis (siempre, aunque estén vacíos) y termina devolviendo algo: un texto nuevo, un número, un sí o un no.",
         en: "A method is a named action a value knows how to perform on itself. You write it attached to the value with a dot, it always carries brackets — even empty ones — and it ends by returning something: a new piece of text, a number, a yes or a no.",
       },
     },
@@ -184,7 +184,7 @@ String quoted = 'The client said \\'yes\\' yesterday';`,
         [
           { es: "capitalize()", en: "capitalize()" },
           { es: "String con la primera letra en mayúscula; el resto se queda tal cual estaba.", en: "String with the first letter capitalised; the rest is left exactly as it was." },
-          { es: "—", en: "—" },
+          { es: "Sin equivalente directo", en: "—" },
         ],
       ],
     },
@@ -264,14 +264,14 @@ String quoted = 'The client said \\'yes\\' yesterday';`,
         [
           { es: "rawCompany.trim().length()", en: "rawCompany.trim().length()" },
           { es: "17", en: "17" },
-          { es: "Integer — aquí se acaba la cadena de texto", en: "Integer — the text chain ends here" },
+          { es: "Integer: aquí se acaba la cadena de texto", en: "Integer — the text chain ends here" },
         ],
       ],
     },
     {
       type: "p",
       text: {
-        es: "Una cadena no es obligatoria: siempre puedes desarmarla en variables intermedias y el resultado es idéntico. Mientras aprendes, desarmarla es buena idea —cada paso tiene nombre y lo puedes mirar con System.debug()—; cuando ya lo lees con soltura, la versión encadenada ahorra variables que solo vivían para pasar el dato al siguiente paso.",
+        es: "Una cadena no es obligatoria: siempre puedes desarmarla en variables intermedias y el resultado es idéntico. Mientras aprendes, desarmarla es buena idea (cada paso tiene nombre y lo puedes mirar con System.debug()); cuando ya lo lees con soltura, la versión encadenada ahorra variables que solo vivían para pasar el dato al siguiente paso.",
         en: "A chain is never compulsory: you can always break it into intermediate variables and the result is identical. While you are learning, breaking it up is a good idea — every step has a name and you can inspect it with System.debug(); once you read chains fluently, the chained version saves variables that only existed to hand the value along.",
       },
     },
@@ -316,7 +316,7 @@ String code2 = rawCompany.trim().substring(0, 4).toUpperCase(); // 'NORT'`,
       variant: "warn",
       title: { es: "Un eslabón roto revienta toda la cadena", en: "One broken link blows up the whole chain" },
       text: {
-        es: "Si algún paso intermedio devuelve null —por ejemplo porque el dato de partida no existía—, pedirle un método al siguiente eslabón lanza NullPointerException, igual que viste con un dato suelto. La cadena entera es tan frágil como su punto más débil. Por eso String.isBlank() (que se le pide al tipo, no al dato) suele ir antes de empezar a encadenar, no en medio de la cadena.",
+        es: "Si algún paso intermedio devuelve null (por ejemplo porque el dato de partida no existía), pedirle un método al siguiente eslabón lanza NullPointerException, igual que viste con un dato suelto. La cadena entera es tan frágil como su punto más débil. Por eso String.isBlank() (que se le pide al tipo, no al dato) suele ir antes de empezar a encadenar, no en medio de la cadena.",
         en: "If some step in the middle returns null — say, because the starting value did not exist — asking the next link for a method throws NullPointerException, exactly as you saw with a lone value. The whole chain is only as strong as its weakest link. That is why String.isBlank() (which you ask the type, not the value) usually runs before you start chaining, not in the middle of the chain.",
       },
     },
@@ -329,7 +329,7 @@ String code2 = rawCompany.trim().substring(0, 4).toUpperCase(); // 'NORT'`,
       variant: "warn",
       title: { es: "String es un tipo, nunca un método", en: "String is a type, never a method" },
       text: {
-        es: "Antes de seguir, quítate esta duda de encima: String no es un método. String es el tipo, y los métodos son suyos —trim(), length(), toUpperCase() no existen sueltos por ahí—. Lo que confunde es que el punto se usa en dos sitios: nombre.trim() se lo pides al DATO («oye, este texto, límpiate»), y String.valueOf(42) se lo pides al TIPO («oye, tipo String, fabrícame un texto con esto»). En los dos casos el método es lo que va después del punto y siempre lleva paréntesis. En Object Manager pasa igual: «Nuevo» es una acción del objeto Cuenta y «cambiar el nombre» es una acción de una cuenta concreta.",
+        es: "Antes de seguir, quítate esta duda de encima: String no es un método. String es el tipo, y los métodos son suyos (trim(), length(), toUpperCase() no existen sueltos por ahí). Lo que confunde es que el punto se usa en dos sitios: nombre.trim() se lo pides al DATO («oye, este texto, límpiate»), y String.valueOf(42) se lo pides al TIPO («oye, tipo String, fabrícame un texto con esto»). En los dos casos el método es lo que va después del punto y siempre lleva paréntesis. En Object Manager pasa igual: «Nuevo» es una acción del objeto Cuenta y «cambiar el nombre» es una acción de una cuenta concreta.",
         en: "Before going on, get this doubt out of the way: String is not a method. String is the type, and the methods belong to it — trim(), length() and toUpperCase() do not float around on their own. What confuses people is that the dot shows up in two places: name.trim() asks the VALUE (“hey, this text, clean yourself up”), while String.valueOf(42) asks the TYPE (“hey, String type, make me a text out of this”). In both cases the method is what follows the dot, and it always carries brackets. Object Manager works the same way: “New” is an action of the Account object, and “rename” is an action of one particular account.",
       },
     },
@@ -362,7 +362,7 @@ String c = String.valueOf(42);         // '42': converts to text`,
     {
       type: "p",
       text: {
-        es: "String.valueOf() merece una parada, porque lo vas a usar en todo el curso. Es el TEXT() de tus fórmulas: recibe un valor que no es texto —un número, una fecha, un Boolean— y te devuelve ese mismo valor escrito como texto. Hace falta porque Apex es estricto con los tipos: una variable String solo guarda texto, y 42 no es texto, es un número. '42', entre comillas, sí lo es. Para Apex son dos cosas distintas: con 42 puedes sumar; '42' solo se puede mostrar o pegar a otro texto. (La sub-lección de Casting vuelve a esto con calma.)",
+        es: "String.valueOf() merece una parada, porque lo vas a usar en todo el curso. Es el TEXT() de tus fórmulas: recibe un valor que no es texto (un número, una fecha, un Boolean) y te devuelve ese mismo valor escrito como texto. Hace falta porque Apex es estricto con los tipos: una variable String solo guarda texto, y 42 no es texto, es un número. '42', entre comillas, sí lo es. Para Apex son dos cosas distintas: con 42 puedes sumar; '42' solo se puede mostrar o pegar a otro texto. (La sub-lección de Casting vuelve a esto con calma.)",
         en: "String.valueOf() deserves a stop, because you will use it throughout the course. It is your formula TEXT(): it takes a value that is not text — a number, a date, a Boolean — and gives you back that same value written as text. It is needed because Apex is strict about types: a String variable only holds text, and 42 is not text, it is a number. '42', in quotes, is. To Apex they are two different things: you can add with 42; '42' can only be displayed or attached to other text. (The Casting sub-lesson comes back to this calmly.)",
       },
     },
@@ -427,7 +427,7 @@ String keyword = 'TORRES';
 Boolean found = rawName.contains(keyword.toLowerCase());    // true`,
       },
       caption: {
-        es: "En el ejemplo 3, contains() recibe 'torres' —el resultado de toLowerCase()—, no 'TORRES'. Lo de dentro siempre se resuelve antes.",
+        es: "En el ejemplo 3, contains() recibe 'torres' (el resultado de toLowerCase()), no 'TORRES'. Lo de dentro siempre se resuelve antes.",
         en: "In example 3, contains() receives 'torres' — the result of toLowerCase() — not 'TORRES'. The inside always resolves first.",
       },
     },
@@ -854,7 +854,7 @@ String summary = displayName + ' <' + cleanEmail + '>';`,
           ],
         },
         onFail: {
-          es: "Un correo se compara y se guarda siempre en minúsculas. Aquí el orden da igual —trim() y toLowerCase() no se estorban—, pero los dos tienen que estar, y partiendo de rawEmail.",
+          es: "Un correo se compara y se guarda siempre en minúsculas. Aquí el orden da igual (trim() y toLowerCase() no se estorban), pero los dos tienen que estar, y partiendo de rawEmail.",
           en: "An email is always stored and compared in lower case. Here the order does not matter — trim() and toLowerCase() do not interfere — but both must be there, starting from rawEmail.",
         },
         otter: {
@@ -950,7 +950,7 @@ String summary = displayName + ' <' + cleanEmail + '>';`,
           ],
         },
         onFail: {
-          es: "Los trozos fijos —el espacio y los signos < y >— van entre comillas; los que cambian son displayName y cleanEmail, unidos con el signo más. Si escribes el nombre dentro de las comillas, el resumen será el mismo para todos los contactos.",
+          es: "Los trozos fijos (el espacio y los signos < y >) van entre comillas; los que cambian son displayName y cleanEmail, unidos con el signo más. Si escribes el nombre dentro de las comillas, el resumen será el mismo para todos los contactos.",
           en: "The fixed bits — the space and the < > signs — go in quotes; the changing ones are displayName and cleanEmail, joined with plus. If you type the name inside the quotes, the summary will be identical for every contact.",
         },
         otter: {
@@ -978,7 +978,7 @@ String summary = displayName + ' <' + cleanEmail + '>';`,
     ],
     rubric: [
       {
-        es: "Dos preguntas para pensar: si el formulario enviara el correo vacío, ¿en qué punto exacto de tus cadenas reventaría? Y si mañana piden el dominio del correo —lo que va detrás de la arroba—, ¿con qué método empezarías a buscarlo?",
+        es: "Dos preguntas para pensar: si el formulario enviara el correo vacío, ¿en qué punto exacto de tus cadenas reventaría? Y si mañana piden el dominio del correo (lo que va detrás de la arroba), ¿con qué método empezarías a buscarlo?",
         en: "Two questions to chew on: if the form sent an empty email, at which exact point in your chains would it blow up? And if tomorrow they ask for the email's domain — what comes after the @ — which method would you start looking with?",
       },
     ],

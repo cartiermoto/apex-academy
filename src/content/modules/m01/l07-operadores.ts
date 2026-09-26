@@ -74,7 +74,7 @@ export const l07Operadores: Lesson = {
         es: `Decimal amount = 1000;
 Decimal withTax = amount * 1.21;
 Decimal perQuarter = amount / 4;
-Integer remainder = Math.mod(17, 5);   // 2 — no existe el operador %`,
+Integer remainder = Math.mod(17, 5);   // 2: no existe el operador %`,
         en: `Decimal amount = 1000;
 Decimal withTax = amount * 1.21;
 Decimal perQuarter = amount / 4;
@@ -610,7 +610,7 @@ Boolean isAssignable = String.isNotBlank(incompleteLead.Company)
           ],
         },
         onFail: {
-          es: "«Y además» es &&, y las dos condiciones tienen que comprobar que el texto sirve de verdad —isNotBlank—, no solo que no sea null.",
+          es: "«Y además» es &&, y las dos condiciones tienen que comprobar que el texto sirve de verdad (isNotBlank), no solo que no sea null.",
           en: "“And also” is &&, and both conditions must check the text is genuinely usable — isNotBlank — not merely non-null.",
         },
         otter: {

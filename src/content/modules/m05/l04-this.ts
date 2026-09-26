@@ -470,7 +470,7 @@ public class SupportPlan {
         en: "What helped me: this.level is your $Record.level, the current object's attribute; plain level is the parameter. In the parameterless constructor, the first and only line is this('Basic');",
       },
       {
-        es: "Te dejo el esquema: public SupportPlan(String level) { this.level = level; this.startDate = Date.today(); this.contacts = new List<String>(); } public SupportPlan() { this('Basic'); } — SupportPlan basicPlan = new SupportPlan();",
+        es: "Te dejo el esquema: public SupportPlan(String level) { this.level = level; this.startDate = Date.today(); this.contacts = new List<String>(); } public SupportPlan() { this('Basic'); }. SupportPlan basicPlan = new SupportPlan();",
         en: "Here is the outline: public SupportPlan(String level) { this.level = level; this.startDate = Date.today(); this.contacts = new List<String>(); } public SupportPlan() { this('Basic'); } — SupportPlan basicPlan = new SupportPlan();",
       },
     ],
@@ -586,7 +586,7 @@ System.debug(basicPlan.level);   // Basic`,
           pattern: "public\\s+SupportPlan\\s*\\(\\s*\\)\\s*\\{\\s*this\\(\\s*'Basic'\\s*\\)\\s*;\\s*\\}",
         },
         onFail: {
-          es: "public SupportPlan() { this('Basic'); } — una sola línea que reutiliza el constructor principal.",
+          es: "public SupportPlan() { this('Basic'); }. Una sola línea que reutiliza el constructor principal.",
           en: "public SupportPlan() { this('Basic'); } — a single line reusing the main constructor.",
         },
         otter: {

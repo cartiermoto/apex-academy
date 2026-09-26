@@ -251,7 +251,7 @@ export const l04GuardiaBypass: Lesson = {
     {
       type: "lead",
       text: {
-        es: "Soporte pidió una regla más: si un agente sube a mano la prioridad de un caso a 'High', su propietario también debe recibir la tarea de revisión. Se escribió con la defensa 2 del Módulo 6 —solo si la prioridad CAMBIÓ a 'High'— y en la sandbox iba perfecto. En producción, los agentes empezaron a ver dos tareas por caso. Lo que avisó Operaciones al final de la tarea 3 era verdad.",
+        es: "Soporte pidió una regla más: si un agente sube a mano la prioridad de un caso a 'High', su propietario también debe recibir la tarea de revisión. Se escribió con la defensa 2 del Módulo 6 (solo si la prioridad CAMBIÓ a 'High') y en la sandbox iba perfecto. En producción, los agentes empezaron a ver dos tareas por caso. Lo que avisó Operaciones al final de la tarea 3 era verdad.",
         en: "Support asked for one more rule: if an agent manually raises a case's priority to 'High', its owner must get the review task too. It was written with Module 6's defence 2 — only if the priority CHANGED to 'High' — and in the sandbox it was perfect. In production, agents started seeing two tasks per case. What Operations warned at the end of task 3 was true.",
       },
     },
@@ -291,7 +291,7 @@ export const l04GuardiaBypass: Lesson = {
     {
       type: "p",
       text: {
-        es: "La defensa 3 del Módulo 6 es la que resuelve esto: un Set<Id> static que recuerda qué registros ya se procesaron en la transacción. Lo nuevo es DÓNDE vive. Con la arquitectura de este módulo hay un sitio obvio: el método del servicio que hace el trabajo. Así la protección se aplica venga de donde venga la llamada —el after insert, el after update o una segunda pasada por culpa del workflow— y nadie tiene que acordarse de añadirla en cada puerta.",
+        es: "La defensa 3 del Módulo 6 es la que resuelve esto: un Set<Id> static que recuerda qué registros ya se procesaron en la transacción. Lo nuevo es DÓNDE vive. Con la arquitectura de este módulo hay un sitio obvio: el método del servicio que hace el trabajo. Así la protección se aplica venga de donde venga la llamada (el after insert, el after update o una segunda pasada por culpa del workflow) y nadie tiene que acordarse de añadirla en cada puerta.",
         en: "Module 6's defence 3 is what solves this: a static Set<Id> that remembers which records were already processed in the transaction. What is new is WHERE it lives. With this module's architecture there is an obvious place: the service method that does the work. That way the protection applies wherever the call comes from — after insert, after update or a second pass caused by the workflow — and nobody has to remember to add it at each door.",
       },
     },
@@ -621,7 +621,7 @@ ${STARTER_CODE}
         en: "What helped me: the guard goes in createReviewTasks, which both doors go through: add !tasksCreatedFor.contains(c.Id) to the condition and tasksCreatedFor.add(c.Id) when creating the task. The switch, at the very top of the trigger: if (…) { return; }",
       },
       {
-        es: "Te dejo el esquema: private static Set<Id> tasksCreatedFor = new Set<Id>(); … if (c.Priority == 'High' && !tasksCreatedFor.contains(c.Id)) { tasksCreatedFor.add(c.Id); tasks.add(…); } — y en el trigger: if (FeatureManagement.checkPermission('Bypass_Case_Triggers')) { return; }",
+        es: "Te dejo el esquema: private static Set<Id> tasksCreatedFor = new Set<Id>(); … if (c.Priority == 'High' && !tasksCreatedFor.contains(c.Id)) { tasksCreatedFor.add(c.Id); tasks.add(…); }. Y en el trigger: if (FeatureManagement.checkPermission('Bypass_Case_Triggers')) { return; }",
         en: "Here is the outline: private static Set<Id> tasksCreatedFor = new Set<Id>(); … if (c.Priority == 'High' && !tasksCreatedFor.contains(c.Id)) { tasksCreatedFor.add(c.Id); tasks.add(…); } — and in the trigger: if (FeatureManagement.checkPermission('Bypass_Case_Triggers')) { return; }",
       },
     ],
@@ -681,7 +681,7 @@ ${STARTER_CODE}
           pattern: "FeatureManagement\\s*\\.\\s*checkPermission\\s*\\(\\s*'Bypass_Case_Triggers'\\s*\\)\\s*\\)\\s*\\{?\\s*return\\s*;",
         },
         onFail: {
-          es: "if (FeatureManagement.checkPermission('Bypass_Case_Triggers')) { return; } — con el nombre de API exacto del permiso y un return que corte antes de que se aplique ninguna regla.",
+          es: "if (FeatureManagement.checkPermission('Bypass_Case_Triggers')) { return; }. Con el nombre de API exacto del permiso y un return que corte antes de que se aplique ninguna regla.",
           en: "if (FeatureManagement.checkPermission('Bypass_Case_Triggers')) { return; } — with the permission's exact API name and a return that cuts off before any rule applies.",
         },
         otter: {

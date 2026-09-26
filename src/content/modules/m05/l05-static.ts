@@ -155,7 +155,7 @@ Decimal total = PricingUtils.withVat(1000);   // 1210`,
     {
       type: "p",
       text: {
-        es: "Una variable estática (static, sin final) se puede cambiar y todo el código la ve con el mismo valor… pero solo durante una [[transaccion|transacción]]. Cuando termina el guardado que la creó, desaparece; el siguiente usuario empieza de cero. Eso la hace perfecta para recordar algo mientras dura un guardado —por ejemplo, «este trigger ya se ha ejecutado»— y es justo lo que usarás en el Módulo 7.",
+        es: "Una variable estática (static, sin final) se puede cambiar y todo el código la ve con el mismo valor… pero solo durante una [[transaccion|transacción]]. Cuando termina el guardado que la creó, desaparece; el siguiente usuario empieza de cero. Eso la hace perfecta para recordar algo mientras dura un guardado (por ejemplo, «este trigger ya se ha ejecutado») y es justo lo que usarás en el Módulo 7.",
         en: "A static variable (static, not final) can be changed and all code sees it with the same value… but only for one [[transaccion|transaction]]. When the save that created it ends, it disappears; the next user starts from scratch. That makes it perfect for remembering something during one save — for example, “this trigger has already run” — and it is exactly what you will use in Module 7.",
       },
     },
@@ -166,7 +166,7 @@ Decimal total = PricingUtils.withVat(1000);   // 1210`,
     {
       type: "p",
       text: {
-        es: "static final VAT_RATE = 0.21 es perfecto para algo que nunca cambia sin que cambie también el código. Pero si el valor lo decide el negocio —el IVA de otro país, el descuento máximo del trimestre—, meterlo en una constante significa que cada cambio necesita un desarrollador y un despliegue. Para eso la plataforma tiene Custom Metadata Types y Custom Settings: el valor vive en la org, lo cambia un Admin desde Setup y el código lo lee. La regla: static final para lo que es parte de la lógica; metadatos para lo que es parte del negocio.",
+        es: "static final VAT_RATE = 0.21 es perfecto para algo que nunca cambia sin que cambie también el código. Pero si el valor lo decide el negocio (el IVA de otro país, el descuento máximo del trimestre), meterlo en una constante significa que cada cambio necesita un desarrollador y un despliegue. Para eso la plataforma tiene Custom Metadata Types y Custom Settings: el valor vive en la org, lo cambia un Admin desde Setup y el código lo lee. La regla: static final para lo que es parte de la lógica; metadatos para lo que es parte del negocio.",
         en: "static final VAT_RATE = 0.21 is perfect for something that never changes without the code changing too. But if the business decides the value — another country's VAT, the quarter's maximum discount — putting it in a constant means every change needs a developer and a deployment. That is what Custom Metadata Types and Custom Settings are for: the value lives in the org, an Admin changes it from Setup and the code reads it. The rule: static final for what is part of the logic; metadata for what is part of the business.",
       },
     },
@@ -413,7 +413,7 @@ Decimal total = PricingUtils.withVat(1000);   // 1210`,
         en: "What helped me: VAT, (amount ?? 0) * (1 + VAT_RATE). Discount, amount * (1 - percent / 100). To chain them, pass one's result as the other's argument, like nesting functions in a formula.",
       },
       {
-        es: "Te dejo el esquema: public static final Decimal VAT_RATE = 0.21; public static Decimal withVat(Decimal amount) { … } public static Decimal applyDiscount(Decimal amount, Decimal percent) { … } — Decimal finalPrice = PricingUtils.withVat(PricingUtils.applyDiscount(2000, 10));",
+        es: "Te dejo el esquema: public static final Decimal VAT_RATE = 0.21; public static Decimal withVat(Decimal amount) { … } public static Decimal applyDiscount(Decimal amount, Decimal percent) { … }. Decimal finalPrice = PricingUtils.withVat(PricingUtils.applyDiscount(2000, 10));",
         en: "Here is the outline: public static final Decimal VAT_RATE = 0.21; public static Decimal withVat(Decimal amount) { … } public static Decimal applyDiscount(Decimal amount, Decimal percent) { … } — Decimal finalPrice = PricingUtils.withVat(PricingUtils.applyDiscount(2000, 10));",
       },
     ],
@@ -484,7 +484,7 @@ Decimal finalPrice = PricingUtils.withVat(discounted);        // 2178`,
           ],
         },
         onFail: {
-          es: "public static Decimal withVat(Decimal amount) { return (amount ?? 0) * (1 + VAT_RATE); } — usando la constante, no un 0.21 escrito a mano.",
+          es: "public static Decimal withVat(Decimal amount) { return (amount ?? 0) * (1 + VAT_RATE); }. Usando la constante, no un 0.21 escrito a mano.",
           en: "public static Decimal withVat(Decimal amount) { return (amount ?? 0) * (1 + VAT_RATE); } — using the constant, not a hand-typed 0.21.",
         },
         otter: {
@@ -509,7 +509,7 @@ Decimal finalPrice = PricingUtils.withVat(discounted);        // 2178`,
           ],
         },
         onFail: {
-          es: "public static Decimal applyDiscount(Decimal amount, Decimal percent) — y el 10 % se convierte en fracción con percent / 100.",
+          es: "public static Decimal applyDiscount(Decimal amount, Decimal percent). Y el 10 % se convierte en fracción con percent / 100.",
           en: "public static Decimal applyDiscount(Decimal amount, Decimal percent) — and 10% becomes a fraction with percent / 100.",
         },
         otter: {

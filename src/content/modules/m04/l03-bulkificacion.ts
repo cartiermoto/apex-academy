@@ -396,7 +396,7 @@ update toUpdate;`,
       accept: ["^\\s*update\\s+toUpdate\\.values\\(\\s*\\)\\s*;?\\s*$"],
       placeholder: { es: "instrucción", en: "statement" },
       explain: {
-        es: "update toUpdate.values(); — values() devuelve la lista de registros del mapa, cada uno una vez.",
+        es: "update toUpdate.values(); values() devuelve la lista de registros del mapa, cada uno una vez.",
         en: "update toUpdate.values(); — values() returns the map's records as a list, each one once.",
       },
       tags: ["recall"],

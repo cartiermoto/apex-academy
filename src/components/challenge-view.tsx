@@ -67,7 +67,7 @@ export function ChallengeView({
                 {t(ui.challengeLockedMsg, lang)}{" "}
                 {requiredModule && (
                   <>
-                    — {t(ui.module, lang)} {requiredModule.n}:{" "}
+                    · {t(ui.module, lang)} {requiredModule.n}:{" "}
                     {t(requiredModule.title, lang)}
                   </>
                 )}

@@ -265,7 +265,7 @@ export const l05Checkpoint: Lesson = {
     {
       type: "p",
       text: {
-        es: "Ventas se queja de que se entera tarde de los problemas de sus clientes. La regla: cuando se CIERRA un caso de prioridad 'High' de una cuenta, el propietario de esa cuenta —el comercial, no el agente— recibe una tarea de seguimiento para el día siguiente. Fíjate en tres decisiones antes de escribir nada.",
+        es: "Ventas se queja de que se entera tarde de los problemas de sus clientes. La regla: cuando se CIERRA un caso de prioridad 'High' de una cuenta, el propietario de esa cuenta (el comercial, no el agente) recibe una tarea de seguimiento para el día siguiente. Fíjate en tres decisiones antes de escribir nada.",
         en: "Sales complains it finds out about its customers' problems too late. The rule: when a 'High' priority case of an account is CLOSED, that account's owner — the sales rep, not the agent — gets a follow-up task for the next day. Notice three decisions before writing anything.",
       },
     },
@@ -291,7 +291,7 @@ export const l05Checkpoint: Lesson = {
       variant: "admin",
       title: { es: "El propietario de la cuenta, no el del caso", en: "The account's owner, not the case's" },
       text: {
-        es: "Aquí tropecé yo la primera vez: el caso tiene su propietario —el agente o la cola— y la cuenta, el suyo —el comercial—. Para llegar al segundo hay que subir del caso a la cuenta: una consulta con los AccountId de todos los casos, como en el Módulo 3, y un Map para encontrar cada uno sin recorrer nada. En Flow habría sido un Get Records; aquí, uno para todos los casos a la vez.",
+        es: "Aquí tropecé yo la primera vez: el caso tiene su propietario (el agente o la cola) y la cuenta, el suyo (el comercial). Para llegar al segundo hay que subir del caso a la cuenta: una consulta con los AccountId de todos los casos, como en el Módulo 3, y un Map para encontrar cada uno sin recorrer nada. En Flow habría sido un Get Records; aquí, uno para todos los casos a la vez.",
         en: "This is where I tripped the first time: the case has its owner — the agent or the queue — and the account has its own — the sales rep. To reach the second you have to go up from the case to the account: one query with every case's AccountId, as in Module 3, and a Map to find each one without walking anything. In Flow it would have been a Get Records; here, one for all the cases at once.",
       },
       voice: "otter",
@@ -400,7 +400,7 @@ export const l05Checkpoint: Lesson = {
       ],
       answer: 0,
       explain: {
-        es: "Un servicio agrupa las reglas de un mismo tema de negocio. Cuando Ventas cambie su regla, nadie tendrá que tocar —ni volver a probar— el escalado de Soporte.",
+        es: "Un servicio agrupa las reglas de un mismo tema de negocio. Cuando Ventas cambie su regla, nadie tendrá que tocar (ni volver a probar) el escalado de Soporte.",
         en: "A service groups the rules of one business topic. When Sales changes its rule, nobody will have to touch — or retest — Support's escalation.",
       },
       tags: ["recall"],
@@ -463,7 +463,7 @@ export const l05Checkpoint: Lesson = {
       ],
       answer: 0,
       explain: {
-        es: "En after el registro ya está guardado y Trigger.new es de solo lectura (Módulo 6). Por eso la regla nueva crea OTROS registros —tareas— en vez de tocar el caso.",
+        es: "En after el registro ya está guardado y Trigger.new es de solo lectura (Módulo 6). Por eso la regla nueva crea OTROS registros (tareas) en vez de tocar el caso.",
         en: "In after the record is already saved and Trigger.new is read-only (Module 6). That is why the new rule creates OTHER records — tasks — instead of touching the case.",
       },
       tags: ["spaced"],
@@ -667,7 +667,7 @@ ${FROM_TASK4}${TAIL_EN}`,
     ],
     rubric: [
       {
-        es: "Cuando lo tengas, cuéntalo: ¿cuántas líneas del trigger cambiaste? ¿Cuántas del handler? Si alguien te preguntara en una entrevista por qué usas handlers, esa respuesta —con este ejemplo— es la buena.",
+        es: "Cuando lo tengas, cuéntalo: ¿cuántas líneas del trigger cambiaste? ¿Cuántas del handler? Si alguien te preguntara en una entrevista por qué usas handlers, esa respuesta (con este ejemplo) es la buena.",
         en: "Once you have it, count: how many trigger lines did you change? How many handler lines? If someone asked you in an interview why you use handlers, that answer — with this example — is the right one.",
       },
     ],

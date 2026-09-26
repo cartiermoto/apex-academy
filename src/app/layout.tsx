@@ -5,7 +5,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Apex Academy",
   description:
-    "Curso interactivo de Apex (Salesforce) — de Admin a desarrollador, paso a paso.",
+    "Curso interactivo de Apex (Salesforce): de Admin a desarrollador, paso a paso.",
 };
 
 export const viewport: Viewport = {

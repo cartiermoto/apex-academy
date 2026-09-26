@@ -382,7 +382,7 @@ try {
       accept: ["(public\\s+)?class\\s+erpsyncexception\\s+extends\\s+exception\\s*\\{\\s*\\}"],
       placeholder: { es: "public class …", en: "public class …" },
       explain: {
-        es: "public class ErpSyncException extends Exception {} — una línea, y todo lo demás lo hereda.",
+        es: "public class ErpSyncException extends Exception {}. Una línea, y todo lo demás lo hereda.",
         en: "public class ErpSyncException extends Exception {} — one line, and it inherits everything else.",
       },
       tags: ["recall"],
@@ -573,7 +573,7 @@ System.debug(imported + ' imported · ' + rejected + ' rejected');
           pattern: "catch\\s*\\(\\s*(System\\.)?TypeException\\s+(\\w+)\\s*\\)\\s*\\{[^}]*throw\\s+new\\s+RenewalImportException\\s*\\([^;]*,\\s*\\w+\\s*\\)",
         },
         onFail: {
-          es: "Dentro de parseAmount: try { amount = Decimal.valueOf(raw); } catch (TypeException e) { throw new RenewalImportException('…', e); } — la e como segundo argumento.",
+          es: "Dentro de parseAmount: try { amount = Decimal.valueOf(raw); } catch (TypeException e) { throw new RenewalImportException('…', e); }. La e como segundo argumento.",
           en: "Inside parseAmount: try { amount = Decimal.valueOf(raw); } catch (TypeException e) { throw new RenewalImportException('…', e); } — e as the second argument.",
         },
         otter: {
