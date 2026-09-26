@@ -142,8 +142,8 @@ export const l04GovernorLimits: Lesson = {
       type: "diagram",
       id: "m04-limits",
       caption: {
-        es: "El resumen que verás al final de cada log. La barra que se acerca al final es la que tienes que vigilar.",
-        en: "The summary you will see at the end of every log. The bar approaching its end is the one to watch.",
+        es: "Avanza línea a línea y mira qué contador sube con cada una: son los mismos que verás al final de cada log. La barra que se acerca al final es la que tienes que vigilar.",
+        en: "Step through line by line and watch which counter each one raises: they are the same ones you will see at the end of every log. The bar approaching its end is the one to watch.",
       },
     },
     {

@@ -27,6 +27,7 @@ import {
 } from "./diagrams-anim-m02";
 import { GuardBypassPlay, LayerChooserPlay, ServiceDoorsPlay, ThinTriggerPlay, TwoTriggersPlay } from "./diagrams-anim-m07";
 import { BeforeAfterPlay, ContextPlay, FlowToTriggerPlay, RecursionPlay, TriggerAnatomyPlay } from "./diagrams-anim-m06";
+import { AllOrNonePlay, BulkPlay, DmlOpsPlay, LimitsPlay, RecipeOrderPlay, SavepointPlay } from "./diagrams-anim-m04";
 import {
   AbstractPlay,
   AccessPlay,
@@ -249,236 +250,7 @@ function Arrow({ d, id, tone = "brand" }: { d: string; id: string; tone?: "brand
 
 /* ============================================================ MODULE 4 ==== */
 
-/* ---------------------------------------------------- m04 · dml ops ------ */
-
-function DmlOps({ lang }: P) {
-  const id = "dmlops";
-  const rows: Array<[string, string, string]> = [
-    ["Insert", "insert records;", pick(lang, "sin Id: te lo da", "no Id: it gives you one")],
-    ["Update", "update records;", pick(lang, "el Id, obligatorio", "the Id, mandatory")],
-    ["Upsert", "upsert records ExtId__c;", pick(lang, "un campo External ID", "an External ID field")],
-    ["Delete", "delete records;", pick(lang, "el Id · a la Papelera", "the Id · to the Bin")],
-  ];
-  return (
-    <Svg id={id} viewBox="0 0 600 250" title={pick(lang, "Operaciones DML", "DML operations")}>
-      <text x="0" y="16" {...S.eyebrow}>DATA LOADER</text>
-      <text x="162" y="16" {...S.eyebrow}>APEX</text>
-      <text x="424" y="16" {...S.eyebrow}>{pick(lang, "NECESITA", "NEEDS")}</text>
-      {rows.map(([op, code, need], i) => {
-        const y = 28 + i * 54;
-        return (
-          <g key={op}>
-            <Tag x={0} y={y} w={130} text={op} />
-            <Arrow d={`M134 ${y + 20} L156 ${y + 20}`} id={id} tone="muted" />
-            <Tag x={162} y={y} w={230} text={code} kind="brand" mono />
-            <Arrow d={`M396 ${y + 20} L418 ${y + 20}`} id={id} tone="muted" />
-            <Tag x={424} y={y} w={176} text={need} />
-          </g>
-        );
-      })}
-    </Svg>
-  );
-}
-
-/* ------------------------------------------------- m04 · all or none ----- */
-
-function AllOrNone({ lang }: P) {
-  const id = "aon";
-  const cells = (y: number, keepBad: boolean) =>
-    [0, 1, 2, 3, 4].map((i) => {
-      const bad = i === 2;
-      const style = bad ? S.boxAccent : keepBad ? S.boxBrand : S.box;
-      return (
-        <g key={`${y}-${i}`}>
-          <rect x={i * 50} y={y} width="42" height="42" rx="6" {...style} />
-          <text x={i * 50 + 21} y={y + 26} {...S.label} fontSize={12.5} textAnchor="middle">
-            {bad ? "✗" : `R${i + 1}`}
-          </text>
-        </g>
-      );
-    });
-  return (
-    <Svg id={id} viewBox="0 0 600 236" title={pick(lang, "Todo o nada frente a parcial", "All or nothing versus partial")}>
-      <text x="0" y="16" {...S.eyebrow}>insert records;</text>
-      {cells(26, false)}
-      <Arrow d="M252 47 L298 47" id={id} tone="accent" />
-      <Tag
-        x={304}
-        y={24}
-        w={296}
-        h={48}
-        kind="accent"
-        text={pick(lang, "0 guardados", "0 saved")}
-        sub={pick(lang, "DmlException: se deshace todo", "DmlException: everything undone")}
-      />
-
-      <text x="0" y="124" {...S.eyebrow}>Database.insert(records, false)</text>
-      {cells(134, true)}
-      <Arrow d="M252 155 L298 155" id={id} />
-      <Tag
-        x={304}
-        y={132}
-        w={296}
-        h={48}
-        kind="brand"
-        text={pick(lang, "4 guardados · 1 error", "4 saved · 1 error")}
-        sub={pick(lang, "el motivo, en su SaveResult", "the reason, in its SaveResult")}
-      />
-      <text x="0" y="226" {...S.muted} fontSize={12.5}>
-        {pick(lang, "Como Data Loader: success.csv y error.csv.", "Like Data Loader: success.csv and error.csv.")}
-      </text>
-    </Svg>
-  );
-}
-
-/* ------------------------------------------------------ m04 · bulk ------- */
-
-function BulkCompare({ lang }: P) {
-  const id = "bulk";
-  const left = [
-    pick(lang, "registro 1 → SELECT + update", "record 1 → SELECT + update"),
-    pick(lang, "registro 2 → SELECT + update", "record 2 → SELECT + update"),
-    "…",
-    pick(lang, "registro 200 → SELECT + update", "record 200 → SELECT + update"),
-  ];
-  const right = [
-    pick(lang, "1 · Juntar Ids en un Set", "1 · Gather Ids in a Set"),
-    pick(lang, "2 · Una consulta con IN", "2 · One query with IN"),
-    pick(lang, "3 · Trabajar en memoria", "3 · Work in memory"),
-    pick(lang, "4 · Un solo update", "4 · A single update"),
-  ];
-  return (
-    <Svg id={id} viewBox="0 0 600 300" title={pick(lang, "Sin bulkificar y bulkificado", "Unbulkified and bulkified")}>
-      <text x="0" y="16" {...S.eyebrow}>{pick(lang, "DENTRO DEL BUCLE", "INSIDE THE LOOP")}</text>
-      <text x="320" y="16" {...S.eyebrow}>{pick(lang, "LA RECETA", "THE RECIPE")}</text>
-      {left.map((t, i) => (
-        <Tag key={i} x={0} y={28 + i * 52} w={280} text={t} kind={i === 3 ? "accent" : "box"} />
-      ))}
-      {right.map((t, i) => (
-        <g key={t}>
-          <Tag x={320} y={28 + i * 52} w={280} text={t} kind="brand" />
-          {i < 3 && <Arrow d={`M460 ${70 + i * 52} L460 ${78 + i * 52}`} id={id} />}
-        </g>
-      ))}
-      <text x="0" y="262" {...S.label} fontSize={13}>
-        {pick(lang, "200 consultas + 200 DML", "200 queries + 200 DML")}
-      </text>
-      <text x="0" y="282" {...S.muted} fontSize={12}>
-        {pick(lang, "muere en la consulta 101", "dies on query 101")}
-      </text>
-      <text x="320" y="262" {...S.label} fontSize={13}>
-        {pick(lang, "1 consulta + 1 DML", "1 query + 1 DML")}
-      </text>
-      <text x="320" y="282" {...S.muted} fontSize={12}>
-        {pick(lang, "igual con 1 registro que con 200", "the same with 1 record or 200")}
-      </text>
-    </Svg>
-  );
-}
-
-/* ---------------------------------------------------- m04 · limits ------- */
-
-function LimitsGauges({ lang }: P) {
-  const id = "lims";
-  const rows: Array<[string, number, string]> = [
-    [pick(lang, "Consultas SOQL", "SOQL queries"), 3 / 100, "3 / 100"],
-    [pick(lang, "Filas leídas", "Rows read"), 1250 / 50000, pick(lang, "1.250 / 50.000", "1,250 / 50,000")],
-    [pick(lang, "Instrucciones DML", "DML statements"), 2 / 150, "2 / 150"],
-    [pick(lang, "Filas escritas", "Rows written"), 400 / 10000, pick(lang, "400 / 10.000", "400 / 10,000")],
-    [pick(lang, "CPU (ms)", "CPU (ms)"), 8600 / 10000, pick(lang, "8.600 / 10.000", "8,600 / 10,000")],
-    [pick(lang, "Memoria (heap)", "Memory (heap)"), 0.9 / 6, "0,9 / 6 MB"],
-  ];
-  const x0 = 160;
-  const w = 318;
-  return (
-    <Svg id={id} viewBox="0 0 600 262" title={pick(lang, "Consumo de límites", "Limit usage")}>
-      <text x="0" y="14" {...S.eyebrow}>LIMIT_USAGE_FOR_NS</text>
-      {rows.map(([label, ratio, value], i) => {
-        const y = 30 + i * 38;
-        const hot = ratio >= 0.8;
-        return (
-          <g key={label}>
-            <text x="0" y={y + 17} {...S.label} fontSize={13}>
-              {label}
-            </text>
-            <rect x={x0} y={y} width={w} height="24" rx="6" fill="var(--c-surface-2)" stroke="var(--c-border-strong)" />
-            <rect
-              x={x0}
-              y={y}
-              width={Math.max(8, w * ratio)}
-              height="24"
-              rx="6"
-              fill={hot ? "var(--c-warn-soft)" : "var(--c-brand-soft)"}
-              stroke={hot ? "var(--c-warn)" : "var(--c-brand)"}
-            />
-            <text x="600" y={y + 17} {...S.muted} fontSize={11.5} textAnchor="end">
-              {value}
-            </text>
-          </g>
-        );
-      })}
-    </Svg>
-  );
-}
-
-/* -------------------------------------------------- m04 · savepoint ------ */
-
-function SavepointTimeline({ lang }: P) {
-  const id = "spt";
-  const items = [
-    { t: pick(lang, "insert Uno", "insert One"), s: pick(lang, "se queda", "stays"), kind: "box" as const, mono: true },
-    { t: pick(lang, "marca", "mark"), s: "setSavepoint()", kind: "brand" as const, mono: false },
-    { t: pick(lang, "insert Dos", "insert Two"), s: pick(lang, "se deshace", "is undone"), kind: "accent" as const, mono: true },
-    { t: "rollback(sp)", s: pick(lang, "vuelve a la marca", "back to the mark"), kind: "brand" as const, mono: true },
-    { t: pick(lang, "insert Tres", "insert Three"), s: pick(lang, "se guarda", "is saved"), kind: "box" as const, mono: true },
-  ];
-  return (
-    <Svg id={id} viewBox="0 0 600 180" title={pick(lang, "Savepoint y rollback", "Savepoint and rollback")}>
-      <line x1="0" y1="112" x2="600" y2="112" stroke="var(--c-border-strong)" strokeWidth="1.5" />
-      {items.map((it, i) => (
-        <Tag key={i} x={i * 122} y={88} w={112} h={48} text={it.t} sub={it.s} kind={it.kind} mono={it.mono} />
-      ))}
-      <Arrow d="M422 84 C 422 30, 178 30, 178 82" id={id} tone="accent" />
-      <text x="300" y="14" {...S.muted} fontSize={12} textAnchor="middle">
-        {pick(lang, "Database.rollback(sp) vuelve aquí", "Database.rollback(sp) comes back here")}
-      </text>
-      <text x="0" y="170" {...S.muted} fontSize={12.5}>
-        {pick(lang, "Resultado final en la base de datos: Uno y Tres.", "Final result in the database: One and Three.")}
-      </text>
-    </Svg>
-  );
-}
-
-/* --------------------------------------------- m04 · checkpoint recipe --- */
-
-function SafeDmlRecipe({ lang }: P) {
-  const id = "recipe";
-  const rows: Array<[string, string]> = [
-    [pick(lang, "Juntar los Ids", "Gather the Ids"), "Set<Id> ids"],
-    [pick(lang, "Consultar una vez", "Query once"), "WHERE Id IN :ids"],
-    [pick(lang, "Decidir en memoria", "Decide in memory"), "Map · if · add()"],
-    [pick(lang, "Guardar una vez", "Save once"), "update records;"],
-    [pick(lang, "Revisar resultados", "Check results"), "SaveResult · rollback"],
-  ];
-  return (
-    <Svg id={id} viewBox="0 0 600 272" title={pick(lang, "Receta de DML seguro", "Safe DML recipe")}>
-      {rows.map(([t, c], i) => {
-        const y = i * 54;
-        return (
-          <g key={t}>
-            <circle cx="18" cy={y + 20} r="16" fill="var(--c-brand)" />
-            <text x="18" y={y + 25} fill="var(--c-surface)" fontSize={13} fontWeight={700} textAnchor="middle" fontFamily="var(--font-sans)">
-              {i + 1}
-            </text>
-            <Tag x={44} y={y} w={300} text={t} />
-            <Arrow d={`M348 ${y + 20} L374 ${y + 20}`} id={id} />
-            <Tag x={380} y={y} w={220} text={c} kind="brand" mono />
-          </g>
-        );
-      })}
-    </Svg>
-  );
-}
+/* The Module 4 diagrams are interactive now: see diagrams-anim-m04.tsx. */
 
 /* ============================================================ MODULE 6 ==== */
 
@@ -766,12 +538,12 @@ const REGISTRY: Record<string, (p: P) => React.ReactElement> = {
   "m07-service-doors": ServiceDoorsPlay,
   "m07-guard-bypass": GuardBypassPlay,
   "m07-architecture": LayerChooserPlay,
-  "m04-dml-ops": DmlOps,
-  "m04-all-or-none": AllOrNone,
-  "m04-bulk": BulkCompare,
-  "m04-limits": LimitsGauges,
-  "m04-savepoint": SavepointTimeline,
-  "m04-cp-recipe": SafeDmlRecipe,
+  "m04-dml-ops": DmlOpsPlay,
+  "m04-all-or-none": AllOrNonePlay,
+  "m04-bulk": BulkPlay,
+  "m04-limits": LimitsPlay,
+  "m04-savepoint": SavepointPlay,
+  "m04-cp-recipe": RecipeOrderPlay,
   "m06-anatomy": TriggerAnatomyPlay,
   "m06-before-after": BeforeAfterPlay,
   "m06-order": OrderOfExecution,
