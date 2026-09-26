@@ -381,7 +381,7 @@ insert acc;`,
       accept: ["^\\s*Savepoint\\s+sp\\s*=\\s*Database\\.setSavepoint\\(\\s*\\)\\s*;?\\s*$"],
       placeholder: { es: "una línea de Apex", en: "one line of Apex" },
       explain: {
-        es: "Savepoint sp = Database.setSavepoint(); — y para volver, Database.rollback(sp);",
+        es: "Savepoint sp = Database.setSavepoint(); y para volver, Database.rollback(sp);",
         en: "Savepoint sp = Database.setSavepoint(); — and to go back, Database.rollback(sp);",
       },
       tags: ["recall"],

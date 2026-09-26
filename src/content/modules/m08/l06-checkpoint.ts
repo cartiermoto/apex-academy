@@ -374,7 +374,7 @@ for (Integer i = 0; i < results.size(); i++) {
       variant: "tip",
       title: { es: "El finally es la promesa al ERP", en: "The finally is the promise to the ERP" },
       text: {
-        es: "Todo run va dentro de un try con finally, y el informe se envía en el finally. Si mañana alguien mete un bug que lanza una NullPointerException, la importación se parará —y está bien que se pare—, pero el ERP recibirá igualmente la lista de lo que se rechazó hasta ese momento. Ojo: si lo que salta es una LimitException, ni el finally llega a ejecutarse; por eso la consulta y el guardado van fuera de los bucles.",
+        es: "Todo run va dentro de un try con finally, y el informe se envía en el finally. Si mañana alguien mete un bug que lanza una NullPointerException, la importación se parará (y está bien que se pare), pero el ERP recibirá igualmente la lista de lo que se rechazó hasta ese momento. Ojo: si lo que salta es una LimitException, ni el finally llega a ejecutarse; por eso la consulta y el guardado van fuera de los bucles.",
         en: "All of run sits inside a try with finally, and the report goes out in the finally. If tomorrow someone introduces a bug that throws a NullPointerException, the import will stop — and it is right that it stops — but the ERP will still get the list of what was rejected up to that point. Careful: if what is thrown is a LimitException, not even the finally runs; that is why the query and the save sit outside the loops.",
       },
     },

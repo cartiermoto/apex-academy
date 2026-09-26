@@ -161,12 +161,12 @@ export const l01QueEsTrigger: Lesson = {
         [
           { es: "after delete", en: "after delete" },
           { es: "Ya está en la Papelera", en: "Already in the Recycle Bin" },
-          { es: "— (no existe)", en: "— (does not exist)" },
+          { es: "No existe", en: "— (does not exist)" },
         ],
         [
           { es: "after undelete", en: "after undelete" },
           { es: "Recuperado de la Papelera", en: "Restored from the Recycle Bin" },
-          { es: "— (no existe)", en: "— (does not exist)" },
+          { es: "No existe", en: "— (does not exist)" },
         ],
       ],
     },
@@ -495,7 +495,7 @@ export const l01QueEsTrigger: Lesson = {
         },
         rule: { op: "match", pattern: "trigger\\s+LeadWelcome\\s+on\\s+Lead\\s*\\(\\s*after\\s+insert\\s*\\)\\s*\\{" },
         onFail: {
-          es: "trigger LeadWelcome on Lead (after insert) { … } — un solo evento: after insert.",
+          es: "trigger LeadWelcome on Lead (after insert) { … }. Un solo evento: after insert.",
           en: "trigger LeadWelcome on Lead (after insert) { … } — a single event: after insert.",
         },
         otter: {

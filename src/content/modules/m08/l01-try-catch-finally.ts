@@ -95,7 +95,7 @@ export const l01TryCatchFinally: Lesson = {
     {
       type: "lead",
       text: {
-        es: "Hasta ahora, cuando algo fallaba en tu código —un null, un límite, un registro que no se podía guardar—, Apex lanzaba una excepción, la transacción entera se paraba y todo lo hecho se deshacía. Es un buen comportamiento por defecto, pero no siempre es el que quiere el negocio. En este módulo aprendes a decidir tú qué pasa cuando algo falla.",
+        es: "Hasta ahora, cuando algo fallaba en tu código (un null, un límite, un registro que no se podía guardar), Apex lanzaba una excepción, la transacción entera se paraba y todo lo hecho se deshacía. Es un buen comportamiento por defecto, pero no siempre es el que quiere el negocio. En este módulo aprendes a decidir tú qué pasa cuando algo falla.",
         en: "Until now, when something failed in your code — a null, a limit, a record that could not be saved — Apex threw an exception, the whole transaction stopped and everything done was undone. It is a good default, but not always what the business wants. In this module you learn to decide yourself what happens when something fails.",
       },
     },
@@ -137,7 +137,7 @@ export const l01TryCatchFinally: Lesson = {
     {
       type: "p",
       text: {
-        es: "Una [[excepcion|excepción]] es la forma que tiene Apex de decir «no puedo seguir»: convertir 'doce' en un número, leer un campo de un null, guardar un registro que una regla de validación rechaza. En el momento en que ocurre, Apex deja de ejecutar la línea siguiente y busca, hacia arriba, alguien que se haga cargo. Si nadie lo hace, la excepción llega hasta la plataforma: la transacción se detiene, todos sus cambios se deshacen y el usuario —o el correo del Admin— recibe el mensaje de error.",
+        es: "Una [[excepcion|excepción]] es la forma que tiene Apex de decir «no puedo seguir»: convertir 'doce' en un número, leer un campo de un null, guardar un registro que una regla de validación rechaza. En el momento en que ocurre, Apex deja de ejecutar la línea siguiente y busca, hacia arriba, alguien que se haga cargo. Si nadie lo hace, la excepción llega hasta la plataforma: la transacción se detiene, todos sus cambios se deshacen y el usuario (o el correo del Admin) recibe el mensaje de error.",
         en: "An [[excepcion|exception]] is Apex's way of saying «I cannot go on»: turning 'twelve' into a number, reading a field from a null, saving a record a validation rule rejects. The moment it happens, Apex stops running the next line and looks upwards for someone to take charge. If nobody does, the exception reaches the platform: the transaction stops, all its changes are undone and the user — or the Admin's inbox — gets the error message.",
       },
     },
@@ -184,7 +184,7 @@ System.debug('And the code carries on');`,
       variant: "admin",
       title: { es: "El fault path de tus flows", en: "Your flows' fault path" },
       text: {
-        es: "Tú ya has hecho esto con clics, como yo: en un elemento de Flow que puede fallar —un Create Records, un Update Records— arrastras el conector de fallo (fault path) hacia otro camino, por ejemplo uno que manda un aviso. El elemento es tu try y el fault path es tu catch. Lo que Flow no tiene es finally: un tramo que se ejecute tanto si el elemento fue bien como si falló, sin tener que dibujarlo dos veces.",
+        es: "Tú ya has hecho esto con clics, como yo: en un elemento de Flow que puede fallar (un Create Records, un Update Records) arrastras el conector de fallo (fault path) hacia otro camino, por ejemplo uno que manda un aviso. El elemento es tu try y el fault path es tu catch. Lo que Flow no tiene es finally: un tramo que se ejecute tanto si el elemento fue bien como si falló, sin tener que dibujarlo dos veces.",
         en: "You have done this with clicks, as I have: on a Flow element that can fail — a Create Records, an Update Records — you drag the fault connector (fault path) to another path, for example one that sends an alert. The element is your try and the fault path is your catch. What Flow lacks is finally: a stretch that runs whether the element went well or failed, without drawing it twice.",
       },
       voice: "otter",
@@ -213,7 +213,7 @@ System.debug('And the code carries on');`,
       variant: "warn",
       title: { es: "Un catch vacío es peor que no tener catch", en: "An empty catch is worse than no catch" },
       text: {
-        es: "catch (Exception e) { } hace desaparecer el error: nadie sabrá nunca qué fila falló ni por qué, y el proceso parecerá correcto. Todo catch tiene que dejar rastro —un contador, un registro de log, un mensaje— o volver a lanzar el error (lección 3). Y captura el tipo concreto que esperas: un catch de Exception a secas también se tragaría errores que no esperabas, como un NullPointerException de un fallo tuyo.",
+        es: "catch (Exception e) { } hace desaparecer el error: nadie sabrá nunca qué fila falló ni por qué, y el proceso parecerá correcto. Todo catch tiene que dejar rastro (un contador, un registro de log, un mensaje) o volver a lanzar el error (lección 3). Y captura el tipo concreto que esperas: un catch de Exception a secas también se tragaría errores que no esperabas, como un NullPointerException de un fallo tuyo.",
         en: "catch (Exception e) { } makes the error vanish: nobody will ever know which row failed or why, and the process will look fine. Every catch must leave a trace — a counter, a log record, a message — or throw the error again (lesson 3). And catch the specific type you expect: a plain Exception catch would also swallow errors you did not expect, such as a NullPointerException from a bug of yours.",
       },
     },
@@ -380,7 +380,7 @@ System.debug('And the code carries on');`,
         en: "Inside the for, the Decimal.valueOf(raw) conversion and the addition to total go in a try block.",
       },
       {
-        es: "Un catch que capture TypeException —no Exception a secas— suma 1 a failed y muestra con System.debug el importe y e.getMessage().",
+        es: "Un catch que capture TypeException (no Exception a secas) suma 1 a failed y muestra con System.debug el importe y e.getMessage().",
         en: "A catch for TypeException — not a plain Exception — adds 1 to failed and shows the amount and e.getMessage() with System.debug.",
       },
       {

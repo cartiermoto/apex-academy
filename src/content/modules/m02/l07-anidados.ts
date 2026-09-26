@@ -183,7 +183,7 @@ for (Lead l : leads) {
       variant: "tip",
       title: { es: "La regla que te acompañará todo el curso", en: "The rule that will follow you all course" },
       text: {
-        es: "Dentro de un bucle, nada caro: ni otro bucle sobre una lista grande, ni —cuando las aprendas— una consulta [[soql|SOQL]] o una operación [[dml|DML]]. Esas dos tienen además un tope por transacción, los [[governor-limits|governor limits]]. El patrón siempre es el mismo: preparar antes del bucle, consultar un Set o Map dentro.",
+        es: "Dentro de un bucle, nada caro: ni otro bucle sobre una lista grande, ni (cuando las aprendas) una consulta [[soql|SOQL]] o una operación [[dml|DML]]. Esas dos tienen además un tope por transacción, los [[governor-limits|governor limits]]. El patrón siempre es el mismo: preparar antes del bucle, consultar un Set o Map dentro.",
         en: "Inside a loop, nothing expensive: no other loop over a big list, and — once you learn them — no [[soql|SOQL]] query or [[dml|DML]] operation. Those two also have a per-transaction cap, the [[governor-limits|governor limits]]. The pattern is always the same: prepare before the loop, look up a Set or Map inside.",
       },
     },

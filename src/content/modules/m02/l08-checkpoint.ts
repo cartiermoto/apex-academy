@@ -63,7 +63,7 @@ export const l08Checkpoint: Lesson = {
     {
       type: "p",
       text: {
-        es: "2 · Switch. Un Decision con una salida por valor de picklist. Los when llevan valores fijos —nunca rangos—, se agrupan con comas, when null recoge el vacío y when else va el último. Distingue mayúsculas, al contrario que ==.",
+        es: "2 · Switch. Un Decision con una salida por valor de picklist. Los when llevan valores fijos (nunca rangos), se agrupan con comas, when null recoge el vacío y when else va el último. Distingue mayúsculas, al contrario que ==.",
         en: "2 · Switch. A Decision with one outcome per picklist value. whens take fixed values — never ranges —, they are grouped with commas, when null catches the empty value and when else goes last. It is case-sensitive, unlike ==.",
       },
     },
@@ -542,7 +542,7 @@ List<Opportunity> opps = new List<Opportunity>{
         en: "What helped me: the guard is if (opp.StageName == 'Closed Won' || opp.StageName == 'Closed Lost') { continue; }. The size is an if / else if / else chain from highest to lowest, like the ordered outcomes of a Decision. The probability is a Decimal declared inside the first loop and assigned in each when.",
       },
       {
-        es: "Te dejo el esquema: para cada opp { si cerrada → continue; amount = opp.Amount ?? 0; si ≥100000 large++ / si no si ≥20000 medium++ / si no small++; switch etapa → probability; weightedPipeline += amount * probability; } — Opportunity legalReview; para cada opp { si cerrada → continue; si amount ≥ 250000 { legalReview = opp; break; } }",
+        es: "Te dejo el esquema: para cada opp { si cerrada → continue; amount = opp.Amount ?? 0; si ≥100000 large++ / si no si ≥20000 medium++ / si no small++; switch etapa → probability; weightedPipeline += amount * probability; }. Opportunity legalReview; para cada opp { si cerrada → continue; si amount ≥ 250000 { legalReview = opp; break; } }",
         en: "Here is the outline: for each opp { if closed → continue; amount = opp.Amount ?? 0; if ≥100000 large++ / else if ≥20000 medium++ / else small++; switch stage → probability; weightedPipeline += amount * probability; } — Opportunity legalReview; for each opp { if closed → continue; if amount ≥ 250000 { legalReview = opp; break; } }",
       },
     ],

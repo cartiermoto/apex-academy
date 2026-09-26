@@ -92,7 +92,7 @@ Decimal total = units * 19.99;   // the Integer widens to take part`,
     {
       type: "p",
       text: {
-        es: "En sentido contrario hay pérdida: un Decimal en un Integer deja los decimales fuera. Por eso Apex no lo hace solo y hay que llamar a un método que diga qué quieres exactamente — cortar, redondear o ajustar decimales.",
+        es: "En sentido contrario hay pérdida: un Decimal en un Integer deja los decimales fuera. Por eso Apex no lo hace solo y hay que llamar a un método que diga qué quieres exactamente: cortar, redondear o ajustar decimales.",
         en: "The other way round there is loss: a Decimal into an Integer leaves the decimals behind. That is why Apex will not do it silently, and you call a method that says exactly what you want — truncate, round, or set the scale.",
       },
     },
@@ -106,22 +106,22 @@ Decimal total = units * 19.99;   // the Integer widens to take part`,
       rows: [
         [
           { es: "intValue()", en: "intValue()" },
-          { es: "19 — corta, no redondea.", en: "19 — truncates, does not round." },
+          { es: "19: corta, no redondea.", en: "19 — truncates, does not round." },
           { es: "Integer", en: "Integer" },
         ],
         [
           { es: "round()", en: "round()" },
-          { es: "20 — redondea al entero más cercano.", en: "20 — rounds to the nearest whole." },
+          { es: "20: redondea al entero más cercano.", en: "20 — rounds to the nearest whole." },
           { es: "Long", en: "Long" },
         ],
         [
           { es: "setScale(1)", en: "setScale(1)" },
-          { es: "20.0 — ajusta los decimales.", en: "20.0 — adjusts the decimals." },
+          { es: "20.0: ajusta los decimales.", en: "20.0 — adjusts the decimals." },
           { es: "Decimal", en: "Decimal" },
         ],
         [
           { es: "longValue()", en: "longValue()" },
-          { es: "19 — como intValue pero con más rango.", en: "19 — like intValue with a wider range." },
+          { es: "19: como intValue pero con más rango.", en: "19 — like intValue with a wider range." },
           { es: "Long", en: "Long" },
         ],
       ],

@@ -124,7 +124,7 @@ export const l02Handler: Lesson = {
   },
   title: { es: "El patrón Handler", en: "The handler pattern" },
   summary: {
-    es: "El trigger se queda con una sola tarea —decir QUÉ evento es— y todo lo demás se muda a una clase. Es el patrón que encontrarás en casi cualquier org profesional.",
+    es: "El trigger se queda con una sola tarea (decir QUÉ evento es) y todo lo demás se muda a una clase. Es el patrón que encontrarás en casi cualquier org profesional.",
     en: "The trigger keeps one job — saying WHICH event this is — and everything else moves into a class. It is the pattern you will find in nearly every professional org.",
   },
   analogy: {
@@ -154,7 +154,7 @@ export const l02Handler: Lesson = {
     {
       type: "lead",
       text: {
-        es: "Tras la tarea 1 tienes un trigger que funciona y en el orden correcto, pero con dos reglas mezcladas en el mismo archivo. La idea del [[handler]] es sencilla: el trigger solo dice CUÁNDO —qué evento está pasando— y una clase dice QUÉ se hace. Así el trigger cabe en una pantalla aunque el objeto tenga veinte reglas.",
+        es: "Tras la tarea 1 tienes un trigger que funciona y en el orden correcto, pero con dos reglas mezcladas en el mismo archivo. La idea del [[handler]] es sencilla: el trigger solo dice CUÁNDO (qué evento está pasando) y una clase dice QUÉ se hace. Así el trigger cabe en una pantalla aunque el objeto tenga veinte reglas.",
         en: "After task 1 you have a trigger that works, in the right order, but with two rules mixed in one file. The [[handler]] idea is simple: the trigger only says WHEN — which event is happening — and a class says WHAT gets done. That way the trigger fits on one screen even if the object has twenty rules.",
       },
     },

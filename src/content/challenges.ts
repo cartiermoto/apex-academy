@@ -40,7 +40,7 @@ export const challenge1: Challenge = {
     {
       type: "p",
       text: {
-        es: "Tu trabajo: automatizar el reparto. Cada Lead debe asignarse a un Sales Rep según su región y su industria, usando una tabla de asignación que ya existe en la org. Si al Lead le falta la región, va al representante por defecto — nunca se queda sin dueño.",
+        es: "Tu trabajo: automatizar el reparto. Cada Lead debe asignarse a un Sales Rep según su región y su industria, usando una tabla de asignación que ya existe en la org. Si al Lead le falta la región, va al representante por defecto: nunca se queda sin dueño.",
         en: "Your job: automate the hand-off. Each Lead must be assigned to a Sales Rep based on its region and industry, using an assignment table that already exists in the org. If a Lead has no region, it goes to the default rep — it is never left ownerless.",
       },
     },
@@ -512,7 +512,7 @@ export const challenge2: Challenge = {
     {
       type: "p",
       text: {
-        es: "Este desafío junta todo el curso en una sola entrega: los cuatro componentes se evalúan por separado, pero la retroalimentación mira el conjunto — si el Batch es eficiente pero el test no comprueba nada, no está terminado.",
+        es: "Este desafío junta todo el curso en una sola entrega: los cuatro componentes se evalúan por separado, pero la retroalimentación mira el conjunto. Si el Batch es eficiente pero el test no comprueba nada, no está terminado.",
         en: "This challenge pulls the whole course into one deliverable: the four components are validated separately, but the feedback looks at the whole — an efficient Batch with a test that asserts nothing is not finished.",
       },
     },
@@ -690,7 +690,7 @@ export const challenge2: Challenge = {
     }
 
     public void execute(Database.BatchableContext bc, List<Opportunity> scope) {
-        // Recalcula y actualiza — un solo DML por lote
+        // Recalcula y actualiza: un solo DML por lote
     }
 
     public void finish(Database.BatchableContext bc) {

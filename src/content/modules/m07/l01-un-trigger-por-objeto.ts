@@ -154,7 +154,7 @@ export const l01UnTriggerPorObjeto: Lesson = {
     {
       type: "lead",
       text: {
-        es: "El trigger CaseEscalation del Módulo 6 funcionó: los casos de cuentas Hot suben a 'High' y su propietario recibe una tarea. Un mes después, Soporte pidió otra regla —lo que entra por la web empieza en 'Low'— y un compañero, con prisa, creó un segundo trigger sobre Case. Nadie lo revisó, porque «funcionaba». Esta sub-lección va de por qué ese «funcionaba» es una bomba de relojería, y de cómo desactivarla.",
+        es: "El trigger CaseEscalation del Módulo 6 funcionó: los casos de cuentas Hot suben a 'High' y su propietario recibe una tarea. Un mes después, Soporte pidió otra regla (lo que entra por la web empieza en 'Low') y un compañero, con prisa, creó un segundo trigger sobre Case. Nadie lo revisó, porque «funcionaba». Esta sub-lección va de por qué ese «funcionaba» es una bomba de relojería, y de cómo desactivarla.",
         en: "Module 6's CaseEscalation trigger worked: cases from Hot accounts go up to 'High' and their owner gets a task. A month later, Support asked for another rule — whatever comes in through the web starts at 'Low' — and a colleague, in a hurry, created a second trigger on Case. Nobody reviewed it, because “it worked”. This sub-lesson is about why that “it worked” is a time bomb, and how to defuse it.",
       },
     },
@@ -215,7 +215,7 @@ export const l01UnTriggerPorObjeto: Lesson = {
     {
       type: "p",
       text: {
-        es: "Un solo trigger por objeto significa que ese trigger escucha todos los eventos que necesite. En el Módulo 6 los distinguías con Booleans (Trigger.isBefore, Trigger.isInsert…) combinados en if. Hay algo más limpio: Trigger.operationType, que guarda el evento completo —momento y operación— en un único valor. Y como es un valor exacto, encaja con el switch del Módulo 2.",
+        es: "Un solo trigger por objeto significa que ese trigger escucha todos los eventos que necesite. En el Módulo 6 los distinguías con Booleans (Trigger.isBefore, Trigger.isInsert…) combinados en if. Hay algo más limpio: Trigger.operationType, que guarda el evento completo (momento y operación) en un único valor. Y como es un valor exacto, encaja con el switch del Módulo 2.",
         en: "One trigger per object means that trigger listens to every event it needs. In Module 6 you told them apart with Booleans (Trigger.isBefore, Trigger.isInsert…) combined in ifs. There is something cleaner: Trigger.operationType, which holds the whole event — moment and operation — in a single value. And since it is an exact value, it fits Module 2's switch.",
       },
     },

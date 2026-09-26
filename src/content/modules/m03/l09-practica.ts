@@ -173,7 +173,7 @@ export const l09Practica: Lesson = {
       ],
       answer: 0,
       explain: {
-        es: "NEXT_N_DAYS:n es un rango que cubre los n días siguientes, como el filtro «próximos 30 días» de un informe; LAST_N_DAYS:n es el mismo rango hacia atrás. Ojo con el borde: si el día de HOY entra o no en el rango depende del literal. Cuando ese día importe —un cierre que vence hoy—, no lo supongas: compruébalo en el Query Editor con un registro que cierre hoy.",
+        es: "NEXT_N_DAYS:n es un rango que cubre los n días siguientes, como el filtro «próximos 30 días» de un informe; LAST_N_DAYS:n es el mismo rango hacia atrás. Ojo con el borde: si el día de HOY entra o no en el rango depende del literal. Cuando ese día importe (un cierre que vence hoy), no lo supongas: compruébalo en el Query Editor con un registro que cierre hoy.",
         en: "NEXT_N_DAYS:n is a range covering the next n days, like a report's “next 30 days” filter; LAST_N_DAYS:n is the same range going backwards. Mind the edge: whether TODAY falls inside the range depends on the literal. When that day matters — a close due today — do not assume: check it in the Query Editor with a record closing today.",
       },
       tags: ["recall"],
@@ -300,7 +300,7 @@ export const l09Practica: Lesson = {
         en: "My trick: before writing each query, say out loud which report you would build with clicks to answer it. The report's main object is the FROM; its filters, the WHERE; its columns from related objects, the dots or the subquery.",
       },
       {
-        es: "Lo que me ayudó: los rangos de fechas se escriben igual que los que ya viste cambiando el número: LAST_N_DAYS:7, NEXT_N_DAYS:30. El encargo 3 necesita el mismo filtro dos veces —en la subconsulta y en el IN—. El 4 agrupa por LeadSource. En el 5, los casos son el tercer elemento de found.",
+        es: "Lo que me ayudó: los rangos de fechas se escriben igual que los que ya viste cambiando el número: LAST_N_DAYS:7, NEXT_N_DAYS:30. El encargo 3 necesita el mismo filtro dos veces (en la subconsulta y en el IN). El 4 agrupa por LeadSource. En el 5, los casos son el tercer elemento de found.",
         en: "What helped me: date ranges are written like the ones you already saw, changing the number: LAST_N_DAYS:7, NEXT_N_DAYS:30. Request 3 needs the same filter twice — in the subquery and in the IN. Number 4 groups by LeadSource. In 5, the cases are the third element of found.",
       },
       {
@@ -529,7 +529,7 @@ List<Case> openCases = (List<Case>) found[2];`,
         label: { es: "Cinco consultas en total", en: "Five queries in total" },
         rule: { op: "count", pattern: "\\[\\s*(SELECT|FIND)\\b", min: 5, max: 5 },
         onFail: {
-          es: "Un encargo, una consulta. Si hay más de cinco, alguna sobra —o está repetida, o hay una dentro de un bucle—; si hay menos, falta un encargo.",
+          es: "Un encargo, una consulta. Si hay más de cinco, alguna sobra (o está repetida, o hay una dentro de un bucle); si hay menos, falta un encargo.",
           en: "One request, one query. More than five means one is spare — repeated, or inside a loop; fewer means a request is missing.",
         },
         otter: {

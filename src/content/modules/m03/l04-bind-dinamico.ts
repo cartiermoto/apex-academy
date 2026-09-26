@@ -208,7 +208,7 @@ List<Account> accs = Database.query(soql);`,
     {
       type: "p",
       text: {
-        es: "Si pegas con + lo que escribió el usuario dentro del texto de la consulta, el usuario ya no escribe un valor: escribe código. Imagina un buscador de casos por asunto que hace '... WHERE IsClosed = false AND Subject LIKE \\'%' + keyword + '%\\''. Alguien escribe en el buscador: %' OR Subject LIKE '% — y la consulta resultante ya no filtra casos cerrados: ve todos. Eso es la [[inyeccion-soql|inyección de SOQL]].",
+        es: "Si pegas con + lo que escribió el usuario dentro del texto de la consulta, el usuario ya no escribe un valor: escribe código. Imagina un buscador de casos por asunto que hace '... WHERE IsClosed = false AND Subject LIKE \\'%' + keyword + '%\\''. Alguien escribe en el buscador «%' OR Subject LIKE '%» y la consulta resultante ya no filtra casos cerrados: ve todos. Eso es la [[inyeccion-soql|inyección de SOQL]].",
         en: "If you glue what the user typed into the query text with +, the user is no longer typing a value: they are typing code. Imagine a case search by subject that does '... WHERE IsClosed = false AND Subject LIKE \\'%' + keyword + '%\\''. Someone types into the search box: %' OR Subject LIKE '% — and the resulting query no longer filters closed cases: it sees them all. That is [[inyeccion-soql|SOQL injection]].",
       },
     },
@@ -600,7 +600,7 @@ Map<Id, Account> accountsById = new Map<Id, Account>(
           ],
         },
         onFail: {
-          es: "new Map<Id, Account>([SELECT Id, Name FROM Account WHERE Id IN :accountIds]) — y fuera de cualquier bucle.",
+          es: "new Map<Id, Account>([SELECT Id, Name FROM Account WHERE Id IN :accountIds]). Y fuera de cualquier bucle.",
           en: "new Map<Id, Account>([SELECT Id, Name FROM Account WHERE Id IN :accountIds]) — and outside any loop.",
         },
         otter: {

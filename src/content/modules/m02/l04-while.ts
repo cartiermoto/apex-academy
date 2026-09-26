@@ -136,7 +136,7 @@ while (attempts < 3) {
       variant: "tip",
       title: { es: "Ponle un tope de seguridad", en: "Give it a safety cap" },
       text: {
-        es: "Cuando la parada depende de un dato —un porcentaje de crecimiento, una cuota—, un valor inesperado puede impedir que llegue nunca. Añade a la condición un contador con un máximo razonable: while (debt > 0 && payments < 120). El bucle para por el motivo de negocio o por el tope, lo que ocurra antes.",
+        es: "Cuando la parada depende de un dato (un porcentaje de crecimiento, una cuota), un valor inesperado puede impedir que llegue nunca. Añade a la condición un contador con un máximo razonable: while (debt > 0 && payments < 120). El bucle para por el motivo de negocio o por el tope, lo que ocurra antes.",
         en: "When stopping depends on data — a growth rate, an instalment — an unexpected value can mean it never arrives. Add a counter with a reasonable maximum to the condition: while (debt > 0 && payments < 120). The loop stops for the business reason or for the cap, whichever comes first.",
       },
     },

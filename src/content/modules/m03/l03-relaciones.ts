@@ -501,7 +501,7 @@ for (Account a : accounts) {
         en: "What helped me: the subquery goes in brackets and its FROM uses the relationship name, Contacts, in the plural, like the related list. Inside the account for, another for walks a.Contacts.",
       },
       {
-        es: "Te dejo el esquema: SELECT Id, Name, Owner.Name, (SELECT LastName, Email FROM Contacts ORDER BY LastName) FROM Account WHERE Industry = 'Retail' — luego for (Contact c : a.Contacts) { ... }",
+        es: "Te dejo el esquema: SELECT Id, Name, Owner.Name, (SELECT LastName, Email FROM Contacts ORDER BY LastName) FROM Account WHERE Industry = 'Retail'. Luego for (Contact c : a.Contacts) { ... }",
         en: "Here is the outline: SELECT Id, Name, Owner.Name, (SELECT LastName, Email FROM Contacts ORDER BY LastName) FROM Account WHERE Industry = 'Retail' — then for (Contact c : a.Contacts) { ... }",
       },
     ],

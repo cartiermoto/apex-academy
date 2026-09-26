@@ -186,7 +186,7 @@ export const l03ThrowPropagacion: Lesson = {
     {
       type: "p",
       text: {
-        es: "Cuando parseAmount lanza, no hace falta que la capture ella. La excepción hace un viaje hacia arriba —se llama [[propagacion|propagación]]—: sale del método que la lanzó y aparece en la línea que lo llamó. Si esa línea está dentro de un try con un catch del tipo adecuado, ahí se atrapa. Si no, sigue subiendo al método de más arriba, y así hasta llegar a la plataforma, que para la transacción. Por eso parseAmount puede ser pequeño y honesto: valida, lanza si algo no cuadra, y deja la decisión a quien lo llama.",
+        es: "Cuando parseAmount lanza, no hace falta que la capture ella. La excepción hace un viaje hacia arriba (se llama [[propagacion|propagación]]): sale del método que la lanzó y aparece en la línea que lo llamó. Si esa línea está dentro de un try con un catch del tipo adecuado, ahí se atrapa. Si no, sigue subiendo al método de más arriba, y así hasta llegar a la plataforma, que para la transacción. Por eso parseAmount puede ser pequeño y honesto: valida, lanza si algo no cuadra, y deja la decisión a quien lo llama.",
         en: "When parseAmount throws, it does not have to catch it itself. The exception travels upwards — this is called [[propagacion|propagation]] —: it leaves the method that threw it and shows up on the line that called it. If that line sits inside a try with a catch of the right type, it is caught there. If not, it keeps climbing to the method above, and so on up to the platform, which stops the transaction. That is why parseAmount can be small and honest: it validates, throws if something is off, and leaves the decision to its caller.",
       },
     },
@@ -239,7 +239,7 @@ export const l03ThrowPropagacion: Lesson = {
       variant: "admin",
       title: { es: "¿Y por qué no un Flow? Porque un subflow no sabe «lanzar»", en: "Why not a Flow? Because a subflow cannot «throw»" },
       text: {
-        es: "En la versión con clics sacamos la validación de cada fila a un subflow, y ahí vimos el problema: un subflow que valida datos no puede lanzar un error propio a quien lo llama. Lo habitual es devolver variables de salida —isValid, errorMessage— y cada flow que lo usa tiene que acordarse de comprobarlas; el que se olvida, sigue adelante con el dato malo. (Simplificación: los flows desencadenados por registro sí tienen el elemento Custom Error para parar un guardado con tu mensaje, pero eso no sirve para devolverle un fallo a otro flow.) Con throw, quien llama no puede olvidarse: o captura la excepción, o la transacción se para.",
+        es: "En la versión con clics sacamos la validación de cada fila a un subflow, y ahí vimos el problema: un subflow que valida datos no puede lanzar un error propio a quien lo llama. Lo habitual es devolver variables de salida (isValid, errorMessage) y cada flow que lo usa tiene que acordarse de comprobarlas; el que se olvida, sigue adelante con el dato malo. (Simplificación: los flows desencadenados por registro sí tienen el elemento Custom Error para parar un guardado con tu mensaje, pero eso no sirve para devolverle un fallo a otro flow.) Con throw, quien llama no puede olvidarse: o captura la excepción, o la transacción se para.",
         en: "In the clicks version we moved each row's validation into a subflow, and that is where we saw the problem: a subflow validating data cannot throw its own error to its caller. The usual approach is to return output variables — isValid, errorMessage — and every flow using it has to remember to check them; the one that forgets carries on with the bad data. (Simplification: record-triggered flows do have the Custom Error element to stop a save with your message, but it cannot hand a failure back to another flow.) With throw, the caller cannot forget: either it catches the exception or the transaction stops.",
       },
       voice: "otter",
@@ -372,7 +372,7 @@ System.debug('C');`,
       ],
       placeholder: { es: "throw new …", en: "throw new …" },
       explain: {
-        es: "throw new IllegalArgumentException('Importe vacío'); — tipo, mensaje y punto y coma.",
+        es: "throw new IllegalArgumentException('Importe vacío'); tipo, mensaje y punto y coma.",
         en: "throw new IllegalArgumentException('Empty amount'); — type, message and semicolon.",
       },
       tags: ["recall"],

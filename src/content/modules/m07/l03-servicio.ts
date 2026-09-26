@@ -216,7 +216,7 @@ export const l03Servicio: Lesson = {
       variant: "admin",
       title: { es: "Ya lo hacías con subflows", en: "You already did this with subflows" },
       text: {
-        es: "Yo lo hacía constantemente: cuando dos flows necesitaban la misma lógica —calcular un descuento, asignar una cola—, la sacaba a un autolaunched flow y la llamaba como subflow desde los dos. Cambiabas la regla una vez y todos la heredaban. Una clase de servicio es eso: el subflow de Apex. El trigger, un botón o un proceso programado son los flows que lo llaman.",
+        es: "Yo lo hacía constantemente: cuando dos flows necesitaban la misma lógica (calcular un descuento, asignar una cola), la sacaba a un autolaunched flow y la llamaba como subflow desde los dos. Cambiabas la regla una vez y todos la heredaban. Una clase de servicio es eso: el subflow de Apex. El trigger, un botón o un proceso programado son los flows que lo llaman.",
         en: "I did it constantly: when two flows needed the same logic — working out a discount, assigning a queue — I moved it into an autolaunched flow and called it as a subflow from both. You changed the rule once and they all inherited it. A service class is exactly that: Apex's subflow. The trigger, a button or a scheduled process are the flows that call it.",
       },
       voice: "otter",

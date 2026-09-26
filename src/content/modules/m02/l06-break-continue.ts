@@ -380,11 +380,11 @@ System.debug(found);`,
         en: "Start from the cases list in the starter code.",
       },
       {
-        es: "Bucle 1 — openCount (Integer): los casos cuyo Status no sea 'Closed'. Sáltate los cerrados con continue.",
+        es: "Bucle 1 · openCount (Integer): los casos cuyo Status no sea 'Closed'. Sáltate los cerrados con continue.",
         en: "Loop 1 — openCount (Integer): the cases whose Status is not 'Closed'. Skip the closed ones with continue.",
       },
       {
-        es: "Bucle 2 — firstUrgent (Case): el primer caso con Priority 'High' y Status 'New'. Detén el bucle con break en cuanto lo encuentres.",
+        es: "Bucle 2 · firstUrgent (Case): el primer caso con Priority 'High' y Status 'New'. Detén el bucle con break en cuanto lo encuentres.",
         en: "Loop 2 — firstUrgent (Case): the first case with Priority 'High' and Status 'New'. Stop the loop with break as soon as you find it.",
       },
       {
@@ -526,7 +526,7 @@ if (firstUrgent == null) {
           pattern: "Status\\s*==\\s*'Closed'\\s*\\)\\s*\\{?\\s*continue\\s*;",
         },
         onFail: {
-          es: "La guarda es: if (c.Status == 'Closed') { continue; } — arriba del cuerpo, antes de contar.",
+          es: "La guarda es: if (c.Status == 'Closed') { continue; }. Arriba del cuerpo, antes de contar.",
           en: "The guard is: if (c.Status == 'Closed') { continue; } — at the top of the body, before counting.",
         },
         otter: {

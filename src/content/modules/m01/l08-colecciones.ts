@@ -93,7 +93,7 @@ Map<Id, Account> accountsById = new Map<Id, Account>();`,
     {
       type: "p",
       text: {
-        es: "Una List mantiene el orden en que metiste las cosas y admite repetidos. Cada elemento tiene una posición, empezando en 0 — igual que substring, y por la misma convención.",
+        es: "Una List mantiene el orden en que metiste las cosas y admite repetidos. Cada elemento tiene una posición, empezando en 0, igual que substring, y por la misma convención.",
         en: "A List keeps the order you put things in and accepts duplicates. Each element has a position, starting at 0 — just like substring, by the same convention.",
       },
     },
@@ -169,7 +169,7 @@ Boolean empty = pipeline.isEmpty(); // false`,
     {
       type: "p",
       text: {
-        es: "Un Set ignora los duplicados: si añades dos veces el mismo valor, sigue habiendo uno. A cambio, no tiene posiciones — no puedes pedirle «el tercero» — y no garantiza el orden. Es la colección que usas cuando la pregunta es «¿está esto aquí?» o «¿cuáles son los valores distintos?».",
+        es: "Un Set ignora los duplicados: si añades dos veces el mismo valor, sigue habiendo uno. A cambio, no tiene posiciones (no puedes pedirle «el tercero») y no garantiza el orden. Es la colección que usas cuando la pregunta es «¿está esto aquí?» o «¿cuáles son los valores distintos?».",
         en: "A Set ignores duplicates: add the same value twice and there is still one. In exchange it has no positions — you cannot ask for “the third one” — and it guarantees no order. It is the collection you reach for when the question is “is this in here?” or “what are the distinct values?”.",
       },
     },
@@ -441,7 +441,7 @@ regions.add('EMEA');`,
       ],
       placeholder: { es: "Map<…> … = …", en: "Map<…> … = …" },
       explain: {
-        es: "Map<Id, Account> accountsById = new Map<Id, Account>(); — el tipo se escribe dos veces: en la declaración y al crear el mapa.",
+        es: "Map<Id, Account> accountsById = new Map<Id, Account>(); el tipo se escribe dos veces: en la declaración y al crear el mapa.",
         en: "Map<Id, Account> accountsById = new Map<Id, Account>(); — the type appears twice: in the declaration and when creating the map.",
       },
       tags: ["recall"],
@@ -561,7 +561,7 @@ Decimal apacQuota = quotaByRegion.containsKey('APAC')
           ],
         },
         onFail: {
-          es: "«En orden y admitiendo repeticiones» solo lo cumple una List — y hay que crearla con new, no solo declararla.",
+          es: "«En orden y admitiendo repeticiones» solo lo cumple una List, y hay que crearla con new, no solo declararla.",
           en: "“In order and allowing repeats” is only a List — and it must be created with new, not merely declared.",
         },
         otter: {

@@ -173,7 +173,7 @@ function UpNext({
       <div className="flex items-center gap-3">
         <MascotMark size={30} className="shrink-0" />
         <span className="e-mono flex-1 text-[12px] uppercase tracking-[0.08em]">
-          {lang === "es" ? "Siguiente" : "Up next"} — M{mod.n}.{pad(lesson.n)}
+          {lang === "es" ? "Siguiente" : "Up next"} · M{mod.n}.{pad(lesson.n)}
         </span>
         <span className="e-mono whitespace-nowrap text-[11px] uppercase tracking-[0.05em]">
           <span className="hidden sm:inline">{lang === "es" ? "Lectura" : "Read"} · </span>
@@ -290,7 +290,7 @@ export default function HomePage() {
             </p>
             <p className="m-0 mt-1.5 max-w-[720px] text-[15px] leading-[1.55]">
               {lang === "es"
-                ? "¡Hola! Soy tu nutria trailblazer — voy módulo a módulo contigo, sin dar nada por sabido."
+                ? "¡Hola! Soy tu nutria trailblazer. Voy módulo a módulo contigo, sin dar nada por sabido."
                 : "Hi! I'm your trailblazer otter — I go module by module with you, taking nothing for granted."}
             </p>
           </div>
@@ -506,7 +506,7 @@ export default function HomePage() {
             className="mt-[10px] text-[10px] tracking-[0.02em]"
             style={{ color: "color-mix(in srgb, var(--e-ink) 80%, var(--e-bg))" }}
           >
-            {lang === "es" ? "construido por elias · salesforce admin — con " : "built by elias · salesforce admin — with "}
+            {lang === "es" ? "construido por elias · salesforce admin · con " : "built by elias · salesforce admin — with "}
             <span style={{ color: "var(--e-credit-accent)" }}>claude code</span>
           </p>
         </footer>

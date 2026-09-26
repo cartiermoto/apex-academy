@@ -240,7 +240,7 @@ System.debug(total);   // 50`,
       variant: "admin",
       title: { es: "El elemento Subflow solo conoce el contrato", en: "The Subflow element only knows the contract" },
       text: {
-        es: "Yo lo entendí con los subflows: cuando un flow llama a un subflow, solo le importa qué variables de entrada acepta y cuáles devuelve. Puedes cambiar por completo lo que hace ese subflow por dentro —o sustituirlo por otro con las mismas variables— y el flow que lo llama ni se entera. Una interfaz es ese contrato de entradas y salidas, escrito en código: el bucle del scoring llama a score() sin saber qué clase hay detrás.",
+        es: "Yo lo entendí con los subflows: cuando un flow llama a un subflow, solo le importa qué variables de entrada acepta y cuáles devuelve. Puedes cambiar por completo lo que hace ese subflow por dentro (o sustituirlo por otro con las mismas variables) y el flow que lo llama ni se entera. Una interfaz es ese contrato de entradas y salidas, escrito en código: el bucle del scoring llama a score() sin saber qué clase hay detrás.",
         en: "Subflows made it click for me: when a flow calls a subflow, all it cares about is which input variables it accepts and which it returns. You can completely change what that subflow does inside — or swap it for another with the same variables — and the calling flow never notices. An interface is that contract of inputs and outputs, written in code: the scoring loop calls score() without knowing which class is behind it.",
       },
       voice: "otter",
@@ -250,7 +250,7 @@ System.debug(total);   // 50`,
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },
       text: {
-        es: "Los ejemplos de polimorfismo del libro —las piezas de ajedrez que se mueven cada una a su manera, los empleados que cobran de forma distinta— son exactamente este patrón. Y la herencia múltiple que dibuja el libro (una clase con dos padres), que Apex no permite con clases, se resuelve aquí: una clase puede implementar tantas interfaces como necesite.",
+        es: "Los ejemplos de polimorfismo del libro (las piezas de ajedrez que se mueven cada una a su manera, los empleados que cobran de forma distinta) son exactamente este patrón. Y la herencia múltiple que dibuja el libro (una clase con dos padres), que Apex no permite con clases, se resuelve aquí: una clase puede implementar tantas interfaces como necesite.",
         en: "The book's polymorphism examples — chess pieces each moving their own way, employees paid differently — are exactly this pattern. And the multiple inheritance the book draws (a class with two parents), which Apex does not allow with classes, is solved here: a class can implement as many interfaces as it needs.",
       },
     },
@@ -488,7 +488,7 @@ for (LeadScoringRule rule : rules) {
         en: "I would build it like a flow with interchangeable subflows: a contract with a single signature, two classes that fulfil it and a loop that only knows the contract. The loop should not mention IndustryRule or SourceRule.",
       },
       {
-        es: "Lo que me ayudó: public interface LeadScoringRule { Integer score(Lead candidate); } — public class IndustryRule implements LeadScoringRule { public Integer score(Lead candidate) { … } } — el bucle es for (LeadScoringRule rule : rules).",
+        es: "Lo que me ayudó: public interface LeadScoringRule { Integer score(Lead candidate); } · public class IndustryRule implements LeadScoringRule { public Integer score(Lead candidate) { … } }. El bucle es for (LeadScoringRule rule : rules).",
         en: "What helped me: public interface LeadScoringRule { Integer score(Lead candidate); } — public class IndustryRule implements LeadScoringRule { public Integer score(Lead candidate) { … } } — the loop is for (LeadScoringRule rule : rules).",
       },
       {
@@ -566,7 +566,7 @@ System.debug(totalScore);   // 45`,
           pattern: "public\\s+interface\\s+LeadScoringRule\\s*\\{\\s*Integer\\s+score\\s*\\(\\s*Lead\\s+\\w+\\s*\\)\\s*;\\s*\\}",
         },
         onFail: {
-          es: "public interface LeadScoringRule { Integer score(Lead candidate); } — solo la firma, terminada en punto y coma.",
+          es: "public interface LeadScoringRule { Integer score(Lead candidate); }. Solo la firma, terminada en punto y coma.",
           en: "public interface LeadScoringRule { Integer score(Lead candidate); } — signature only, ending in a semicolon.",
         },
         otter: {
@@ -589,7 +589,7 @@ System.debug(totalScore);   // 45`,
           ],
         },
         onFail: {
-          es: "public class IndustryRule implements LeadScoringRule { public Integer score(Lead candidate) { … } } — y lo mismo con SourceRule.",
+          es: "public class IndustryRule implements LeadScoringRule { public Integer score(Lead candidate) { … } }. Y lo mismo con SourceRule.",
           en: "public class IndustryRule implements LeadScoringRule { public Integer score(Lead candidate) { … } } — and the same for SourceRule.",
         },
         otter: {
@@ -611,7 +611,7 @@ System.debug(totalScore);   // 45`,
           ],
         },
         onFail: {
-          es: "IndustryRule: return candidate.Industry == 'Technology' ? 20 : 0; — SourceRule: return candidate.LeadSource == 'Partner Referral' ? 25 : 0;",
+          es: "IndustryRule: return candidate.Industry == 'Technology' ? 20 : 0; SourceRule: return candidate.LeadSource == 'Partner Referral' ? 25 : 0;",
           en: "IndustryRule: return candidate.Industry == 'Technology' ? 20 : 0; — SourceRule: return candidate.LeadSource == 'Partner Referral' ? 25 : 0;",
         },
         otter: {
@@ -658,7 +658,7 @@ System.debug(totalScore);   // 45`,
           ],
         },
         onFail: {
-          es: "Integer totalScore = 0; for (LeadScoringRule rule : rules) { totalScore += rule.score(candidate); } — sin preguntar de qué clase es cada regla.",
+          es: "Integer totalScore = 0; for (LeadScoringRule rule : rules) { totalScore += rule.score(candidate); }. Sin preguntar de qué clase es cada regla.",
           en: "Integer totalScore = 0; for (LeadScoringRule rule : rules) { totalScore += rule.score(candidate); } — without asking which class each rule is.",
         },
         otter: {

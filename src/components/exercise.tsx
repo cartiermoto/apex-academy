@@ -222,7 +222,7 @@ export function ExercisePanel({
             {result.untouched && (
               <p className="t-small mt-3 text-[var(--c-warn)]">
                 {lang === "es"
-                  ? "El editor sigue con el código de partida — escribe tu versión antes de validar."
+                  ? "El editor sigue con el código de partida: escribe tu versión antes de validar."
                   : "The editor still holds the starter code — write your version before validating."}
               </p>
             )}

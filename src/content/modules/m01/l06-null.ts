@@ -45,7 +45,7 @@ export const l06Null: Lesson = {
     {
       type: "lead",
       text: {
-        es: "Abre cualquier lista de Leads de tu org y mira la columna de teléfono: habrá filas en blanco. Ese blanco tiene nombre en Apex —null— y, a diferencia de la interfaz, aquí no se ignora educadamente: si intentas usarlo, la [[transaccion]] entera se detiene.",
+        es: "Abre cualquier lista de Leads de tu org y mira la columna de teléfono: habrá filas en blanco. Ese blanco tiene nombre en Apex (null) y, a diferencia de la interfaz, aquí no se ignora educadamente: si intentas usarlo, la [[transaccion]] entera se detiene.",
         en: "Open any Lead list in your org and look at the phone column: some rows are blank. That blank has a name in Apex — null — and unlike the UI it is not politely ignored here: try to use it and the whole [[transaccion|transaction]] stops.",
       },
     },
@@ -94,7 +94,7 @@ export const l06Null: Lesson = {
         [
           { es: "0", en: "0" },
           { es: "Se midió y salió cero.", en: "Measured, and it came out zero." },
-          { es: "— (no es texto)", en: "— (not text)" },
+          { es: "No aplica (no es texto)", en: "— (not text)" },
         ],
       ],
     },
@@ -304,7 +304,7 @@ String missing = null;`,
       ],
       answer: 0,
       explain: {
-        es: "empty sí es un texto —vacío, pero existe— y devuelve 0. missing no existe, así que no hay a quién pedirle length(). isBlank() está pensado precisamente para aceptar null.",
+        es: "empty sí es un texto (vacío, pero existe) y devuelve 0. missing no existe, así que no hay a quién pedirle length(). isBlank() está pensado precisamente para aceptar null.",
         en: "empty is a string — empty, but present — and returns 0. missing does not exist, so there is nobody to ask for length(). isBlank() exists precisely to accept null.",
       },
       tags: ["find-error"],
@@ -396,7 +396,7 @@ String result = account?.Name;`,
 
   exercise: {
     prompt: {
-      es: "TAREA 6 DE 10 · La campaña trajo más Leads, y el segundo llegó a medias: sin región y sin empleados. Ventas quiere la ficha igualmente, así que antes de arreglar nada hay que saber qué falta. Escribe el diagnóstico —qué está ausente y qué se puede usar— sin cambiar todavía ningún dato (eso es la tarea 7) y sin que el código explote con ninguno de los dos Leads.",
+      es: "TAREA 6 DE 10 · La campaña trajo más Leads, y el segundo llegó a medias: sin región y sin empleados. Ventas quiere la ficha igualmente, así que antes de arreglar nada hay que saber qué falta. Escribe el diagnóstico (qué está ausente y qué se puede usar) sin cambiar todavía ningún dato (eso es la tarea 7) y sin que el código explote con ninguno de los dos Leads.",
       en: "TASK 6 OF 10 · The campaign brought more Leads, and the second one arrived half-filled: no region and no employees. Sales wants the summary anyway, so before fixing anything you need to know what is missing. Write the diagnosis — what is absent and what is usable — without changing any value yet (that is task 7) and without letting the code explode on either Lead.",
     },
     brief: [
@@ -591,11 +591,11 @@ Boolean employeesMissing = incompleteLead.NumberOfEmployees == null;`,
             "incompleteLead\\s*\\.\\s*(Region__c|Company)\\s*\\.\\s*(toUpperCase|toLowerCase|trim|length|substring)\\s*\\(",
         },
         onFail: {
-          es: "Queda una llamada directa sobre un campo que puede venir vacío. O la envuelves en una comprobación, o usas ?. — pero tal cual, un solo Lead sin región tira la carga entera.",
+          es: "Queda una llamada directa sobre un campo que puede venir vacío. Tal cual está, un solo Lead sin región tira la carga entera: o la envuelves en una comprobación, o usas el operador ?. en esa llamada.",
           en: "There is still a direct call on a field that can arrive empty. Either guard it or use ?. — as written, one region-less Lead brings the whole load down.",
         },
         otter: {
-          es: "Queda una línea que llama a un método directamente sobre un campo que puede venir vacío. Es el error rojo al guardar, esperando su momento: o la envuelves en una comprobación, o usas ?. — tal cual, un solo Lead sin región tira la carga entera.",
+          es: "Queda una línea que llama a un método directamente sobre un campo que puede venir vacío. Es el error rojo al guardar, esperando su momento: tal cual está, un solo Lead sin región tira la carga entera. O la envuelves en una comprobación, o usas el operador ?. en esa llamada.",
           en: "There is still a line calling a method straight on a field that can come in empty. It is the red save error, waiting for its moment: either wrap it in a check or use ?. — as it is, a single Lead without a region brings the whole load down.",
         },
       },

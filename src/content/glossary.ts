@@ -97,7 +97,7 @@ export const glossary: GlossaryEntry[] = [
     id: "excepcion",
     term: { es: "excepción", en: "exception" },
     definition: {
-      es: "Un error en ejecución. Su tipo —NullPointerException, TypeException…— dice qué salió mal. Si nadie la captura, detiene la transacción y la deshace; con try/catch decides tú qué pasa.",
+      es: "Un error en ejecución. Su tipo (NullPointerException, TypeException…) dice qué salió mal. Si nadie la captura, detiene la transacción y la deshace; con try/catch decides tú qué pasa.",
       en: "A runtime error. Its type — NullPointerException, TypeException… — says what went wrong. If nobody catches it, it halts the transaction and rolls it back; with try/catch you decide what happens.",
     },
     admin: {
@@ -136,7 +136,7 @@ export const glossary: GlossaryEntry[] = [
     id: "governor-limits",
     term: { es: "governor limits", en: "governor limits" },
     definition: {
-      es: "Los topes que Salesforce pone a cada transacción —por ejemplo, 100 consultas SOQL— para que ningún código acapare la plataforma compartida.",
+      es: "Los topes que Salesforce pone a cada transacción (por ejemplo, 100 consultas SOQL) para que ningún código acapare la plataforma compartida.",
       en: "The caps Salesforce puts on every transaction — for example, 100 SOQL queries — so no code can hog the shared platform.",
     },
     admin: {

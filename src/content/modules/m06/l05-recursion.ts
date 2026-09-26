@@ -209,7 +209,7 @@ trigger OpportunityReview on Opportunity (after update) {
       variant: "admin",
       title: { es: "Cómo se nota una recursión desde fuera", en: "How recursion shows from the outside" },
       text: {
-        es: "Antes de leer ningún código, yo sospecho de recursión por sus síntomas: tareas o notificaciones duplicadas, un campo con varias entradas idénticas seguidas en el historial de campos (Field History Tracking), o el error «Maximum trigger depth exceeded» en una carga de datos. Si ves cualquiera de los tres, busca un trigger —o un flow— que guarde registros de su propio objeto.",
+        es: "Antes de leer ningún código, yo sospecho de recursión por sus síntomas: tareas o notificaciones duplicadas, un campo con varias entradas idénticas seguidas en el historial de campos (Field History Tracking), o el error «Maximum trigger depth exceeded» en una carga de datos. Si ves cualquiera de los tres, busca un trigger (o un flow) que guarde registros de su propio objeto.",
         en: "Before reading any code, I suspect recursion from its symptoms: duplicated tasks or notifications, a field with several identical consecutive entries in Field History Tracking, or the «Maximum trigger depth exceeded» error during a data load. If you see any of the three, look for a trigger — or a flow — that saves records of its own object.",
       },
       voice: "otter",
@@ -576,7 +576,7 @@ trigger OpportunityReview on Opportunity (after update) {
           ],
         },
         onFail: {
-          es: "if (!toUpdate.isEmpty()) { update toUpdate; } — sin cambios, sin DML.",
+          es: "if (!toUpdate.isEmpty()) { update toUpdate; }. Sin cambios, sin DML.",
           en: "if (!toUpdate.isEmpty()) { update toUpdate; } — no changes, no DML.",
         },
         otter: {

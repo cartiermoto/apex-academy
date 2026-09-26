@@ -54,7 +54,7 @@ export const l03Expresiones: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "Así lo separé yo en la cabeza: un campo fórmula nunca hace nada, solo calcula y devuelve un valor. Un elemento de Flow —Assignment, Update Records— no devuelve nada que puedas pegar en otra fórmula: actúa. En Apex, lo primero se llama expresión y lo segundo sentencia.",
+        es: "Así lo separé yo en la cabeza: un campo fórmula nunca hace nada, solo calcula y devuelve un valor. Un elemento de Flow (Assignment, Update Records) no devuelve nada que puedas pegar en otra fórmula: actúa. En Apex, lo primero se llama expresión y lo segundo sentencia.",
         en: "This is how I split it in my head: a formula field never does anything, it only calculates and returns a value. A Flow element — Assignment, Update Records — returns nothing you could paste into another formula: it acts. In Apex, the first is called an expression and the second a statement.",
       },
       voice: "otter",
@@ -103,7 +103,7 @@ amount > 1000                    // a bare expression: does not compile as a lin
     {
       type: "p",
       text: {
-        es: "Aquí la diferencia se vuelve práctica. El operador condicional que viste en Operadores — condición ? a : b — es una expresión: elige un valor. if es una sentencia: elige qué hacer. Si lo único que cambia entre las dos ramas es el valor que asignas, el operador condicional lo dice en una línea. Si cambian las acciones, usa if.",
+        es: "Aquí la diferencia se vuelve práctica. El operador condicional que viste en Operadores (condición ? a : b) es una expresión: elige un valor. if es una sentencia: elige qué hacer. Si lo único que cambia entre las dos ramas es el valor que asignas, el operador condicional lo dice en una línea. Si cambian las acciones, usa if.",
         en: "Here the difference becomes practical. The conditional operator you saw in Operators — condition ? a : b — is an expression: it picks a value. if is a statement: it picks what to do. If the only thing that changes between the two branches is the value you assign, the conditional operator says it in one line. If the actions change, use if.",
       },
     },
@@ -328,7 +328,7 @@ String size = amount > 1000 ? 'Large' : 'Small';`,
       ],
       answer: 0,
       explain: {
-        es: "Solo cambia el valor, así que basta una expresión. Declarar dealType dentro de cada rama del if/else ni siquiera dejaría usarla después —muere al cerrar la llave—, y switch no acepta Boolean.",
+        es: "Solo cambia el valor, así que basta una expresión. Declarar dealType dentro de cada rama del if/else ni siquiera dejaría usarla después (muere al cerrar la llave), y switch no acepta Boolean.",
         en: "Only the value changes, so an expression is enough. Declaring dealType inside each branch of an if/else would not even let you use it afterwards — it dies at the closing brace — and switch does not accept Boolean.",
       },
       tags: ["interleaving"],

@@ -457,11 +457,11 @@ System.debug(r.preview() + ' · ' + r.isOverdue());`,
         en: "I would look for the three keywords that make this work, like the base profile and what is added on top: one in the parent's header, another in the child's header and another on the first line of the child's constructor. And one more for «family» access.",
       },
       {
-        es: "Lo que me ayudó: public virtual class Notification { protected String recipient; … } — public class TaskReminder extends Notification { … } — y en su constructor, super(recipient, subject); antes que nada.",
+        es: "Lo que me ayudó: public virtual class Notification { protected String recipient; … } · public class TaskReminder extends Notification { … }. Y en su constructor, super(recipient, subject); antes que nada.",
         en: "What helped me: public virtual class Notification { protected String recipient; … } — public class TaskReminder extends Notification { … } — and in its constructor, super(recipient, subject); before anything else.",
       },
       {
-        es: "Te dejo el esquema: isOverdue() → return dueDate < Date.today(); — Uso: TaskReminder r = new TaskReminder('…', '…', Date.today().addDays(-1)); String previewText = r.preview();",
+        es: "Te dejo el esquema: isOverdue() → return dueDate < Date.today(); Uso: TaskReminder r = new TaskReminder('…', '…', Date.today().addDays(-1)); String previewText = r.preview();",
         en: "Here is the outline: isOverdue() → return dueDate < Date.today(); — Usage: TaskReminder r = new TaskReminder('…', '…', Date.today().addDays(-1)); String previewText = r.preview();",
       },
     ],
@@ -545,7 +545,7 @@ System.debug(previewText + ' · overdue: ' + reminder.isOverdue());`,
           ],
         },
         onFail: {
-          es: "public virtual class Notification { protected String recipient; public String subject; … } — sin virtual no se puede heredar.",
+          es: "public virtual class Notification { protected String recipient; public String subject; … }. Sin virtual no se puede heredar.",
           en: "public virtual class Notification { protected String recipient; public String subject; … } — without virtual it cannot be inherited from.",
         },
         otter: {

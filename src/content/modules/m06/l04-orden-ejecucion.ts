@@ -508,7 +508,7 @@ export const l04OrdenEjecucion: Lesson = {
           ],
         },
         onFail: {
-          es: "new Map<Id, Account>([SELECT Id, BillingCountry FROM Account WHERE Id IN :accountIds]) — una vez, fuera de los bucles.",
+          es: "new Map<Id, Account>([SELECT Id, BillingCountry FROM Account WHERE Id IN :accountIds]). Una vez, fuera de los bucles.",
           en: "new Map<Id, Account>([SELECT Id, BillingCountry FROM Account WHERE Id IN :accountIds]) — once, outside the loops.",
         },
         otter: {

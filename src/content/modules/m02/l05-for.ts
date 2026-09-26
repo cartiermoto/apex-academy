@@ -196,7 +196,7 @@ for (Opportunity opp : opps) {
     {
       type: "p",
       text: {
-        es: "Cuando lo que necesitas es un número que va avanzando —generar 12 cuotas mensuales, o saber en qué posición de la lista estás—, el for clásico tiene tres partes separadas por punto y coma: dónde empieza el contador, mientras qué condición sigue, y cuánto avanza tras cada vuelta.",
+        es: "Cuando lo que necesitas es un número que va avanzando (generar 12 cuotas mensuales, o saber en qué posición de la lista estás), el for clásico tiene tres partes separadas por punto y coma: dónde empieza el contador, mientras qué condición sigue, y cuánto avanza tras cada vuelta.",
         en: "When what you need is a number that keeps advancing — generating 12 monthly instalments, or knowing which position of the list you are at — the classic for has three parts separated by semicolons: where the counter starts, while which condition it continues, and how much it advances after each pass.",
       },
     },
@@ -582,7 +582,7 @@ System.debug(totalAmount + ' · ' + bigDealCount + ' · ' + bigDealNames);`,
             "(?=[\\s\\S]*Decimal\\s+totalAmount\\s*=\\s*0[\\s\\S]*for\\s*\\()(?=[\\s\\S]*Integer\\s+bigDealCount\\s*=\\s*0[\\s\\S]*for\\s*\\()(?=[\\s\\S]*List<String>\\s+bigDealNames\\s*=\\s*new\\s+List<String>\\s*\\(\\s*\\)[\\s\\S]*for\\s*\\()",
         },
         onFail: {
-          es: "Decimal totalAmount = 0; Integer bigDealCount = 0; List<String> bigDealNames = new List<String>(); — antes del for. Dentro se reiniciarían en cada vuelta.",
+          es: "Decimal totalAmount = 0; Integer bigDealCount = 0; List<String> bigDealNames = new List<String>(); antes del for. Dentro se reiniciarían en cada vuelta.",
           en: "Decimal totalAmount = 0; Integer bigDealCount = 0; List<String> bigDealNames = new List<String>(); — before the for. Inside, they would reset on every pass.",
         },
         otter: {

@@ -45,7 +45,7 @@ export const l05SObjects: Lesson = {
     {
       type: "lead",
       text: {
-        es: "Hasta ahora las variables guardaban un dato suelto: un texto, un número, una fecha. Un sObject guarda una fila entera — un registro con todos sus campos — y en Apex se maneja exactamente igual que cualquier otra variable.",
+        es: "Hasta ahora las variables guardaban un dato suelto: un texto, un número, una fecha. Un sObject guarda una fila entera (un registro con todos sus campos) y en Apex se maneja exactamente igual que cualquier otra variable.",
         en: "So far a variable held one loose value: a piece of text, a number, a date. An sObject holds an entire row — a record with all its fields — and in Apex you handle it exactly like any other variable.",
       },
     },
@@ -54,7 +54,7 @@ export const l05SObjects: Lesson = {
       variant: "admin",
       title: { es: "Object Manager es la definición; el sObject es la fila", en: "Object Manager is the definition; the sObject is the row" },
       text: {
-        es: "Así lo entendí yo: en Setup defines el objeto Account una vez —qué campos tiene, de qué tipo, con qué nombre de API—. Eso es el molde. Cada cuenta que existe en la org es una fila hecha con ese molde. Cuando en Apex escribes Account, estás usando el molde; cuando escribes new Account(), estás fabricando una fila nueva.",
+        es: "Así lo entendí yo: en Setup defines el objeto Account una vez (qué campos tiene, de qué tipo, con qué nombre de API). Eso es el molde. Cada cuenta que existe en la org es una fila hecha con ese molde. Cuando en Apex escribes Account, estás usando el molde; cuando escribes new Account(), estás fabricando una fila nueva.",
         en: "This is how it clicked for me: in Setup you define the Account object once — which fields it has, of what type, with which API name. That is the mould. Every account in the org is a row made from that mould. When you write Account in Apex you are using the mould; when you write new Account() you are making a new row.",
       },
       voice: "otter",
@@ -124,7 +124,7 @@ newAccount.NumberOfEmployees = 340;`,
     {
       type: "p",
       text: {
-        es: "En el layout ves «Número de empleados». En Apex escribes NumberOfEmployees. La etiqueta es para las personas y puede cambiar —incluso traducirse— sin romper nada; el nombre de API es el que usa el código y no cambia jamás una vez creado.",
+        es: "En el layout ves «Número de empleados». En Apex escribes NumberOfEmployees. La etiqueta es para las personas y puede cambiar (incluso traducirse) sin romper nada; el nombre de API es el que usa el código y no cambia jamás una vez creado.",
         en: "The layout shows “Number of Employees”. In Apex you write NumberOfEmployees. The label is for people and can change — even be translated — without breaking anything; the API name is what the code uses and never changes once created.",
       },
     },
@@ -174,7 +174,7 @@ newAccount.NumberOfEmployees = 340;`,
     {
       type: "p",
       text: {
-        es: "Crear un sObject con new es como pulsar «Nuevo» en la interfaz y empezar a rellenar el formulario: el registro existe delante de ti, pero todavía no está en la base de datos. Su campo Id está vacío, nadie más lo ve y, si la [[transaccion]] termina, desaparece. Guardarlo es otra operación —[[dml]]— y tiene su propio módulo.",
+        es: "Crear un sObject con new es como pulsar «Nuevo» en la interfaz y empezar a rellenar el formulario: el registro existe delante de ti, pero todavía no está en la base de datos. Su campo Id está vacío, nadie más lo ve y, si la [[transaccion]] termina, desaparece. Guardarlo es otra operación ([[dml]]) y tiene su propio módulo.",
         en: "Creating an sObject with new is like hitting “New” in the UI and starting to fill in the form: the record is there in front of you, but it is not in the database yet. Its Id field is empty, nobody else can see it, and if the [[transaccion|transaction]] ends it vanishes. Saving it is a separate operation — [[dml]] — and it has its own module.",
       },
     },
@@ -413,7 +413,7 @@ a.Nmae = 'Acme';`,
       ],
       placeholder: { es: "Opportunity opp = …", en: "Opportunity opp = …" },
       explain: {
-        es: "Opportunity opp = new Opportunity(Name = 'Renovación'); — dentro de los paréntesis va un solo igual, aunque parezca una comparación.",
+        es: "Opportunity opp = new Opportunity(Name = 'Renovación'); dentro de los paréntesis va un solo igual, aunque parezca una comparación.",
         en: "Opportunity opp = new Opportunity(Name = 'Renewal'); — inside the brackets it is a single equals, even though it looks like a comparison.",
       },
       tags: ["recall"],
@@ -422,7 +422,7 @@ a.Nmae = 'Acme';`,
 
   exercise: {
     prompt: {
-      es: "TAREA 5 DE 10 · Hasta ahora llevabas los datos de Northwind en variables sueltas, como apuntes en un papel. Hoy pasan a donde viven de verdad: dentro de un registro. Crea en memoria el Lead que originó esta renovación y saca de ÉL —no de textos sueltos— los dos valores que necesita el panel.",
+      es: "TAREA 5 DE 10 · Hasta ahora llevabas los datos de Northwind en variables sueltas, como apuntes en un papel. Hoy pasan a donde viven de verdad: dentro de un registro. Crea en memoria el Lead que originó esta renovación y saca de ÉL (no de textos sueltos) los dos valores que necesita el panel.",
       en: "TASK 5 OF 10 · Until now you carried Northwind's data in loose variables, like notes on paper. Today it moves where it really lives: inside a record. Create in memory the Lead that started this renewal and derive from IT — not from loose strings — the two values the dashboard needs.",
     },
     brief: [
@@ -469,7 +469,7 @@ a.Nmae = 'Acme';`,
         en: "What helped me: an sObject's fields are read with the same dot they are written with, and what they return is a normal Apex type with all its methods. newLead.Company is a String, just as the Company field is a Text field in Setup.",
       },
       {
-        es: "Te lo dejo casi hecho: String cleanCompany = newLead.Company.trim(); — y recuerda que un campo personalizado lleva __c, igual que en su nombre de API.",
+        es: "Te lo dejo casi hecho: String cleanCompany = newLead.Company.trim(); y recuerda que un campo personalizado lleva __c, igual que en su nombre de API.",
         en: "Here it is nearly done: String cleanCompany = newLead.Company.trim(); — and remember a custom field carries __c, just like its API name.",
       },
     ],

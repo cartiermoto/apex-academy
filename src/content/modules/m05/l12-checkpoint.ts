@@ -45,7 +45,7 @@ export const l12Checkpoint: Lesson = {
     {
       type: "lead",
       text: {
-        es: "Con este módulo has cruzado la línea que separa escribir instrucciones de diseñar código. Todo lo que sigue en el curso —triggers, handlers, asíncrono, tests— está hecho de clases, y ahora ya sabes leerlas y escribirlas.",
+        es: "Con este módulo has cruzado la línea que separa escribir instrucciones de diseñar código. Todo lo que sigue en el curso (triggers, handlers, asíncrono, tests) está hecho de clases, y ahora ya sabes leerlas y escribirlas.",
         en: "With this module you have crossed the line between writing instructions and designing code. Everything that follows in the course — triggers, handlers, async, tests — is made of classes, and now you know how to read and write them.",
       },
     },
@@ -84,7 +84,7 @@ export const l12Checkpoint: Lesson = {
     {
       type: "p",
       text: {
-        es: "5 · Static. Lo de cada registro frente a lo de toda la org, como un campo frente a un Custom Setting. Los métodos estáticos se llaman con el nombre de la clase —ya usabas Date.today()— y no tienen this. En Apex, una variable estática vive una transacción.",
+        es: "5 · Static. Lo de cada registro frente a lo de toda la org, como un campo frente a un Custom Setting. Los métodos estáticos se llaman con el nombre de la clase (ya usabas Date.today()) y no tienen this. En Apex, una variable estática vive una transacción.",
         en: "5 · Static. What belongs to each record versus what belongs to the whole org, like a field versus a Custom Setting. Static methods are called through the class name — you already used Date.today() — and have no this. In Apex, a static variable lives for one transaction.",
       },
     },
@@ -119,7 +119,7 @@ export const l12Checkpoint: Lesson = {
     {
       type: "p",
       text: {
-        es: "10 · Interfaces y polimorfismo. Un contrato de firmas —como Schedulable para aparecer en Schedule Apex— que cualquier clase puede cumplir, varias a la vez. Una lista de objetos distintos con el mismo contrato se recorre igual, y añadir uno nuevo no toca el bucle.",
+        es: "10 · Interfaces y polimorfismo. Un contrato de firmas (como Schedulable para aparecer en Schedule Apex) que cualquier clase puede cumplir, varias a la vez. Una lista de objetos distintos con el mismo contrato se recorre igual, y añadir uno nuevo no toca el bucle.",
         en: "10 · Interfaces and polymorphism. A contract of signatures — like Schedulable for appearing in Schedule Apex — that any class can meet, several at once. A list of different objects with the same contract is walked the same way, and adding a new one does not touch the loop.",
       },
     },
@@ -158,7 +158,7 @@ export const l12Checkpoint: Lesson = {
           en: "Create the org at developer.salesforce.com/signup (a Trailhead one works too).",
         },
         {
-          es: "Setup → Apex Classes → New. Pega solo una clase —por ejemplo la PricingUtils de la lección 5— y pulsa Save. Si hay un error, Salesforce te dice la línea: es el compilador que llevas cinco módulos imaginando.",
+          es: "Setup → Apex Classes → New. Pega solo una clase (por ejemplo la PricingUtils de la lección 5) y pulsa Save. Si hay un error, Salesforce te dice la línea: es el compilador que llevas cinco módulos imaginando.",
           en: "Setup → Apex Classes → New. Paste a single class — for example PricingUtils from lesson 5 — and click Save. If there is an error, Salesforce tells you the line: it is the compiler you have been imagining for five modules.",
         },
         {
@@ -478,7 +478,7 @@ System.debug(x.greet());`,
 
   exercise: {
     prompt: {
-      es: "TAREA 12 DE 12 · La entrega del motor comercial. Ejercicio integrador. Ventas quiere calcular las comisiones del trimestre. Hay dos tipos de oportunidad —negocio nuevo y renovación— que comparten nombre, importe y una comisión base del 5 %, pero el negocio nuevo paga el doble. Y en el futuro habrá otros conceptos comisionables que no serán oportunidades. Diseña las clases y calcula el total.",
+      es: "TAREA 12 DE 12 · La entrega del motor comercial. Ejercicio integrador. Ventas quiere calcular las comisiones del trimestre. Hay dos tipos de oportunidad (negocio nuevo y renovación) que comparten nombre, importe y una comisión base del 5 %, pero el negocio nuevo paga el doble. Y en el futuro habrá otros conceptos comisionables que no serán oportunidades. Diseña las clases y calcula el total.",
       en: "TASK 12 OF 12 · The commercial engine's delivery. Integrative exercise. Sales wants to work out the quarter's commissions. There are two kinds of opportunity — new business and renewal — that share a name, an amount and a 5% base commission, but new business pays double. And in future there will be other commissionable items that are not opportunities. Design the classes and work out the total.",
     },
     brief: [
@@ -539,7 +539,7 @@ System.debug(x.greet());`,
         en: "I would go top-down, like drawing a data model: the contract (interface), the base with the common part (abstract, with its constant, properties and constructor), the two children and, at the end, a loop that only knows the contract. Every keyword from the module appears at least once.",
       },
       {
-        es: "Lo que me ayudó: public abstract class Deal implements Commissionable { public static final Decimal BASE_RATE = 0.05; public String name { get; private set; } … this.amount = amount ?? 0; public virtual Decimal commission() { … } } — en la hija: super(name, amount); y public override Decimal commission() { return super.commission() * 2; }",
+        es: "Lo que me ayudó: public abstract class Deal implements Commissionable { public static final Decimal BASE_RATE = 0.05; public String name { get; private set; } … this.amount = amount ?? 0; public virtual Decimal commission() { … } }. En la hija: super(name, amount); y public override Decimal commission() { return super.commission() * 2; }",
         en: "What helped me: public abstract class Deal implements Commissionable { public static final Decimal BASE_RATE = 0.05; public String name { get; private set; } … this.amount = amount ?? 0; public virtual Decimal commission() { … } } — in the child: super(name, amount); and public override Decimal commission() { return super.commission() * 2; }",
       },
       {
@@ -736,7 +736,7 @@ System.debug(totalCommission);   // 2000`,
           ],
         },
         onFail: {
-          es: "public Deal(String name, Decimal amount) { this.name = name; this.amount = amount ?? 0; } — mismos nombres, así que hace falta this.",
+          es: "public Deal(String name, Decimal amount) { this.name = name; this.amount = amount ?? 0; }. Mismos nombres, así que hace falta this.",
           en: "public Deal(String name, Decimal amount) { this.name = name; this.amount = amount ?? 0; } — same names, so this is required.",
         },
         otter: {
@@ -755,7 +755,7 @@ System.debug(totalCommission);   // 2000`,
           pattern: "public\\s+virtual\\s+Decimal\\s+commission\\s*\\(\\s*\\)\\s*\\{\\s*return\\s+amount\\s*\\*\\s*BASE_RATE\\s*;",
         },
         onFail: {
-          es: "public virtual Decimal commission() { return amount * BASE_RATE; } — virtual para que una hija pueda cambiarla.",
+          es: "public virtual Decimal commission() { return amount * BASE_RATE; }. Virtual para que una hija pueda cambiarla.",
           en: "public virtual Decimal commission() { return amount * BASE_RATE; } — virtual so a child can change it.",
         },
         otter: {
@@ -778,7 +778,7 @@ System.debug(totalCommission);   // 2000`,
           ],
         },
         onFail: {
-          es: "public class NewBusinessDeal extends Deal { public NewBusinessDeal(String name, Decimal amount) { super(name, amount); } … } — y lo mismo con RenewalDeal.",
+          es: "public class NewBusinessDeal extends Deal { public NewBusinessDeal(String name, Decimal amount) { super(name, amount); } … }. Y lo mismo con RenewalDeal.",
           en: "public class NewBusinessDeal extends Deal { public NewBusinessDeal(String name, Decimal amount) { super(name, amount); } … } — and the same for RenewalDeal.",
         },
         otter: {
@@ -797,7 +797,7 @@ System.debug(totalCommission);   // 2000`,
           pattern: "public\\s+override\\s+Decimal\\s+commission\\s*\\(\\s*\\)\\s*\\{\\s*return\\s+(super\\.commission\\(\\s*\\)\\s*\\*\\s*2|2\\s*\\*\\s*super\\.commission\\(\\s*\\))\\s*;",
         },
         onFail: {
-          es: "public override Decimal commission() { return super.commission() * 2; } — sin copiar la fórmula del padre.",
+          es: "public override Decimal commission() { return super.commission() * 2; }. Sin copiar la fórmula del padre.",
           en: "public override Decimal commission() { return super.commission() * 2; } — without copying the parent's formula.",
         },
         otter: {

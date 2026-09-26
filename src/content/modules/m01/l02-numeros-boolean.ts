@@ -22,7 +22,7 @@ export const l02NumerosBoolean: Lesson = {
     en: "Numeric Types and Boolean",
   },
   summary: {
-    es: "Integer, Long, Decimal, Double, Boolean — más Id y Blob, los dos tipos que solo existen porque esto es Salesforce.",
+    es: "Integer, Long, Decimal, Double y Boolean. Y además Id y Blob, los dos tipos que solo existen porque esto es Salesforce.",
     en: "Integer, Long, Decimal, Double, Boolean — plus Id and Blob, the two types that exist only because this is Salesforce.",
   },
   analogy: {
@@ -67,7 +67,7 @@ export const l02NumerosBoolean: Lesson = {
     {
       type: "p",
       text: {
-        es: "Integer guarda números enteros entre unos -2.100 millones y +2.100 millones. Sirve para todo lo que se cuenta en unidades: contactos, días, intentos, posiciones. Cuando ese rango se queda corto —milisegundos desde 1970, identificadores de un sistema externo— se usa Long, que se escribe con una L al final.",
+        es: "Integer guarda números enteros entre unos -2.100 millones y +2.100 millones. Sirve para todo lo que se cuenta en unidades: contactos, días, intentos, posiciones. Cuando ese rango se queda corto (milisegundos desde 1970, identificadores de un sistema externo) se usa Long, que se escribe con una L al final.",
         en: "Integer holds whole numbers between roughly -2.1 billion and +2.1 billion. It covers everything counted in units: contacts, days, attempts, positions. When that range is not enough — milliseconds since 1970, identifiers from an external system — you use Long, written with a trailing L.",
       },
     },
@@ -147,7 +147,7 @@ Decimal ratioA = won / total;                   // 3   ← lost before it was ev
 Decimal ratioB = Decimal.valueOf(won) / total;  // 3.5 ← one of the two is a Decimal`,
       },
       caption: {
-        es: "Declarar el resultado como Decimal no salva nada: la división ya ocurrió entre enteros. Convertir uno de los dos antes de dividir tiene nombre —conversión de tipos— y es la sub-lección 9; por ahora quédate con el síntoma.",
+        es: "Declarar el resultado como Decimal no salva nada: la división ya ocurrió entre enteros. Convertir uno de los dos antes de dividir tiene nombre (conversión de tipos) y es la sub-lección 9; por ahora quédate con el síntoma.",
         en: "Declaring the result as a Decimal saves nothing: the division already happened between integers. Converting one operand before dividing has a name — type conversion — and it is sub-lesson 9; for now, just note the symptom.",
       },
     },
@@ -158,7 +158,7 @@ Decimal ratioB = Decimal.valueOf(won) / total;  // 3.5 ← one of the two is a D
     {
       type: "p",
       text: {
-        es: "Boolean guarda true o false, igual que un checkbox. El matiz es que un Boolean declarado y no asignado no vale false: vale [[null]], que es un tercer estado —«no se sabe»— del que hablaremos en detalle más adelante. Un checkbox en la base de datos nunca está vacío; una variable Boolean en memoria sí puede estarlo.",
+        es: "Boolean guarda true o false, igual que un checkbox. El matiz es que un Boolean declarado y no asignado no vale false: vale [[null]], que es un tercer estado («no se sabe») del que hablaremos en detalle más adelante. Un checkbox en la base de datos nunca está vacío; una variable Boolean en memoria sí puede estarlo.",
         en: "Boolean holds true or false, like a checkbox. The twist is that a Boolean that was declared but never assigned is not false: it is [[null]], a third state meaning “unknown”, which gets its own sub-lesson later. A checkbox in the database is never empty; a Boolean variable in memory can be.",
       },
     },
