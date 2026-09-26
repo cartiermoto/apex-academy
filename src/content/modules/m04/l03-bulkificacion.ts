@@ -6,6 +6,17 @@ export const l03Bulkificacion: Lesson = {
   n: 3,
   kind: "lesson",
   minutes: 35,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 2", en: "Remember? · Review of lesson 2" },
+    prompt: { es: "Con Database.insert(leads, false), si uno de 200 falla, ¿qué pasa?", en: "With Database.insert(leads, false), if one out of 200 fails, what happens?" },
+    options: [
+      { es: "Se guardan los 199 buenos y el error queda en su SaveResult", en: "The 199 good ones are saved and the error stays in its SaveResult" },
+      { es: "No se guarda ninguno", en: "None is saved" },
+      { es: "Se lanza una DmlException", en: "A DmlException is thrown" },
+    ],
+    answer: 0,
+    explain: { es: "Con allOrNone en false se guarda lo que se puede y te cuenta el resto, como Data Loader.", en: "With allOrNone set to false, whatever can be saved is saved and you are told about the rest, like Data Loader." },
+  },
   title: {
     es: "Bulkificación",
     en: "Bulkification",
@@ -46,9 +57,10 @@ export const l03Bulkificacion: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "En Data Loader, en Settings, hay un «Batch size» que por defecto es 200. Cuando cargas 10.000 oportunidades, Salesforce las guarda en [[lote|lotes]] de 200, y cada lote es una transacción: tus triggers y flows reciben 200 registros de golpe, no uno. Lo mismo pasa con una actualización masiva desde una list view o con una integración. Tu código tiene que estar escrito pensando en ese lote.",
-        en: "In Data Loader, under Settings, there is a “Batch size” that defaults to 200. When you load 10,000 opportunities, Salesforce saves them in [[lote|batches]] of 200, and each batch is one transaction: your triggers and flows receive 200 records at once, not one. The same happens with a mass update from a list view or with an integration. Your code has to be written with that batch in mind.",
+        es: "Yo lo vi por primera vez en Data Loader, en Settings: un «Batch size» que por defecto es 200. Cuando cargas 10.000 oportunidades, Salesforce las guarda en [[lote|lotes]] de 200, y cada lote es una transacción: tus triggers y flows reciben 200 registros de golpe, no uno. Lo mismo pasa con una actualización masiva desde una list view o con una integración. Tu código tiene que estar escrito pensando en ese lote.",
+        en: "I first saw it in Data Loader, under Settings: a «Batch size» that defaults to 200. When you load 10,000 opportunities, Salesforce saves them in [[lote|batches]] of 200, and each batch is one transaction: your triggers and flows receive 200 records at once, not one. The same happens with a mass update from a list view or with an integration. Your code has to be written with that batch in mind.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -152,9 +164,10 @@ update accounts;`,
       variant: "admin",
       title: { es: "Flow te enseñó esto primero", en: "Flow taught you this first" },
       text: {
-        es: "La buena práctica de Flow es idéntica: dentro del Loop no pones Update Records; pones un Assignment que añade el registro a una variable de colección, y después del Loop, un único Update Records con esa colección. Si alguna vez lo hiciste así, ya sabes [[bulkificacion|bulkificar]]. La diferencia es que en Flow Builder te avisa del error, mientras que en Apex la responsabilidad es tuya.",
-        en: "Flow's best practice is identical: inside the Loop you do not place Update Records; you place an Assignment that adds the record to a collection variable, and after the Loop, a single Update Records with that collection. If you ever did it that way, you already know how to [[bulkificacion|bulkify]]. The difference is that Flow Builder warns you about the mistake, while in Apex the responsibility is yours.",
+        es: "Yo aprendí esto en Flow antes que en Apex: dentro del Loop no pones Update Records; pones un Assignment que añade el registro a una variable de colección, y después del Loop, un único Update Records con esa colección. Si alguna vez lo hiciste así, ya sabes [[bulkificacion|bulkificar]]. La diferencia es que Flow Builder te avisa de algunos de estos errores, mientras que en Apex la responsabilidad es tuya.",
+        en: "I learnt this in Flow before Apex: inside the Loop you do not put Update Records; you put an Assignment that adds the record to a collection variable, and after the Loop, a single Update Records with that collection. If you ever did it that way, you already know how to [[bulkificacion|bulkify]]. The difference is that Flow Builder warns you about some of these mistakes, whereas in Apex the responsibility is yours.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -212,9 +225,10 @@ update toUpdate.values();   // each account once, without having queried it`,
       variant: "admin",
       title: { es: "Bajar el Batch size a 1 no arregla nada", en: "Lowering the Batch size to 1 fixes nothing" },
       text: {
-        es: "Cuando una carga falla con «Too many SOQL queries», es tentador bajar el Batch size de Data Loader a 1 para que pase. Pasa, pero el problema sigue ahí: la próxima integración, la próxima actualización masiva desde una list view o el siguiente Admin que use el tamaño por defecto mandará 200 registros de golpe. Incluso con la Bulk API, que acepta lotes mucho más grandes, los triggers reciben los registros en bloques de 200. La solución no está en la carga, está en el código.",
-        en: "When a load fails with «Too many SOQL queries», it is tempting to lower Data Loader's Batch size to 1 so it gets through. It does, but the problem is still there: the next integration, the next mass update from a list view or the next Admin using the default size will send 200 records at once. Even with the Bulk API, which accepts much larger batches, triggers receive the records in chunks of 200. The fix is not in the load, it is in the code.",
+        es: "Confieso que alguna vez lo hice: cuando una carga fallaba con «Too many SOQL queries», bajaba el Batch size de Data Loader a 1 para que pasara. Pasa, pero el problema sigue ahí: la próxima integración, la próxima actualización masiva desde una list view o el siguiente Admin que use el tamaño por defecto mandará 200 registros de golpe. Incluso con la Bulk API, que acepta lotes mucho más grandes, los triggers reciben los registros en bloques de 200. La solución no está en la carga, está en el código.",
+        en: "I confess I did it once or twice: when a load failed with «Too many SOQL queries», I lowered Data Loader's Batch size to 1 so it got through. It does, but the problem is still there: the next integration, the next mass update from a list view or the next Admin using the default size will send 200 records at once. Even with the Bulk API, which accepts much larger batches, triggers receive the records in chunks of 200. The fix is not in the load, it is in the code.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -440,16 +454,16 @@ for (Opportunity o : wonToday) {
     },
     hints: [
       {
-        es: "Dentro del bucle solo debe quedar trabajo en memoria. Todo lo que va a la base de datos sale fuera.",
-        en: "Only in-memory work should remain inside the loop. Everything that goes to the database moves out.",
+        es: "Yo pensaría en el Flow bien hecho: dentro del bucle solo debe quedar trabajo en memoria, como los Assignments. Todo lo que va a la base de datos sale fuera.",
+        en: "I would think of a well-built Flow: only in-memory work should stay inside the loop, like the Assignments. Everything that goes to the database moves out.",
       },
       {
-        es: "Paso 1: el Set. Paso 2: una consulta con IN :accountIds (o ninguna, usando new Account(Id = ..., Rating = 'Hot')). Paso 3: cambiar Rating. Paso 4: un update.",
-        en: "Step 1: the Set. Step 2: a query with IN :accountIds (or none, using new Account(Id = ..., Rating = 'Hot')). Step 3: change Rating. Step 4: one update.",
+        es: "Lo que me ayudó: paso 1, el Set. Paso 2, una consulta con IN :accountIds (o ninguna, usando new Account(Id = ..., Rating = 'Hot')). Paso 3, cambiar Rating. Paso 4, un update, como el único Update Records después del Loop.",
+        en: "What helped me: step 1, the Set. Step 2, one query with IN :accountIds (or none, using new Account(Id = ..., Rating = 'Hot')). Step 3, change Rating. Step 4, one update, like the single Update Records after the Loop.",
       },
       {
-        es: "Pseudocódigo: Set<Id> accountIds = new Set<Id>(); for (Opportunity o : wonToday) accountIds.add(o.AccountId); List<Account> accounts = [SELECT Id, Rating FROM Account WHERE Id IN :accountIds]; for (Account a : accounts) a.Rating = 'Hot'; update accounts;",
-        en: "Pseudocode: Set<Id> accountIds = new Set<Id>(); for (Opportunity o : wonToday) accountIds.add(o.AccountId); List<Account> accounts = [SELECT Id, Rating FROM Account WHERE Id IN :accountIds]; for (Account a : accounts) a.Rating = 'Hot'; update accounts;",
+        es: "Te dejo el esquema: Set<Id> accountIds = new Set<Id>(); for (Opportunity o : wonToday) accountIds.add(o.AccountId); List<Account> accounts = [SELECT Id, Rating FROM Account WHERE Id IN :accountIds]; for (Account a : accounts) a.Rating = 'Hot'; update accounts;",
+        en: "Here is the outline: Set<Id> accountIds = new Set<Id>(); for (Opportunity o : wonToday) accountIds.add(o.AccountId); List<Account> accounts = [SELECT Id, Rating FROM Account WHERE Id IN :accountIds]; for (Account a : accounts) a.Rating = 'Hot'; update accounts;",
       },
     ],
     solution: {
@@ -504,6 +518,10 @@ update accounts;`,
           es: "Hay un [SELECT ...] dentro de las llaves de un bucle. Sácalo: una consulta con IN antes del bucle.",
           en: "There is a [SELECT ...] inside a loop's braces. Move it out: one query with IN before the loop.",
         },
+        otter: {
+          es: "Hay un [SELECT ...] dentro de las llaves de un bucle: es el Get Records dentro del Loop. Sácalo: una consulta con IN antes del bucle.",
+          en: "There is a [SELECT ...] inside a loop's braces: it is the Get Records inside the Loop. Move it out: one query with IN before the loop.",
+        },
       },
       {
         id: "m04-l03-c2",
@@ -515,6 +533,10 @@ update accounts;`,
         onFail: {
           es: "Dentro del bucle solo cambias el campo; el update va una vez, después.",
           en: "Inside the loop you only change the field; the update goes once, afterwards.",
+        },
+        otter: {
+          es: "Hay un DML dentro del bucle: es el Update Records dentro del Loop. Dentro solo cambias el campo; el update va una vez, después.",
+          en: "There is a DML inside the loop: it is the Update Records inside the Loop. Inside you only change the field; the update happens once, afterwards.",
         },
       },
       {
@@ -533,6 +555,10 @@ update accounts;`,
         onFail: {
           es: "Set<Id> accountIds = new Set<Id>(); y en un for: accountIds.add(o.AccountId);",
           en: "Set<Id> accountIds = new Set<Id>(); and in a for: accountIds.add(o.AccountId);",
+        },
+        otter: {
+          es: "Primero junta los Ids sin repetir, como la variable de colección de tu Flow: Set<Id> accountIds = new Set<Id>(); y en un for, accountIds.add(o.AccountId);",
+          en: "First collect the Ids without repeats, like your Flow's collection variable: Set<Id> accountIds = new Set<Id>(); and in a for, accountIds.add(o.AccountId);",
         },
       },
       {
@@ -558,6 +584,10 @@ update accounts;`,
           es: "O consultas con WHERE Id IN :accountIds y cambias Rating en un bucle, o creas new Account(Id = id, Rating = 'Hot') para cada Id del Set.",
           en: "Either query with WHERE Id IN :accountIds and change Rating in a loop, or create new Account(Id = id, Rating = 'Hot') for each Id in the Set.",
         },
+        otter: {
+          es: "Las cuentas llegan de una vez: o consultas con WHERE Id IN :accountIds y cambias Rating en un bucle, o creas new Account(Id = id, Rating = 'Hot') para cada Id del Set.",
+          en: "The accounts arrive in one go: either query with WHERE Id IN :accountIds and change Rating in a loop, or create new Account(Id = id, Rating = 'Hot') for each Id in the Set.",
+        },
       },
       {
         id: "m04-l03-c5",
@@ -576,6 +606,10 @@ update accounts;`,
           es: "Deja un único update al final, sobre la lista (o sobre mapa.values()).",
           en: "Leave a single update at the end, on the list (or on map.values()).",
         },
+        otter: {
+          es: "Un solo Update Records después del Loop: deja un único update al final, sobre la lista (o sobre mapa.values()).",
+          en: "A single Update Records after the Loop: leave one update at the end, on the list (or on map.values()).",
+        },
         onPass: {
           es: "Dos consultas y un DML, sean 3 oportunidades o 180. Ya está listo para el cierre de trimestre.",
           en: "Two queries and one DML, whether 3 opportunities or 180. It is ready for quarter close.",
@@ -588,5 +622,10 @@ update accounts;`,
         en: "Which version is shorter: the one that queries the accounts or the one using new Account(Id = ..., Rating = 'Hot')? When would you absolutely need to query?",
       },
     ],
+    outro: {
+      es: "Ya bulkificas: juntar, consultar una vez, trabajar en memoria y guardar una vez, igual con 1 registro que con 200. En la tarea 4, antes de dar por buena la operación, hay que medirla: cuánto gasta cada pieza.",
+      en: "You can now bulkify: collect, query once, work in memory and save once, the same with 1 record or 200. In task 4, before signing off the operation, it has to be measured: how much each piece spends.",
+    },
+    voice: "otter",
   },
 };

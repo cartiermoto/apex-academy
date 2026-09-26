@@ -6,6 +6,17 @@ export const l02DatabaseMethods: Lesson = {
   n: 2,
   kind: "lesson",
   minutes: 25,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 1", en: "Remember? · Review of lesson 1" },
+    prompt: { es: "Insertas una cuenta con insert acc;. ¿Cuándo tiene Id la variable acc?", en: "You insert an account with insert acc;. When does the acc variable have an Id?" },
+    options: [
+      { es: "Nunca: hay que consultarla", en: "Never: you have to query it" },
+      { es: "Justo después del insert", en: "Right after the insert" },
+      { es: "Al terminar la transacción", en: "When the transaction ends" },
+    ],
+    answer: 1,
+    explain: { es: "Justo después del insert la variable ya tiene su Id, como el success.csv de Data Loader. Por eso los contactos se insertan después.", en: "Right after the insert the variable already has its Id, like Data Loader's success.csv. That is why the contacts are inserted afterwards." },
+  },
   title: {
     es: "Database.insert y resultados parciales",
     en: "Database.insert and partial results",
@@ -46,9 +57,10 @@ export const l02DatabaseMethods: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "Cuando cargas 1.000 filas con Data Loader y 3 fallan, al terminar tienes dos archivos: success.csv con las 997 guardadas (y sus Ids nuevos) y error.csv con las 3 rechazadas y el motivo de cada una. Data Loader guarda lo que puede y te cuenta el resto. Eso es exactamente Database.insert(lista, false).",
-        en: "When you load 1,000 rows with Data Loader and 3 fail, you end up with two files: success.csv with the 997 saved (and their new Ids) and error.csv with the 3 rejected and each one's reason. Data Loader saves what it can and tells you the rest. That is exactly Database.insert(list, false).",
+        es: "Cuando yo cargaba 1.000 filas con Data Loader y 3 fallaban, al terminar tenía dos archivos: success.csv con las 997 guardadas (y sus Ids nuevos) y error.csv con las 3 rechazadas y el motivo de cada una. Data Loader guarda lo que puede y te cuenta el resto. Eso es exactamente Database.insert(lista, false).",
+        en: "When I loaded 1,000 rows with Data Loader and 3 failed, at the end I had two files: success.csv with the 997 saved (and their new Ids) and error.csv with the 3 rejected and the reason for each. Data Loader saves what it can and tells you about the rest. That is exactly Database.insert(list, false).",
       },
+      voice: "otter",
     },
     {
       type: "diagram",
@@ -193,9 +205,10 @@ for (Integer i = 0; i < results.size(); i++) {
       variant: "admin",
       title: { es: "El motivo del error lo escribiste tú", en: "You wrote the error reason yourself" },
       text: {
-        es: "Cuando un registro falla por una regla de validación, getMessage() devuelve exactamente el mensaje de error que escribiste al crear la regla, el mismo que ve un usuario en pantalla y el mismo que aparece en la columna ERROR del error.csv de Data Loader. Por eso vale la pena escribir mensajes de validación que expliquen qué corregir: desde hoy también los leerá tu código.",
-        en: "When a record fails because of a validation rule, getMessage() returns exactly the error message you wrote when you created the rule, the same one a user sees on screen and the same one in the ERROR column of Data Loader's error.csv. That is why it pays to write validation messages that say what to fix: from today your code reads them too.",
+        es: "Esto me encanta: cuando un registro falla por una regla de validación, getMessage() devuelve exactamente el mensaje de error que escribiste al crear la regla, el mismo que ve un usuario en pantalla y el mismo que aparece en la columna ERROR del error.csv de Data Loader. Por eso vale la pena escribir mensajes de validación que expliquen qué corregir: desde hoy también los leerá tu código.",
+        en: "I love this: when a record fails because of a validation rule, getMessage() returns exactly the error message you wrote when you created the rule, the same one a user sees on screen and the same one in the ERROR column of Data Loader's error.csv. That is why it pays to write validation messages that say what to fix: from today your code reads them too.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -399,16 +412,16 @@ insert leads;
     },
     hints: [
       {
-        es: "insert leads; es todo o nada: Kim arrastraría a Ruiz y a Silva. Cambia a la versión de Database con allOrNone en false.",
-        en: "insert leads; is all or nothing: Kim would drag Ruiz and Silva down. Switch to the Database version with allOrNone set to false.",
+        es: "Yo empezaría por el modo de carga: insert leads; es todo o nada, así que Kim arrastraría a Ruiz y a Silva. Cambia a la versión de Database con allOrNone en false, la que se comporta como Data Loader.",
+        en: "I would start with the load mode: insert leads; is all or nothing, so Kim would drag Ruiz and Silva down. Switch to the Database version with allOrNone set to false, the one that behaves like Data Loader.",
       },
       {
-        es: "El for con índice te da i, que sirve a la vez para results[i] y leads[i]. Los errores están en results[i].getErrors(), cada uno con getMessage().",
-        en: "The indexed for gives you i, which works for both results[i] and leads[i]. The errors are in results[i].getErrors(), each with getMessage().",
+        es: "Lo que me ayudó: el for con índice te da i, que sirve a la vez para results[i] y leads[i], como la fila del error.csv que coincide con la de tu archivo. Los errores están en results[i].getErrors(), cada uno con getMessage().",
+        en: "What helped me: the indexed for gives you i, which works for both results[i] and leads[i], like the error.csv row that matches your file's row. The errors are in results[i].getErrors(), each with getMessage().",
       },
       {
-        es: "Pseudocódigo: List<Database.SaveResult> results = Database.insert(leads, false); Integer saved = 0; List<String> errors = new List<String>(); for (Integer i = 0; i < results.size(); i++) { if (results[i].isSuccess()) saved++; else for (Database.Error e : results[i].getErrors()) errors.add(leads[i].LastName + ': ' + e.getMessage()); }",
-        en: "Pseudocode: List<Database.SaveResult> results = Database.insert(leads, false); Integer saved = 0; List<String> errors = new List<String>(); for (Integer i = 0; i < results.size(); i++) { if (results[i].isSuccess()) saved++; else for (Database.Error e : results[i].getErrors()) errors.add(leads[i].LastName + ': ' + e.getMessage()); }",
+        es: "Te dejo el esquema: List<Database.SaveResult> results = Database.insert(leads, false); Integer saved = 0; List<String> errors = new List<String>(); for (Integer i = 0; i < results.size(); i++) { if (results[i].isSuccess()) saved++; else for (Database.Error e : results[i].getErrors()) errors.add(leads[i].LastName + ': ' + e.getMessage()); }",
+        en: "Here is the outline: List<Database.SaveResult> results = Database.insert(leads, false); Integer saved = 0; List<String> errors = new List<String>(); for (Integer i = 0; i < results.size(); i++) { if (results[i].isSuccess()) saved++; else for (Database.Error e : results[i].getErrors()) errors.add(leads[i].LastName + ': ' + e.getMessage()); }",
       },
     ],
     solution: {
@@ -477,6 +490,10 @@ System.debug('Errors: ' + errors);`,
           es: "Sustituye insert leads; por List<Database.SaveResult> results = Database.insert(leads, false);",
           en: "Replace insert leads; with List<Database.SaveResult> results = Database.insert(leads, false);",
         },
+        otter: {
+          es: "Para guardar lo que se pueda, como Data Loader, sustituye insert leads; por List<Database.SaveResult> results = Database.insert(leads, false);",
+          en: "To save whatever can be saved, like Data Loader, replace insert leads; with List<Database.SaveResult> results = Database.insert(leads, false);",
+        },
       },
       {
         id: "m04-l02-c2",
@@ -488,6 +505,10 @@ System.debug('Errors: ' + errors);`,
         onFail: {
           es: "for (Integer i = 0; i < results.size(); i++) — el índice enlaza results[i] con leads[i].",
           en: "for (Integer i = 0; i < results.size(); i++) — the index links results[i] to leads[i].",
+        },
+        otter: {
+          es: "results viene en el mismo orden que leads, igual que el error.csv respeta el orden de tu archivo: for (Integer i = 0; i < results.size(); i++) enlaza results[i] con leads[i].",
+          en: "results comes in the same order as leads, just as error.csv keeps your file's order: for (Integer i = 0; i < results.size(); i++) links results[i] with leads[i].",
         },
       },
       {
@@ -508,6 +529,10 @@ System.debug('Errors: ' + errors);`,
           es: "Integer saved = 0; y dentro del if (results[i].isSuccess()) { saved++; }",
           en: "Integer saved = 0; and inside if (results[i].isSuccess()) { saved++; }",
         },
+        otter: {
+          es: "Contar los guardados es tu success.csv: Integer saved = 0; y dentro del if (results[i].isSuccess()) { saved++; }",
+          en: "Counting the saved ones is your success.csv: Integer saved = 0; and inside the if (results[i].isSuccess()) { saved++; }",
+        },
       },
       {
         id: "m04-l02-c4",
@@ -527,6 +552,10 @@ System.debug('Errors: ' + errors);`,
           es: "for (Database.Error err : results[i].getErrors()) { errors.add(leads[i].LastName + ': ' + err.getMessage()); }",
           en: "for (Database.Error err : results[i].getErrors()) { errors.add(leads[i].LastName + ': ' + err.getMessage()); }",
         },
+        otter: {
+          es: "Cada fallo es una fila de tu error.csv: for (Database.Error err : results[i].getErrors()) { errors.add(leads[i].LastName + ': ' + err.getMessage()); }",
+          en: "Each failure is a row of your error.csv: for (Database.Error err : results[i].getErrors()) { errors.add(leads[i].LastName + ': ' + err.getMessage()); }",
+        },
       },
       {
         id: "m04-l02-c5",
@@ -542,6 +571,10 @@ System.debug('Errors: ' + errors);`,
           es: "Termina con un System.debug de saved y otro de errors.",
           en: "Finish with one System.debug of saved and another of errors.",
         },
+        otter: {
+          es: "Al final, el resumen para Marketing: un System.debug de saved y otro de errors.",
+          en: "At the end, the summary for Marketing: one System.debug of saved and another of errors.",
+        },
         onPass: {
           es: "Ruiz y Silva guardados, y el motivo del fallo de Kim listo para Marketing: tu propio error.csv.",
           en: "Ruiz and Silva saved, and the reason for Kim's failure ready for Marketing: your own error.csv.",
@@ -554,5 +587,10 @@ System.debug('Errors: ' + errors);`,
         en: "Instead of a System.debug nobody will see at night, where would you store those errors so Marketing finds them in the morning?",
       },
     ],
+    outro: {
+      es: "Ya eliges entre todo o nada y guardar lo que se pueda, y lees cada SaveResult como un error.csv. En la tarea 3 llega el cierre de trimestre: 180 oportunidades ganadas de golpe, y el código de un compañero que revienta.",
+      en: "You can now choose between all or nothing and saving what you can, and you read each SaveResult like an error.csv. Task 3 brings the quarter close: 180 won opportunities at once, and a colleague's code that blows up.",
+    },
+    voice: "otter",
   },
 };

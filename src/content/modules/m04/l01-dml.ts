@@ -6,6 +6,17 @@ export const l01Dml: Lesson = {
   n: 1,
   kind: "lesson",
   minutes: 30,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso del Módulo 3", en: "Remember? · Review of Module 3" },
+    prompt: { es: "Tienes los Ids de 200 cuentas en un Set. ¿Cómo las traes de la base de datos?", en: "You have the Ids of 200 accounts in a Set. How do you fetch them from the database?" },
+    options: [
+      { es: "Una consulta con WHERE Id IN :accountIds", en: "One query with WHERE Id IN :accountIds" },
+      { es: "Una consulta por Id dentro de un bucle", en: "One query per Id inside a loop" },
+      { es: "Con una búsqueda SOSL", en: "With a SOSL search" },
+    ],
+    answer: 0,
+    explain: { es: "Una consulta con IN: un solo viaje. Hoy empiezas a escribir datos, y la regla es la misma: nada de viajes a la base de datos dentro de un bucle.", en: "One query with IN: a single trip. Today you start writing data, and the rule is the same: no trips to the database inside a loop." },
+  },
   title: {
     es: "insert, update, delete, upsert",
     en: "insert, update, delete, upsert",
@@ -46,9 +57,10 @@ export const l01Dml: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "Abre Data Loader: Insert, Update, Upsert, Delete. Son exactamente las instrucciones de esta lección. Y ya conoces sus reglas: para Insert no mapeas el Id; para Update el Id es obligatorio; para Upsert eliges un campo de Id externo; lo borrado va a la Papelera. En Flow son los elementos Create Records, Update Records y Delete Records. Apex no inventa nada nuevo: te da las mismas operaciones con más control.",
-        en: "Open Data Loader: Insert, Update, Upsert, Delete. They are exactly this lesson's statements. And you already know their rules: for Insert you do not map the Id; for Update the Id is mandatory; for Upsert you pick an external Id field; deleted records go to the Recycle Bin. In Flow they are the Create Records, Update Records and Delete Records elements. Apex invents nothing new: it gives you the same operations with more control.",
+        es: "La primera vez que vi esto pensé en Data Loader: Insert, Update, Upsert, Delete. Son exactamente las instrucciones de esta lección, y sus reglas ya las conoces: para Insert no mapeas el Id; para Update el Id es obligatorio; para Upsert eliges un campo de Id externo; lo borrado va a la Papelera. En Flow son los elementos Create Records, Update Records y Delete Records. Apex no inventa nada nuevo: te da las mismas operaciones con más control.",
+        en: "The first time I saw this I thought of Data Loader: Insert, Update, Upsert, Delete. They are exactly this lesson's statements, and you already know their rules: for Insert you do not map the Id; for Update the Id is required; for Upsert you pick an external Id field; whatever is deleted goes to the Recycle Bin. In Flow they are the Create Records, Update Records and Delete Records elements. Apex invents nothing new: it gives you the same operations with more control.",
       },
+      voice: "otter",
     },
     {
       type: "diagram",
@@ -223,9 +235,10 @@ upsert fromErp Account.Fields.ERP_Id__c;`,
       variant: "admin",
       title: { es: "El «obligatorio» del formato de página no te protege aquí", en: "The page layout's «required» does not protect you here" },
       text: {
-        es: "Hay dos formas de hacer un campo obligatorio, y desde Apex solo cuenta una. Marcarlo como Required en la definición del campo (o con una regla de validación) se aplica siempre, también a Apex y a Data Loader. Marcarlo como obligatorio solo en el formato de página se aplica en la pantalla, y nada más: un insert desde código lo guarda vacío sin quejarse. Si un dato no puede faltar nunca, que lo exija el campo o una regla de validación, no el formato de página.",
-        en: "There are two ways to make a field required, and from Apex only one counts. Marking it Required in the field definition (or with a validation rule) always applies, to Apex and Data Loader too. Marking it required only on the page layout applies on screen and nowhere else: an insert from code saves it empty without complaint. If a value must never be missing, let the field or a validation rule demand it, not the page layout.",
+        es: "Esto me pilló en mi primera integración: hay dos formas de hacer un campo obligatorio, y desde Apex solo cuenta una. Marcarlo como Required en la definición del campo (o con una regla de validación) se aplica siempre, también a Apex y a Data Loader. Marcarlo como obligatorio solo en el formato de página se aplica en la pantalla, y nada más: un insert desde código lo guarda vacío sin quejarse. Si un dato no puede faltar nunca, que lo exija el campo o una regla de validación, no el formato de página.",
+        en: "This caught me out on my first integration: there are two ways to make a field required, and from Apex only one counts. Marking it Required in the field definition (or with a validation rule) always applies, to Apex and Data Loader too. Marking it required only on the page layout applies on screen and nowhere else: an insert from code saves it empty without complaint. If a value must never be missing, let the field or a validation rule demand it, not the page layout.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -243,9 +256,10 @@ upsert fromErp Account.Fields.ERP_Id__c;`,
       variant: "admin",
       title: { es: "Las seis piezas de la operación diaria", en: "The six pieces of the daily operation" },
       text: {
-        es: "1 · El alta de un cliente que acaba de firmar (Onboarding). 2 · La carga nocturna de leads del formulario web (Marketing). 3 · El cierre de trimestre, que marca como Hot las cuentas con negocio ganado. 4 · Una herramienta para medir cuánto gasta cada bloque. 5 · El alta de la pieza 1, ahora completa o inexistente. 6 · El escalado diario de casos de cuentas Hot (Soporte), que en los Módulos 6 y 7 se convertirá en un trigger.",
-        en: "1 · Onboarding a customer who has just signed (Onboarding). 2 · The nightly load of web-form leads (Marketing). 3 · The quarter close, which marks accounts with won business as Hot. 4 · A tool to measure how much each block spends. 5 · Piece 1's onboarding, now complete or non-existent. 6 · The daily escalation of cases from Hot accounts (Support), which in Modules 6 and 7 will become a trigger.",
+        es: "Vengo de la reunión con Northwind y estas son las seis piezas que quieren pasar a código: 1 · El alta de un cliente que acaba de firmar (Onboarding). 2 · La carga nocturna de leads del formulario web (Marketing). 3 · El cierre de trimestre, que marca como Hot las cuentas con negocio ganado. 4 · Una herramienta para medir cuánto gasta cada bloque. 5 · El alta de la pieza 1, ahora completa o inexistente. 6 · El escalado diario de casos de cuentas Hot (Soporte), que en los Módulos 6 y 7 se convertirá en un trigger.",
+        en: "I have just come out of the Northwind meeting and these are the six pieces they want in code: 1 · Onboarding a customer who has just signed (Onboarding). 2 · The nightly load of web-form leads (Marketing). 3 · The quarter close, which marks accounts with won business as Hot. 4 · A tool to measure how much each block spends. 5 · Piece 1's onboarding, now complete or non-existent. 6 · The daily escalation of cases from Hot accounts (Support), which in Modules 6 and 7 will become a trigger.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -460,16 +474,16 @@ System.debug(c.Id == null);`,
     },
     hints: [
       {
-        es: "El orden importa: sin insertar la cuenta primero, no tendrás su Id para vincular los contactos.",
-        en: "The order matters: without inserting the account first, you will not have its Id to link the contacts.",
+        es: "Yo lo haría como en Data Loader, donde primero cargas las cuentas y luego los contactos con el Id de su cuenta: el orden importa. Sin insertar la cuenta primero, no tendrás su Id para vincular los contactos.",
+        en: "I would do it as in Data Loader, where you load the accounts first and then the contacts with their account's Id: order matters. Without inserting the account first, you will not have its Id to link the contacts.",
       },
       {
-        es: "AccountId = acc.Id en cada contacto. Un solo insert contacts; para la cuenta, cambias el campo y haces update acc.",
-        en: "AccountId = acc.Id on each contact. A single insert contacts; for the account, you change the field and do update acc.",
+        es: "Lo que me ayudó: AccountId = acc.Id en cada contacto, el campo de búsqueda que los cuelga de la cuenta. Un solo insert contacts; y para la cuenta, cambias el campo y haces update acc.",
+        en: "What helped me: AccountId = acc.Id on each contact, the lookup field that hangs them off the account. A single insert contacts; and for the account, you change the field and run update acc.",
       },
       {
-        es: "Pseudocódigo: Account acc = new Account(...); insert acc; List<Contact> contacts = new List<Contact>{ new Contact(LastName = 'Ortega', AccountId = acc.Id), ... }; insert contacts; acc.Rating = 'Hot'; update acc;",
-        en: "Pseudocode: Account acc = new Account(...); insert acc; List<Contact> contacts = new List<Contact>{ new Contact(LastName = 'Ortega', AccountId = acc.Id), ... }; insert contacts; acc.Rating = 'Hot'; update acc;",
+        es: "Te dejo el esquema: Account acc = new Account(...); insert acc; List<Contact> contacts = new List<Contact>{ new Contact(LastName = 'Ortega', AccountId = acc.Id), ... }; insert contacts; acc.Rating = 'Hot'; update acc;",
+        en: "Here is the outline: Account acc = new Account(...); insert acc; List<Contact> contacts = new List<Contact>{ new Contact(LastName = 'Ortega', AccountId = acc.Id), ... }; insert contacts; acc.Rating = 'Hot'; update acc;",
       },
     ],
     solution: {
@@ -521,6 +535,10 @@ update acc;`,
           es: "Account acc = new Account(Name = 'Nimbus Logistics', Industry = 'Transportation'); insert acc;",
           en: "Account acc = new Account(Name = 'Nimbus Logistics', Industry = 'Transportation'); insert acc;",
         },
+        otter: {
+          es: "Primero la cuenta, como la primera carga de Data Loader: Account acc = new Account(Name = 'Nimbus Logistics', Industry = 'Transportation'); insert acc;",
+          en: "The account first, like the first Data Loader load: Account acc = new Account(Name = 'Nimbus Logistics', Industry = 'Transportation'); insert acc;",
+        },
       },
       {
         id: "m04-l01-c2",
@@ -539,6 +557,10 @@ update acc;`,
         onFail: {
           es: "Cada contacto necesita AccountId = acc.Id: es el campo de búsqueda que lo cuelga de la cuenta.",
           en: "Each contact needs AccountId = acc.Id: it is the lookup field that hangs it from the account.",
+        },
+        otter: {
+          es: "Cada contacto necesita AccountId = acc.Id: es el campo de búsqueda que lo cuelga de la cuenta, la misma columna AccountId que mapearías en Data Loader.",
+          en: "Each contact needs AccountId = acc.Id: it is the lookup field that hangs it off the account, the same AccountId column you would map in Data Loader.",
         },
       },
       {
@@ -559,6 +581,10 @@ update acc;`,
           es: "Mete los dos contactos en la lista contacts y haz un único insert contacts;",
           en: "Put both contacts in the contacts list and do a single insert contacts;",
         },
+        otter: {
+          es: "Los dos contactos van en una sola carga, no en dos: mételos en la lista contacts y haz un único insert contacts;",
+          en: "Both contacts go in a single load, not two: put them in the contacts list and run one insert contacts;",
+        },
       },
       {
         id: "m04-l01-c4",
@@ -577,6 +603,10 @@ update acc;`,
           es: "acc.Rating = 'Hot'; update acc; (o update new Account(Id = acc.Id, Rating = 'Hot');)",
           en: "acc.Rating = 'Hot'; update acc; (or update new Account(Id = acc.Id, Rating = 'Hot');)",
         },
+        otter: {
+          es: "Marcar la cuenta como Hot es un Update: necesita el Id, que la cuenta ya tiene después del insert. acc.Rating = 'Hot'; update acc;",
+          en: "Marking the account Hot is an Update: it needs the Id, which the account already has after the insert. acc.Rating = 'Hot'; update acc;",
+        },
         onPass: {
           es: "Tres instrucciones DML en total, da igual si fueran dos contactos o doscientos.",
           en: "Three DML statements in total, whether it were two contacts or two hundred.",
@@ -589,5 +619,10 @@ update acc;`,
         en: "Could you have set Rating = 'Hot' in the new Account and saved the update? When would two steps make sense?",
       },
     ],
+    outro: {
+      es: "Ya escribes en la base de datos con insert, update, delete y upsert, y en el orden correcto. En la tarea 2, Marketing necesita cargar cada noche los leads del formulario sin perder los buenos por culpa de uno malo.",
+      en: "You can now write to the database with insert, update, delete and upsert, in the right order. In task 2, Marketing needs to load the form's leads every night without losing the good ones because of a bad one.",
+    },
+    voice: "otter",
   },
 };

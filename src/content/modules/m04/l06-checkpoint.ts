@@ -6,6 +6,17 @@ export const l06Checkpoint: Lesson = {
   n: 6,
   kind: "checkpoint",
   minutes: 45,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 5", en: "Remember? · Review of lesson 5" },
+    prompt: { es: "Pones Savepoint sp = Database.setSavepoint(); DESPUÉS de insert acc;, un contacto falla y haces Database.rollback(sp). ¿Qué pasa con la cuenta?", en: "You put Savepoint sp = Database.setSavepoint(); AFTER insert acc;, a contact fails and you call Database.rollback(sp). What happens to the account?" },
+    options: [
+      { es: "Se deshace también", en: "It is undone too" },
+      { es: "Se queda, sin contactos", en: "It stays, with no contacts" },
+      { es: "Va a la Papelera", en: "It goes to the Recycle Bin" },
+    ],
+    answer: 1,
+    explain: { es: "El rollback solo deshace lo que vino después de la marca: la cuenta queda huérfana. La marca va antes de todo lo que quieres proteger.", en: "The rollback only undoes what came after the mark: the account is left orphaned. The mark goes before everything you want to protect." },
+  },
   title: {
     es: "Checkpoint del Módulo 4",
     en: "Module 4 checkpoint",
@@ -93,9 +104,10 @@ export const l06Checkpoint: Lesson = {
       variant: "admin",
       title: { es: "La lista de revisión que ya usas con Flow", en: "The review checklist you already use with Flow" },
       text: {
-        es: "Antes de activar un Flow desencadenado por registro te preguntas: ¿hay Get Records o Update Records dentro de un Loop? ¿Qué pasa si Data Loader carga 200 registros? ¿Qué pasa si falla un Create Records? Son exactamente las tres preguntas de este módulo: bulkificación, límites y manejo de fallos. Hazte las mismas con cada bloque de Apex.",
-        en: "Before activating a record-triggered Flow you ask yourself: is there a Get Records or Update Records inside a Loop? What happens if Data Loader loads 200 records? What happens if a Create Records fails? They are exactly this module's three questions: bulkification, limits and failure handling. Ask yourself the same ones for every block of Apex.",
+        es: "Antes de activar un Flow desencadenado por registro, yo siempre me hacía tres preguntas: ¿hay Get Records o Update Records dentro de un Loop? ¿Qué pasa si Data Loader carga 200 registros? ¿Qué pasa si falla un Create Records? Son exactamente las tres preguntas de este módulo: bulkificación, límites y manejo de fallos. Háztelas con cada bloque de Apex.",
+        en: "Before activating a record-triggered Flow, I always asked myself three questions: is there a Get Records or Update Records inside a Loop? What happens if Data Loader loads 200 records? What happens if a Create Records fails? They are exactly this module's three questions: bulkification, limits and failure handling. Ask them of every block of Apex.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -162,9 +174,10 @@ export const l06Checkpoint: Lesson = {
       variant: "admin",
       title: { es: "Lo que no se traduce: tú eres el responsable", en: "What does not translate: you are responsible" },
       text: {
-        es: "Data Loader te enseña el error.csv aunque no lo pidas, y Flow Builder te advierte de algunas malas prácticas. En Apex nadie te avisa: si no guardas los SaveResult, los errores desaparecen; si pones una consulta en un bucle, compila igual. Por eso la receta de esta lección no es un truco de estilo, es la lista de comprobación que un revisor aplicará a tu código antes de dejarlo pasar a producción.",
-        en: "Data Loader shows you the error.csv whether you ask or not, and Flow Builder warns you about some bad practices. In Apex nobody warns you: if you do not keep the SaveResults, the errors vanish; if you put a query in a loop, it compiles all the same. That is why this lesson's recipe is not a style trick, it is the checklist a reviewer will apply to your code before letting it into production.",
+        es: "Te lo digo por experiencia: Data Loader te enseña el error.csv aunque no lo pidas, y Flow Builder te advierte de algunas malas prácticas. En Apex nadie te avisa: si no guardas los SaveResult, los errores desaparecen; si pones una consulta en un bucle, compila igual. Por eso la receta de esta lección no es un truco de estilo, es la lista de comprobación que un revisor aplicará a tu código antes de dejarlo pasar a producción.",
+        en: "I am telling you from experience: Data Loader shows you the error.csv whether you ask or not, and Flow Builder warns you about some bad practices. In Apex nobody warns you: if you do not keep the SaveResults, the errors vanish; if you put a query in a loop, it compiles all the same. That is why this lesson's recipe is not a style trick, it is the checklist a reviewer will apply to your code before letting it into production.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -454,16 +467,16 @@ System.debug(Limits.getDmlStatements() + ' / ' + Limits.getDmlRows());`,
     },
     hints: [
       {
-        es: "Es la receta del diagrama, paso a paso: juntar, consultar una vez, decidir en memoria, guardar una vez, revisar.",
-        en: "It is the diagram's recipe, step by step: gather, query once, decide in memory, save once, check.",
+        es: "Yo seguiría la receta del diagrama, paso a paso, como las tres preguntas antes de activar un Flow: juntar, consultar una vez, decidir en memoria, guardar una vez, revisar.",
+        en: "I would follow the diagram's recipe step by step, like the three questions before activating a Flow: collect, query once, decide in memory, save once, check.",
       },
       {
-        es: "YESTERDAY es un literal de fecha. El Map se construye directamente con la consulta (WHERE Id IN :accountIds AND Rating = 'Hot'), y en el bucle preguntas hotAccounts.containsKey(c.AccountId).",
-        en: "YESTERDAY is a date literal. The Map is built straight from the query (WHERE Id IN :accountIds AND Rating = 'Hot'), and in the loop you ask hotAccounts.containsKey(c.AccountId).",
+        es: "Lo que me ayudó: YESTERDAY es un literal de fecha, como el filtro relativo «Ayer» de un informe. El Map se construye directamente con la consulta (WHERE Id IN :accountIds AND Rating = 'Hot'), y en el bucle preguntas hotAccounts.containsKey(c.AccountId).",
+        en: "What helped me: YESTERDAY is a date literal, like a report's relative «Yesterday» filter. The Map is built straight from the query (WHERE Id IN :accountIds AND Rating = 'Hot'), and in the loop you ask hotAccounts.containsKey(c.AccountId).",
       },
       {
-        es: "Pseudocódigo: … for (Case c : cases) { if (hotAccounts.containsKey(c.AccountId) && c.Priority != 'High') { c.Priority = 'High'; escalated.add(c); tasks.add(new Task(WhatId = c.Id, OwnerId = c.OwnerId, Subject = '…', ActivityDate = Date.today())); } } List<Database.SaveResult> results = Database.update(escalated, false); … insert tasks;",
-        en: "Pseudocode: … for (Case c : cases) { if (hotAccounts.containsKey(c.AccountId) && c.Priority != 'High') { c.Priority = 'High'; escalated.add(c); tasks.add(new Task(WhatId = c.Id, OwnerId = c.OwnerId, Subject = '…', ActivityDate = Date.today())); } } List<Database.SaveResult> results = Database.update(escalated, false); … insert tasks;",
+        es: "Te dejo el esquema: … for (Case c : cases) { if (hotAccounts.containsKey(c.AccountId) && c.Priority != 'High') { c.Priority = 'High'; escalated.add(c); tasks.add(new Task(WhatId = c.Id, OwnerId = c.OwnerId, Subject = '…', ActivityDate = Date.today())); } } List<Database.SaveResult> results = Database.update(escalated, false); … insert tasks;",
+        en: "Here is the outline: … for (Case c : cases) { if (hotAccounts.containsKey(c.AccountId) && c.Priority != 'High') { c.Priority = 'High'; escalated.add(c); tasks.add(new Task(WhatId = c.Id, OwnerId = c.OwnerId, Subject = '…', ActivityDate = Date.today())); } } List<Database.SaveResult> results = Database.update(escalated, false); … insert tasks;",
       },
     ],
     solution: {
@@ -573,6 +586,10 @@ System.debug('Escalated: ' + escalated.size() + ' · failed: ' + failed);`,
           es: "[SELECT Id, Priority, AccountId, OwnerId FROM Case WHERE CreatedDate = YESTERDAY]",
           en: "[SELECT Id, Priority, AccountId, OwnerId FROM Case WHERE CreatedDate = YESTERDAY]",
         },
+        otter: {
+          es: "Los casos de ayer son tu informe con filtro relativo «Ayer», con las columnas que vas a usar: [SELECT Id, Priority, AccountId, OwnerId FROM Case WHERE CreatedDate = YESTERDAY]",
+          en: "Yesterday's cases are your report with the relative «Yesterday» filter, with the columns you will use: [SELECT Id, Priority, AccountId, OwnerId FROM Case WHERE CreatedDate = YESTERDAY]",
+        },
       },
       {
         id: "m04-l06-c2",
@@ -591,6 +608,10 @@ System.debug('Escalated: ' + escalated.size() + ' · failed: ' + failed);`,
         onFail: {
           es: "new Map<Id, Account>([SELECT Id FROM Account WHERE Id IN :accountIds AND Rating = 'Hot'])",
           en: "new Map<Id, Account>([SELECT Id FROM Account WHERE Id IN :accountIds AND Rating = 'Hot'])",
+        },
+        otter: {
+          es: "Las cuentas Hot llegan de una vez a tu tabla de consulta, un BUSCARV por Id: new Map<Id, Account>([SELECT Id FROM Account WHERE Id IN :accountIds AND Rating = 'Hot'])",
+          en: "The Hot accounts arrive in one go in your lookup table, a VLOOKUP by Id: new Map<Id, Account>([SELECT Id FROM Account WHERE Id IN :accountIds AND Rating = 'Hot'])",
         },
       },
       {
@@ -613,6 +634,10 @@ System.debug('Escalated: ' + escalated.size() + ' · failed: ' + failed);`,
           es: "En el bucle: if (hotAccounts.containsKey(c.AccountId) && c.Priority != 'High') { … escalated.add(c); tasks.add(new Task(WhatId = c.Id, OwnerId = c.OwnerId, …)); }",
           en: "In the loop: if (hotAccounts.containsKey(c.AccountId) && c.Priority != 'High') { … escalated.add(c); tasks.add(new Task(WhatId = c.Id, OwnerId = c.OwnerId, …)); }",
         },
+        otter: {
+          es: "En el bucle solo decides, como los Assignments de un Flow: if (hotAccounts.containsKey(c.AccountId) && c.Priority != 'High') { … escalated.add(c); tasks.add(new Task(WhatId = c.Id, OwnerId = c.OwnerId, …)); }",
+          en: "In the loop you only decide, like a Flow's Assignments: if (hotAccounts.containsKey(c.AccountId) && c.Priority != 'High') { … escalated.add(c); tasks.add(new Task(WhatId = c.Id, OwnerId = c.OwnerId, …)); }",
+        },
       },
       {
         id: "m04-l06-c4",
@@ -631,6 +656,10 @@ System.debug('Escalated: ' + escalated.size() + ' · failed: ' + failed);`,
         onFail: {
           es: "List<Database.SaveResult> results = Database.update(escalated, false); y cuenta con failed++ los que no son isSuccess().",
           en: "List<Database.SaveResult> results = Database.update(escalated, false); and count with failed++ the ones that are not isSuccess().",
+        },
+        otter: {
+          es: "Un caso que no se pueda actualizar no debe frenar a los demás, como en Data Loader: List<Database.SaveResult> results = Database.update(escalated, false); y cuenta con failed++ los que no son isSuccess().",
+          en: "One case that cannot be updated must not stop the rest, as in Data Loader: List<Database.SaveResult> results = Database.update(escalated, false); and count with failed++ the ones that are not isSuccess().",
         },
       },
       {
@@ -652,6 +681,10 @@ System.debug('Escalated: ' + escalated.size() + ' · failed: ' + failed);`,
           es: "Exactamente dos consultas, ninguna dentro de un bucle, y un único insert tasks; al final.",
           en: "Exactly two queries, none inside a loop, and a single insert tasks; at the end.",
         },
+        otter: {
+          es: "Es la pregunta de si hay Get Records o Update Records en el Loop: exactamente dos consultas, ninguna dentro de un bucle, y un único insert tasks; al final.",
+          en: "It is the question of whether there is a Get Records or Update Records in the Loop: exactly two queries, none inside a loop, and a single insert tasks; at the end.",
+        },
         onPass: {
           es: "Dos consultas y dos DML, sean 3 casos o 200. Este bloque ya se puede meter en un trigger del Módulo 6.",
           en: "Two queries and two DML, whether 3 cases or 200. This block can go straight into a Module 6 trigger.",
@@ -664,5 +697,10 @@ System.debug('Escalated: ' + escalated.size() + ' · failed: ' + failed);`,
         en: "Right now the tasks are created even if their case could not be updated. How would you use the SaveResults to create tasks only for the cases that were actually escalated?",
       },
     ],
+    outro: {
+      es: "¡Entregaste la operación diaria de Northwind! Ya escribes datos con la receta de DML seguro, pensando en 200 registros y en lo que puede fallar. Guárdala bien: el escalado de casos que acabas de escribir como script es el que en el Módulo 6 se convertirá en un trigger. Antes, en el Módulo 5, aprendes a organizar el código en tus propias clases.",
+      en: "You delivered Northwind's daily operation! You now write data with the safe-DML recipe, thinking of 200 records and of what can fail. Keep it close: the case escalation you have just written as a script is the one that becomes a trigger in Module 6. First, in Module 5, you learn to organise code in your own classes.",
+    },
+    voice: "otter",
   },
 };
