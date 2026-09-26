@@ -137,6 +137,36 @@ export const l06Checkpoint: Lesson = {
       ],
     },
     {
+      type: "h",
+      text: { es: "El diccionario completo: de Data Loader y Flow a Apex", en: "The full dictionary: from Data Loader and Flow to Apex" },
+    },
+    {
+      type: "table",
+      head: [
+        { es: "Con clics", en: "With clicks" },
+        { es: "En Apex", en: "In Apex" },
+      ],
+      rows: [
+        [{ es: "Data Loader Insert / Create Records", en: "Data Loader Insert / Create Records" }, { es: "insert", en: "insert" }],
+        [{ es: "Data Loader Update / Update Records", en: "Data Loader Update / Update Records" }, { es: "update (con Id)", en: "update (with an Id)" }],
+        [{ es: "Data Loader Upsert con un External ID", en: "Data Loader Upsert with an External ID" }, { es: "upsert … Account.Fields.Campo__c", en: "upsert … Account.Fields.Field__c" }],
+        [{ es: "Data Loader Delete / Delete Records", en: "Data Loader Delete / Delete Records" }, { es: "delete (a la Papelera)", en: "delete (to the Recycle Bin)" }],
+        [{ es: "success.csv y error.csv", en: "success.csv and error.csv" }, { es: "Database.insert(lista, false) y sus SaveResult", en: "Database.insert(list, false) and its SaveResults" }],
+        [{ es: "Batch size 200", en: "Batch size 200" }, { es: "bulkificación: todo pensado para 200", en: "bulkification: everything built for 200" }],
+        [{ es: "Fault path + Roll Back Records", en: "Fault path + Roll Back Records" }, { es: "Database.setSavepoint() y Database.rollback()", en: "Database.setSavepoint() and Database.rollback()" }],
+        [{ es: "El correo «Too many SOQL queries: 101»", en: "The «Too many SOQL queries: 101» email" }, { es: "la clase Limits, antes de llegar ahí", en: "the Limits class, before you get there" }],
+      ],
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "Lo que no se traduce: tú eres el responsable", en: "What does not translate: you are responsible" },
+      text: {
+        es: "Data Loader te enseña el error.csv aunque no lo pidas, y Flow Builder te advierte de algunas malas prácticas. En Apex nadie te avisa: si no guardas los SaveResult, los errores desaparecen; si pones una consulta en un bucle, compila igual. Por eso la receta de esta lección no es un truco de estilo, es la lista de comprobación que un revisor aplicará a tu código antes de dejarlo pasar a producción.",
+        en: "Data Loader shows you the error.csv whether you ask or not, and Flow Builder warns you about some bad practices. In Apex nobody warns you: if you do not keep the SaveResults, the errors vanish; if you put a query in a loop, it compiles all the same. That is why this lesson's recipe is not a style trick, it is the checklist a reviewer will apply to your code before letting it into production.",
+      },
+    },
+    {
       type: "callout",
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },
@@ -371,8 +401,8 @@ System.debug(Limits.getDmlStatements() + ' / ' + Limits.getDmlRows());`,
 
   exercise: {
     prompt: {
-      es: "Cada mañana, Soporte quiere escalar automáticamente los casos creados ayer cuyas cuentas son Hot: ponerlos en prioridad High y crear una tarea de seguimiento para el propietario de cada caso. El proceso tiene que aguantar 200 casos, y un caso que no se pueda actualizar no debe impedir que se escalen los demás.",
-      en: "Every morning, Support wants to automatically escalate yesterday's cases whose accounts are Hot: set them to High priority and create a follow-up task for each case's owner. The process has to withstand 200 cases, and a case that cannot be updated must not stop the others from being escalated.",
+      es: "TAREA 6 DE 6 · La entrega: la última pieza de la operación diaria junta todo el módulo. Cada mañana, Soporte quiere escalar automáticamente los casos creados ayer cuyas cuentas son Hot: ponerlos en prioridad High y crear una tarea de seguimiento para el propietario de cada caso. El proceso tiene que aguantar 200 casos, y un caso que no se pueda actualizar no debe impedir que se escalen los demás.",
+      en: "TASK 6 OF 6 · Delivery: the last piece of the daily operation brings the whole module together. Every morning, Support wants to automatically escalate yesterday's cases whose accounts are Hot: set them to High priority and create a follow-up task for each case's owner. The process has to withstand 200 cases, and a case that cannot be updated must not stop the others from being escalated.",
     },
     brief: [
       {
@@ -393,7 +423,10 @@ System.debug(Limits.getDmlStatements() + ' / ' + Limits.getDmlRows());`,
       },
     ],
     starter: {
-      es: `// 1. Casos de ayer
+      es: `// CASO: la operación diaria de Northwind, en código
+// Tarea 6 de 6: el escalado diario de casos, que los Módulos 6 y 7 convertirán en trigger.
+
+// 1. Casos de ayer
 
 
 // 2. Cuentas Hot de esos casos
@@ -404,7 +437,10 @@ System.debug(Limits.getDmlStatements() + ' / ' + Limits.getDmlRows());`,
 
 // 4. Guardar y revisar
 `,
-      en: `// 1. Yesterday's cases
+      en: `// CASE: Northwind's daily operation, in code
+// Task 6 of 6: the daily case escalation, which Modules 6 and 7 will turn into a trigger.
+
+// 1. Yesterday's cases
 
 
 // 2. Hot accounts of those cases

@@ -209,6 +209,15 @@ update toUpdate.values();   // each account once, without having queried it`,
     },
     {
       type: "callout",
+      variant: "admin",
+      title: { es: "Bajar el Batch size a 1 no arregla nada", en: "Lowering the Batch size to 1 fixes nothing" },
+      text: {
+        es: "Cuando una carga falla con «Too many SOQL queries», es tentador bajar el Batch size de Data Loader a 1 para que pase. Pasa, pero el problema sigue ahí: la próxima integración, la próxima actualización masiva desde una list view o el siguiente Admin que use el tamaño por defecto mandará 200 registros de golpe. Incluso con la Bulk API, que acepta lotes mucho más grandes, los triggers reciben los registros en bloques de 200. La solución no está en la carga, está en el código.",
+        en: "When a load fails with «Too many SOQL queries», it is tempting to lower Data Loader's Batch size to 1 so it gets through. It does, but the problem is still there: the next integration, the next mass update from a list view or the next Admin using the default size will send 200 records at once. Even with the Bulk API, which accepts much larger batches, triggers receive the records in chunks of 200. The fix is not in the load, it is in the code.",
+      },
+    },
+    {
+      type: "callout",
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },
       text: {
@@ -382,8 +391,8 @@ update toUpdate;`,
 
   exercise: {
     prompt: {
-      es: "Este es el código que un compañero subió para marcar como Hot las cuentas de las oportunidades ganadas hoy. En la demo funcionó; el primer cierre de trimestre, con 180 oportunidades ganadas en una carga, reventó. Bulkifícalo.",
-      en: "This is the code a colleague deployed to mark as Hot the accounts of opportunities won today. In the demo it worked; on the first quarter close, with 180 opportunities won in one load, it blew up. Bulkify it.",
+      es: "TAREA 3 DE 6 · Tercera pieza: el cierre de trimestre, cuando las oportunidades ganadas llegan de golpe. Este es el código que un compañero subió para marcar como Hot las cuentas de las oportunidades ganadas hoy. En la demo funcionó; el primer cierre de trimestre, con 180 oportunidades ganadas en una carga, reventó. Bulkifícalo.",
+      en: "TASK 3 OF 6 · Third piece: the quarter close, when won opportunities arrive all at once. This is the code a colleague deployed to mark as Hot the accounts of opportunities won today. In the demo it worked; on the first quarter close, with 180 opportunities won in one load, it blew up. Bulkify it.",
     },
     brief: [
       {
@@ -404,7 +413,10 @@ update toUpdate;`,
       },
     ],
     starter: {
-      es: `List<Opportunity> wonToday = [SELECT Id, AccountId FROM Opportunity
+      es: `// CASO: la operación diaria de Northwind, en código
+// Tarea 3 de 6: el cierre de trimestre, pensado para 200.
+
+List<Opportunity> wonToday = [SELECT Id, AccountId FROM Opportunity
                               WHERE IsWon = true AND CloseDate = TODAY];
 
 for (Opportunity o : wonToday) {
@@ -413,7 +425,10 @@ for (Opportunity o : wonToday) {
     update acc;
 }
 `,
-      en: `List<Opportunity> wonToday = [SELECT Id, AccountId FROM Opportunity
+      en: `// CASE: Northwind's daily operation, in code
+// Task 3 of 6: the quarter close, built for 200.
+
+List<Opportunity> wonToday = [SELECT Id, AccountId FROM Opportunity
                               WHERE IsWon = true AND CloseDate = TODAY];
 
 for (Opportunity o : wonToday) {

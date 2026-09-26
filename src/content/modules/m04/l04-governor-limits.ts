@@ -194,6 +194,15 @@ System.debug('CPU (ms): '  + Limits.getCpuTime() + ' of ' + Limits.getLimitCpuTi
     },
     {
       type: "callout",
+      variant: "admin",
+      title: { es: "No son los límites de la página System Overview", en: "These are not the System Overview limits" },
+      text: {
+        es: "En Setup ya has visto límites: las llamadas API de las últimas 24 horas, el almacenamiento de datos y archivos, en System Overview o en Company Information. Esos son límites de la org, y se gastan a lo largo del día. Los governor limits de esta lección son otra cosa: son por transacción, empiezan en cero en cada guardado y desaparecen al terminar. Un proceso puede estar lejísimos del límite diario de API y morir igualmente en la consulta 101 de una sola transacción.",
+        en: "You have already seen limits in Setup: API calls in the last 24 hours, data and file storage, in System Overview or Company Information. Those are org limits, and they are spent over the day. This lesson's governor limits are something else: they are per transaction, they start at zero on every save and vanish when it ends. A process can be nowhere near the daily API limit and still die at query 101 of a single transaction.",
+      },
+    },
+    {
+      type: "callout",
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },
       text: {
@@ -349,8 +358,8 @@ System.debug(Limits.getQueries());`,
 
   exercise: {
     prompt: {
-      es: "Vas a revisar el código de otros compañeros y quieres una herramienta reutilizable para medir cuánto gasta cada bloque. Escribe una clase con un método que imprima los cuatro contadores principales y avise cuando uno pase del 80 %.",
-      en: "You are going to review colleagues' code and want a reusable tool to measure how much each block spends. Write a class with a method that prints the four main counters and warns when one goes over 80%.",
+      es: "TAREA 4 DE 6 · Antes de dar por buena la operación, hay que medirla: cuánto gasta cada pieza del presupuesto de la transacción. Vas a revisar el código de otros compañeros y quieres una herramienta reutilizable para medir cuánto gasta cada bloque. Escribe una clase con un método que imprima los cuatro contadores principales y avise cuando uno pase del 80 %.",
+      en: "TASK 4 OF 6 · Before signing off the operation, it has to be measured: how much of the transaction's budget each piece spends. You are going to review colleagues' code and want a reusable tool to measure how much each block spends. Write a class with a method that prints the four main counters and warns when one goes over 80%.",
     },
     brief: [
       {
@@ -367,11 +376,17 @@ System.debug(Limits.getQueries());`,
       },
     ],
     starter: {
-      es: `public class LimitsReport {
+      es: `// CASO: la operación diaria de Northwind, en código
+// Tarea 4 de 6: una herramienta para medir las piezas 1 a 3.
+
+public class LimitsReport {
 
 }
 `,
-      en: `public class LimitsReport {
+      en: `// CASE: Northwind's daily operation, in code
+// Task 4 of 6: a tool to measure pieces 1 to 3.
+
+public class LimitsReport {
 
 }
 `,

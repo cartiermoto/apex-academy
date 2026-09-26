@@ -178,6 +178,26 @@ for (Integer i = 0; i < results.size(); i++) {
       },
     },
     {
+      type: "h",
+      text: { es: "¿Todo o nada, o lo que se pueda?", en: "All or nothing, or whatever can be saved?" },
+    },
+    {
+      type: "p",
+      text: {
+        es: "La elección no es técnica, es de negocio, y se decide con una pregunta: ¿los registros de la lista dependen unos de otros? Si son independientes —leads de un formulario, casos de un correo—, guardar los buenos y apuntar los malos es lo sensato: un lead sin empresa no tiene por qué impedir que entren los otros 199. Si forman una unidad —una cuenta con sus contactos, un pedido con sus líneas—, una parte guardada sin la otra es un dato roto, y entonces quieres todo o nada. Esa segunda situación es la de la lección 5.",
+        en: "The choice is not technical, it is a business one, and it comes down to one question: do the records in the list depend on each other? If they are independent — leads from a form, cases from an email — saving the good ones and noting the bad ones is sensible: a lead with no company has no reason to stop the other 199. If they form a unit — an account with its contacts, an order with its lines — one part saved without the other is broken data, and then you want all or nothing. That second situation is lesson 5's.",
+      },
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "El motivo del error lo escribiste tú", en: "You wrote the error reason yourself" },
+      text: {
+        es: "Cuando un registro falla por una regla de validación, getMessage() devuelve exactamente el mensaje de error que escribiste al crear la regla, el mismo que ve un usuario en pantalla y el mismo que aparece en la columna ERROR del error.csv de Data Loader. Por eso vale la pena escribir mensajes de validación que expliquen qué corregir: desde hoy también los leerá tu código.",
+        en: "When a record fails because of a validation rule, getMessage() returns exactly the error message you wrote when you created the rule, the same one a user sees on screen and the same one in the ERROR column of Data Loader's error.csv. That is why it pays to write validation messages that say what to fix: from today your code reads them too.",
+      },
+    },
+    {
       type: "callout",
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },
@@ -332,8 +352,8 @@ System.debug('Load finished');`,
 
   exercise: {
     prompt: {
-      es: "Cada noche entran los leads del formulario web. Marketing no quiere perder los buenos por culpa de uno malo, pero sí quiere saber cuáles fallaron y por qué, para corregirlos al día siguiente.",
-      en: "Every night the web-form leads come in. Marketing does not want to lose the good ones because of a bad one, but does want to know which failed and why, to fix them the next day.",
+      es: "TAREA 2 DE 6 · Segunda pieza: la carga nocturna de leads que hoy hace Marketing con Data Loader. Cada noche entran los leads del formulario web. Marketing no quiere perder los buenos por culpa de uno malo, pero sí quiere saber cuáles fallaron y por qué, para corregirlos al día siguiente.",
+      en: "TASK 2 OF 6 · Second piece: the nightly lead load Marketing does today with Data Loader. Every night the web-form leads come in. Marketing does not want to lose the good ones because of a bad one, but does want to know which failed and why, to fix them the next day.",
     },
     brief: [
       {
@@ -354,7 +374,10 @@ System.debug('Load finished');`,
       },
     ],
     starter: {
-      es: `List<Lead> leads = new List<Lead>{
+      es: `// CASO: la operación diaria de Northwind, en código
+// Tarea 2 de 6: la carga nocturna de leads, guardando lo que se pueda.
+
+List<Lead> leads = new List<Lead>{
     new Lead(LastName = 'Ruiz',  Company = 'Acme',    Email = 'ruiz@acme.com'),
     new Lead(LastName = 'Kim',   Company = 'Globex',  Email = 'no-es-un-email'),
     new Lead(LastName = 'Silva', Company = 'Initech', Email = 'silva@initech.com')
@@ -362,7 +385,10 @@ System.debug('Load finished');`,
 
 insert leads;
 `,
-      en: `List<Lead> leads = new List<Lead>{
+      en: `// CASE: Northwind's daily operation, in code
+// Task 2 of 6: the nightly lead load, saving whatever can be saved.
+
+List<Lead> leads = new List<Lead>{
     new Lead(LastName = 'Ruiz',  Company = 'Acme',    Email = 'ruiz@acme.com'),
     new Lead(LastName = 'Kim',   Company = 'Globex',  Email = 'not-an-email'),
     new Lead(LastName = 'Silva', Company = 'Initech', Email = 'silva@initech.com')

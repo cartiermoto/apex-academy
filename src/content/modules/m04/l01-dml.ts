@@ -208,6 +208,46 @@ upsert fromErp Account.Fields.ERP_Id__c;`,
       },
     },
     {
+      type: "h",
+      text: { es: "Tu código pasa por las mismas reglas que un usuario", en: "Your code goes through the same rules as a user" },
+    },
+    {
+      type: "p",
+      text: {
+        es: "Un insert desde Apex no es una puerta trasera. El registro recorre el mismo guardado que cuando alguien pulsa Guardar en la pantalla: se ejecutan tus reglas de validación, tus flows desencadenados por registro y los triggers del objeto (Módulo 6). Si una regla de validación rechaza el registro, el insert lanza una DmlException con el mismo mensaje que vería el usuario. Tu código no se salta la configuración de la org: convive con ella.",
+        en: "An insert from Apex is not a back door. The record goes through the same save as when someone clicks Save on screen: your validation rules, your record-triggered flows and the object's triggers (Module 6) all run. If a validation rule rejects the record, the insert throws a DmlException with the same message the user would see. Your code does not skip the org's configuration: it lives alongside it.",
+      },
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "El «obligatorio» del formato de página no te protege aquí", en: "The page layout's «required» does not protect you here" },
+      text: {
+        es: "Hay dos formas de hacer un campo obligatorio, y desde Apex solo cuenta una. Marcarlo como Required en la definición del campo (o con una regla de validación) se aplica siempre, también a Apex y a Data Loader. Marcarlo como obligatorio solo en el formato de página se aplica en la pantalla, y nada más: un insert desde código lo guarda vacío sin quejarse. Si un dato no puede faltar nunca, que lo exija el campo o una regla de validación, no el formato de página.",
+        en: "There are two ways to make a field required, and from Apex only one counts. Marking it Required in the field definition (or with a validation rule) always applies, to Apex and Data Loader too. Marking it required only on the page layout applies on screen and nowhere else: an insert from code saves it empty without complaint. If a value must never be missing, let the field or a validation rule demand it, not the page layout.",
+      },
+    },
+    {
+      type: "h",
+      text: { es: "El encargo de este módulo", en: "This module's assignment" },
+    },
+    {
+      type: "p",
+      text: {
+        es: "Hasta aquí solo has leído datos. En este módulo Northwind te pide escribirlos: su operación diaria, que hoy se hace a mano o con cargas de Data Loader, pasa a código. Cada taller es una pieza de esa operación, y todas comparten los mismos problemas reales: qué pasa si un registro falla, qué pasa si llegan 200 a la vez y cuánto gasta cada bloque del presupuesto de la transacción.",
+        en: "So far you have only read data. In this module Northwind asks you to write it: its daily operation, done today by hand or with Data Loader loads, moves into code. Each workshop is one piece of that operation, and they all share the same real problems: what happens if a record fails, what happens if 200 arrive at once and how much of the transaction's budget each block spends.",
+      },
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "Las seis piezas de la operación diaria", en: "The six pieces of the daily operation" },
+      text: {
+        es: "1 · El alta de un cliente que acaba de firmar (Onboarding). 2 · La carga nocturna de leads del formulario web (Marketing). 3 · El cierre de trimestre, que marca como Hot las cuentas con negocio ganado. 4 · Una herramienta para medir cuánto gasta cada bloque. 5 · El alta de la pieza 1, ahora completa o inexistente. 6 · El escalado diario de casos de cuentas Hot (Soporte), que en los Módulos 6 y 7 se convertirá en un trigger.",
+        en: "1 · Onboarding a customer who has just signed (Onboarding). 2 · The nightly load of web-form leads (Marketing). 3 · The quarter close, which marks accounts with won business as Hot. 4 · A tool to measure how much each block spends. 5 · Piece 1's onboarding, now complete or non-existent. 6 · The daily escalation of cases from Hot accounts (Support), which in Modules 6 and 7 will become a trigger.",
+      },
+    },
+    {
       type: "callout",
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },
@@ -377,8 +417,8 @@ System.debug(c.Id == null);`,
 
   exercise: {
     prompt: {
-      es: "Alta de un cliente nuevo que acaba de firmar: el equipo de Onboarding quiere crear la cuenta, sus dos contactos principales ya vinculados y marcar la cuenta como Hot, todo desde un script.",
-      en: "Onboarding a customer who has just signed: the Onboarding team wants to create the account, its two main contacts already linked, and mark the account as Hot, all from one script.",
+      es: "TAREA 1 DE 6 · La primera pieza de la operación diaria: el alta de un cliente que acaba de firmar, que hasta hoy se hacía a mano. Alta de un cliente nuevo que acaba de firmar: el equipo de Onboarding quiere crear la cuenta, sus dos contactos principales ya vinculados y marcar la cuenta como Hot, todo desde un script.",
+      en: "TASK 1 OF 6 · The first piece of the daily operation: onboarding a customer who has just signed, done by hand until today. Onboarding a customer who has just signed: the Onboarding team wants to create the account, its two main contacts already linked, and mark the account as Hot, all from one script.",
     },
     brief: [
       {
@@ -395,7 +435,10 @@ System.debug(c.Id == null);`,
       },
     ],
     starter: {
-      es: `// 1. La cuenta
+      es: `// CASO: la operación diaria de Northwind, en código
+// Tarea 1 de 6: el alta de un cliente nuevo.
+
+// 1. La cuenta
 
 
 // 2. Sus dos contactos, vinculados
@@ -403,7 +446,10 @@ System.debug(c.Id == null);`,
 
 // 3. Marcar la cuenta como Hot
 `,
-      en: `// 1. The account
+      en: `// CASE: Northwind's daily operation, in code
+// Task 1 of 6: onboarding a new customer.
+
+// 1. The account
 
 
 // 2. Its two contacts, linked
