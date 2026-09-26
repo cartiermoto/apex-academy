@@ -5,7 +5,7 @@ export const l03String: Lesson = {
   slug: "string",
   n: 3,
   kind: "lesson",
-  minutes: 34,
+  minutes: 22,
   warmup: {
     title: { es: "¿Te acuerdas? · Repaso de la lección 2", en: "Remember? · Review of lesson 2" },
     prompt: { es: "Vas a guardar el importe de un contrato. ¿Qué tipo usas?", en: "You are going to store a contract amount. Which type do you use?" },
@@ -54,23 +54,14 @@ export const l03String: Lesson = {
       },
     },
     {
-      type: "callout",
-      variant: "tip",
-      title: { es: "Por qué esto aparece justo aquí", en: "Why this shows up right here" },
-      text: {
-        es: "Los métodos no son cosa del texto: en Apex los tienen todos los tipos (Decimal tiene setScale(), Date tiene addYears(), List tiene add()). Pero el texto es el primer sitio donde no puedes hacer nada sin ellos: los números se manejan con símbolos que ya conoces (+, -, *, /) y para «quítale los espacios» o «ponlo en mayúsculas» no hay símbolo, hay método. Y es el sitio donde el concepto cae sobre algo que ya sabes hacer: TRIM() y UPPER() en un campo fórmula. A partir de aquí todas las sub-lecciones dan los métodos por sabidos; en el Módulo 5 se cierra el círculo y verás POR QUÉ un dato tiene comportamiento.",
-        en: "Methods are not a text thing: in Apex every type has them — Decimal has setScale(), Date has addYears(), List has add(). But text is the first place where you can do nothing without them: numbers are handled with symbols you already know (+, -, *, /), and for “strip the spaces” or “upper-case it” there is no symbol, there is a method. It is also where the idea lands on something you already do: TRIM() and UPPER() in a formula field. From here on every sub-lesson assumes methods; Module 5 closes the circle and shows you WHY a value has behaviour.",
-      },
-    },
-    {
       type: "h",
-      text: { es: "Primero: qué es un método", en: "First: what a method is" },
+      text: { es: "Qué es un método", en: "What a method is" },
     },
     {
       type: "p",
       text: {
-        es: "Un método es una acción con nombre que un dato sabe hacer consigo mismo. Se escribe pegado al dato con un punto, lleva paréntesis (siempre, aunque estén vacíos) y termina devolviendo algo: un texto nuevo, un número, un sí o un no.",
-        en: "A method is a named action a value knows how to perform on itself. You write it attached to the value with a dot, it always carries brackets — even empty ones — and it ends by returning something: a new piece of text, a number, a yes or a no.",
+        es: "Un método es una acción con nombre que un dato sabe hacer consigo mismo. Se escribe pegado al dato con un punto, lleva paréntesis (siempre, aunque estén vacíos) y devuelve algo: un texto nuevo, un número, un sí o un no. Dentro de los paréntesis van los datos extra que necesita: trim() ninguno, replace('a', 'b') dos.",
+        en: "A method is a named action a value knows how to perform on itself. You write it attached to the value with a dot, it always carries brackets (even empty ones) and it returns something: a new piece of text, a number, a yes or a no. Inside the brackets go the extra data it needs: trim() needs none, replace('a', 'b') needs two.",
       },
     },
     {
@@ -82,19 +73,10 @@ export const l03String: Lesson = {
       },
     },
     {
-      type: "callout",
-      variant: "tip",
-      title: { es: "Los paréntesis no son decorativos", en: "The brackets are not decoration" },
-      text: {
-        es: "Los paréntesis son lo que convierte el nombre de una acción en la acción ejecutándose. Dentro van los argumentos: los datos extra que el método necesita. trim() no necesita ninguno; replace('a', 'b') necesita dos.",
-        en: "The brackets are what turn the name of an action into the action actually running. Inside go the arguments: the extra data the method needs. trim() needs none; replace('a', 'b') needs two.",
-      },
-    },
-    {
       type: "p",
       text: {
-        es: "Y hay un detalle que confunde al principio: un String en Apex es [[inmutable]]. Ningún método lo cambia por dentro. Todos devuelven un texto nuevo, así que si no guardas el resultado en algún sitio, el trabajo se pierde.",
-        en: "And there is a detail that trips everyone up at first: a String in Apex is [[inmutable|immutable]]. No method changes it from the inside. They all return a new piece of text, so if you do not store the result somewhere, the work is thrown away.",
+        es: "Ese último detalle confunde al principio: un String es [[inmutable]]. Ningún método lo cambia por dentro; todos devuelven un texto nuevo, así que si no guardas el resultado, el trabajo se pierde.",
+        en: "That last detail trips everyone up at first: a String is [[inmutable|immutable]]. No method changes it from the inside; they all return a new piece of text, so if you do not store the result, the work is thrown away.",
       },
     },
     {
@@ -112,31 +94,25 @@ String cleanName = rawName.trim(); // computed and stored`,
     },
     {
       type: "h",
-      text: { es: "Escribir texto en Apex", en: "Writing text in Apex" },
+      text: { es: "Escribir texto y los métodos de cada día", en: "Writing text and the everyday methods" },
     },
     {
       type: "p",
       text: {
-        es: "El texto va entre comillas simples, no dobles. Si necesitas una comilla dentro del texto, se escapa con una barra invertida. Y para unir textos se usa el signo más, igual que en una fórmula se usa el ampersand.",
-        en: "Text goes in single quotes, not double. If you need a quote inside the text, escape it with a backslash. And to join pieces of text you use plus, the way a formula uses an ampersand.",
+        es: "El texto va entre comillas simples, no dobles; si necesitas una comilla dentro, se escribe con una barra invertida delante. Para unir textos se usa el signo más, igual que en una fórmula se usa el ampersand.",
+        en: "Text goes in single quotes, not double; if you need a quote inside, put a backslash in front of it. To join pieces of text you use plus, the way a formula uses an ampersand.",
       },
     },
     {
       type: "code",
       code: {
-        es: `String company = 'Northwind';
-String owner = 'María';
-String note = 'Cuenta de ' + owner + ': ' + company;
-String quoted = 'El cliente dijo \\'sí\\' ayer';`,
-        en: `String company = 'Northwind';
-String owner = 'Maria';
-String note = 'Account of ' + owner + ': ' + company;
-String quoted = 'The client said \\'yes\\' yesterday';`,
+        es: `String owner = 'María';
+String note = 'Cuenta de ' + owner + ': Northwind';   // 'Cuenta de María: Northwind'
+String quoted = 'El cliente dijo \\'sí\\' ayer';     // El cliente dijo 'sí' ayer`,
+        en: `String owner = 'Maria';
+String note = 'Account of ' + owner + ': Northwind';  // 'Account of Maria: Northwind'
+String quoted = 'The client said \\'yes\\' today'; // The client said 'yes' today`,
       },
-    },
-    {
-      type: "h",
-      text: { es: "Los métodos de String que usarás cada día", en: "The String methods you will use daily" },
     },
     {
       type: "table",
@@ -184,7 +160,7 @@ String quoted = 'The client said \\'yes\\' yesterday';`,
         [
           { es: "capitalize()", en: "capitalize()" },
           { es: "String con la primera letra en mayúscula; el resto se queda tal cual estaba.", en: "String with the first letter capitalised; the rest is left exactly as it was." },
-          { es: "Sin equivalente directo", en: "—" },
+          { es: "Sin equivalente directo", en: "None" },
         ],
       ],
     },
@@ -193,19 +169,19 @@ String quoted = 'The client said \\'yes\\' yesterday';`,
       variant: "warn",
       title: { es: "Las posiciones empiezan en 0", en: "Positions start at 0" },
       text: {
-        es: "substring(0, 3) devuelve los tres primeros caracteres: empieza en la posición 0 y para justo antes de la 3. No es un despiste de Apex, es la convención de casi todos los lenguajes, y choca de frente con MID(), que en fórmulas empieza en 1.",
-        en: "substring(0, 3) returns the first three characters: it starts at position 0 and stops just before 3. That is not an Apex quirk, it is the convention in almost every language — and it collides head-on with MID(), which starts at 1 in formulas.",
+        es: "substring(0, 3) devuelve los tres primeros caracteres: empieza en la posición 0 y para justo antes de la 3. Choca de frente con MID(), que en fórmulas empieza en 1.",
+        en: "substring(0, 3) returns the first three characters: it starts at position 0 and stops just before 3. It collides head-on with MID(), which starts at 1 in formulas.",
       },
     },
     {
       type: "h",
-      text: { es: "Encadenar métodos: uno detrás de otro", en: "Chaining methods: one after another" },
+      text: { es: "Encadenar: un método detrás de otro", en: "Chaining: one method after another" },
     },
     {
       type: "p",
       text: {
-        es: "Cada método devuelve un valor nuevo, y ese valor nuevo también es un dato al que le puedes pedir otro método, con otro punto pegado detrás. Eso es encadenar: cleanCompany.substring(0, 4).toUpperCase() no son dos instrucciones, es una sola que se lee de izquierda a derecha. Primero substring(0, 4) actúa sobre cleanCompany y devuelve un texto más corto; después toUpperCase() actúa sobre ESE texto corto, no sobre cleanCompany.",
-        en: "Every method returns a new value, and that new value is itself something you can ask another method of, with another dot stuck on the end. That is chaining: cleanCompany.substring(0, 4).toUpperCase() is not two instructions, it is one, read left to right. First substring(0, 4) acts on cleanCompany and returns a shorter text; then toUpperCase() acts on THAT shorter text, not on cleanCompany.",
+        es: "Lo que devuelve un método es un dato nuevo, y a ese dato le puedes pedir otro método con otro punto. rawCompany.trim().substring(0, 4).toUpperCase() se lee de izquierda a derecha: cada paso actúa sobre lo que devolvió el anterior.",
+        en: "What a method returns is a new value, and you can ask that value for another method with another dot. rawCompany.trim().substring(0, 4).toUpperCase() reads left to right: each step acts on what the previous one returned.",
       },
     },
     {
@@ -219,61 +195,12 @@ String quoted = 'The client said \\'yes\\' yesterday';`,
     {
       type: "callout",
       variant: "admin",
-      title: { es: "Lo mismo que anidar funciones en una fórmula", en: "The same thing as nesting functions in a formula" },
+      title: { es: "Como anidar funciones en una fórmula, pero al derecho", en: "Like nesting formula functions, but the right way round" },
       text: {
-        es: "Yo ya hacía esto en campos fórmula sin llamarlo así: UPPER(LEFT(Company_Name__c, 4)) primero recorta y luego pone en mayúsculas, aunque lo escribas de fuera hacia dentro. La diferencia está en el orden de lectura: la fórmula se lee de dentro hacia fuera (LEFT ocurre primero aunque esté más adentro), y el encadenado de Apex se lee de izquierda a derecha en el mismo orden en que ocurre. A mí me resultó más fácil de seguir precisamente porque no hay que leerlo al revés.",
-        en: "I was already doing this in formula fields without calling it that: UPPER(LEFT(Company_Name__c, 4)) first trims and then uppercases, even though you write it from the outside in. The difference is the reading order: the formula reads from the inside out (LEFT happens first even though it sits deeper), and Apex chaining reads left to right in the same order it happens. I found it easier to follow precisely because you do not have to read it backwards.",
+        es: "Yo ya hacía esto en fórmulas: UPPER(LEFT(Company, 4)) primero recorta y luego pone en mayúsculas, aunque lo escribas de fuera hacia dentro. En Apex se escribe en el mismo orden en que ocurre, de izquierda a derecha. A mí me resultó más fácil de seguir.",
+        en: "I was already doing this in formulas: UPPER(LEFT(Company, 4)) trims first and upper-cases after, even though you write it outside in. In Apex you write it in the same order it happens, left to right. I found it easier to follow.",
       },
       voice: "otter",
-    },
-    {
-      type: "p",
-      text: {
-        es: "Veámoslo con el Lead sucio del ejercicio, eslabón a eslabón. La columna que importa es la última: el tipo que devuelve cada paso decide qué métodos puedes pedirle al siguiente.",
-        en: "Let us walk the dirty Lead from the exercise through it, link by link. The column that matters is the last one: the type each step returns decides which methods you may ask of the next.",
-      },
-    },
-    {
-      type: "table",
-      head: [
-        { es: "Lo que llevas escrito", en: "What you have written so far" },
-        { es: "Valor en ese punto", en: "Value at that point" },
-        { es: "Tipo", en: "Type" },
-      ],
-      rows: [
-        [
-          { es: "rawCompany", en: "rawCompany" },
-          { es: "'  northwind trading  '", en: "'  northwind trading  '" },
-          { es: "String", en: "String" },
-        ],
-        [
-          { es: "rawCompany.trim()", en: "rawCompany.trim()" },
-          { es: "'northwind trading'", en: "'northwind trading'" },
-          { es: "String", en: "String" },
-        ],
-        [
-          { es: "rawCompany.trim().substring(0, 4)", en: "rawCompany.trim().substring(0, 4)" },
-          { es: "'nort'", en: "'nort'" },
-          { es: "String", en: "String" },
-        ],
-        [
-          { es: "rawCompany.trim().substring(0, 4).toUpperCase()", en: "rawCompany.trim().substring(0, 4).toUpperCase()" },
-          { es: "'NORT'", en: "'NORT'" },
-          { es: "String", en: "String" },
-        ],
-        [
-          { es: "rawCompany.trim().length()", en: "rawCompany.trim().length()" },
-          { es: "17", en: "17" },
-          { es: "Integer: aquí se acaba la cadena de texto", en: "Integer — the text chain ends here" },
-        ],
-      ],
-    },
-    {
-      type: "p",
-      text: {
-        es: "Una cadena no es obligatoria: siempre puedes desarmarla en variables intermedias y el resultado es idéntico. Mientras aprendes, desarmarla es buena idea (cada paso tiene nombre y lo puedes mirar con System.debug()); cuando ya lo lees con soltura, la versión encadenada ahorra variables que solo vivían para pasar el dato al siguiente paso.",
-        en: "A chain is never compulsory: you can always break it into intermediate variables and the result is identical. While you are learning, breaking it up is a good idea — every step has a name and you can inspect it with System.debug(); once you read chains fluently, the chained version saves variables that only existed to hand the value along.",
-      },
     },
     {
       type: "code",
@@ -305,84 +232,54 @@ String code2 = rawCompany.trim().substring(0, 4).toUpperCase(); // 'NORT'`,
     {
       type: "callout",
       variant: "tip",
-      title: { es: "La regla del tipo: cada eslabón tiene que encajar", en: "The type rule: every link has to fit" },
+      title: { es: "Cada eslabón tiene que encajar", en: "Every link has to fit" },
       text: {
-        es: "Solo puedes pedirle a un eslabón los métodos de su tipo. rawCompany.trim().length() funciona porque trim() devuelve un String y los String tienen length(). Pero name.length().toUpperCase() no compila: length() devuelve un Integer, y un número no sabe ponerse en mayúsculas. Es como en Flow: la salida de un elemento solo se puede usar donde se espera ese tipo de dato.",
-        en: "You may only ask a link for the methods of its type. rawCompany.trim().length() works because trim() returns a String and Strings have length(). But name.length().toUpperCase() does not compile: length() returns an Integer, and a number does not know how to upper-case itself. It is like Flow: an element's output can only go where that data type is expected.",
-      },
-    },
-    {
-      type: "callout",
-      variant: "warn",
-      title: { es: "Un eslabón roto revienta toda la cadena", en: "One broken link blows up the whole chain" },
-      text: {
-        es: "Si algún paso intermedio devuelve null (por ejemplo porque el dato de partida no existía), pedirle un método al siguiente eslabón lanza NullPointerException, igual que viste con un dato suelto. La cadena entera es tan frágil como su punto más débil. Por eso String.isBlank() (que se le pide al tipo, no al dato) suele ir antes de empezar a encadenar, no en medio de la cadena.",
-        en: "If some step in the middle returns null — say, because the starting value did not exist — asking the next link for a method throws NullPointerException, exactly as you saw with a lone value. The whole chain is only as strong as its weakest link. That is why String.isBlank() (which you ask the type, not the value) usually runs before you start chaining, not in the middle of the chain.",
+        es: "Solo puedes pedirle a un eslabón los métodos de su tipo. name.trim().length() funciona, pero name.length().toUpperCase() no compila: length() devuelve un Integer, y un número no sabe ponerse en mayúsculas.",
+        en: "You may only ask a link for the methods of its type. name.trim().length() works, but name.length().toUpperCase() does not compile: length() returns an Integer, and a number does not know how to upper-case itself.",
       },
     },
     {
       type: "h",
-      text: { es: "Métodos que se le piden al tipo, no al dato", en: "Methods you ask the type, not the value" },
+      text: { es: "String es una clase que ya trae Apex", en: "String is a class Apex already ships" },
     },
     {
       type: "callout",
-      variant: "warn",
-      title: { es: "String es un tipo, nunca un método", en: "String is a type, never a method" },
+      variant: "admin",
+      title: { es: "Como un objeto estándar", en: "Like a standard object" },
       text: {
-        es: "Antes de seguir, quítate esta duda de encima: String no es un método. String es el tipo, y los métodos son suyos (trim(), length(), toUpperCase() no existen sueltos por ahí). Lo que confunde es que el punto se usa en dos sitios: nombre.trim() se lo pides al DATO («oye, este texto, límpiate»), y String.valueOf(42) se lo pides al TIPO («oye, tipo String, fabrícame un texto con esto»). En los dos casos el método es lo que va después del punto y siempre lleva paréntesis. En Object Manager pasa igual: «Nuevo» es una acción del objeto Cuenta y «cambiar el nombre» es una acción de una cuenta concreta.",
-        en: "Before going on, get this doubt out of the way: String is not a method. String is the type, and the methods belong to it — trim(), length() and toUpperCase() do not float around on their own. What confuses people is that the dot shows up in two places: name.trim() asks the VALUE (“hey, this text, clean yourself up”), while String.valueOf(42) asks the TYPE (“hey, String type, make me a text out of this”). In both cases the method is what follows the dot, and it always carries brackets. Object Manager works the same way: “New” is an action of the Account object, and “rename” is an action of one particular account.",
+        es: "Así lo entendí yo: String es como Account. No lo creas tú, viene con Apex y ya trae sus «botones», que son sus métodos. Cada texto concreto, como 'Ana Torres', es como un registro. Y hay dos tipos de botón: los que se pulsan en un registro (nombre.trim(): «este texto, límpiate») y los que se pulsan en el objeto, como «Nuevo» (String.valueOf(42): «clase String, fabrícame un texto con esto»). Simplificación: un registro se guarda en la base de datos; un texto solo vive mientras corre tu código.",
+        en: "This is how I understood it: String is like Account. You do not create it, it comes with Apex and already has its «buttons», which are its methods. Each specific text, like 'Ana Torres', is like a record. And there are two kinds of button: the ones you press on a record (name.trim(): «this text, clean yourself up») and the ones you press on the object, like «New» (String.valueOf(42): «String class, make me a text out of this»). Simplification: a record is stored in the database; a text only lives while your code runs.",
       },
+      voice: "otter",
     },
     {
       type: "p",
       text: {
-        es: "Casi todos los métodos se escriben sobre el dato: nombre.trim(). Pero algunos se escriben sobre la palabra String, con el dato dentro de los paréntesis. Son los que tienen que funcionar aunque el dato no exista todavía, y por eso son los que salvan el día cuando el texto puede venir vacío.",
-        en: "Most methods are written on the value: name.trim(). But some are written on the word String, with the value inside the brackets. Those are the ones that must work even when the value does not exist yet — which is exactly why they save the day when the text might arrive empty.",
+        es: "Los métodos de la clase llevan el dato dentro de los paréntesis. Dos te van a acompañar todo el curso: String.isBlank(), que funciona aunque el texto ni siquiera exista, y String.valueOf(), el TEXT() de tus fórmulas, que convierte un número o una fecha en texto.",
+        en: "Class methods take the value inside the brackets. Two will be with you all course long: String.isBlank(), which works even when the text does not exist at all, and String.valueOf(), your formula TEXT(), which turns a number or a date into text.",
       },
     },
     {
       type: "code",
       code: {
         es: `String region = '   ';
+Integer total = 42;
 
-Boolean a = String.isBlank(region);    // true: vacío o solo espacios
-Boolean b = String.isNotBlank(region); // false
-String c = String.valueOf(42);         // '42': convierte a texto`,
+Boolean empty = String.isBlank(region);   // true: vacío, solo espacios o null
+String a = total;                         // ✗ no compila: 42 es un número, no un texto
+String b = String.valueOf(total);         // ✓ '42'
+String c = 'Total: ' + total;             // ✓ al pegarlo con +, Apex lo convierte solo`,
         en: `String region = '   ';
+Integer total = 42;
 
-Boolean a = String.isBlank(region);    // true: empty or only spaces
-Boolean b = String.isNotBlank(region); // false
-String c = String.valueOf(42);         // '42': converts to text`,
+Boolean empty = String.isBlank(region);   // true: empty, only spaces or null
+String a = total;                         // ✗ does not compile: 42 is a number, not text
+String b = String.valueOf(total);         // ✓ '42'
+String c = 'Total: ' + total;             // ✓ attached with +, Apex converts it for you`,
       },
       caption: {
-        es: "String.isBlank() es el método más útil de todo este módulo. Vuelve en la sub-lección de Null y no te abandona nunca más.",
-        en: "String.isBlank() is the single most useful method in this module. It comes back in the Null sub-lesson and never leaves you again.",
-      },
-    },
-    {
-      type: "p",
-      text: {
-        es: "String.valueOf() merece una parada, porque lo vas a usar en todo el curso. Es el TEXT() de tus fórmulas: recibe un valor que no es texto (un número, una fecha, un Boolean) y te devuelve ese mismo valor escrito como texto. Hace falta porque Apex es estricto con los tipos: una variable String solo guarda texto, y 42 no es texto, es un número. '42', entre comillas, sí lo es. Para Apex son dos cosas distintas: con 42 puedes sumar; '42' solo se puede mostrar o pegar a otro texto. (La sub-lección de Casting vuelve a esto con calma.)",
-        en: "String.valueOf() deserves a stop, because you will use it throughout the course. It is your formula TEXT(): it takes a value that is not text — a number, a date, a Boolean — and gives you back that same value written as text. It is needed because Apex is strict about types: a String variable only holds text, and 42 is not text, it is a number. '42', in quotes, is. To Apex they are two different things: you can add with 42; '42' can only be displayed or attached to other text. (The Casting sub-lesson comes back to this calmly.)",
-      },
-    },
-    {
-      type: "code",
-      code: {
-        es: `Integer total = 42;
-
-String a = total;                  // ✗ no compila: Illegal assignment from Integer to String
-String b = String.valueOf(total);  // ✓ '42', ya como texto
-String c = 'Total: ' + total;      // ✓ 'Total: 42': al pegarlo con +, Apex lo convierte solo`,
-        en: `Integer total = 42;
-
-String a = total;                  // ✗ does not compile: Illegal assignment from Integer to String
-String b = String.valueOf(total);  // ✓ '42', now as text
-String c = 'Total: ' + total;      // ✓ 'Total: 42': when you attach it with +, Apex converts it for you`,
-      },
-      caption: {
-        es: "Regla práctica: si el número va solo a una variable String (o a una lista de textos), necesitas String.valueOf(). Si lo pegas a un texto con +, Apex lo convierte por ti.",
-        en: "Rule of thumb: if the number goes on its own into a String variable (or a list of texts), you need String.valueOf(). If you attach it to text with +, Apex converts it for you.",
+        es: "Regla práctica: si el número va solo a una variable String, necesitas String.valueOf(); si lo pegas a un texto con +, no. La sub-lección de Casting vuelve a esto con calma.",
+        en: "Rule of thumb: if the number goes on its own into a String variable, you need String.valueOf(); if you attach it to text with +, you do not. The Casting sub-lesson comes back to this calmly.",
       },
     },
     {
@@ -392,8 +289,8 @@ String c = 'Total: ' + total;      // ✓ 'Total: 42': when you attach it with +
     {
       type: "p",
       text: {
-        es: "Encadenar es poner un método detrás de otro. Anidar es poner una llamada dentro de los paréntesis de otra, como argumento. Funciona por la misma razón: una llamada a un método ES un valor, así que puede ir en cualquier sitio donde iría ese valor escrito a mano. Y aquí la lectura sí es de dentro hacia fuera, exactamente como en una fórmula: Apex resuelve primero lo de los paréntesis de dentro y le pasa el resultado al de fuera.",
-        en: "Chaining puts one method after another. Nesting puts one call inside another's brackets, as an argument. It works for the same reason: a method call IS a value, so it can go anywhere that value could go if you typed it by hand. And here the reading really is inside out, exactly like a formula: Apex resolves the inner brackets first and hands the result to the outer call.",
+        es: "Una llamada a un método ES un valor, así que puede ir dentro de los paréntesis de otra. Aquí la lectura sí es de dentro hacia fuera, como en una fórmula: Apex resuelve primero lo de dentro y le pasa el resultado al de fuera.",
+        en: "A method call IS a value, so it can go inside another call's brackets. Here the reading really is inside out, like a formula: Apex resolves the inside first and hands the result to the outer call.",
       },
     },
     {
@@ -401,80 +298,29 @@ String c = 'Total: ' + total;      // ✓ 'Total: 42': when you attach it with +
       code: {
         es: `String rawName = '  ana torres  ';
 
-// 1 · Un método como argumento de otro
 String lengthText = String.valueOf(rawName.trim().length());
 //   primero rawName.trim().length()  → 10
 //   después String.valueOf(10)       → '10'
 
-// 2 · Un método dentro de una concatenación
-String greeting = 'Hola, ' + rawName.trim().capitalize();   // 'Hola, Ana torres'
-
-// 3 · Un método dentro de otro método del mismo dato
-String keyword = 'TORRES';
-Boolean found = rawName.contains(keyword.toLowerCase());    // true`,
+Boolean found = rawName.contains('TORRES'.toLowerCase());   // contains('torres') → true`,
         en: `String rawName = '  ana torres  ';
 
-// 1 · A method as another method's argument
 String lengthText = String.valueOf(rawName.trim().length());
 //   first rawName.trim().length()   → 10
 //   then String.valueOf(10)         → '10'
 
-// 2 · A method inside a concatenation
-String greeting = 'Hello, ' + rawName.trim().capitalize();  // 'Hello, Ana torres'
-
-// 3 · A method inside another method on the same value
-String keyword = 'TORRES';
-Boolean found = rawName.contains(keyword.toLowerCase());    // true`,
-      },
-      caption: {
-        es: "En el ejemplo 3, contains() recibe 'torres' (el resultado de toLowerCase()), no 'TORRES'. Lo de dentro siempre se resuelve antes.",
-        en: "In example 3, contains() receives 'torres' — the result of toLowerCase() — not 'TORRES'. The inside always resolves first.",
+Boolean found = rawName.contains('TORRES'.toLowerCase());   // contains('torres') → true`,
       },
     },
     {
       type: "callout",
       variant: "admin",
-      title: { es: "Esto sí es anidar como en fórmulas", en: "This is formula-style nesting, for real" },
+      title: { es: "Mi truco para leer cualquier línea", en: "My trick for reading any line" },
       text: {
-        es: "TEXT(LEN(TRIM(Name))) en un campo fórmula es exactamente String.valueOf(name.trim().length()): una función dentro de otra, resuelta de dentro hacia fuera. Lo que a mí me descolocó es que Apex mezcla los dos estilos en la misma línea: la parte encadenada (name.trim().length()) se lee de izquierda a derecha, y la parte anidada (String.valueOf(…)) de dentro hacia fuera. Mi truco para leer cualquier línea: busco el paréntesis más interno, lo resuelvo en la cabeza y lo sustituyo por su valor. Repito hasta que no queda nada.",
-        en: "TEXT(LEN(TRIM(Name))) in a formula field is exactly String.valueOf(name.trim().length()): one function inside another, solved from the inside out. What threw me is that Apex mixes both styles on the same line: the chained part (name.trim().length()) reads left to right, and the nested part (String.valueOf(…)) from the inside out. My trick for reading any line: find the innermost parenthesis, solve it in my head and replace it with its value. Repeat until nothing is left.",
+        es: "TEXT(LEN(TRIM(Name))) en una fórmula es exactamente String.valueOf(name.trim().length()). Para leer cualquier línea busco el paréntesis más interno, lo resuelvo en la cabeza y lo sustituyo por su valor. Repito hasta que no queda nada.",
+        en: "TEXT(LEN(TRIM(Name))) in a formula is exactly String.valueOf(name.trim().length()). To read any line I find the innermost bracket, solve it in my head and replace it with its value. I repeat until nothing is left.",
       },
       voice: "otter",
-    },
-    {
-      type: "table",
-      head: [
-        { es: "En un campo fórmula", en: "In a formula field" },
-        { es: "En Apex", en: "In Apex" },
-        { es: "Qué hace", en: "What it does" },
-      ],
-      rows: [
-        [
-          { es: "UPPER(TRIM(Company))", en: "UPPER(TRIM(Company))" },
-          { es: "company.trim().toUpperCase()", en: "company.trim().toUpperCase()" },
-          { es: "Limpia y pone en mayúsculas.", en: "Cleans and upper-cases." },
-        ],
-        [
-          { es: "UPPER(LEFT(TRIM(Company), 4))", en: "UPPER(LEFT(TRIM(Company), 4))" },
-          { es: "company.trim().substring(0, 4).toUpperCase()", en: "company.trim().substring(0, 4).toUpperCase()" },
-          { es: "Código corto de 4 letras.", en: "A 4-letter short code." },
-        ],
-        [
-          { es: "LEN(TRIM(Company))", en: "LEN(TRIM(Company))" },
-          { es: "company.trim().length()", en: "company.trim().length()" },
-          { es: "Cuenta sin los espacios de los extremos.", en: "Counts without the outer spaces." },
-        ],
-        [
-          { es: "TEXT(LEN(Name))", en: "TEXT(LEN(Name))" },
-          { es: "String.valueOf(name.length())", en: "String.valueOf(name.length())" },
-          { es: "El recuento, convertido a texto.", en: "The count, turned into text." },
-        ],
-        [
-          { es: "\"Hola, \" & TRIM(FirstName)", en: "\"Hello, \" & TRIM(FirstName)" },
-          { es: "'Hola, ' + firstName.trim()", en: "'Hello, ' + firstName.trim()" },
-          { es: "Saludo con el nombre limpio.", en: "A greeting with the clean name." },
-        ],
-      ],
     },
     {
       type: "h",
@@ -483,8 +329,8 @@ Boolean found = rawName.contains(keyword.toLowerCase());    // true`,
     {
       type: "p",
       text: {
-        es: "En casi todos los lenguajes, comparar dos textos distingue mayúsculas de minúsculas. En Apex, el operador == aplicado a Strings no las distingue: 'EMEA' == 'emea' es verdadero. Si necesitas una comparación estricta, existe el método equals(), que sí distingue.",
-        en: "In almost every language, comparing two strings is case-sensitive. In Apex, the == operator on Strings is not: 'EMEA' == 'emea' is true. If you need a strict comparison, the equals() method is case-sensitive.",
+        es: "En Apex, == entre textos no distingue mayúsculas: 'EMEA' == 'emea' es verdadero, casi al revés que en cualquier otro lenguaje. Si la mayúscula importa, usa equals(); si quieres dejar claro que no importa, equalsIgnoreCase().",
+        en: "In Apex, == between strings ignores case: 'EMEA' == 'emea' is true, almost the opposite of any other language. If case matters, use equals(); to make it clear that it does not, equalsIgnoreCase().",
       },
     },
     {
@@ -492,10 +338,10 @@ Boolean found = rawName.contains(keyword.toLowerCase());    // true`,
       code: {
         es: `Boolean loose  = 'EMEA' == 'emea';          // true
 Boolean strict = 'EMEA'.equals('emea');     // false
-Boolean loose2 = 'EMEA'.equalsIgnoreCase('emea'); // true, y se lee mejor`,
+Boolean same   = 'EMEA'.equalsIgnoreCase('emea'); // true, y se lee mejor que ==`,
         en: `Boolean loose  = 'EMEA' == 'emea';          // true
 Boolean strict = 'EMEA'.equals('emea');     // false
-Boolean loose2 = 'EMEA'.equalsIgnoreCase('emea'); // true, and it reads better`,
+Boolean same   = 'EMEA'.equalsIgnoreCase('emea'); // true, and it reads better than ==`,
       },
     },
     {
@@ -503,8 +349,8 @@ Boolean loose2 = 'EMEA'.equalsIgnoreCase('emea'); // true, and it reads better`,
       variant: "admin",
       title: { es: "Por qué esto te suena", en: "Why this rings a bell" },
       text: {
-        es: "Es el mismo comportamiento de un filtro de informe: si filtras Industry igual a «technology» te salen también los «Technology». Cómodo el 90 % de las veces… y yo caí en el 10 % restante, comparando códigos donde la mayúscula sí significaba algo. Ahí es una fuente silenciosa de bugs.",
-        en: "It is the same behaviour as a report filter: filter Industry equals «technology» and you also get the «Technology» ones. Handy 90% of the time… and I fell into the other 10%, comparing codes where the capital letter did mean something. There it is a silent source of bugs.",
+        es: "Es lo mismo que un filtro de informe: Industry igual a «technology» también saca los «Technology». Cómodo casi siempre… y yo caí la vez que comparaba códigos donde la mayúscula sí significaba algo.",
+        en: "It is the same as a report filter: Industry equals «technology» also brings the «Technology» ones. Handy almost always… and I fell for it the time I compared codes where the capital did mean something.",
       },
       voice: "otter",
     },
@@ -513,8 +359,8 @@ Boolean loose2 = 'EMEA'.equalsIgnoreCase('emea'); // true, and it reads better`,
       variant: "recall",
       title: { es: "Antes de seguir", en: "Before moving on" },
       text: {
-        es: "Sin mirar arriba: ¿por qué rawName.toUpperCase(); en una línea suelta no sirve para nada? ¿Qué devuelve contains()? En code.substring(0, 4).toUpperCase(), ¿sobre qué actúa exactamente toUpperCase()? ¿Por qué name.length().toUpperCase() no compila? Y en String.valueOf(name.trim().length()), ¿qué se ejecuta primero?",
-        en: "Without looking up: why is rawName.toUpperCase(); on a line of its own completely useless? What does contains() return? In code.substring(0, 4).toUpperCase(), what exactly does toUpperCase() act on? Why does name.length().toUpperCase() not compile? And in String.valueOf(name.trim().length()), what runs first?",
+        es: "Sin mirar arriba: ¿por qué rawName.toUpperCase(); en una línea suelta no sirve para nada? ¿Por qué name.length().toUpperCase() no compila? ¿Qué diferencia hay entre nombre.trim() y String.valueOf(42)? Y en String.valueOf(name.trim().length()), ¿qué se ejecuta primero?",
+        en: "Without looking up: why is rawName.toUpperCase(); on a line of its own useless? Why does name.length().toUpperCase() not compile? What is the difference between name.trim() and String.valueOf(42)? And in String.valueOf(name.trim().length()), what runs first?",
       },
     },
   ],
