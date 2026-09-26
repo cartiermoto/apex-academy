@@ -6,6 +6,17 @@ export const l02Referencias: Lesson = {
   n: 2,
   kind: "lesson",
   minutes: 20,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 1", en: "Remember? · Review of lesson 1" },
+    prompt: { es: "Si la clase es la definición del objeto, ¿qué es new WorkTicket()?", en: "If the class is the object's definition, what is new WorkTicket()?" },
+    options: [
+      { es: "Un campo nuevo", en: "A new field" },
+      { es: "Un registro nuevo hecho con ese molde", en: "A new record made from that mould" },
+      { es: "Una copia de la clase", en: "A copy of the class" },
+    ],
+    answer: 1,
+    explain: { es: "Cada new es un registro: una instancia con sus propios valores.", en: "Each new is a record: an instance with its own values." },
+  },
   title: {
     es: "Referencias: dos variables, un solo objeto",
     en: "References: two variables, one object",
@@ -46,9 +57,10 @@ export const l02Referencias: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "Abres la misma oportunidad en dos pestañas. Cambias la etapa en una, guardas, refrescas la otra: también ha cambiado. No hay dos oportunidades, hay dos ventanas al mismo registro. Una variable de objeto es una de esas pestañas: una [[referencia]] al objeto, no el objeto.",
-        en: "You open the same opportunity in two tabs. You change the stage in one, save, refresh the other: it has changed too. There are not two opportunities, there are two windows onto the same record. An object variable is one of those tabs: a [[referencia|reference]] to the object, not the object.",
+        es: "Te habrá pasado como a mí: abres la misma oportunidad en dos pestañas, cambias la etapa en una, guardas, refrescas la otra… y también ha cambiado. No hay dos oportunidades, hay dos ventanas al mismo registro. Una variable de objeto es una de esas pestañas: una [[referencia]] al objeto, no el objeto.",
+        en: "It has probably happened to you as it did to me: you open the same opportunity in two tabs, change the stage in one, save, refresh the other… and it has changed too. There are not two opportunities, there are two windows onto the same record. An object variable is one of those tabs: a [[referencia]] to the object, not the object.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -194,9 +206,10 @@ System.debug(accounts[0].Rating); // Hot: it is the same object`,
       variant: "admin",
       title: { es: "El mismo contacto en dos related lists", en: "The same contact in two related lists" },
       text: {
-        es: "Un contacto aparece en la related list de su cuenta y también en la de una campaña de la que es miembro. Si le cambias el teléfono desde la campaña, en la cuenta también sale cambiado: no hay dos contactos, hay uno visto desde dos sitios. Eso es exactamente una referencia. Lo que en Apex sería una copia de verdad —clone()— en la interfaz sería el botón «Clonar»: un registro nuevo que a partir de ahí va por su cuenta.",
-        en: "A contact shows up in its account's related list and also in the list of a campaign it belongs to. Change its phone from the campaign and it shows changed on the account too: there are not two contacts, there is one seen from two places. That is exactly a reference. What in Apex would be a real copy — clone() — is the “Clone” button in the UI: a new record that goes its own way from then on.",
+        es: "Otro ejemplo que me ayudó: un contacto aparece en la related list de su cuenta y también en la de una campaña de la que es miembro. Si le cambias el teléfono desde la campaña, en la cuenta también sale cambiado: no hay dos contactos, hay uno visto desde dos sitios. Eso es exactamente una referencia. Lo que en Apex sería una copia de verdad —clone()— en la interfaz sería el botón «Clonar»: un registro nuevo que a partir de ahí va por su cuenta.",
+        en: "Another example that helped me: a contact appears in its account's related list and also in the list of a campaign it belongs to. Change its phone from the campaign and it shows as changed in the account too: there are not two contacts, there is one seen from two places. That is exactly a reference. What in Apex would be a real copy — clone() — in the UI would be the «Clone» button: a new record that goes its own way from then on.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -418,16 +431,16 @@ renewal.CloseDate = original.CloseDate.addYears(1);
     },
     hints: [
       {
-        es: "Cuenta los new: solo hay uno. Eso significa que original y renewal son dos pestañas del mismo registro.",
-        en: "Count the news: there is only one. That means original and renewal are two tabs of the same record.",
+        es: "Yo contaría los new, como contarías los registros creados: solo hay uno. Eso significa que original y renewal son dos pestañas del mismo registro.",
+        en: "I would count the news, as you would count records created: there is only one. That means original and renewal are two tabs on the same record.",
       },
       {
-        es: "La línea que crea renewal tiene que fabricar un objeto nuevo con los mismos valores: para eso está clone(). El 5 % más es el importe original multiplicado por 1.05.",
-        en: "The line that creates renewal has to produce a new object with the same values: that is what clone() is for. 5% more is the original amount multiplied by 1.05.",
+        es: "Lo que me ayudó: la línea que crea renewal tiene que fabricar un objeto nuevo con los mismos valores, como el botón «Clonar». Para eso está clone(). El 5 % más es el importe original multiplicado por 1.05.",
+        en: "What helped me: the line that creates renewal has to build a new object with the same values, like the «Clone» button. That is what clone() is for. 5% more is the original amount multiplied by 1.05.",
       },
       {
-        es: "Pseudocódigo: Opportunity renewal = original.clone(); después nombre, etapa, fecha, renewal.Amount = original.Amount * 1.05; y System.debug(original.StageName);",
-        en: "Pseudocode: Opportunity renewal = original.clone(); then name, stage, date, renewal.Amount = original.Amount * 1.05; and System.debug(original.StageName);",
+        es: "Te dejo el esquema: Opportunity renewal = original.clone(); después nombre, etapa, fecha, renewal.Amount = original.Amount * 1.05; y System.debug(original.StageName);",
+        en: "Here is the outline: Opportunity renewal = original.clone(); then name, stage, date, renewal.Amount = original.Amount * 1.05; and System.debug(original.StageName);",
       },
     ],
     solution: {
@@ -472,6 +485,10 @@ System.debug(original.StageName);   // Closed Won`,
           es: "renewal = original copia el enlace. Para un objeto independiente: Opportunity renewal = original.clone();",
           en: "renewal = original copies the link. For an independent object: Opportunity renewal = original.clone();",
         },
+        otter: {
+          es: "renewal = original es abrir otra pestaña del mismo registro. Para un registro independiente necesitas el botón «Clonar»: Opportunity renewal = original.clone();",
+          en: "renewal = original is opening another tab on the same record. For an independent record you need the «Clone» button: Opportunity renewal = original.clone();",
+        },
       },
       {
         id: "m05-l02-c2",
@@ -483,6 +500,10 @@ System.debug(original.StageName);   // Closed Won`,
         onFail: {
           es: "Mientras exista renewal = original; en algún sitio, las dos variables vuelven a apuntar al mismo registro.",
           en: "As long as renewal = original; exists anywhere, both variables point to the same record again.",
+        },
+        otter: {
+          es: "Mientras quede renewal = original; en algún sitio, las dos variables vuelven a ser dos pestañas del mismo registro. Quita esa asignación.",
+          en: "As long as renewal = original; remains anywhere, the two variables go back to being two tabs on the same record. Remove that assignment.",
         },
       },
       {
@@ -503,6 +524,10 @@ System.debug(original.StageName);   // Closed Won`,
           es: "Mantén las tres asignaciones del código original: ahora son seguras porque renewal es otro objeto.",
           en: "Keep the three assignments from the original code: they are safe now because renewal is another object.",
         },
+        otter: {
+          es: "Ahora que renewal es un clon de verdad, sus cambios ya no tocan el original: mantén las tres asignaciones de nombre, etapa y fecha.",
+          en: "Now that renewal is a real clone, its changes no longer touch the original: keep the three assignments for name, stage and date.",
+        },
       },
       {
         id: "m05-l02-c4",
@@ -522,6 +547,10 @@ System.debug(original.StageName);   // Closed Won`,
           es: "Un 5 % más es multiplicar por 1.05: renewal.Amount = original.Amount * 1.05;",
           en: "5% more means multiplying by 1.05: renewal.Amount = original.Amount * 1.05;",
         },
+        otter: {
+          es: "La renovación sube un 5 %, como una fórmula Amount * 1.05: renewal.Amount = original.Amount * 1.05;",
+          en: "The renewal goes up 5%, like an Amount * 1.05 formula: renewal.Amount = original.Amount * 1.05;",
+        },
       },
       {
         id: "m05-l02-c5",
@@ -534,6 +563,10 @@ System.debug(original.StageName);   // Closed Won`,
           es: "Añade System.debug(original.StageName); al final: con el arreglo, debe seguir mostrando Closed Won.",
           en: "Add System.debug(original.StageName); at the end: with the fix, it must still show Closed Won.",
         },
+        otter: {
+          es: "Comprueba la otra pestaña: añade System.debug(original.StageName); al final. Con el arreglo, debe seguir mostrando Closed Won.",
+          en: "Check the other tab: add System.debug(original.StageName); at the end. With the fix, it must still show Closed Won.",
+        },
         onPass: {
           es: "Con clone(), el registro de este año queda intacto: 'Closed Won' y 50.000.",
           en: "With clone(), this year's record stays intact: 'Closed Won' and 50,000.",
@@ -545,10 +578,11 @@ System.debug(original.StageName);   // Closed Won`,
         es: "Si quitas el clone() y vuelves a ejecutar mentalmente el código, ¿qué dos campos del original quedarían mal?",
         en: "If you remove the clone() and run the code again in your head, which two fields of the original would end up wrong?",
       },
-      {
-        es: "Tarea 3: toda renovación incluye un plan de soporte, y ese plan tiene que nacer completo, sin campos olvidados.",
-        en: "Task 3: every renewal includes a support plan, and that plan must be born complete, with no forgotten fields.",
-      },
     ],
+    outro: {
+      es: "Ya sabes que una variable de objeto es una pestaña al registro, no el registro, y que clone() es tu botón «Clonar». En la tarea 3, toda renovación incluye un plan de soporte, y ese plan tiene que nacer completo, sin campos olvidados.",
+      en: "You now know an object variable is a tab onto the record, not the record, and that clone() is your «Clone» button. In task 3, every renewal includes a support plan, and that plan has to be born complete, with no forgotten fields.",
+    },
+    voice: "otter",
   },
 };

@@ -6,6 +6,17 @@ export const l09Sobrecarga: Lesson = {
   n: 9,
   kind: "lesson",
   minutes: 18,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 8", en: "Remember? · Review of lesson 8" },
+    prompt: { es: "Si Discount es abstract, ¿se puede hacer new Discount()?", en: "If Discount is abstract, can you write new Discount()?" },
+    options: [
+      { es: "Sí", en: "Yes" },
+      { es: "No: solo se instancian sus hijas", en: "No: only its children are instantiated" },
+      { es: "Solo con super", en: "Only with super" },
+    ],
+    answer: 1,
+    explain: { es: "No compila, igual que no puedes crear una Activity a secas: siempre es una Task o un Event.", en: "It does not compile, just as you cannot create a plain Activity: it is always a Task or an Event." },
+  },
   title: { es: "Sobrecarga vs sobrescritura", en: "Overloading vs overriding" },
   summary: {
     es: "Dos palabras parecidas para dos ideas distintas: varios métodos con el mismo nombre y distintos parámetros, frente a una hija que sustituye el método de su padre.",
@@ -43,9 +54,10 @@ export const l09Sobrecarga: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "«Nuevo contacto» existe desde la pestaña Contactos (llegas sin datos) y desde la related list de una cuenta (llegas con la cuenta ya puesta): la misma acción, distintas entradas. Eso es sobrecarga. En cambio, cuando un Record Type sustituye el page layout por defecto por uno propio, el registro «hace lo mismo a su manera». Eso es sobrescritura.",
-        en: "“New contact” exists from the Contacts tab (you arrive with no data) and from an account's related list (you arrive with the account already set): the same action, different inputs. That is overloading. By contrast, when a Record Type replaces the default page layout with its own, the record “does the same thing its own way”. That is overriding.",
+        es: "Así los distinguí yo: «Nuevo contacto» existe desde la pestaña Contactos (llegas sin datos) y desde la related list de una cuenta (llegas con la cuenta ya puesta): la misma acción, distintas entradas. Eso es sobrecarga. En cambio, cuando un Record Type sustituye el page layout por defecto por uno propio, el registro «hace lo mismo a su manera». Eso es sobrescritura.",
+        en: "This is how I told them apart: «New contact» exists from the Contacts tab (you arrive with no data) and from an account's related list (you arrive with the account already set): the same action, different inputs. That is overloading. When a Record Type replaces the default page layout with its own, on the other hand, the record «does the same thing its own way». That is overriding.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -165,9 +177,10 @@ MoneyFormatter.format(1500, 'USD');    // USD 1500`,
       variant: "admin",
       title: { es: "TEXT() en una fórmula es sobrecarga", en: "TEXT() in a formula is overloading" },
       text: {
-        es: "En un campo fórmula escribes TEXT(Amount), TEXT(CloseDate) o TEXT(StageName), y la misma función sabe convertir un número, una fecha o un picklist. No hay una TEXTFROMDATE ni una TEXTFROMPICKLIST: hay un solo nombre que se adapta a lo que recibe. Eso es sobrecarga. La sobrescritura, en cambio, sería que cada Record Type tuviera su propia versión de una misma regla: mismo nombre, mismo uso, distinto comportamiento según quién es.",
-        en: "In a formula field you write TEXT(Amount), TEXT(CloseDate) or TEXT(StageName), and the same function knows how to convert a number, a date or a picklist. There is no TEXTFROMDATE or TEXTFROMPICKLIST: there is one name that adapts to what it receives. That is overloading. Overriding, by contrast, would be each record type having its own version of the same rule: same name, same use, different behaviour depending on who it is.",
+        es: "Tú ya usas sobrecarga, como yo la usaba sin saberlo: en un campo fórmula escribes TEXT(Amount), TEXT(CloseDate) o TEXT(StageName), y la misma función sabe convertir un número, una fecha o un picklist. No hay una TEXTFROMDATE ni una TEXTFROMPICKLIST: hay un solo nombre que se adapta a lo que recibe. Eso es sobrecarga. La sobrescritura, en cambio, sería que cada Record Type tuviera su propia versión de una misma regla: mismo nombre, mismo uso, distinto comportamiento según quién es.",
+        en: "You already use overloading, as I did without knowing it: in a formula field you write TEXT(Amount), TEXT(CloseDate) or TEXT(StageName), and the same function knows how to convert a number, a date or a picklist. There is no TEXTFROMDATE or TEXTFROMPICKLIST: there is one name that adapts to what it receives. That is overloading. Overriding, on the other hand, would be each Record Type having its own version of the same rule: same name, same use, different behaviour depending on who it is.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -396,16 +409,16 @@ System.debug(r.title());`,
     },
     hints: [
       {
-        es: "Son dos ejercicios en uno. En el primero, los dos métodos se llaman igual y viven en la misma clase. En el segundo, el método se llama igual en dos clases distintas y hacen falta dos palabras clave.",
-        en: "It is two exercises in one. In the first, both methods share a name and live in the same class. In the second, the method shares a name across two classes and two keywords are needed.",
+        es: "Yo lo separaría en dos, como TEXT() y los Record Types: en el primero, los dos métodos se llaman igual y viven en la misma clase. En el segundo, el método se llama igual en dos clases distintas y hacen falta dos palabras clave.",
+        en: "I would split it in two, like TEXT() and Record Types: in the first, both methods have the same name and live in the same class. In the second, the method has the same name in two different classes and two keywords are needed.",
       },
       {
-        es: "format(Decimal amount) { return format(amount, 'EUR'); } — public virtual class Report { public virtual String title() { … } } — public class SalesReport extends Report { public override String title() { … } }",
-        en: "format(Decimal amount) { return format(amount, 'EUR'); } — public virtual class Report { public virtual String title() { … } } — public class SalesReport extends Report { public override String title() { … } }",
+        es: "Lo que me ayudó: format(Decimal amount) { return format(amount, 'EUR'); } — public virtual class Report { public virtual String title() { … } } — public class SalesReport extends Report { public override String title() { … } }",
+        en: "What helped me: format(Decimal amount) { return format(amount, 'EUR'); } — public virtual class Report { public virtual String title() { … } } — public class SalesReport extends Report { public override String title() { … } }",
       },
       {
-        es: "Pseudocódigo del uso: String eur = MoneyFormatter.format(1500); String usd = MoneyFormatter.format(1500, 'USD'); Report r = new SalesReport(); String reportTitle = r.title();",
-        en: "Usage pseudocode: String eur = MoneyFormatter.format(1500); String usd = MoneyFormatter.format(1500, 'USD'); Report r = new SalesReport(); String reportTitle = r.title();",
+        es: "Te dejo el uso: String eur = MoneyFormatter.format(1500); String usd = MoneyFormatter.format(1500, 'USD'); Report r = new SalesReport(); String reportTitle = r.title();",
+        en: "Here is the usage: String eur = MoneyFormatter.format(1500); String usd = MoneyFormatter.format(1500, 'USD'); Report r = new SalesReport(); String reportTitle = r.title();",
       },
     ],
     solution: {
@@ -486,6 +499,10 @@ String reportTitle = monthly.title();              // Sales report`,
           es: "Dos métodos con el mismo nombre: format(Decimal amount) y format(Decimal amount, String currencyCode), los dos public static String.",
           en: "Two methods with the same name: format(Decimal amount) and format(Decimal amount, String currencyCode), both public static String.",
         },
+        otter: {
+          es: "Es tu TEXT() de fórmulas: un nombre, varias entradas. Dos métodos que se llaman format, format(Decimal amount) y format(Decimal amount, String currencyCode), los dos public static String.",
+          en: "It is your formula TEXT(): one name, several inputs. Two methods called format, format(Decimal amount) and format(Decimal amount, String currencyCode), both public static String.",
+        },
       },
       {
         id: "m05-l09-c2",
@@ -497,6 +514,10 @@ String reportTitle = monthly.title();              // Sales report`,
         onFail: {
           es: "Sin duplicar lógica: dentro de format(Decimal amount), return format(amount, 'EUR');",
           en: "No duplicated logic: inside format(Decimal amount), return format(amount, 'EUR');",
+        },
+        otter: {
+          es: "La versión corta no repite lógica: pone el dato que falta y llama a la larga, como un valor por defecto. Dentro de format(Decimal amount), return format(amount, 'EUR');",
+          en: "The short version does not repeat logic: it supplies the missing value and calls the long one, like a default. Inside format(Decimal amount), return format(amount, 'EUR');",
         },
         onPass: {
           es: "Si Finanzas cambia el formato, se toca un método y las dos versiones lo recogen.",
@@ -520,6 +541,10 @@ String reportTitle = monthly.title();              // Sales report`,
           es: "Para que una hija pueda cambiarlo: public virtual class Report { public virtual String title() { … } }",
           en: "For a child to be able to change it: public virtual class Report { public virtual String title() { … } }",
         },
+        otter: {
+          es: "Report es el layout por defecto que otros pueden sustituir: public virtual class Report { public virtual String title() { … } }",
+          en: "Report is the default layout others can replace: public virtual class Report { public virtual String title() { … } }",
+        },
       },
       {
         id: "m05-l09-c4",
@@ -537,6 +562,10 @@ String reportTitle = monthly.title();              // Sales report`,
         onFail: {
           es: "public class SalesReport extends Report { public override String title() { … } } — mismos parámetros (ninguno) y override.",
           en: "public class SalesReport extends Report { public override String title() { … } } — same parameters (none) and override.",
+        },
+        otter: {
+          es: "SalesReport es el Record Type que pone su propio layout: public class SalesReport extends Report { public override String title() { … } }, con los mismos parámetros (ninguno) y override.",
+          en: "SalesReport is the Record Type with its own layout: public class SalesReport extends Report { public override String title() { … } }, with the same parameters (none) and override.",
         },
       },
       {
@@ -558,6 +587,10 @@ String reportTitle = monthly.title();              // Sales report`,
           es: "MoneyFormatter.format(1500) y MoneyFormatter.format(1500, 'USD'); después Report r = new SalesReport(); y r.title().",
           en: "MoneyFormatter.format(1500) and MoneyFormatter.format(1500, 'USD'); then Report r = new SalesReport(); and r.title().",
         },
+        otter: {
+          es: "Usa las dos entradas de format y lee el título a través del tipo general: MoneyFormatter.format(1500) y MoneyFormatter.format(1500, 'USD'); después Report r = new SalesReport(); y r.title().",
+          en: "Use both of format's inputs and read the title through the general type: MoneyFormatter.format(1500) and MoneyFormatter.format(1500, 'USD'); then Report r = new SalesReport(); and r.title().",
+        },
       },
     ],
     rubric: [
@@ -565,10 +598,11 @@ String reportTitle = monthly.title();              // Sales report`,
         es: "Explica con tus palabras por qué r.title() devuelve el título de ventas aunque r sea de tipo Report.",
         en: "Explain in your own words why r.title() returns the sales title even though r is of type Report.",
       },
-      {
-        es: "Tarea 10: mientras se renueva la cartera, Marketing busca clientes nuevos, con reglas de puntuación que cambian cada trimestre.",
-        en: "Task 10: while the portfolio renews, Marketing hunts new customers, with scoring rules that change every quarter.",
-      },
     ],
+    outro: {
+      es: "Ya distingues sobrecarga (un nombre, varias entradas, como TEXT()) de sobrescritura (cada hija a su manera). En la tarea 10, mientras se renueva la cartera, Marketing busca clientes nuevos con reglas de puntuación que cambian cada trimestre.",
+      en: "You can now tell overloading (one name, several inputs, like TEXT()) from overriding (each child its own way). In task 10, while the portfolio is renewed, Marketing looks for new customers with scoring rules that change every quarter.",
+    },
+    voice: "otter",
   },
 };

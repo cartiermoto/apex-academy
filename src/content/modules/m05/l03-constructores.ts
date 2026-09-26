@@ -6,6 +6,17 @@ export const l03Constructores: Lesson = {
   n: 3,
   kind: "lesson",
   minutes: 20,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 2", en: "Remember? · Review of lesson 2" },
+    prompt: { es: "Haces Opportunity b = a; y luego b.StageName = 'Closed Lost';. ¿Qué pasa con a.StageName?", en: "You write Opportunity b = a; and then b.StageName = 'Closed Lost';. What happens to a.StageName?" },
+    options: [
+      { es: "No cambia", en: "It does not change" },
+      { es: "También es 'Closed Lost'", en: "It is 'Closed Lost' too" },
+      { es: "Da error", en: "It gives an error" },
+    ],
+    answer: 1,
+    explain: { es: "a y b son dos pestañas del mismo registro. Para una copia independiente, a.clone().", en: "a and b are two tabs on the same record. For an independent copy, a.clone()." },
+  },
   title: { es: "Constructores", en: "Constructors" },
   summary: {
     es: "El código que se ejecuta solo al hacer new: deja cada instancia lista para usar, como los valores por defecto de un campo al pulsar New.",
@@ -43,9 +54,10 @@ export const l03Constructores: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "Cuando pulsas New en una oportunidad, algunos campos ya vienen rellenos: el propietario eres tú, la divisa es la de tu usuario, un picklist trae su valor por defecto. Nadie los escribió: los puso la definición del objeto al crear el registro. El constructor es ese momento, escrito en código.",
-        en: "When you click New on an opportunity, some fields come pre-filled: the owner is you, the currency is your user's, a picklist brings its default value. Nobody typed them: the object's definition set them when the record was created. The constructor is that moment, written as code.",
+        es: "Yo lo entendí pensando en el botón New de una oportunidad: algunos campos ya vienen rellenos. El propietario eres tú, la divisa es la de tu usuario, un picklist trae su valor por defecto. Nadie los escribió: los puso la definición del objeto al crear el registro. El constructor es ese momento, escrito en código.",
+        en: "I understood it by thinking of an opportunity's New button: some fields come already filled in. The owner is you, the currency is your user's, a picklist brings its default value. Nobody typed them: the object's definition set them when the record was created. The constructor is that moment, written in code.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -205,9 +217,10 @@ SupportPlan negotiated = new SupportPlan('Gold', 60);`,
       variant: "admin",
       title: { es: "Como las acciones rápidas con valores predefinidos", en: "Like quick actions with predefined values" },
       text: {
-        es: "En una cuenta puedes tener una acción «Nueva oportunidad de renovación» que ya rellena la etapa, el tipo y la fecha de cierre, y otra «Nueva oportunidad» que deja todo en blanco. Las dos crean una oportunidad, pero cada una la hace nacer distinta. Cada constructor es una de esas acciones: una forma de crear el objeto con los valores ya puestos, para que nadie tenga que acordarse de rellenarlos.",
-        en: "On an account you may have a “New renewal opportunity” action that already fills in stage, type and close date, and a “New opportunity” one that leaves everything blank. Both create an opportunity, but each gives it a different start. Each constructor is one of those actions: a way to create the object with its values already set, so nobody has to remember to fill them in.",
+        es: "Yo configuré muchas de estas: en una cuenta puedes tener una acción «Nueva oportunidad de renovación» que ya rellena la etapa, el tipo y la fecha de cierre, y otra «Nueva oportunidad» que deja todo en blanco. Las dos crean una oportunidad, pero cada una la hace nacer distinta. Cada constructor es una de esas acciones: una forma de crear el objeto con los valores ya puestos, para que nadie tenga que acordarse de rellenarlos.",
+        en: "I set up many of these: on an account you can have a «New renewal opportunity» action that already fills in the stage, the type and the close date, and a «New opportunity» one that leaves everything blank. Both create an opportunity, but each makes it start differently. Each constructor is one of those actions: a way of creating the object with the values already set, so nobody has to remember to fill them in.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -458,16 +471,16 @@ Plan b = new Plan('gold');`,
     },
     hints: [
       {
-        es: "El constructor se llama SupportPlan, recibe un parámetro y no tiene tipo de retorno. Dentro rellena los cuatro atributos. Cuidado con la lista: si no la creas, add() fallará.",
-        en: "The constructor is called SupportPlan, takes one parameter and has no return type. Inside, it fills in the four attributes. Mind the list: if you do not create it, add() will fail.",
+        es: "Yo lo pensaría como los valores por defecto al pulsar New: el constructor se llama SupportPlan, recibe un parámetro y no tiene tipo de retorno. Dentro rellena los cuatro atributos. Cuidado con la lista: si no la creas, add() fallará.",
+        en: "I would think of it as the default values when you click New: the constructor is called SupportPlan, takes one parameter and has no return type. Inside it fills in the four attributes. Careful with the list: if you do not create it, add() will fail.",
       },
       {
-        es: "Las horas dependen de un valor exacto: es trabajo para switch on planLevel (Módulo 2). La fecha de hoy es Date.today() y la lista vacía, new List<String>().",
-        en: "The hours depend on an exact value: a job for switch on planLevel (Module 2). Today's date is Date.today() and the empty list, new List<String>().",
+        es: "Lo que me ayudó: las horas dependen de un valor exacto, trabajo para switch on planLevel (Módulo 2). La fecha de hoy es Date.today(), tu TODAY(), y la lista vacía, new List<String>().",
+        en: "What helped me: the hours depend on an exact value, a job for switch on planLevel (Module 2). Today's date is Date.today(), your TODAY(), and the empty list, new List<String>().",
       },
       {
-        es: "Pseudocódigo: public SupportPlan(String planLevel) { level = planLevel; startDate = Date.today(); contacts = new List<String>(); switch on planLevel { 'Gold' → 40; 'Silver' → 20; else → 5 } } — y después: SupportPlan goldPlan = new SupportPlan('Gold'); goldPlan.contacts.add('…');",
-        en: "Pseudocode: public SupportPlan(String planLevel) { level = planLevel; startDate = Date.today(); contacts = new List<String>(); switch on planLevel { 'Gold' → 40; 'Silver' → 20; else → 5 } } — then: SupportPlan goldPlan = new SupportPlan('Gold'); goldPlan.contacts.add('…');",
+        es: "Te dejo el esquema: public SupportPlan(String planLevel) { level = planLevel; startDate = Date.today(); contacts = new List<String>(); switch on planLevel { 'Gold' → 40; 'Silver' → 20; else → 5 } } — y después: SupportPlan goldPlan = new SupportPlan('Gold'); goldPlan.contacts.add('…');",
+        en: "Here is the outline: public SupportPlan(String planLevel) { level = planLevel; startDate = Date.today(); contacts = new List<String>(); switch on planLevel { 'Gold' → 40; 'Silver' → 20; else → 5 } } — and then: SupportPlan goldPlan = new SupportPlan('Gold'); goldPlan.contacts.add('…');",
       },
     ],
     solution: {
@@ -549,6 +562,10 @@ System.debug(goldPlan.hoursIncluded);   // 40`,
           es: "public class SupportPlan { … } con public String level; public Integer hoursIncluded; public Date startDate; public List<String> contacts;",
           en: "public class SupportPlan { … } with public String level; public Integer hoursIncluded; public Date startDate; public List<String> contacts;",
         },
+        otter: {
+          es: "Primero los «campos» del plan: public class SupportPlan { … } con public String level; public Integer hoursIncluded; public Date startDate; public List<String> contacts;",
+          en: "First the plan's «fields»: public class SupportPlan { … } with public String level; public Integer hoursIncluded; public Date startDate; public List<String> contacts;",
+        },
       },
       {
         id: "m05-l03-c2",
@@ -566,6 +583,10 @@ System.debug(goldPlan.hoursIncluded);   // 40`,
         onFail: {
           es: "Mismo nombre que la clase y sin tipo de retorno —ni siquiera void—: public SupportPlan(String planLevel) { … }",
           en: "Same name as the class and no return type — not even void: public SupportPlan(String planLevel) { … }",
+        },
+        otter: {
+          es: "El constructor es el momento en que el registro nace: mismo nombre que la clase y sin tipo de retorno, ni siquiera void. public SupportPlan(String planLevel) { … }",
+          en: "The constructor is the moment the record is born: same name as the class and no return type, not even void. public SupportPlan(String planLevel) { … }",
         },
       },
       {
@@ -586,6 +607,10 @@ System.debug(goldPlan.hoursIncluded);   // 40`,
           es: "Dentro del constructor: level = planLevel; startDate = Date.today(); contacts = new List<String>();",
           en: "Inside the constructor: level = planLevel; startDate = Date.today(); contacts = new List<String>();",
         },
+        otter: {
+          es: "Son los valores por defecto que rellena el New: dentro del constructor, level = planLevel; startDate = Date.today(); contacts = new List<String>();",
+          en: "They are the default values New fills in: inside the constructor, level = planLevel; startDate = Date.today(); contacts = new List<String>();",
+        },
       },
       {
         id: "m05-l03-c4",
@@ -605,6 +630,10 @@ System.debug(goldPlan.hoursIncluded);   // 40`,
           es: "Tres resultados según un valor exacto: switch on planLevel con when 'Gold' → 40, when 'Silver' → 20 y when else → 5 (o una cadena de if).",
           en: "Three results by an exact value: switch on planLevel with when 'Gold' → 40, when 'Silver' → 20 and when else → 5 (or an if chain).",
         },
+        otter: {
+          es: "Las horas dependen del nivel, como un valor que cambia según el picklist: switch on planLevel con when 'Gold' → 40, when 'Silver' → 20 y when else → 5.",
+          en: "The hours depend on the tier, like a value that changes with the picklist: switch on planLevel with when 'Gold' → 40, when 'Silver' → 20 and when else → 5.",
+        },
       },
       {
         id: "m05-l03-c5",
@@ -623,6 +652,10 @@ System.debug(goldPlan.hoursIncluded);   // 40`,
           es: "SupportPlan goldPlan = new SupportPlan('Gold'); y después goldPlan.contacts.add('alguien@empresa.com');",
           en: "SupportPlan goldPlan = new SupportPlan('Gold'); and then goldPlan.contacts.add('someone@company.com');",
         },
+        otter: {
+          es: "Ahora usa tu acción rápida: SupportPlan goldPlan = new SupportPlan('Gold'); y después goldPlan.contacts.add('alguien@empresa.com');",
+          en: "Now use your quick action: SupportPlan goldPlan = new SupportPlan('Gold'); and then goldPlan.contacts.add('someone@company.com');",
+        },
         onPass: {
           es: "add() funciona sin que el que usa la clase cree la lista: esa es la gracia de un buen constructor.",
           en: "add() works without the class's user creating the list: that is the point of a good constructor.",
@@ -634,10 +667,11 @@ System.debug(goldPlan.hoursIncluded);   // 40`,
         es: "Si alguien escribe new SupportPlan('gold') en minúsculas, ¿cuántas horas recibe? ¿Lo arreglarías en el constructor?",
         en: "If someone writes new SupportPlan('gold') in lower case, how many hours do they get? Would you fix it in the constructor?",
       },
-      {
-        es: "Tarea 4: el plan funciona, pero sus parámetros tienen nombres forzados y dos constructores repiten código. Mañana se limpia.",
-        en: "Task 4: the plan works, but its parameters have forced names and two constructors repeat code. Tomorrow it gets cleaned up.",
-      },
     ],
+    outro: {
+      es: "Ya haces que tus objetos nazcan completos con un constructor, como los valores por defecto al pulsar New. En la tarea 4, el plan funciona, pero sus parámetros tienen nombres forzados y dos constructores repiten código: toca limpiarlo.",
+      en: "You can now make your objects start out complete with a constructor, like the default values when you click New. In task 4 the plan works, but its parameters have forced names and two constructors repeat code: time to clean it up.",
+    },
+    voice: "otter",
   },
 };

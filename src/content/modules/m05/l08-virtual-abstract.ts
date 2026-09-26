@@ -6,6 +6,17 @@ export const l08VirtualAbstract: Lesson = {
   n: 8,
   kind: "lesson",
   minutes: 24,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 7", en: "Remember? · Review of lesson 7" },
+    prompt: { es: "¿Qué palabra, en la cabecera del padre, permite que otras clases hereden de él?", en: "Which word, in the parent's header, lets other classes inherit from it?" },
+    options: [
+      { es: "extends", en: "extends" },
+      { es: "virtual", en: "virtual" },
+      { es: "super", en: "super" },
+    ],
+    answer: 1,
+    explain: { es: "virtual en la cabecera del padre. extends va en la hija y super sirve para llamar al padre.", en: "virtual in the parent's header. extends goes in the child and super is for calling the parent." },
+  },
   title: { es: "virtual, abstract y override", en: "virtual, abstract and override" },
   summary: {
     es: "Cómo decide el padre qué pueden cambiar sus hijas: virtual permite, abstract obliga y override es la hija diciendo «esto lo hago a mi manera».",
@@ -43,9 +54,10 @@ export const l08VirtualAbstract: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "Task y Event comparten campos como Subject, ActivityDate u OwnerId porque los dos son Activities. Pero en tu org nunca creas una «Activity» a secas: creas una Task o un Event, y cada uno tiene sus propias reglas. Activity funciona como una clase abstracta: define lo común y exige que alguien concrete el resto.",
-        en: "Task and Event share fields like Subject, ActivityDate or OwnerId because both are Activities. But in your org you never create a plain “Activity”: you create a Task or an Event, and each has its own rules. Activity works like an abstract class: it defines what is common and requires someone to make the rest concrete.",
+        es: "Yo lo vi claro con las actividades: Task y Event comparten campos como Subject, ActivityDate u OwnerId porque los dos son Activities. Pero en tu org nunca creas una «Activity» a secas: creas una Task o un Event, y cada uno tiene sus propias reglas. Activity funciona como una clase abstracta: define lo común y exige que alguien concrete el resto.",
+        en: "Activities made it clear for me: Task and Event share fields like Subject, ActivityDate or OwnerId because both are Activities. But in your org you never create a plain «Activity»: you create a Task or an Event, and each has its own rules. Activity works like an abstract class: it defines the common part and demands that someone fill in the rest.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -226,9 +238,10 @@ public class PercentDiscount extends Discount {
       variant: "admin",
       title: { es: "El layout obligatorio y el valor por defecto que se puede cambiar", en: "The mandatory layout and the default you can change" },
       text: {
-        es: "Todos los Record Types de Opportunity tienen que tener un page layout asignado —es obligatorio, no hay «ninguno»—: eso es abstract. En cambio, un picklist tiene un valor por defecto que cada Record Type puede mantener o cambiar por otro: eso es virtual. Y «Activity», que nunca creas directamente porque siempre es una Task o un Event, es la clase abstract por excelencia de la plataforma.",
-        en: "Every Opportunity record type must have a page layout assigned — it is mandatory, there is no “none”: that is abstract. A picklist, on the other hand, has a default value each record type can keep or change: that is virtual. And “Activity”, which you never create directly because it is always a Task or an Event, is the platform's archetypal abstract class.",
+        es: "Otro paralelo que me sirvió: todos los Record Types de Opportunity tienen que tener un page layout asignado —es obligatorio, no hay «ninguno»—: eso es abstract. En cambio, un picklist tiene un valor por defecto que cada Record Type puede mantener o cambiar por otro: eso es virtual. Y «Activity», que nunca creas directamente porque siempre es una Task o un Event, es la clase abstract por excelencia de la plataforma.",
+        en: "Another parallel that worked for me: every Opportunity Record Type must have a page layout assigned — it is mandatory, there is no «none» —: that is abstract. A picklist, instead, has a default value each Record Type can keep or swap for another: that is virtual. And «Activity», which you never create directly because it is always a Task or an Event, is the platform's abstract class par excellence.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -462,16 +475,16 @@ System.debug(d.apply(150) + ' · ' + d.describe());`,
     },
     hints: [
       {
-        es: "El padre tiene tres tipos de pieza: una normal (label y constructor), una obligatoria para las hijas (apply) y una opcional (describe). Cada tipo lleva su palabra clave.",
-        en: "The parent has three kinds of piece: an ordinary one (label and constructor), one the children must provide (apply) and an optional one (describe). Each kind carries its keyword.",
+        es: "Yo separaría las piezas del padre como las reglas de los Record Types: una normal (label y constructor), una obligatoria para las hijas (apply, como el layout obligatorio) y una opcional (describe, como el valor por defecto). Cada tipo lleva su palabra clave.",
+        en: "I would split the parent's pieces like the Record Type rules: a normal one (label and constructor), a mandatory one for the children (apply, like the required layout) and an optional one (describe, like the default value). Each kind has its keyword.",
       },
       {
-        es: "public abstract Decimal apply(Decimal amount); sin cuerpo. En las hijas: super(label); en el constructor y public override Decimal apply(…). Para no bajar de 0: amount - off > 0 ? amount - off : 0. Para ampliar describe: super.describe() + …",
-        en: "public abstract Decimal apply(Decimal amount); with no body. In the children: super(label); in the constructor and public override Decimal apply(…). To stay at or above 0: amount - off > 0 ? amount - off : 0. To extend describe: super.describe() + …",
+        es: "Lo que me ayudó: public abstract Decimal apply(Decimal amount); sin cuerpo. En las hijas: super(label); en el constructor y public override Decimal apply(…). Para no bajar de 0: amount - off > 0 ? amount - off : 0. Para ampliar describe: super.describe() + …",
+        en: "What helped me: public abstract Decimal apply(Decimal amount); with no body. In the children: super(label); in the constructor and public override Decimal apply(…). To not go below 0: amount - off > 0 ? amount - off : 0. To extend describe: super.describe() + …",
       },
       {
-        es: "Pseudocódigo del uso: Discount spring = new PercentDiscount('Primavera', 10); Discount welcome = new FixedDiscount('Bienvenida', 50); Decimal result = welcome.apply(30);",
-        en: "Usage pseudocode: Discount spring = new PercentDiscount('Spring', 10); Discount welcome = new FixedDiscount('Welcome', 50); Decimal result = welcome.apply(30);",
+        es: "Te dejo el uso: Discount spring = new PercentDiscount('Primavera', 10); Discount welcome = new FixedDiscount('Bienvenida', 50); Decimal result = welcome.apply(30);",
+        en: "Here is the usage: Discount spring = new PercentDiscount('Spring', 10); Discount welcome = new FixedDiscount('Welcome', 50); Decimal result = welcome.apply(30);",
       },
     ],
     solution: {
@@ -593,6 +606,10 @@ System.debug(spring.apply(200) + ' · ' + welcome.describe());`,
           es: "public abstract class Discount { … public abstract Decimal apply(Decimal amount); public virtual String describe() { return label; } }",
           en: "public abstract class Discount { … public abstract Decimal apply(Decimal amount); public virtual String describe() { return label; } }",
         },
+        otter: {
+          es: "Discount es tu Activity: nadie crea uno genérico. public abstract class Discount { … public abstract Decimal apply(Decimal amount); public virtual String describe() { return label; } }",
+          en: "Discount is your Activity: nobody creates a generic one. public abstract class Discount { … public abstract Decimal apply(Decimal amount); public virtual String describe() { return label; } }",
+        },
       },
       {
         id: "m05-l08-c2",
@@ -612,6 +629,10 @@ System.debug(spring.apply(200) + ' · ' + welcome.describe());`,
           es: "public class PercentDiscount extends Discount { … } y lo mismo con FixedDiscount; cada constructor empieza con super(label);",
           en: "public class PercentDiscount extends Discount { … } and the same for FixedDiscount; each constructor starts with super(label);",
         },
+        otter: {
+          es: "Las dos hijas son tu Task y tu Event: public class PercentDiscount extends Discount { … } y lo mismo con FixedDiscount, y cada constructor empieza con super(label);",
+          en: "The two children are your Task and your Event: public class PercentDiscount extends Discount { … } and the same with FixedDiscount, and each constructor starts with super(label);",
+        },
       },
       {
         id: "m05-l08-c3",
@@ -630,6 +651,10 @@ System.debug(spring.apply(200) + ' · ' + welcome.describe());`,
           es: "apply es abstracto: cada hija tiene que escribir public override Decimal apply(Decimal amount) { … }. El porcentaje se convierte con / 100.",
           en: "apply is abstract: each child must write public override Decimal apply(Decimal amount) { … }. The percentage is converted with / 100.",
         },
+        otter: {
+          es: "apply es el layout obligatorio: cada hija tiene que escribir el suyo con public override Decimal apply(Decimal amount) { … }. El porcentaje se convierte con / 100.",
+          en: "apply is the mandatory layout: each child has to write its own with public override Decimal apply(Decimal amount) { … }. The percentage is converted with / 100.",
+        },
       },
       {
         id: "m05-l08-c4",
@@ -647,6 +672,10 @@ System.debug(spring.apply(200) + ' · ' + welcome.describe());`,
         onFail: {
           es: "Para no bajar de 0: amount - off > 0 ? amount - off : 0. Y describe(): public override String describe() { return super.describe() + …; }",
           en: "To stay at or above 0: amount - off > 0 ? amount - off : 0. And describe(): public override String describe() { return super.describe() + …; }",
+        },
+        otter: {
+          es: "Para no bajar de 0, como una fórmula MAX(…, 0): amount - off > 0 ? amount - off : 0. Y describe(), el valor por defecto que se amplía: public override String describe() { return super.describe() + …; }",
+          en: "To not go below 0, like a MAX(…, 0) formula: amount - off > 0 ? amount - off : 0. And describe(), the default value being extended: public override String describe() { return super.describe() + …; }",
         },
         onPass: {
           es: "super.describe() reutiliza lo del padre: si mañana la etiqueta se formatea distinto, FixedDiscount lo hereda sin tocarla.",
@@ -672,6 +701,10 @@ System.debug(spring.apply(200) + ' · ' + welcome.describe());`,
           es: "Discount spring = new PercentDiscount(…); Discount welcome = new FixedDiscount('…', 50); y welcome.apply(30). new Discount() no compilaría.",
           en: "Discount spring = new PercentDiscount(…); Discount welcome = new FixedDiscount('…', 50); and welcome.apply(30). new Discount() would not compile.",
         },
+        otter: {
+          es: "Trabaja con el tipo general, como cuando hablas de «actividades»: Discount spring = new PercentDiscount(…); Discount welcome = new FixedDiscount('…', 50); y welcome.apply(30). new Discount() no compilaría, igual que no puedes crear una Activity a secas.",
+          en: "Work with the general type, as when you talk about «activities»: Discount spring = new PercentDiscount(…); Discount welcome = new FixedDiscount('…', 50); and welcome.apply(30). new Discount() would not compile, just as you cannot create a plain Activity.",
+        },
       },
     ],
     rubric: [
@@ -679,10 +712,11 @@ System.debug(spring.apply(200) + ' · ' + welcome.describe());`,
         es: "Si mañana llega un BuyTwoGetOneDiscount, ¿qué tendrías que escribir y qué seguro que no tocarías?",
         en: "If a BuyTwoGetOneDiscount arrives tomorrow, what would you have to write and what would you definitely not touch?",
       },
-      {
-        es: "Tarea 9: Finanzas quiere ver las cifras del motor siempre con el mismo formato, y cada informe con su título.",
-        en: "Task 9: Finance wants the engine's figures always in the same format, and each report with its own title.",
-      },
     ],
+    outro: {
+      es: "Ya distingues lo obligatorio (abstract), lo que se puede cambiar (virtual) y cómo cambiarlo (override). En la tarea 9, Finanzas quiere ver las cifras del motor siempre con el mismo formato, y cada informe con su título.",
+      en: "You can now tell what is mandatory (abstract), what can be changed (virtual) and how to change it (override). In task 9, Finance wants the engine's figures always in the same format, and each report with its own title.",
+    },
+    voice: "otter",
   },
 };

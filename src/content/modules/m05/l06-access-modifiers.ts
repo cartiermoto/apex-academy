@@ -6,6 +6,17 @@ export const l06AccessModifiers: Lesson = {
   n: 6,
   kind: "lesson",
   minutes: 22,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 5", en: "Remember? · Review of lesson 5" },
+    prompt: { es: "¿Cómo llamas a un método static withVat de la clase PricingUtils?", en: "How do you call a static withVat method of the PricingUtils class?" },
+    options: [
+      { es: "new PricingUtils().withVat(100)", en: "new PricingUtils().withVat(100)" },
+      { es: "PricingUtils.withVat(100)", en: "PricingUtils.withVat(100)" },
+      { es: "withVat.PricingUtils(100)", en: "withVat.PricingUtils(100)" },
+    ],
+    answer: 1,
+    explain: { es: "Con el nombre de la clase, sin new: lo static no pertenece a ningún objeto, como leer un Custom Setting.", en: "With the class name, no new: static things belong to no object, like reading a Custom Setting." },
+  },
   title: { es: "Access Modifiers", en: "Access Modifiers" },
   summary: {
     es: "private, public, protected y global deciden quién ve cada pieza de una clase. Encapsular es exponer acciones seguras en lugar de campos que cualquiera puede romper.",
@@ -43,9 +54,10 @@ export const l06AccessModifiers: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "Con Field-Level Security decides, campo a campo, si un perfil no lo ve, lo ve en solo lectura o lo puede editar. Y aunque un campo sea editable, una regla de validación impide guardar valores absurdos. Los modificadores de acceso hacen lo primero; los métodos que validan antes de cambiar un atributo hacen lo segundo.",
-        en: "With Field-Level Security you decide, field by field, whether a profile cannot see it, sees it read-only or can edit it. And even if a field is editable, a validation rule stops absurd values from being saved. Access modifiers do the first; methods that validate before changing an attribute do the second.",
+        es: "Yo lo relaciono con dos cosas que configuras a diario: con Field-Level Security decides, campo a campo, si un perfil no lo ve, lo ve en solo lectura o lo puede editar. Y aunque un campo sea editable, una regla de validación impide guardar valores absurdos. Los modificadores de acceso hacen lo primero; los métodos que validan antes de cambiar un atributo hacen lo segundo.",
+        en: "I link it to two things you configure every day: with Field-Level Security you decide, field by field, whether a profile cannot see it, sees it read-only or can edit it. And even when a field is editable, a validation rule stops absurd values being saved. Access modifiers do the first; methods that validate before changing an attribute do the second.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -197,18 +209,20 @@ line.usedAmount = 0;               // ❌ does not compile: writing is not`,
       variant: "admin",
       title: { es: "Una regla de validación dentro del objeto", en: "A validation rule inside the object" },
       text: {
-        es: "Una regla de validación se aplica igual si el registro se guarda desde la pantalla, desde una importación o desde la API: nadie se la puede saltar. Un atributo privado con un método que comprueba es lo mismo en código: la regla viaja con el objeto. La diferencia es que en Apex la regla puede ser tan compleja como quieras, y el método puede devolver true o false en vez de mostrar un error.",
-        en: "A validation rule applies the same whether the record is saved from the screen, an import or the API: nobody can skip it. A private attribute with a method that checks is the same thing in code: the rule travels with the object. The difference is that in Apex the rule can be as complex as you like, and the method can return true or false instead of showing an error.",
+        es: "Piensa en por qué confías en tus reglas de validación: se aplican igual si el registro se guarda desde la pantalla, desde una importación o desde la API, y nadie se las puede saltar. Un atributo privado con un método que comprueba es lo mismo en código: la regla viaja con el objeto. La diferencia es que en Apex la regla puede ser tan compleja como quieras, y el método puede devolver true o false en vez de mostrar un error.",
+        en: "Think about why you trust your validation rules: they apply the same whether the record is saved from the screen, an import or the API, and nobody can skip them. A private attribute with a method that checks is the same thing in code: the rule travels with the object. The difference is that in Apex the rule can be as complex as you like, and the method can return true or false instead of showing an error.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
       variant: "admin",
       title: { es: "global y los paquetes que instalas", en: "global and the packages you install" },
       text: {
-        es: "Cuando instalas un paquete gestionado de AppExchange, desde tu org solo puedes usar las clases y métodos que el fabricante marcó como global; todo lo demás es invisible, aunque exista. Por eso en tu propio código casi nunca escribirás global: es la puerta que se deja abierta hacia fuera del paquete, y una vez publicada ya no se puede cerrar.",
-        en: "When you install a managed package from AppExchange, from your org you can only use the classes and methods the vendor marked global; everything else is invisible, even though it exists. That is why you will almost never write global in your own code: it is the door left open to outside the package, and once published it cannot be shut.",
+        es: "Esto lo vi instalando paquetes de AppExchange: desde tu org solo puedes usar las clases y métodos que el fabricante marcó como global; todo lo demás es invisible, aunque exista. Por eso en tu propio código casi nunca escribirás global: es la puerta que se deja abierta hacia fuera del paquete, y una vez publicada ya no se puede cerrar.",
+        en: "I saw this installing AppExchange packages: from your org you can only use the classes and methods the vendor marked as global; everything else is invisible, even though it exists. That is why you will almost never write global in your own code: it is the door left open out of the package, and once published it can no longer be closed.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -429,16 +443,16 @@ System.debug(second + ' · ' + line.usedAmount);`,
     },
     hints: [
       {
-        es: "Revisa quién puede hacer qué: los dos valores se leen desde fuera pero solo se escriben dentro; la comprobación es un detalle interno; la acción de gastar es la única puerta pública.",
-        en: "Check who can do what: both values are read from outside but written only inside; the check is an internal detail; the spend action is the only public door.",
+        es: "Yo lo pensaría como la Field-Level Security de cada pieza: los dos valores se leen desde fuera pero solo se escriben dentro; la comprobación es un detalle interno; la acción de gastar es la única puerta pública.",
+        en: "I would think of it as each piece's Field-Level Security: the two values are read from outside but only written inside; the check is an internal detail; the spend action is the only public door.",
       },
       {
-        es: "Propiedades: public Decimal spent { get; private set; }. El método privado devuelve amount != null && amount > 0 && spent + amount <= budget. spend() lo usa en un if.",
-        en: "Properties: public Decimal spent { get; private set; }. The private method returns amount != null && amount > 0 && spent + amount <= budget. spend() uses it in an if.",
+        es: "Lo que me ayudó: public Decimal spent { get; private set; } es un campo de solo lectura para los demás. El método privado es tu regla de validación: devuelve amount != null && amount > 0 && spent + amount <= budget. spend() lo usa en un if.",
+        en: "What helped me: public Decimal spent { get; private set; } is a read-only field for everyone else. The private method is your validation rule: it returns amount != null && amount > 0 && spent + amount <= budget. spend() uses it in an if.",
       },
       {
-        es: "Pseudocódigo: public Boolean spend(Decimal amount) { si !canAfford(amount) → return false; spent += amount; return true; } — Uso: CampaignBudget b = new CampaignBudget(10000); b.spend(6000); Boolean secondOk = b.spend(5000);",
-        en: "Pseudocode: public Boolean spend(Decimal amount) { if !canAfford(amount) → return false; spent += amount; return true; } — Usage: CampaignBudget b = new CampaignBudget(10000); b.spend(6000); Boolean secondOk = b.spend(5000);",
+        es: "Te dejo el esquema: public Boolean spend(Decimal amount) { si !canAfford(amount) → return false; spent += amount; return true; } — Uso: CampaignBudget b = new CampaignBudget(10000); b.spend(6000); Boolean secondOk = b.spend(5000);",
+        en: "Here is the outline: public Boolean spend(Decimal amount) { if !canAfford(amount) → return false; spent += amount; return true; } — Usage: CampaignBudget b = new CampaignBudget(10000); b.spend(6000); Boolean secondOk = b.spend(5000);",
       },
     ],
     solution: {
@@ -516,6 +530,10 @@ System.debug(secondOk + ' · ' + springBudget.spent);   // false · 6000`,
           es: "Leer sí, escribir solo dentro: public Decimal spent { get; private set; } (y lo mismo para budget).",
           en: "Read yes, write only inside: public Decimal spent { get; private set; } (and the same for budget).",
         },
+        otter: {
+          es: "budget y spent son campos de solo lectura para el resto del código, como un campo con FLS de solo lectura: public Decimal spent { get; private set; } (y lo mismo para budget).",
+          en: "budget and spent are read-only fields for the rest of the code, like a field with read-only FLS: public Decimal spent { get; private set; } (and the same for budget).",
+        },
       },
       {
         id: "m05-l06-c2",
@@ -535,6 +553,10 @@ System.debug(secondOk + ' · ' + springBudget.spent);   // false · 6000`,
           es: "public CampaignBudget(Decimal budget) { this.budget = budget; this.spent = 0; }",
           en: "public CampaignBudget(Decimal budget) { this.budget = budget; this.spent = 0; }",
         },
+        otter: {
+          es: "Al nacer, el presupuesto se fija y lo gastado empieza en 0: public CampaignBudget(Decimal budget) { this.budget = budget; this.spent = 0; }",
+          en: "At birth the budget is set and the spent amount starts at 0: public CampaignBudget(Decimal budget) { this.budget = budget; this.spent = 0; }",
+        },
       },
       {
         id: "m05-l06-c3",
@@ -553,6 +575,10 @@ System.debug(secondOk + ' · ' + springBudget.spent);   // false · 6000`,
         onFail: {
           es: "La comprobación es un detalle interno: private Boolean canAfford(Decimal amount) { return amount != null && amount > 0 && spent + amount <= budget; }",
           en: "The check is an internal detail: private Boolean canAfford(Decimal amount) { return amount != null && amount > 0 && spent + amount <= budget; }",
+        },
+        otter: {
+          es: "canAfford es tu regla de validación, y es un detalle interno: private Boolean canAfford(Decimal amount) { return amount != null && amount > 0 && spent + amount <= budget; }",
+          en: "canAfford is your validation rule, and an internal detail: private Boolean canAfford(Decimal amount) { return amount != null && amount > 0 && spent + amount <= budget; }",
         },
       },
       {
@@ -574,6 +600,10 @@ System.debug(secondOk + ' · ' + springBudget.spent);   // false · 6000`,
         onFail: {
           es: "public Boolean spend(Decimal amount) { if (!canAfford(amount)) { return false; } spent += amount; return true; }",
           en: "public Boolean spend(Decimal amount) { if (!canAfford(amount)) { return false; } spent += amount; return true; }",
+        },
+        otter: {
+          es: "spend es la única puerta pública, y pasa siempre por la regla: public Boolean spend(Decimal amount) { if (!canAfford(amount)) { return false; } spent += amount; return true; }",
+          en: "spend is the only public door, and it always goes through the rule: public Boolean spend(Decimal amount) { if (!canAfford(amount)) { return false; } spent += amount; return true; }",
         },
         onPass: {
           es: "La única puerta para gastar pasa por la validación: ningún proceso puede dejar el presupuesto en negativo.",
@@ -599,6 +629,10 @@ System.debug(secondOk + ' · ' + springBudget.spent);   // false · 6000`,
           es: "Crea el presupuesto con new CampaignBudget(10000), llama a spend(6000) y guarda Boolean secondOk = ….spend(5000). Nunca asignes spent desde fuera.",
           en: "Create the budget with new CampaignBudget(10000), call spend(6000) and store Boolean secondOk = ….spend(5000). Never assign spent from outside.",
         },
+        otter: {
+          es: "Úsalo como lo haría otro equipo: new CampaignBudget(10000), spend(6000) y guarda Boolean secondOk = ….spend(5000). Nunca asignes spent desde fuera: es de solo lectura.",
+          en: "Use it as another team would: new CampaignBudget(10000), spend(6000) and keep Boolean secondOk = ….spend(5000). Never assign spent from outside: it is read-only.",
+        },
       },
     ],
     rubric: [
@@ -606,10 +640,11 @@ System.debug(secondOk + ' · ' + springBudget.spent);   // false · 6000`,
         es: "¿Qué pasa si alguien llama a spend(-500)? ¿Y a spend(null)? Tu clase debería decir false en los dos casos.",
         en: "What happens if someone calls spend(-500)? And spend(null)? Your class should say false in both cases.",
       },
-      {
-        es: "Tarea 7: el motor tiene que avisar a la gente, y algunos avisos son iguales que otros… con algo más.",
-        en: "Task 7: the engine has to notify people, and some notices are like others… with something extra.",
-      },
     ],
+    outro: {
+      es: "Ya proteges tus objetos: lo que se lee desde fuera, lo que solo se cambia dentro y una regla de validación que nadie se salta. En la tarea 7, el motor tiene que avisar a la gente, y algunos avisos son iguales que otros… con algo más.",
+      en: "You can now protect your objects: what can be read from outside, what can only change inside and a validation rule nobody bypasses. In task 7 the engine has to notify people, and some notifications are just like others… with something extra.",
+    },
+    voice: "otter",
   },
 };

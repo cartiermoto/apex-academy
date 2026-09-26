@@ -6,6 +6,17 @@ export const l10Interfaces: Lesson = {
   n: 10,
   kind: "lesson",
   minutes: 26,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 9", en: "Remember? · Review of lesson 9" },
+    prompt: { es: "format(Decimal) y format(Decimal, String) en la misma clase son…", en: "format(Decimal) and format(Decimal, String) in the same class are…" },
+    options: [
+      { es: "Sobrecarga", en: "Overloading" },
+      { es: "Sobrescritura", en: "Overriding" },
+      { es: "Un error de compilación", en: "A compile error" },
+    ],
+    answer: 0,
+    explain: { es: "Sobrecarga: mismo nombre, distintas entradas, como TEXT() en una fórmula.", en: "Overloading: same name, different inputs, like TEXT() in a formula." },
+  },
   title: { es: "Interfaces y polimorfismo", en: "Interfaces and polymorphism" },
   summary: {
     es: "Una interfaz es un contrato: «quien me implemente tendrá estos métodos». El polimorfismo es tratar igual a objetos distintos que cumplen el mismo contrato.",
@@ -43,9 +54,10 @@ export const l10Interfaces: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "En Setup → Apex Classes → Schedule Apex, el desplegable no muestra todas las clases de la org: solo las que implementan la interfaz Schedulable. Salesforce no sabe ni le importa qué hace tu clase; solo necesita saber que tiene un método execute() al que llamar a la hora programada. Eso es una interfaz: un contrato que la plataforma puede usar sin conocerte.",
-        en: "In Setup → Apex Classes → Schedule Apex, the dropdown does not show every class in the org: only the ones implementing the Schedulable interface. Salesforce neither knows nor cares what your class does; it only needs to know it has an execute() method to call at the scheduled time. That is an interface: a contract the platform can use without knowing you.",
+        es: "Esto me llamó la atención en Setup: en Apex Classes → Schedule Apex, el desplegable no muestra todas las clases de la org, solo las que implementan la interfaz Schedulable. Salesforce no sabe ni le importa qué hace tu clase; solo necesita saber que tiene un método execute() al que llamar a la hora programada. Eso es una interfaz: un contrato que la plataforma puede usar sin conocerte.",
+        en: "This caught my attention in Setup: in Apex Classes → Schedule Apex, the drop-down does not show every class in the org, only the ones implementing the Schedulable interface. Salesforce neither knows nor cares what your class does; it only needs to know it has an execute() method to call at the scheduled time. That is an interface: a contract the platform can use without knowing you.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -228,9 +240,10 @@ System.debug(total);   // 50`,
       variant: "admin",
       title: { es: "El elemento Subflow solo conoce el contrato", en: "The Subflow element only knows the contract" },
       text: {
-        es: "Cuando un flow llama a un subflow, solo le importa qué variables de entrada acepta y cuáles devuelve. Puedes cambiar por completo lo que hace ese subflow por dentro —o sustituirlo por otro con las mismas variables— y el flow que lo llama ni se entera. Una interfaz es ese contrato de entradas y salidas, escrito en código: el bucle del scoring llama a score() sin saber qué clase hay detrás.",
-        en: "When a flow calls a subflow, all it cares about is which input variables it accepts and which it returns. You can completely change what that subflow does inside — or swap it for another with the same variables — and the calling flow never notices. An interface is that contract of inputs and outputs, written in code: the scoring loop calls score() without knowing which class is behind it.",
+        es: "Yo lo entendí con los subflows: cuando un flow llama a un subflow, solo le importa qué variables de entrada acepta y cuáles devuelve. Puedes cambiar por completo lo que hace ese subflow por dentro —o sustituirlo por otro con las mismas variables— y el flow que lo llama ni se entera. Una interfaz es ese contrato de entradas y salidas, escrito en código: el bucle del scoring llama a score() sin saber qué clase hay detrás.",
+        en: "Subflows made it click for me: when a flow calls a subflow, all it cares about is which input variables it accepts and which it returns. You can completely change what that subflow does inside — or swap it for another with the same variables — and the calling flow never notices. An interface is that contract of inputs and outputs, written in code: the scoring loop calls score() without knowing which class is behind it.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -471,16 +484,16 @@ for (LeadScoringRule rule : rules) {
     },
     hints: [
       {
-        es: "Tres piezas: un contrato con una sola firma, dos clases que lo cumplen y un bucle que solo conoce el contrato. El bucle no debería mencionar IndustryRule ni SourceRule.",
-        en: "Three pieces: a contract with a single signature, two classes meeting it and a loop that only knows the contract. The loop should not mention IndustryRule or SourceRule.",
+        es: "Yo lo montaría como un flow con subflows intercambiables: un contrato con una sola firma, dos clases que lo cumplen y un bucle que solo conoce el contrato. El bucle no debería mencionar IndustryRule ni SourceRule.",
+        en: "I would build it like a flow with interchangeable subflows: a contract with a single signature, two classes that fulfil it and a loop that only knows the contract. The loop should not mention IndustryRule or SourceRule.",
       },
       {
-        es: "public interface LeadScoringRule { Integer score(Lead candidate); } — public class IndustryRule implements LeadScoringRule { public Integer score(Lead candidate) { … } } — el bucle es for (LeadScoringRule rule : rules).",
-        en: "public interface LeadScoringRule { Integer score(Lead candidate); } — public class IndustryRule implements LeadScoringRule { public Integer score(Lead candidate) { … } } — the loop is for (LeadScoringRule rule : rules).",
+        es: "Lo que me ayudó: public interface LeadScoringRule { Integer score(Lead candidate); } — public class IndustryRule implements LeadScoringRule { public Integer score(Lead candidate) { … } } — el bucle es for (LeadScoringRule rule : rules).",
+        en: "What helped me: public interface LeadScoringRule { Integer score(Lead candidate); } — public class IndustryRule implements LeadScoringRule { public Integer score(Lead candidate) { … } } — the loop is for (LeadScoringRule rule : rules).",
       },
       {
-        es: "Pseudocódigo del uso: List<LeadScoringRule> rules = new List<LeadScoringRule>{ new IndustryRule(), new SourceRule() }; Lead l = new Lead(…, Industry = 'Technology', LeadSource = 'Partner Referral'); Integer totalScore = 0; para cada rule → totalScore += rule.score(l);",
-        en: "Usage pseudocode: List<LeadScoringRule> rules = new List<LeadScoringRule>{ new IndustryRule(), new SourceRule() }; Lead l = new Lead(…, Industry = 'Technology', LeadSource = 'Partner Referral'); Integer totalScore = 0; for each rule → totalScore += rule.score(l);",
+        es: "Te dejo el uso: List<LeadScoringRule> rules = new List<LeadScoringRule>{ new IndustryRule(), new SourceRule() }; Lead l = new Lead(…, Industry = 'Technology', LeadSource = 'Partner Referral'); Integer totalScore = 0; para cada rule → totalScore += rule.score(l);",
+        en: "Here is the usage: List<LeadScoringRule> rules = new List<LeadScoringRule>{ new IndustryRule(), new SourceRule() }; Lead l = new Lead(…, Industry = 'Technology', LeadSource = 'Partner Referral'); Integer totalScore = 0; for each rule → totalScore += rule.score(l);",
       },
     ],
     solution: {
@@ -556,6 +569,10 @@ System.debug(totalScore);   // 45`,
           es: "public interface LeadScoringRule { Integer score(Lead candidate); } — solo la firma, terminada en punto y coma.",
           en: "public interface LeadScoringRule { Integer score(Lead candidate); } — signature only, ending in a semicolon.",
         },
+        otter: {
+          es: "La interfaz es el contrato del subflow: solo dice qué entra y qué sale. public interface LeadScoringRule { Integer score(Lead candidate); }, solo la firma, terminada en punto y coma.",
+          en: "The interface is the subflow's contract: it only says what goes in and what comes out. public interface LeadScoringRule { Integer score(Lead candidate); }, just the signature, ending in a semicolon.",
+        },
       },
       {
         id: "m05-l10-c2",
@@ -575,6 +592,10 @@ System.debug(totalScore);   // 45`,
           es: "public class IndustryRule implements LeadScoringRule { public Integer score(Lead candidate) { … } } — y lo mismo con SourceRule.",
           en: "public class IndustryRule implements LeadScoringRule { public Integer score(Lead candidate) { … } } — and the same for SourceRule.",
         },
+        otter: {
+          es: "Cada regla es un subflow que cumple el contrato: public class IndustryRule implements LeadScoringRule { public Integer score(Lead candidate) { … } }, y lo mismo con SourceRule.",
+          en: "Each rule is a subflow fulfilling the contract: public class IndustryRule implements LeadScoringRule { public Integer score(Lead candidate) { … } }, and the same with SourceRule.",
+        },
       },
       {
         id: "m05-l10-c3",
@@ -592,6 +613,10 @@ System.debug(totalScore);   // 45`,
         onFail: {
           es: "IndustryRule: return candidate.Industry == 'Technology' ? 20 : 0; — SourceRule: return candidate.LeadSource == 'Partner Referral' ? 25 : 0;",
           en: "IndustryRule: return candidate.Industry == 'Technology' ? 20 : 0; — SourceRule: return candidate.LeadSource == 'Partner Referral' ? 25 : 0;",
+        },
+        otter: {
+          es: "Cada regla da sus puntos, como un IF() de fórmula: IndustryRule, return candidate.Industry == 'Technology' ? 20 : 0; y SourceRule, return candidate.LeadSource == 'Partner Referral' ? 25 : 0;",
+          en: "Each rule gives its points, like a formula IF(): IndustryRule, return candidate.Industry == 'Technology' ? 20 : 0; and SourceRule, return candidate.LeadSource == 'Partner Referral' ? 25 : 0;",
         },
       },
       {
@@ -611,6 +636,10 @@ System.debug(totalScore);   // 45`,
         onFail: {
           es: "List<LeadScoringRule> rules = new List<LeadScoringRule>{ new IndustryRule(), new SourceRule() };",
           en: "List<LeadScoringRule> rules = new List<LeadScoringRule>{ new IndustryRule(), new SourceRule() };",
+        },
+        otter: {
+          es: "La lista de reglas es tu colección de subflows intercambiables: List<LeadScoringRule> rules = new List<LeadScoringRule>{ new IndustryRule(), new SourceRule() };",
+          en: "The list of rules is your collection of interchangeable subflows: List<LeadScoringRule> rules = new List<LeadScoringRule>{ new IndustryRule(), new SourceRule() };",
         },
       },
       {
@@ -632,6 +661,10 @@ System.debug(totalScore);   // 45`,
           es: "Integer totalScore = 0; for (LeadScoringRule rule : rules) { totalScore += rule.score(candidate); } — sin preguntar de qué clase es cada regla.",
           en: "Integer totalScore = 0; for (LeadScoringRule rule : rules) { totalScore += rule.score(candidate); } — without asking which class each rule is.",
         },
+        otter: {
+          es: "El bucle es el flow principal: solo conoce el contrato. Integer totalScore = 0; for (LeadScoringRule rule : rules) { totalScore += rule.score(candidate); }, sin preguntar de qué clase es cada regla.",
+          en: "The loop is the main flow: it only knows the contract. Integer totalScore = 0; for (LeadScoringRule rule : rules) { totalScore += rule.score(candidate); }, without asking which class each rule is.",
+        },
         onPass: {
           es: "Una regla nueva el próximo trimestre es una clase más y una línea en la lista. El cálculo del total no se vuelve a tocar.",
           en: "A new rule next quarter is one more class and one line in the list. The total calculation is never touched again.",
@@ -643,10 +676,11 @@ System.debug(totalScore);   // 45`,
         es: "Añade mentalmente una SizeRule. ¿Cuántas líneas del bucle cambian? Si la respuesta no es cero, revisa el diseño.",
         en: "Add a SizeRule in your head. How many lines of the loop change? If the answer is not zero, revisit the design.",
       },
-      {
-        es: "Tarea 11: Soporte también forma parte del motor, y quiere dejar de repartir los casos de los clientes comparando textos.",
-        en: "Task 11: Support is part of the engine too, and wants to stop routing customers' cases by comparing text.",
-      },
     ],
+    outro: {
+      es: "Ya diseñas con interfaces: un contrato que el código usa sin saber qué clase hay detrás, como un flow que llama a subflows. En la tarea 11, Soporte también forma parte del motor, y quiere dejar de repartir los casos comparando textos.",
+      en: "You can now design with interfaces: a contract the code uses without knowing which class is behind it, like a flow calling subflows. In task 11, Support is part of the engine too, and wants to stop routing cases by comparing text.",
+    },
+    voice: "otter",
   },
 };

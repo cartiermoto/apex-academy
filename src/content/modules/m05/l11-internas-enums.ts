@@ -6,6 +6,17 @@ export const l11InternasEnums: Lesson = {
   n: 11,
   kind: "lesson",
   minutes: 22,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 10", en: "Remember? · Review of lesson 10" },
+    prompt: { es: "Añades una tercera regla de scoring que implementa LeadScoringRule. ¿Cuántas líneas del bucle cambian?", en: "You add a third scoring rule implementing LeadScoringRule. How many lines of the loop change?" },
+    options: [
+      { es: "Ninguna", en: "None" },
+      { es: "Una por regla", en: "One per rule" },
+      { es: "Hay que reescribirlo", en: "It has to be rewritten" },
+    ],
+    answer: 0,
+    explain: { es: "Ninguna: el bucle solo conoce el contrato. Añades la regla a la lista y listo.", en: "None: the loop only knows the contract. You add the rule to the list and that is it." },
+  },
   title: { es: "Clases internas y Enums", en: "Inner classes and Enums" },
   summary: {
     es: "Un enum es una lista cerrada de valores que el compilador vigila. Una clase interna agrupa datos que solo tienen sentido junto a su clase, como una fila de informe con columnas de varios objetos.",
@@ -43,9 +54,10 @@ export const l11InternasEnums: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "Un picklist restringido solo acepta sus valores: nadie puede guardar 'Hgih' en Priority. Un enum es eso, pero lo vigila el compilador: si escribes un valor que no existe, la clase ni siquiera se guarda. Y una clase wrapper es como una fila de un informe con columnas de Account y de Opportunity: un objeto hecho a medida para llevar juntos datos de varios sitios.",
-        en: "A restricted picklist only accepts its values: nobody can save 'Hgih' in Priority. An enum is that, but the compiler enforces it: write a value that does not exist and the class will not even save. And a wrapper class is like a report row with Account and Opportunity columns: an object tailored to carry data from several places together.",
+        es: "Yo lo veo así: un picklist restringido solo acepta sus valores; nadie puede guardar 'Hgih' en Priority. Un enum es eso, pero lo vigila el compilador: si escribes un valor que no existe, la clase ni siquiera se guarda. Y una clase wrapper es como una fila de un informe con columnas de Account y de Opportunity: un objeto hecho a medida para llevar juntos datos de varios sitios.",
+        en: "This is how I see it: a restricted picklist only accepts its values; nobody can save 'Hgih' in Priority. An enum is that, but the compiler guards it: write a value that does not exist and the class will not even save. And a wrapper class is like a report row with Account and Opportunity columns: an object made to measure to carry data from several places together.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -222,9 +234,10 @@ for (Account a : [SELECT Id, Name FROM Account LIMIT 20]) {
       variant: "admin",
       title: { es: "Picklist restringido o enum: dónde vive la lista", en: "Restricted picklist or enum: where the list lives" },
       text: {
-        es: "Un picklist restringido protege los DATOS: nadie puede guardar un valor que no esté en la lista, ni siquiera por API. Un enum protege el CÓDIGO: nadie puede escribir un valor que no exista, porque no compila. Y hay una diferencia práctica: un Admin cambia los valores del picklist desde Setup cuando quiere; los de un enum solo cambian con un despliegue. Por eso los enums se usan para listas que son parte de la lógica (niveles de servicio, estados internos), no para las que decide el negocio cada trimestre.",
-        en: "A restricted picklist protects the DATA: nobody can save a value not on the list, not even through the API. An enum protects the CODE: nobody can write a value that does not exist, because it will not compile. And there is a practical difference: an Admin changes a picklist's values from Setup whenever they like; an enum's only change with a deployment. That is why enums are used for lists that are part of the logic (service tiers, internal states), not for those the business decides every quarter.",
+        es: "Esta distinción me costó: un picklist restringido protege los DATOS; nadie puede guardar un valor que no esté en la lista, ni siquiera por API. Un enum protege el CÓDIGO: nadie puede escribir un valor que no exista, porque no compila. Y hay una diferencia práctica: un Admin cambia los valores del picklist desde Setup cuando quiere; los de un enum solo cambian con un despliegue. Por eso los enums se usan para listas que son parte de la lógica (niveles de servicio, estados internos), no para las que decide el negocio cada trimestre.",
+        en: "This distinction took me a while: a restricted picklist protects the DATA; nobody can save a value that is not in the list, not even through the API. An enum protects the CODE: nobody can write a value that does not exist, because it will not compile. And there is a practical difference: an Admin changes picklist values from Setup whenever they like; an enum's values only change with a deployment. That is why enums are used for lists that are part of the logic (service tiers, internal states), not for the ones the business decides every quarter.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -435,16 +448,16 @@ switch on t {
     },
     hints: [
       {
-        es: "Todo vive dentro de las llaves de CaseRouter: el enum, la clase interna y el método. Desde fuera, los tipos se nombran con CaseRouter. delante.",
-        en: "Everything lives inside CaseRouter's braces: the enum, the inner class and the method. From outside, the types are named with CaseRouter. in front.",
+        es: "Yo lo pensaría como un objeto con su picklist y su fila de informe: todo vive dentro de las llaves de CaseRouter, el enum, la clase interna y el método. Desde fuera, los tipos se nombran con CaseRouter. delante.",
+        en: "I would think of it as an object with its picklist and its report row: everything lives inside CaseRouter's braces, the enum, the inner class and the method. From outside, the types are named with CaseRouter. in front.",
       },
       {
-        es: "public enum Tier { STANDARD, PRIORITY, CRITICAL } — public class Assignment { … public Tier tier; … } — en route: primero decide el tier con if/else if (o switch sobre Priority), después switch on result.tier con when CRITICAL, when PRIORITY y when else.",
-        en: "public enum Tier { STANDARD, PRIORITY, CRITICAL } — public class Assignment { … public Tier tier; … } — in route: first decide the tier with if/else if (or a switch on Priority), then switch on result.tier with when CRITICAL, when PRIORITY and when else.",
+        es: "Lo que me ayudó: public enum Tier { STANDARD, PRIORITY, CRITICAL } — public class Assignment { … public Tier tier; … } — en route: primero decide el tier con if/else if (o switch sobre Priority), después switch on result.tier con when CRITICAL, when PRIORITY y when else.",
+        en: "What helped me: public enum Tier { STANDARD, PRIORITY, CRITICAL } — public class Assignment { … public Tier tier; … } — in route: first decide the tier with if/else if (or a switch on Priority), then switch on result.tier with when CRITICAL, when PRIORITY and when else.",
       },
       {
-        es: "Pseudocódigo del uso: CaseRouter.Assignment a = CaseRouter.route(new Case(Subject = '…', Priority = 'Medium')); — debería dar PRIORITY y 24 horas.",
-        en: "Usage pseudocode: CaseRouter.Assignment a = CaseRouter.route(new Case(Subject = '…', Priority = 'Medium')); — it should give PRIORITY and 24 hours.",
+        es: "Te dejo el uso: CaseRouter.Assignment a = CaseRouter.route(new Case(Subject = '…', Priority = 'Medium')); — debería dar PRIORITY y 24 horas.",
+        en: "Here is the usage: CaseRouter.Assignment a = CaseRouter.route(new Case(Subject = '…', Priority = 'Medium')); — it should give PRIORITY and 24 hours.",
       },
     ],
     solution: {
@@ -549,6 +562,10 @@ System.debug(assignment.tier.name() + ' · ' + assignment.slaHours);   // PRIORI
           es: "Dentro de CaseRouter: public enum Tier { STANDARD, PRIORITY, CRITICAL }",
           en: "Inside CaseRouter: public enum Tier { STANDARD, PRIORITY, CRITICAL }",
         },
+        otter: {
+          es: "El enum es tu picklist restringido, pero vigilado por el compilador: dentro de CaseRouter, public enum Tier { STANDARD, PRIORITY, CRITICAL }",
+          en: "The enum is your restricted picklist, but guarded by the compiler: inside CaseRouter, public enum Tier { STANDARD, PRIORITY, CRITICAL }",
+        },
       },
       {
         id: "m05-l11-c2",
@@ -568,6 +585,10 @@ System.debug(assignment.tier.name() + ' · ' + assignment.slaHours);   // PRIORI
         onFail: {
           es: "public class Assignment { public String caseSubject; public Tier tier; public Integer slaHours; } — dentro de CaseRouter.",
           en: "public class Assignment { public String caseSubject; public Tier tier; public Integer slaHours; } — inside CaseRouter.",
+        },
+        otter: {
+          es: "Assignment es tu fila de informe a medida, con columnas de varios sitios: public class Assignment { public String caseSubject; public Tier tier; public Integer slaHours; }, dentro de CaseRouter.",
+          en: "Assignment is your made-to-measure report row, with columns from several places: public class Assignment { public String caseSubject; public Tier tier; public Integer slaHours; }, inside CaseRouter.",
         },
       },
       {
@@ -590,6 +611,10 @@ System.debug(assignment.tier.name() + ' · ' + assignment.slaHours);   // PRIORI
           es: "public static Assignment route(Case c) { … } que cree el Assignment, le asigne Tier.CRITICAL, Tier.PRIORITY o Tier.STANDARD según la prioridad y lo devuelva.",
           en: "public static Assignment route(Case c) { … } that creates the Assignment, sets Tier.CRITICAL, Tier.PRIORITY or Tier.STANDARD by priority, and returns it.",
         },
+        otter: {
+          es: "route es el reparto, como una regla de asignación de casos: public static Assignment route(Case c) { … }, que crea el Assignment, le asigna Tier.CRITICAL, Tier.PRIORITY o Tier.STANDARD según la prioridad y lo devuelve.",
+          en: "route is the routing, like a case assignment rule: public static Assignment route(Case c) { … }, which creates the Assignment, sets Tier.CRITICAL, Tier.PRIORITY or Tier.STANDARD from the priority and returns it.",
+        },
       },
       {
         id: "m05-l11-c4",
@@ -610,6 +635,10 @@ System.debug(assignment.tier.name() + ' · ' + assignment.slaHours);   // PRIORI
           es: "switch on result.tier { when CRITICAL { … 4 } when PRIORITY { … 24 } when else { … 72 } } — en los when de un enum va solo el valor.",
           en: "switch on result.tier { when CRITICAL { … 4 } when PRIORITY { … 24 } when else { … 72 } } — an enum's whens take just the value.",
         },
+        otter: {
+          es: "Las horas salen del nivel, como un switch sobre un picklist, pero en los when de un enum va solo el valor, sin prefijo: switch on result.tier { when CRITICAL { … 4 } when PRIORITY { … 24 } when else { … 72 } }",
+          en: "The hours come from the tier, like a switch on a picklist, but an enum's whens carry just the value, with no prefix: switch on result.tier { when CRITICAL { … 4 } when PRIORITY { … 24 } when else { … 72 } }",
+        },
         onPass: {
           es: "Si alguien escribe when CRITCAL, no compila. Con textos, ese caso habría caído en when else sin avisar.",
           en: "If someone writes when CRITCAL, it does not compile. With text, that case would have fallen into when else without warning.",
@@ -629,6 +658,10 @@ System.debug(assignment.tier.name() + ' · ' + assignment.slaHours);   // PRIORI
           es: "CaseRouter.Assignment a = CaseRouter.route(new Case(Subject = '…', Priority = 'Medium'));",
           en: "CaseRouter.Assignment a = CaseRouter.route(new Case(Subject = '…', Priority = 'Medium'));",
         },
+        otter: {
+          es: "Desde fuera, el tipo interno se nombra con su clase delante: CaseRouter.Assignment a = CaseRouter.route(new Case(Subject = '…', Priority = 'Medium'));",
+          en: "From outside, the inner type is named with its class in front: CaseRouter.Assignment a = CaseRouter.route(new Case(Subject = '…', Priority = 'Medium'));",
+        },
       },
     ],
     rubric: [
@@ -636,10 +669,11 @@ System.debug(assignment.tier.name() + ' · ' + assignment.slaHours);   // PRIORI
         es: "Si Soporte añade un nivel VIP, ¿qué te avisaría el compilador que te falta por tocar? ¿Y si los niveles fueran textos?",
         en: "If Support adds a VIP tier, what would the compiler warn you is left to change? And if the tiers were text?",
       },
-      {
-        es: "Tarea 12: la entrega. Las comisiones del trimestre usan casi todo lo que has construido: herencia, abstract, una interfaz y propiedades protegidas.",
-        en: "Task 12: delivery. The quarter's commissions use nearly everything you have built: inheritance, abstract, an interface and protected properties.",
-      },
     ],
+    outro: {
+      es: "Ya usas enums para las listas que son parte de la lógica y clases internas para empaquetar resultados. La tarea 12 es la entrega: las comisiones del trimestre, con casi todo lo que has construido.",
+      en: "You can now use enums for lists that are part of the logic and inner classes to package results. Task 12 is the delivery: the quarter's commissions, with almost everything you have built.",
+    },
+    voice: "otter",
   },
 };
