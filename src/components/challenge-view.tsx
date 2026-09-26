@@ -8,6 +8,7 @@ import { requiredLessons } from "@/content/course";
 import { useProgress, useSettings } from "./providers";
 import { Theory } from "./theory";
 import { ExercisePanel } from "./exercise";
+import { OtterWarmup } from "./otter";
 
 export function ChallengeView({
   challenge,
@@ -78,6 +79,11 @@ export function ChallengeView({
 
       {/* scenario is always readable, even locked: it is the motivation */}
       <section className="mt-10">
+        {challenge.warmup && (
+          <div className="max-w-[68ch]">
+            <OtterWarmup key={challenge.id} data={challenge.warmup} lang={lang} />
+          </div>
+        )}
         <Theory blocks={challenge.scenario} lang={lang} />
       </section>
 
@@ -159,6 +165,8 @@ export function ChallengeView({
                   },
                   checks: component.checks,
                   rubric: challenge.rubric,
+                  voice: component.voice,
+                  outro: component.outro,
                 }}
                 lang={lang}
                 lessonId={challenge.id}
