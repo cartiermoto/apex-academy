@@ -97,8 +97,8 @@ export const glossary: GlossaryEntry[] = [
     id: "excepcion",
     term: { es: "excepción", en: "exception" },
     definition: {
-      es: "Un error en ejecución que detiene la transacción. Su tipo —NullPointerException, TypeException…— dice qué salió mal.",
-      en: "A runtime error that halts the transaction. Its type — NullPointerException, TypeException… — says what went wrong.",
+      es: "Un error en ejecución. Su tipo —NullPointerException, TypeException…— dice qué salió mal. Si nadie la captura, detiene la transacción y la deshace; con try/catch decides tú qué pasa.",
+      en: "A runtime error. Its type — NullPointerException, TypeException… — says what went wrong. If nobody catches it, it halts the transaction and rolls it back; with try/catch you decide what happens.",
     },
     admin: {
       es: "El correo de «Apex script unhandled exception» que alguna vez te llegó.",
@@ -452,6 +452,32 @@ export const glossary: GlossaryEntry[] = [
       en: "The “Bypass Validation Rules” many orgs use for data loads.",
     },
     taughtIn: { es: "Módulo 7", en: "Module 7" },
+  },
+  {
+    id: "propagacion",
+    term: { es: "propagación", en: "propagation" },
+    definition: {
+      es: "El viaje de una excepción hacia arriba: si el método donde salta no la captura, pasa al método que lo llamó, y así sucesivamente hasta que un catch se hace cargo o llega a la plataforma.",
+      en: "An exception's journey upwards: if the method where it is thrown does not catch it, it passes to the method that called it, and so on until a catch takes charge or it reaches the platform.",
+    },
+    admin: {
+      es: "Un fallo dentro de un subflow que acaba en el fault path del flow que lo llamó.",
+      en: "A failure inside a subflow that ends up on the fault path of the flow that called it.",
+    },
+    taughtIn: { es: "Módulo 8", en: "Module 8" },
+  },
+  {
+    id: "excepcion-personalizada",
+    term: { es: "excepción personalizada", en: "custom exception" },
+    definition: {
+      es: "Una clase tuya que extiende Exception y cuyo nombre termina en Exception. Sirve para dar nombre propio a los errores de tu negocio y capturarlos aparte de los fallos técnicos.",
+      en: "A class of yours that extends Exception and whose name ends in Exception. It gives your business errors their own name so they can be caught apart from technical failures.",
+    },
+    admin: {
+      es: "El mensaje de error de una regla de validación: dice qué falló en el idioma del negocio.",
+      en: "A validation rule's error message: it says what failed in the business's language.",
+    },
+    taughtIn: { es: "Módulo 8", en: "Module 8" },
   },
 ];
 

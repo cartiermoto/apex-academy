@@ -27,6 +27,7 @@ import {
 } from "./diagrams-anim-m02";
 import { GuardBypassPlay, LayerChooserPlay, ServiceDoorsPlay, ThinTriggerPlay, TwoTriggersPlay } from "./diagrams-anim-m07";
 import { BeforeAfterPlay, ContextPlay, FlowToTriggerPlay, RecursionPlay, TriggerAnatomyPlay } from "./diagrams-anim-m06";
+import { AddErrorPlay, CustomExceptionPlay, ErrorDictionaryPlay, ExceptionTypesPlay, PropagationPlay, TryFlowPlay } from "./diagrams-anim-m08";
 import { AllOrNonePlay, BulkPlay, DmlOpsPlay, LimitsPlay, RecipeOrderPlay, SavepointPlay } from "./diagrams-anim-m04";
 import {
   AbstractPlay,
@@ -544,6 +545,12 @@ const REGISTRY: Record<string, (p: P) => React.ReactElement> = {
   "m04-limits": LimitsPlay,
   "m04-savepoint": SavepointPlay,
   "m04-cp-recipe": RecipeOrderPlay,
+  "m08-try-flow": TryFlowPlay,
+  "m08-exception-types": ExceptionTypesPlay,
+  "m08-propagation": PropagationPlay,
+  "m08-custom-exception": CustomExceptionPlay,
+  "m08-adderror": AddErrorPlay,
+  "m08-cp-map": ErrorDictionaryPlay,
   "m06-anatomy": TriggerAnatomyPlay,
   "m06-before-after": BeforeAfterPlay,
   "m06-order": OrderOfExecution,

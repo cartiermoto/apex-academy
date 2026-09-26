@@ -6,6 +6,7 @@ import { m04 } from "./modules/m04";
 import { m05 } from "./modules/m05";
 import { m06 } from "./modules/m06";
 import { m07 } from "./modules/m07";
+import { m08 } from "./modules/m08";
 import { challenge1, challenge2 } from "./challenges";
 
 /* -------------------------------------------------------------------------- */
@@ -32,25 +33,6 @@ function planned(
     outline: outline.map(([es, en]) => ({ es, en })),
   };
 }
-
-const m08 = planned(
-  8,
-  "m08",
-  "robust",
-  { es: "Manejo de Excepciones", en: "Exception Handling" },
-  {
-    es: "Qué hacer cuando algo falla — y por qué tu excepción personalizada extiende Exception.",
-    en: "What to do when something breaks — and why your custom exception extends Exception.",
-  },
-  [
-    ["try / catch / finally", "try / catch / finally"],
-    ["Tipos de excepción en Apex", "Exception types in Apex"],
-    ["throw y propagación", "throw and propagation"],
-    ["Excepciones personalizadas (extends Exception)", "Custom exceptions (extends Exception)"],
-    ["addError en triggers", "addError in triggers"],
-    ["Checkpoint del Módulo 8", "Module 8 checkpoint"],
-  ],
-);
 
 const m09 = planned(
   9,
