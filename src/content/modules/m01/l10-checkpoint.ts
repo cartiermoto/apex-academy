@@ -907,12 +907,12 @@ summaryLines.add(String.valueOf(amountWithTax.setScale(2)));`,
           ],
         },
         onFail: {
-          es: "La lista hay que crearla con new antes de añadirle nada, y la última línea necesita dos conversiones: setScale(2) para los céntimos y String.valueOf() para poder concatenarla.",
-          en: "The list must be created with new before anything is added, and the last line needs two conversions: setScale(2) for the cents and String.valueOf() so it can be concatenated.",
+          es: "La lista hay que crearla con new antes de añadirle nada, y la última línea necesita dos conversiones: setScale(2) para los céntimos y String.valueOf() para que quepa en una List<String>, que solo guarda textos.",
+          en: "The list must be created with new before anything is added, and the last line needs two conversions: setScale(2) for the cents and String.valueOf() so it fits in a List<String>, which only holds text.",
         },
         otter: {
-          es: "summaryLines: la lista se crea con new antes de añadirle nada, y la última línea necesita dos conversiones, como TEXT(ROUND(…, 2)) en una fórmula: setScale(2) para los céntimos y String.valueOf() para poder concatenarla.",
-          en: "summaryLines: the list is created with new before anything is added, and the last line needs two conversions, like TEXT(ROUND(…, 2)) in a formula: setScale(2) for the cents and String.valueOf() so it can be concatenated.",
+          es: "summaryLines: la lista se crea con new antes de añadirle nada, y la última línea necesita dos conversiones, como TEXT(ROUND(…, 2)) en una fórmula: setScale(2) para los céntimos y String.valueOf() para que quepa en una List<String>, que solo guarda textos.",
+          en: "summaryLines: the list is created with new before anything is added, and the last line needs two conversions, like TEXT(ROUND(…, 2)) in a formula: setScale(2) for the cents and String.valueOf() so it fits in a List<String>, which only holds text.",
         },
       },
       {

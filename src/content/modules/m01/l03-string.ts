@@ -360,6 +360,32 @@ String c = String.valueOf(42);         // '42': converts to text`,
       },
     },
     {
+      type: "p",
+      text: {
+        es: "String.valueOf() merece una parada, porque lo vas a usar en todo el curso. Es el TEXT() de tus fórmulas: recibe un valor que no es texto —un número, una fecha, un Boolean— y te devuelve ese mismo valor escrito como texto. Hace falta porque Apex es estricto con los tipos: una variable String solo guarda texto, y 42 no es texto, es un número. '42', entre comillas, sí lo es. Para Apex son dos cosas distintas: con 42 puedes sumar; '42' solo se puede mostrar o pegar a otro texto. (La sub-lección de Casting vuelve a esto con calma.)",
+        en: "String.valueOf() deserves a stop, because you will use it throughout the course. It is your formula TEXT(): it takes a value that is not text — a number, a date, a Boolean — and gives you back that same value written as text. It is needed because Apex is strict about types: a String variable only holds text, and 42 is not text, it is a number. '42', in quotes, is. To Apex they are two different things: you can add with 42; '42' can only be displayed or attached to other text. (The Casting sub-lesson comes back to this calmly.)",
+      },
+    },
+    {
+      type: "code",
+      code: {
+        es: `Integer total = 42;
+
+String a = total;                  // ✗ no compila: Illegal assignment from Integer to String
+String b = String.valueOf(total);  // ✓ '42', ya como texto
+String c = 'Total: ' + total;      // ✓ 'Total: 42': al pegarlo con +, Apex lo convierte solo`,
+        en: `Integer total = 42;
+
+String a = total;                  // ✗ does not compile: Illegal assignment from Integer to String
+String b = String.valueOf(total);  // ✓ '42', now as text
+String c = 'Total: ' + total;      // ✓ 'Total: 42': when you attach it with +, Apex converts it for you`,
+      },
+      caption: {
+        es: "Regla práctica: si el número va solo a una variable String (o a una lista de textos), necesitas String.valueOf(). Si lo pegas a un texto con +, Apex lo convierte por ti.",
+        en: "Rule of thumb: if the number goes on its own into a String variable (or a list of texts), you need String.valueOf(). If you attach it to text with +, Apex converts it for you.",
+      },
+    },
+    {
       type: "h",
       text: { es: "Anidar: un método dentro de los paréntesis de otro", en: "Nesting: one method inside another's brackets" },
     },
