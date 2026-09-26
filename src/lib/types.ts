@@ -195,6 +195,10 @@ export interface ChallengeComponent {
   starter: L;
   hints: [L, L, L];
   checks: Check[];
+  /** "otter": hints and check feedback voiced by the mascot */
+  voice?: "otter";
+  /** the otter's words once this component passes: what comes next */
+  outro?: L;
 }
 
 export interface Challenge {
@@ -205,6 +209,8 @@ export interface Challenge {
   /** module id that must be complete to unlock, e.g. "m07" */
   requires: string;
   status: "ready" | "planned";
+  /** the otter's opening question, above the scenario */
+  warmup?: Warmup;
   scenario: TheoryBlock[];
   components: ChallengeComponent[];
   rubric: L[];
