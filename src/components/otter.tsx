@@ -45,11 +45,12 @@ export function OtterSays({
       <div className="relative min-w-0 flex-1 rounded-[4px] px-4 py-3 sm:px-5" style={{ background: bg }}>
         {/* the bubble's tail, pointing at the otter */}
         <span aria-hidden className="absolute -left-[5px] top-[17px] h-[10px] w-[10px] rotate-45" style={{ background: bg }} />
-        <p className="t-small relative font-semibold" style={{ color: eyebrowColor }}>
+        <p className="t-small relative font-semibold [overflow-wrap:anywhere]" style={{ color: eyebrowColor }}>
           <span className="sr-only">{lang === "es" ? "La nutria: " : "The otter: "}</span>
           {eyebrow}
         </p>
-        <div className="t-small relative mt-1.5 leading-relaxed text-ink">{children}</div>
+        {/* long code tokens (FeatureManagement.checkPermission(…)) must wrap on a phone */}
+        <div className="t-small relative mt-1.5 leading-relaxed text-ink [overflow-wrap:anywhere]">{children}</div>
       </div>
     </div>
   );

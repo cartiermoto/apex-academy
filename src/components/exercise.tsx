@@ -140,13 +140,13 @@ export function ExercisePanel({
   return (
     <div className="max-w-[68ch]">
       {/* ------------------------------------------------------------ brief */}
-      <p className="t-body text-ink"><RichText text={t(data.prompt, lang)} lang={lang} /></p>
+      <p className="t-body text-ink [overflow-wrap:anywhere]"><RichText text={t(data.prompt, lang)} lang={lang} /></p>
 
       <div className="card mt-5 p-5">
         <p className="t-eyebrow">{t(ui.requirements, lang)}</p>
         <ul className="mt-3 space-y-2.5">
           {data.brief.map((b, i) => (
-            <li key={i} className="t-small relative pl-6 text-ink">
+            <li key={i} className="t-small relative pl-6 text-ink [overflow-wrap:anywhere]">
               <span className="t-micro absolute left-0 top-[1px] grid h-[18px] w-[18px] place-items-center rounded-full bg-surface-2 text-faint">
                 {i + 1}
               </span>
@@ -253,7 +253,7 @@ export function ExercisePanel({
                         </svg>
                       )}
                     </span>
-                    <span className="t-small text-ink">
+                    <span className="t-small min-w-0 text-ink [overflow-wrap:anywhere]">
                       {t(check.label, lang)}
                       {r.optional && (
                         <span className="t-micro ml-1.5 text-faint">
@@ -314,10 +314,10 @@ export function ExercisePanel({
                       borderLeft: `3px solid ${color}`,
                     }}
                   >
-                    <p className="t-small font-semibold" style={{ color }}>
+                    <p className="t-small font-semibold [overflow-wrap:anywhere]" style={{ color }}>
                       {t(n.title, lang)}
                     </p>
-                    <p className="t-small mt-1 text-ink">{t(n.text, lang)}</p>
+                    <p className="t-small mt-1 text-ink [overflow-wrap:anywhere]">{t(n.text, lang)}</p>
                   </div>
                 );
               })}

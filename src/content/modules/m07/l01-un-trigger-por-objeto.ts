@@ -108,6 +108,17 @@ export const l01UnTriggerPorObjeto: Lesson = {
   n: 1,
   kind: "lesson",
   minutes: 30,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso del Módulo 6", en: "Remember? · Review of Module 6" },
+    prompt: { es: "Si dos triggers sobre Case ponen Priority a valores distintos, ¿cuál gana?", en: "If two triggers on Case set Priority to different values, which one wins?" },
+    options: [
+      { es: "El que se creó primero", en: "The one created first" },
+      { es: "El que corra el último, y ese orden no está garantizado", en: "Whichever runs last, and that order is not guaranteed" },
+      { es: "Siempre el trigger before", en: "Always the before trigger" },
+    ],
+    answer: 1,
+    explain: { es: "No hay Trigger Order para los triggers de Apex: el orden lo decide la plataforma. Hoy verás la única solución: que no haya dos.", en: "Apex triggers have no Trigger Order: the platform decides the order. Today you will see the only fix: for there not to be two." },
+  },
   title: {
     es: "Un trigger por objeto, y por qué sin lógica",
     en: "One trigger per object, and why with no logic",
@@ -163,9 +174,10 @@ export const l01UnTriggerPorObjeto: Lesson = {
       variant: "admin",
       title: { es: "El encargo, tal cual lo cuenta el jefe de Soporte", en: "The assignment, as the Support lead tells it" },
       text: {
-        es: "«Los casos de Hot a veces salen en 'Low' y nadie sabe por qué. Queremos que eso no vuelva a pasar, que las reglas de casos estén en un solo sitio, que el botón de recalcular prioridad use la misma regla, que no se dupliquen las tareas, que la migración de casos antiguos no dispare nada… y, cuando esté todo en orden, una regla nueva: cuando se cierra un caso urgente, el comercial de la cuenta tiene que enterarse». Cinco tareas; la de hoy es la primera frase.",
-        en: "“Hot cases sometimes come out as 'Low' and nobody knows why. We want that never to happen again, the case rules to live in one place, the recalculate-priority button to use the same rule, no duplicated tasks, the migration of old cases not to fire anything… and, once it is all in order, a new rule: when an urgent case closes, the account's sales rep has to find out.” Five tasks; today's is the first sentence.",
+        es: "Vengo de hablar con el jefe de Soporte, y esto es lo que me contó, tal cual: «Los casos de Hot a veces salen en 'Low' y nadie sabe por qué. Queremos que eso no vuelva a pasar, que las reglas de casos estén en un solo sitio, que el botón de recalcular prioridad use la misma regla, que no se dupliquen las tareas, que la migración de casos antiguos no dispare nada… y, cuando esté todo en orden, una regla nueva: cuando se cierra un caso urgente, el comercial de la cuenta tiene que enterarse». Cinco tareas; la de hoy es la primera frase.",
+        en: "I have just talked to the head of Support, and this is what they told me, word for word: “Hot cases sometimes come out as 'Low' and nobody knows why. We want that never to happen again, the case rules to live in one place, the recalculate-priority button to use the same rule, no duplicated tasks, the migration of old cases not to fire anything… and, once it is all in order, a new rule: when an urgent case closes, the account's sales rep has to find out.” Five tasks; today's is the first sentence.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -191,9 +203,10 @@ export const l01UnTriggerPorObjeto: Lesson = {
       variant: "admin",
       title: { es: "Tú ya tienes esta herramienta… para los flows", en: "You already have this tool… for flows" },
       text: {
-        es: "Para los Record-Triggered Flows existe Flow Trigger Explorer y el campo Trigger Order: si dos flows del mismo objeto chocan, les pones número y se acabó. Los triggers de Apex no tienen nada parecido. La única forma de decidir el orden es que no haya dos: un solo trigger por objeto, y dentro, las reglas en el orden que tú escribas.",
-        en: "Record-triggered flows have Flow Trigger Explorer and the Trigger Order field: if two flows on the same object clash, you number them and that is that. Apex triggers have nothing like it. The only way to decide the order is not to have two: a single trigger per object, and inside it, the rules in the order you write.",
+        es: "Yo ordenaba mis flows con Flow Trigger Explorer y el campo Trigger Order: si dos flows del mismo objeto chocan, les pones número y se acabó. Los triggers de Apex no tienen nada parecido. La única forma de decidir el orden es que no haya dos: un solo trigger por objeto, y dentro, las reglas en el orden que tú escribas.",
+        en: "I ordered my flows with Flow Trigger Explorer and the Trigger Order field: if two flows on the same object clash, you number them and that is that. Apex triggers have nothing like it. The only way to decide the order is for there not to be two: one trigger per object, and inside it, the rules in the order you write them.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -276,9 +289,10 @@ export const l01UnTriggerPorObjeto: Lesson = {
       variant: "admin",
       title: { es: "El flow gigante que nadie quiere abrir", en: "The giant flow nobody wants to open" },
       text: {
-        es: "Seguro que has visto uno: un Record-Triggered Flow con cuarenta elementos, decisiones anidadas y un lienzo que no cabe en la pantalla. Funciona, pero cada cambio da miedo. Un trigger con toda la lógica dentro es exactamente eso, en código. Y la solución también se parece: en Flow sacabas trozos a subflows; en Apex, a clases.",
-        en: "You have surely seen one: a record-triggered flow with forty elements, nested decisions and a canvas that does not fit on screen. It works, but every change is scary. A trigger with all the logic inside is exactly that, in code. And the fix is similar too: in Flow you pulled pieces out into subflows; in Apex, into classes.",
+        es: "Yo he heredado alguno: un Record-Triggered Flow con cuarenta elementos, decisiones anidadas y un lienzo que no cabe en la pantalla. Funciona, pero cada cambio da miedo. Un trigger con toda la lógica dentro es exactamente eso, en código. Y la solución también se parece: en Flow sacabas trozos a subflows; en Apex, a clases.",
+        en: "I have inherited a few: a Record-Triggered Flow with forty elements, nested decisions and a canvas that does not fit on the screen. It works, but every change is scary. A trigger with all the logic inside is exactly that, in code. And the fix looks alike too: in Flow you moved pieces into subflows; in Apex, into classes.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -500,16 +514,16 @@ ${TWO_TRIGGERS_EN}
     },
     hints: [
       {
-        es: "Empieza por la cabecera: un solo trigger CaseTrigger on Case con los dos eventos que necesitan las reglas. Luego piensa qué va en cada momento: ¿qué regla toca el propio caso (before) y cuál crea otros registros que necesitan su Id (after)?",
-        en: "Start with the header: a single trigger CaseTrigger on Case with the two events the rules need. Then think about what goes at each moment: which rule touches the case itself (before) and which creates other records needing its Id (after)?",
+        es: "Yo lo haría como juntar dos flows en uno: empieza por la cabecera, un solo trigger CaseTrigger on Case con los dos eventos que necesitan las reglas. Luego piensa qué va en cada momento: ¿qué regla toca el propio caso (before, tu Fast Field Updates) y cuál crea otros registros que necesitan su Id (after)?",
+        en: "I would do it like merging two flows into one: start with the header, a single trigger CaseTrigger on Case with the two events the rules need. Then think about what goes at each moment: which rule touches the case itself (before, your Fast Field Updates) and which creates other records that need its Id (after)?",
       },
       {
-        es: "switch on Trigger.operationType { when BEFORE_INSERT { … } when AFTER_INSERT { … } }. Dentro de BEFORE_INSERT, el orden importa: la última asignación a Priority es la que queda, así que el bucle del 'Low' va primero.",
-        en: "switch on Trigger.operationType { when BEFORE_INSERT { … } when AFTER_INSERT { … } }. Inside BEFORE_INSERT the order matters: the last assignment to Priority is the one that sticks, so the 'Low' loop goes first.",
+        es: "Lo que me ayudó: switch on Trigger.operationType { when BEFORE_INSERT { … } when AFTER_INSERT { … } }. Dentro de BEFORE_INSERT el orden importa, como el Trigger Order de tus flows: la última asignación a Priority es la que queda, así que el bucle del 'Low' va primero.",
+        en: "What helped me: switch on Trigger.operationType { when BEFORE_INSERT { … } when AFTER_INSERT { … } }. Inside BEFORE_INSERT order matters, like your flows' Trigger Order: the last assignment to Priority is the one that stays, so the 'Low' loop goes first.",
       },
       {
-        es: "Pseudocódigo del before: for (Case c : Trigger.new) { if (c.Origin == 'Web') c.Priority = 'Low'; } … y a continuación el bloque del escalado tal cual estaba (Set de Ids, una consulta, el bucle que pone 'High'). Borra los dos triggers antiguos.",
-        en: "Before pseudocode: for (Case c : Trigger.new) { if (c.Origin == 'Web') c.Priority = 'Low'; } … and right after it the escalation block as it was (Set of Ids, one query, the loop that sets 'High'). Delete the two old triggers.",
+        es: "Te dejo el before: for (Case c : Trigger.new) { if (c.Origin == 'Web') c.Priority = 'Low'; } … y a continuación el bloque del escalado tal cual estaba (Set de Ids, una consulta, el bucle que pone 'High'). Borra los dos triggers antiguos.",
+        en: "Here is the before: for (Case c : Trigger.new) { if (c.Origin == 'Web') c.Priority = 'Low'; } … and then the escalation block as it was (Set of Ids, one query, the loop setting 'High'). Delete the two old triggers.",
       },
     ],
     solution: { es: SOLUTION, en: SOLUTION_EN },
@@ -521,6 +535,10 @@ ${TWO_TRIGGERS_EN}
         onFail: {
           es: "Tiene que quedar exactamente un trigger sobre Case. Si dejas los antiguos, el orden sigue siendo cosa de la plataforma y el problema no se ha ido.",
           en: "Exactly one trigger on Case must remain. Leave the old ones and the order is still up to the platform: the problem has not gone.",
+        },
+        otter: {
+          es: "Dos triggers sobre Case son dos flows sin Trigger Order: el orden lo decide la plataforma. Tiene que quedar exactamente uno; borra los antiguos.",
+          en: "Two triggers on Case are two flows without a Trigger Order: the platform decides the order. Exactly one must remain; delete the old ones.",
         },
       },
       {
@@ -536,6 +554,10 @@ ${TWO_TRIGGERS_EN}
         onFail: {
           es: "La cabecera decide cuándo se dispara: trigger CaseTrigger on Case (before insert, after insert). Sin after insert, las tareas no se crearían nunca.",
           en: "The header decides when it fires: trigger CaseTrigger on Case (before insert, after insert). Without after insert, the tasks would never be created.",
+        },
+        otter: {
+          es: "La cabecera es tu elemento Start: trigger CaseTrigger on Case (before insert, after insert). Sin after insert, las tareas no se crearían nunca.",
+          en: "The header is your Start element: trigger CaseTrigger on Case (before insert, after insert). Without after insert, the tasks would never be created.",
         },
       },
       {
@@ -554,6 +576,10 @@ ${TWO_TRIGGERS_EN}
           es: "switch on Trigger.operationType con when BEFORE_INSERT y when AFTER_INSERT, sin comillas. Y quita los if con Trigger.isBefore / isAfter: el switch los sustituye.",
           en: "switch on Trigger.operationType with when BEFORE_INSERT and when AFTER_INSERT, no quotes. And remove the ifs with Trigger.isBefore / isAfter: the switch replaces them.",
         },
+        otter: {
+          es: "El switch reparte por evento, como las salidas de un Decision: switch on Trigger.operationType con when BEFORE_INSERT y when AFTER_INSERT, sin comillas. Y quita los if con Trigger.isBefore / isAfter: el switch los sustituye.",
+          en: "The switch sorts by event, like a Decision's outcomes: switch on Trigger.operationType with when BEFORE_INSERT and when AFTER_INSERT, no quotes. And remove the ifs with Trigger.isBefore / isAfter: the switch replaces them.",
+        },
       },
       {
         id: "m07-l01-c4",
@@ -562,6 +588,10 @@ ${TWO_TRIGGERS_EN}
         onFail: {
           es: "Dentro de BEFORE_INSERT la última asignación a Priority es la que se guarda. Si el escalado va antes que el 'Low' de la web, un caso Hot que llega por la web acabaría en 'Low': el mismo fallo que querías arreglar, pero ahora siempre.",
           en: "Inside BEFORE_INSERT the last assignment to Priority is the one saved. If escalation comes before the web 'Low', a Hot case arriving through the web would end up 'Low': the very bug you wanted to fix, but now every time.",
+        },
+        otter: {
+          es: "Aquí el orden lo pones tú, como el Trigger Order: dentro de BEFORE_INSERT la última asignación a Priority es la que se guarda. Si el escalado va antes que el 'Low' de la web, un caso Hot que llega por la web acabaría en 'Low': el mismo fallo que querías arreglar, pero ahora siempre.",
+          en: "Here you set the order, like the Trigger Order: inside BEFORE_INSERT the last assignment to Priority is the one saved. If the escalation comes before the web's 'Low', a Hot case arriving from the web would end up 'Low': the same bug you wanted to fix, only now every time.",
         },
         onPass: {
           es: "Ese es el cambio de fondo: el orden ya no lo decide la plataforma, está escrito en tu código.",
@@ -582,6 +612,10 @@ ${TWO_TRIGGERS_EN}
           es: "Al unir los triggers no dupliques la consulta de cuentas Hot ni el insert de tareas: sigue haciendo falta exactamente una de cada, sean 3 casos o 200.",
           en: "When merging, do not duplicate the Hot accounts query or the task insert: you still need exactly one of each, whether 3 cases or 200.",
         },
+        otter: {
+          es: "Al juntar los dos flows no dupliques los Get Records ni los Create Records: sigue haciendo falta exactamente una consulta de cuentas Hot y un insert de tareas, sean 3 casos o 200.",
+          en: "When merging the two flows do not duplicate the Get Records or the Create Records: you still need exactly one query for Hot accounts and one insert of tasks, whether there are 3 cases or 200.",
+        },
       },
     ],
     rubric: [
@@ -590,5 +624,10 @@ ${TWO_TRIGGERS_EN}
         en: "Imagine Support asks for three more rules. How many lines would this trigger have? Would you dare change the middle one without fear of breaking the others? That feeling is task 2.",
       },
     ],
+    outro: {
+      es: "Ya tienes un solo trigger por objeto, que decide el evento con un switch y aplica las reglas en el orden que tú escribes. En la tarea 2, tantas reglas en un trigger son el flow gigante que nadie quiere abrir: toca mudar la lógica a un handler.",
+      en: "You now have one trigger per object, which decides the event with a switch and applies the rules in the order you write. In task 2, so many rules in one trigger are the giant flow nobody wants to open: time to move the logic into a handler.",
+    },
+    voice: "otter",
   },
 };

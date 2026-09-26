@@ -175,6 +175,17 @@ export const l05Checkpoint: Lesson = {
   n: 5,
   kind: "checkpoint",
   minutes: 45,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 4", en: "Remember? · Review of lesson 4" },
+    prompt: { es: "¿Qué hace FeatureManagement.checkPermission('Bypass_Case_Triggers')?", en: "What does FeatureManagement.checkPermission('Bypass_Case_Triggers') do?" },
+    options: [
+      { es: "Comprueba si el usuario tiene ese permiso personalizado", en: "It checks whether the user has that custom permission" },
+      { es: "Borra los triggers", en: "It deletes the triggers" },
+      { es: "Desactiva las reglas de validación", en: "It turns off validation rules" },
+    ],
+    answer: 0,
+    explain: { es: "Es tu $Permission de fórmulas, en Apex: si el usuario tiene el permiso, el trigger sale con return.", en: "It is your formula $Permission, in Apex: if the user has the permission, the trigger exits with return." },
+  },
   title: { es: "Checkpoint del Módulo 7", en: "Module 7 checkpoint" },
   summary: {
     es: "La prueba de que la arquitectura sirve: llega una regla nueva y entra sin tocar el trigger, con su propio servicio, su guardia y el interruptor que ya existía.",
@@ -280,9 +291,10 @@ export const l05Checkpoint: Lesson = {
       variant: "admin",
       title: { es: "El propietario de la cuenta, no el del caso", en: "The account's owner, not the case's" },
       text: {
-        es: "El caso tiene su propietario —el agente o la cola— y la cuenta, el suyo —el comercial—. Para llegar al segundo hay que subir del caso a la cuenta: una consulta con los AccountId de todos los casos, como en el Módulo 3, y un Map para encontrar cada uno sin recorrer nada. En Flow habría sido un Get Records; aquí, uno para todos los casos a la vez.",
-        en: "The case has its owner — the agent or the queue — and the account has its own — the sales rep. To reach the second you go up from the case to the account: one query with every case's AccountId, as in Module 3, and a Map to find each one without scanning. In Flow it would have been a Get Records; here, one for all the cases at once.",
+        es: "Aquí tropecé yo la primera vez: el caso tiene su propietario —el agente o la cola— y la cuenta, el suyo —el comercial—. Para llegar al segundo hay que subir del caso a la cuenta: una consulta con los AccountId de todos los casos, como en el Módulo 3, y un Map para encontrar cada uno sin recorrer nada. En Flow habría sido un Get Records; aquí, uno para todos los casos a la vez.",
+        en: "This is where I tripped the first time: the case has its owner — the agent or the queue — and the account has its own — the sales rep. To reach the second you have to go up from the case to the account: one query with every case's AccountId, as in Module 3, and a Map to find each one without walking anything. In Flow it would have been a Get Records; here, one for all the cases at once.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -500,16 +512,16 @@ ${FROM_TASK4}${TAIL_EN}`,
     },
     hints: [
       {
-        es: "Empieza por las tres decisiones de la teoría: qué evento (y si el trigger ya lo escucha), en qué clase vive la regla, y qué protecciones necesita. Luego piensa el método en tres pasos: elegir los casos, averiguar los comerciales, crear las tareas.",
-        en: "Start from the theory's three decisions: which event (and whether the trigger already listens to it), which class the rule lives in, and which protections it needs. Then think of the method in three steps: pick the cases, find the reps, create the tasks.",
+        es: "Yo empezaría por las tres decisiones de la teoría: qué evento (y si el trigger ya lo escucha), en qué clase vive la regla y qué protecciones necesita. Luego piensa el método en tres pasos: elegir los casos, averiguar los comerciales, crear las tareas.",
+        en: "I would start with the theory's three decisions: which event (and whether the trigger already listens to it), which class the rule lives in and what protection it needs. Then think of the method in three steps: pick the cases, find the sales reps, create the tasks.",
       },
       {
-        es: "Paso 1: un bucle que se queda con los casos donde c.IsClosed && !oldMap.get(c.Id).IsClosed && c.Priority == 'High' && c.AccountId != null y que no estén en la guardia, juntando sus AccountId en un Set. Paso 2: [SELECT Id, OwnerId FROM Account WHERE Id IN :accountIds] en un Map. Paso 3: otro bucle que crea las tareas con OwnerId = accounts.get(c.AccountId).OwnerId, y un insert al final.",
-        en: "Step 1: a loop keeping cases where c.IsClosed && !oldMap.get(c.Id).IsClosed && c.Priority == 'High' && c.AccountId != null and that are not in the guard, gathering their AccountIds in a Set. Step 2: [SELECT Id, OwnerId FROM Account WHERE Id IN :accountIds] into a Map. Step 3: another loop creating the tasks with OwnerId = accounts.get(c.AccountId).OwnerId, and one insert at the end.",
+        es: "Lo que me ayudó: paso 1, un bucle que se queda con los casos donde c.IsClosed && !oldMap.get(c.Id).IsClosed && c.Priority == 'High' && c.AccountId != null y que no estén en la guardia, juntando sus AccountId en un Set. Paso 2, [SELECT Id, OwnerId FROM Account WHERE Id IN :accountIds] en un Map. Paso 3, otro bucle que crea las tareas con OwnerId = accounts.get(c.AccountId).OwnerId, y un insert al final.",
+        en: "What helped me: step 1, a loop keeping the cases where c.IsClosed && !oldMap.get(c.Id).IsClosed && c.Priority == 'High' && c.AccountId != null and that are not in the guard, collecting their AccountId in a Set. Step 2, [SELECT Id, OwnerId FROM Account WHERE Id IN :accountIds] into a Map. Step 3, another loop creating the tasks with OwnerId = accounts.get(c.AccountId).OwnerId, and one insert at the end.",
       },
       {
-        es: "En el handler, afterUpdate queda con dos líneas: la del escalado que ya estaba y CaseHandoffService.createSalesFollowUps(newCases, oldMap);. ActivityDate = Date.today().addDays(1) para «mañana».",
-        en: "In the handler, afterUpdate ends up with two lines: the escalation one already there and CaseHandoffService.createSalesFollowUps(newCases, oldMap);. ActivityDate = Date.today().addDays(1) for “tomorrow”.",
+        es: "Te dejo el cierre: en el handler, afterUpdate queda con dos líneas, la del escalado que ya estaba y CaseHandoffService.createSalesFollowUps(newCases, oldMap);. ActivityDate = Date.today().addDays(1) para «mañana».",
+        en: "Here is the finish: in the handler, afterUpdate is left with two lines, the escalation one that was already there and CaseHandoffService.createSalesFollowUps(newCases, oldMap);. ActivityDate = Date.today().addDays(1) for «tomorrow».",
       },
     ],
     solution: { es: SOLUTION, en: SOLUTION_EN },
@@ -530,6 +542,10 @@ ${FROM_TASK4}${TAIL_EN}`,
         onFail: {
           es: "La regla nueva vive en su propia clase: public with sharing class CaseHandoffService con public static void createSalesFollowUps(List<Case> cases, Map<Id, Case> oldMap).",
           en: "The new rule lives in its own class: public with sharing class CaseHandoffService with public static void createSalesFollowUps(List<Case> cases, Map<Id, Case> oldMap).",
+        },
+        otter: {
+          es: "La regla nueva es otro subflow, en su propia clase: public with sharing class CaseHandoffService con public static void createSalesFollowUps(List<Case> cases, Map<Id, Case> oldMap).",
+          en: "The new rule is another subflow, in its own class: public with sharing class CaseHandoffService with public static void createSalesFollowUps(List<Case> cases, Map<Id, Case> oldMap).",
         },
       },
       {
@@ -559,6 +575,10 @@ ${FROM_TASK4}${TAIL_EN}`,
           es: "«Acaba de cerrarse» es cerrado ahora y abierto antes: c.IsClosed && !oldMap.get(c.Id).IsClosed. Además prioridad 'High' y AccountId != null: sin cuenta no hay comercial a quien avisar.",
           en: "“Just closed” is closed now and open before: c.IsClosed && !oldMap.get(c.Id).IsClosed. Plus 'High' priority and AccountId != null: without an account there is no rep to notify.",
         },
+        otter: {
+          es: "«Acaba de cerrarse» es tu ISCHANGED(IsClosed) hacia verdadero: c.IsClosed && !oldMap.get(c.Id).IsClosed. Además prioridad 'High' y AccountId != null: sin cuenta no hay comercial a quien avisar.",
+          en: "«Has just closed» is your ISCHANGED(IsClosed) turning true: c.IsClosed && !oldMap.get(c.Id).IsClosed. Plus priority 'High' and AccountId != null: with no account there is no sales rep to tell.",
+        },
       },
       {
         id: "m07-cp-c3",
@@ -574,6 +594,10 @@ ${FROM_TASK4}${TAIL_EN}`,
         onFail: {
           es: "El comercial es Account.OwnerId, no c.OwnerId. Una sola consulta con WHERE Id IN :accountIds, fuera de los bucles, en un Map; y en la tarea, OwnerId = accounts.get(c.AccountId).OwnerId.",
           en: "The rep is Account.OwnerId, not c.OwnerId. One single query with WHERE Id IN :accountIds, outside the loops, into a Map; and on the task, OwnerId = accounts.get(c.AccountId).OwnerId.",
+        },
+        otter: {
+          es: "El comercial es el propietario de la cuenta, Account.OwnerId, no c.OwnerId. Un solo Get Records para todas las cuentas, con WHERE Id IN :accountIds, fuera de los bucles y en un Map; y en la tarea, OwnerId = accounts.get(c.AccountId).OwnerId.",
+          en: "The sales rep is the account's owner, Account.OwnerId, not c.OwnerId. A single Get Records for all the accounts, with WHERE Id IN :accountIds, outside the loops and into a Map; and in the task, OwnerId = accounts.get(c.AccountId).OwnerId.",
         },
       },
       {
@@ -591,6 +615,10 @@ ${FROM_TASK4}${TAIL_EN}`,
           es: "Una guardia propia (private static Set<Id>) que salte los casos ya avisados en esta transacción, y un único insert de toda la lista de tareas al final del método.",
           en: "Its own guard (private static Set<Id>) skipping cases already notified in this transaction, and a single insert of the whole task list at the end of the method.",
         },
+        otter: {
+          es: "Cada regla, su guardia: una propia (private static Set<Id>) que salte los casos ya avisados en esta transacción, y un único insert de toda la lista de tareas al final del método.",
+          en: "Each rule, its own guard: one of its own (private static Set<Id>) skipping the cases already notified in this transaction, and a single insert of the whole task list at the end of the method.",
+        },
       },
       {
         id: "m07-cp-c5",
@@ -605,6 +633,10 @@ ${FROM_TASK4}${TAIL_EN}`,
         onFail: {
           es: "Dentro de afterUpdate del handler, una línea más: CaseHandoffService.createSalesFollowUps(newCases, oldMap);. Y el handler sigue sin lógica propia.",
           en: "Inside the handler's afterUpdate, one more line: CaseHandoffService.createSalesFollowUps(newCases, oldMap);. And the handler still holds no logic of its own.",
+        },
+        otter: {
+          es: "El lienzo llama al subflow nuevo: dentro de afterUpdate del handler, una línea más, CaseHandoffService.createSalesFollowUps(newCases, oldMap);. Y el handler sigue sin lógica propia.",
+          en: "The canvas calls the new subflow: inside the handler's afterUpdate, one more line, CaseHandoffService.createSalesFollowUps(newCases, oldMap);. And the handler still has no logic of its own.",
         },
       },
       {
@@ -623,6 +655,10 @@ ${FROM_TASK4}${TAIL_EN}`,
           es: "El trigger se queda como estaba: un solo trigger, el interruptor como primera línea y ninguna mención a la regla nueva. Y fuera del trigger nada usa Trigger.",
           en: "The trigger stays as it was: a single trigger, the switch as its first line and no mention of the new rule. And outside the trigger nothing uses Trigger.",
         },
+        otter: {
+          es: "El Start no se toca: un solo trigger, el interruptor como primera línea y ninguna mención a la regla nueva. Y fuera del trigger nada usa Trigger.",
+          en: "The Start is not touched: a single trigger, the switch as its first line and no mention of the new rule. And outside the trigger nothing uses Trigger.",
+        },
         onPass: {
           es: "Esa es la prueba de que la arquitectura funciona: una regla nueva, cero líneas en el trigger.",
           en: "That is the proof the architecture works: a new rule, zero lines in the trigger.",
@@ -635,5 +671,10 @@ ${FROM_TASK4}${TAIL_EN}`,
         en: "Once you have it, count: how many trigger lines did you change? How many handler lines? If someone asked you in an interview why you use handlers, that answer — with this example — is the right one.",
       },
     ],
+    outro: {
+      es: "¡Entregaste la arquitectura profesional de Case! Añadiste una regla nueva sin tocar el trigger: así se trabaja en una org de verdad, con varios equipos. Con los Módulos 1 a 7 tienes todo lo que pide el Desafío 1, la asignación automática de leads. Y en el Módulo 8 llegan las excepciones: qué hacer cuando algo falla, por ejemplo si el comercial de esa cuenta es un usuario inactivo.",
+      en: "You delivered Case's professional architecture! You added a new rule without touching the trigger: that is how real orgs with several teams work. With Modules 1 to 7 you have everything Challenge 1, automatic lead assignment, asks for. And Module 8 brings exceptions: what to do when something fails, for example if that account's sales rep is an inactive user.",
+    },
+    voice: "otter",
   },
 };
