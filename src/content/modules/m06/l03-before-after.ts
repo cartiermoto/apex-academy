@@ -6,6 +6,17 @@ export const l03BeforeAfter: Lesson = {
   n: 3,
   kind: "lesson",
   minutes: 35,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 2", en: "Remember? · Review of lesson 2" },
+    prompt: { es: "En un trigger before update, ¿cómo lees el StageName que tenía antes la oportunidad opp?", en: "In a before update trigger, how do you read the StageName opportunity opp had before?" },
+    options: [
+      { es: "opp.StageName", en: "opp.StageName" },
+      { es: "Con una consulta SOQL", en: "With a SOQL query" },
+      { es: "Trigger.oldMap.get(opp.Id).StageName", en: "Trigger.oldMap.get(opp.Id).StageName" },
+    ],
+    answer: 2,
+    explain: { es: "Es tu $Record__Prior, buscado por Id. No hace falta consultar nada.", en: "It is your $Record__Prior, looked up by Id. There is nothing to query." },
+  },
   title: {
     es: "before vs after",
     en: "before vs after",
@@ -46,9 +57,10 @@ export const l03BeforeAfter: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "Cuando creas un Record-Triggered Flow, Salesforce te pregunta para qué optimizarlo. «Fast Field Updates» corre antes de guardar y solo puede cambiar campos del propio registro: por eso es tan rápido. «Actions and Related Records» corre después y puede crear tareas, actualizar la cuenta o mandar correos. Es exactamente before y after. Si alguna vez elegiste bien entre esas dos opciones, ya sabes la mitad de esta lección.",
-        en: "When you create a record-triggered Flow, Salesforce asks what to optimise it for. “Fast Field Updates” runs before saving and can only change fields on the record itself: that is why it is so fast. “Actions and Related Records” runs afterwards and can create tasks, update the account or send emails. That is exactly before and after. If you ever chose correctly between those two options, you already know half of this lesson.",
+        es: "Cuando creaba un Record-Triggered Flow, Salesforce me preguntaba para qué optimizarlo. «Fast Field Updates» corre antes de guardar y solo puede cambiar campos del propio registro: por eso es tan rápido. «Actions and Related Records» corre después y puede crear tareas, actualizar la cuenta o mandar correos. Es exactamente before y after. Si alguna vez elegiste bien entre esas dos opciones, ya sabes la mitad de esta lección.",
+        en: "When I created a Record-Triggered Flow, Salesforce asked me what to optimise it for. «Fast Field Updates» runs before saving and can only change fields on the record itself: that is why it is so fast. «Actions and Related Records» runs after and can create tasks, update the account or send emails. It is exactly before and after. If you ever chose well between those two options, you already know half of this lesson.",
       },
+      voice: "otter",
     },
     {
       type: "diagram",
@@ -213,9 +225,10 @@ export const l03BeforeAfter: Lesson = {
       variant: "admin",
       title: { es: "Tus flows y tu Apex comparten los mismos límites", en: "Your flows and your Apex share the same limits" },
       text: {
-        es: "Un detalle que muchos Admins descubren tarde: cuando un registro se guarda, todos los flows y todos los triggers que dispara corren en la MISMA transacción, y comparten sus límites. Si un flow after-save hace tres Update Records y un trigger hace dos inserts, ya son cinco de los 150 DML disponibles. Por eso hacer en before lo que se puede hacer en before no es una manía: cada DML que te ahorras es margen para toda la automatización del objeto.",
-        en: "A detail many Admins find out late: when a record is saved, every flow and every trigger it fires runs in the SAME transaction, and they share its limits. If an after-save flow does three Update Records and a trigger does two inserts, that is already five of the 150 DML available. That is why doing in before what can be done in before is not a fad: every DML you save is headroom for all of the object's automation.",
+        es: "Un detalle que yo descubrí tarde, como muchos Admins: cuando un registro se guarda, todos los flows y todos los triggers que dispara corren en la MISMA transacción, y comparten sus límites. Si un flow after-save hace tres Update Records y un trigger hace dos inserts, ya son cinco de los 150 DML disponibles. Por eso hacer en before lo que se puede hacer en before no es una manía: cada DML que te ahorras es margen para toda la automatización del objeto.",
+        en: "A detail I found out late, like many Admins: when a record is saved, every flow and every trigger it fires runs in the SAME transaction, and they share its limits. If an after-save flow does three Update Records and a trigger does two inserts, that is already five of the 150 DML available. That is why doing in before what can be done in before is not a fad: every DML you save is headroom for all of the object's automation.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -434,16 +447,16 @@ trigger AccountOnboarding on Account (before insert, after insert) {
     },
     hints: [
       {
-        es: "Dos ramas en el mismo trigger: Trigger.isBefore y Trigger.isAfter.",
-        en: "Two branches in the same trigger: Trigger.isBefore and Trigger.isAfter.",
+        es: "Yo lo vería como los dos flows que se juntan en uno: dos ramas en el mismo trigger, Trigger.isBefore (tu Fast Field Updates) y Trigger.isAfter (tu Actions and Related Records).",
+        en: "I would see it as the two flows merging into one: two branches in the same trigger, Trigger.isBefore (your Fast Field Updates) and Trigger.isAfter (your Actions and Related Records).",
       },
       {
-        es: "En before, String.isBlank(a.Rating) y cambias a.Rating directamente. En after, una List<Task> que llenas en el for y un insert después.",
-        en: "In before, String.isBlank(a.Rating) and you change a.Rating directly. In after, a List<Task> you fill in the for and an insert afterwards.",
+        es: "Lo que me ayudó: en before, String.isBlank(a.Rating), tu ISBLANK(), y cambias a.Rating directamente. En after, una List<Task> que llenas en el for y un insert después, como el Create Records fuera del Loop.",
+        en: "What helped me: in before, String.isBlank(a.Rating), your ISBLANK(), and you change a.Rating directly. In after, a List<Task> you fill in the for and one insert afterwards, like the Create Records outside the Loop.",
       },
       {
-        es: "Pseudocódigo: if (Trigger.isBefore) { for (Account a : Trigger.new) { if (String.isBlank(a.Rating)) a.Rating = 'Warm'; } } if (Trigger.isAfter) { List<Task> tasks = …; for (…) tasks.add(new Task(WhatId = a.Id, OwnerId = a.OwnerId, Subject = …, ActivityDate = Date.today().addDays(3))); insert tasks; }",
-        en: "Pseudocode: if (Trigger.isBefore) { for (Account a : Trigger.new) { if (String.isBlank(a.Rating)) a.Rating = 'Warm'; } } if (Trigger.isAfter) { List<Task> tasks = …; for (…) tasks.add(new Task(WhatId = a.Id, OwnerId = a.OwnerId, Subject = …, ActivityDate = Date.today().addDays(3))); insert tasks; }",
+        es: "Te dejo el esquema: if (Trigger.isBefore) { for (Account a : Trigger.new) { if (String.isBlank(a.Rating)) a.Rating = 'Warm'; } } if (Trigger.isAfter) { List<Task> tasks = …; for (…) tasks.add(new Task(WhatId = a.Id, OwnerId = a.OwnerId, Subject = …, ActivityDate = Date.today().addDays(3))); insert tasks; }",
+        en: "Here is the outline: if (Trigger.isBefore) { for (Account a : Trigger.new) { if (String.isBlank(a.Rating)) a.Rating = 'Warm'; } } if (Trigger.isAfter) { List<Task> tasks = …; for (…) tasks.add(new Task(WhatId = a.Id, OwnerId = a.OwnerId, Subject = …, ActivityDate = Date.today().addDays(3))); insert tasks; }",
       },
     ],
     solution: {
@@ -510,6 +523,10 @@ trigger AccountOnboarding on Account (before insert, after insert) {
           es: "trigger AccountOnboarding on Account (before insert, after insert) { … }",
           en: "trigger AccountOnboarding on Account (before insert, after insert) { … }",
         },
+        otter: {
+          es: "Los dos flows se juntan en un trigger que escucha los dos momentos: trigger AccountOnboarding on Account (before insert, after insert) { … }",
+          en: "The two flows merge into one trigger listening to both moments: trigger AccountOnboarding on Account (before insert, after insert) { … }",
+        },
       },
       {
         id: "m06-l03-c2",
@@ -527,6 +544,10 @@ trigger AccountOnboarding on Account (before insert, after insert) {
         onFail: {
           es: "if (Trigger.isBefore) { … } y if (Trigger.isAfter) { … }",
           en: "if (Trigger.isBefore) { … } and if (Trigger.isAfter) { … }",
+        },
+        otter: {
+          es: "Cada flow tenía su momento; aquí, cada rama: if (Trigger.isBefore) { … } para el Fast Field Updates y if (Trigger.isAfter) { … } para el Actions and Related Records.",
+          en: "Each flow had its moment; here, each branch: if (Trigger.isBefore) { … } for the Fast Field Updates and if (Trigger.isAfter) { … } for the Actions and Related Records.",
         },
       },
       {
@@ -552,6 +573,10 @@ trigger AccountOnboarding on Account (before insert, after insert) {
           es: "if (String.isBlank(a.Rating)) { a.Rating = 'Warm'; }",
           en: "if (String.isBlank(a.Rating)) { a.Rating = 'Warm'; }",
         },
+        otter: {
+          es: "Es tu flow Fast Field Updates: if (String.isBlank(a.Rating)) { a.Rating = 'Warm'; }, directo sobre el registro.",
+          en: "It is your Fast Field Updates flow: if (String.isBlank(a.Rating)) { a.Rating = 'Warm'; }, straight on the record.",
+        },
       },
       {
         id: "m06-l03-c4",
@@ -570,6 +595,10 @@ trigger AccountOnboarding on Account (before insert, after insert) {
         onFail: {
           es: "new Task(WhatId = a.Id, OwnerId = a.OwnerId, Subject = …, ActivityDate = Date.today().addDays(3))",
           en: "new Task(WhatId = a.Id, OwnerId = a.OwnerId, Subject = …, ActivityDate = Date.today().addDays(3))",
+        },
+        otter: {
+          es: "La tarea necesita el Id de la cuenta, y en after ya existe: new Task(WhatId = a.Id, OwnerId = a.OwnerId, Subject = …, ActivityDate = Date.today().addDays(3))",
+          en: "The task needs the account's Id, and in after it already exists: new Task(WhatId = a.Id, OwnerId = a.OwnerId, Subject = …, ActivityDate = Date.today().addDays(3))",
         },
       },
       {
@@ -590,6 +619,10 @@ trigger AccountOnboarding on Account (before insert, after insert) {
           es: "Un único insert tasks; después del for. El Rating se guarda solo en before: no hace falta update.",
           en: "A single insert tasks; after the for. The Rating saves by itself in before: no update needed.",
         },
+        otter: {
+          es: "Un solo Create Records fuera del Loop: insert tasks; después del for. Y el Rating ya se guarda solo en before: nada de Update Records.",
+          en: "A single Create Records outside the Loop: insert tasks; after the for. And the Rating already saves itself in before: no Update Records.",
+        },
         onPass: {
           es: "Cada cosa en su momento: el Rating sin coste en before y las tareas con un solo DML en after.",
           en: "Each thing at its moment: the Rating for free in before and the tasks with a single DML in after.",
@@ -601,10 +634,11 @@ trigger AccountOnboarding on Account (before insert, after insert) {
         es: "¿Qué pasaría si movieras la creación de tareas a la rama before? Piensa en qué valor tendría a.Id.",
         en: "What would happen if you moved the task creation into the before branch? Think about what value a.Id would have.",
       },
-      {
-        es: "Tarea 4: el siguiente flow falla por culpa de una regla de validación… y para arreglarlo hay que saber quién corre antes.",
-        en: "Task 4: the next flow fails because of a validation rule… and fixing it means knowing who runs first.",
-      },
     ],
+    outro: {
+      es: "Ya decides entre before y after como elegías entre Fast Field Updates y Actions and Related Records, y los juntas en un solo trigger. En la tarea 4, el siguiente flow falla por culpa de una regla de validación… y para arreglarlo hay que saber quién corre antes.",
+      en: "You can now choose between before and after as you chose between Fast Field Updates and Actions and Related Records, and combine them in a single trigger. In task 4, the next flow fails because of a validation rule… and fixing it means knowing who runs first.",
+    },
+    voice: "otter",
   },
 };

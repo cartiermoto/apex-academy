@@ -6,6 +6,17 @@ export const l06Checkpoint: Lesson = {
   n: 6,
   kind: "checkpoint",
   minutes: 45,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 5", en: "Remember? · Review of lesson 5" },
+    prompt: { es: "¿Por qué una guarda con un Boolean estático falla con 400 registros?", en: "Why does a static Boolean guard fail with 400 records?" },
+    options: [
+      { es: "Se apaga en el primer lote de 200 y el segundo se queda sin procesar", en: "It flips off in the first batch of 200 and the second is left unprocessed" },
+      { es: "Porque un Boolean no puede ser static", en: "Because a Boolean cannot be static" },
+      { es: "No falla", en: "It does not fail" },
+    ],
+    answer: 0,
+    explain: { es: "El trigger recibe los 400 en dos lotes. El Set<Id> recuerda registro a registro; el Boolean solo recuerda que ya pasó una vez.", en: "The trigger receives the 400 in two batches. The Set<Id> remembers record by record; the Boolean only remembers it has run once." },
+  },
   title: {
     es: "Checkpoint del Módulo 6",
     en: "Module 6 checkpoint",
@@ -93,9 +104,10 @@ export const l06Checkpoint: Lesson = {
       variant: "admin",
       title: { es: "¿Flow o trigger?", en: "Flow or trigger?" },
       text: {
-        es: "Que ya sepas escribir triggers no significa que todo deba ser un trigger. La recomendación de Salesforce es empezar por Flow y pasar a Apex cuando la lógica es compleja, necesita volumen o rendimiento que Flow no da, o tiene que convivir con otro código. En una org real, un buen developer que viene de Admin sabe elegir: esa es tu ventaja frente a quien solo conoce el código.",
-        en: "Knowing how to write triggers does not mean everything should be a trigger. Salesforce's recommendation is to start with Flow and move to Apex when the logic is complex, needs volume or performance Flow does not give, or has to live alongside other code. In a real org, a good developer who comes from Admin knows how to choose: that is your edge over someone who only knows code.",
+        es: "Te lo digo como alguien que viene de Admin: que ya sepas escribir triggers no significa que todo deba ser un trigger. La recomendación de Salesforce es empezar por Flow y pasar a Apex cuando la lógica es compleja, necesita volumen o rendimiento que Flow no da, o tiene que convivir con otro código. En una org real, un buen developer que viene de Admin sabe elegir: esa es tu ventaja frente a quien solo conoce el código.",
+        en: "I am telling you as someone who comes from Admin: knowing how to write triggers does not mean everything should be a trigger. Salesforce's recommendation is to start with Flow and move to Apex when the logic is complex, needs volume or performance Flow cannot give, or has to live alongside other code. In a real org, a good developer who comes from Admin knows how to choose: that is your edge over someone who only knows code.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -182,9 +194,10 @@ export const l06Checkpoint: Lesson = {
       variant: "admin",
       title: { es: "Lo que no se traduce: el volumen", en: "What does not translate: volume" },
       text: {
-        es: "La tabla engaña en una cosa: un flow piensa en un registro ($Record) y la plataforma lo agrupa por ti; un trigger piensa en una lista desde la primera línea. Esa es la verdadera diferencia de mentalidad, y la razón de que en todos los talleres del módulo el código tuviera que aguantar 200 registros a la vez.",
-        en: "The table is misleading in one respect: a flow thinks about one record ($Record) and the platform batches it for you; a trigger thinks about a list from the very first line. That is the real mindset difference, and the reason every workshop in this module had to hold up with 200 records at once.",
+        es: "La tabla engaña en una cosa, y a mí me costó verlo: un flow piensa en un registro ($Record) y la plataforma lo agrupa por ti; un trigger piensa en una lista desde la primera línea. Esa es la verdadera diferencia de mentalidad, y la razón de que en todos los talleres del módulo el código tuviera que aguantar 200 registros a la vez.",
+        en: "The table is misleading in one respect, and it took me a while to see it: a flow thinks about one record ($Record) and the platform batches it for you; a trigger thinks about a list from the very first line. That is the real mindset difference, and the reason every workshop in this module had to hold up with 200 records at once.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -435,16 +448,16 @@ trigger CaseEscalation on Case (before insert, after insert) {
     },
     hints: [
       {
-        es: "Dos ramas (isBefore / isAfter). La primera es la lección 4 (consulta al padre en before); la segunda, la lección 3 (hijos en after).",
-        en: "Two branches (isBefore / isAfter). The first is lesson 4 (querying the parent in before); the second, lesson 3 (children in after).",
+        es: "Yo juntaría dos flows que ya migraste: dos ramas (isBefore / isAfter). La primera es la lección 4 (consulta al padre en before); la segunda, la lección 3 (hijos en after).",
+        en: "I would combine two flows you have already migrated: two branches (isBefore / isAfter). The first is lesson 4 (querying the parent in before); the second, lesson 3 (children in after).",
       },
       {
-        es: "En before: Set<Id> accountIds, luego new Map<Id, Account>([SELECT Id FROM Account WHERE Id IN :accountIds AND Rating = 'Hot']) y hotAccounts.containsKey(c.AccountId). En after: if (c.Priority == 'High') tasks.add(…).",
-        en: "In before: Set<Id> accountIds, then new Map<Id, Account>([SELECT Id FROM Account WHERE Id IN :accountIds AND Rating = 'Hot']) and hotAccounts.containsKey(c.AccountId). In after: if (c.Priority == 'High') tasks.add(…).",
+        es: "Lo que me ayudó: en before, Set<Id> accountIds, luego new Map<Id, Account>([SELECT Id FROM Account WHERE Id IN :accountIds AND Rating = 'Hot']) y hotAccounts.containsKey(c.AccountId), tu BUSCARV. En after, if (c.Priority == 'High') tasks.add(…).",
+        en: "What helped me: in before, Set<Id> accountIds, then new Map<Id, Account>([SELECT Id FROM Account WHERE Id IN :accountIds AND Rating = 'Hot']) and hotAccounts.containsKey(c.AccountId), your VLOOKUP. In after, if (c.Priority == 'High') tasks.add(…).",
       },
       {
-        es: "Pseudocódigo: if (Trigger.isBefore) { …Set… Map<Id, Account> hotAccounts = …; for (Case c : Trigger.new) if (hotAccounts.containsKey(c.AccountId)) c.Priority = 'High'; } if (Trigger.isAfter) { List<Task> tasks = …; for (…) if (c.Priority == 'High') tasks.add(new Task(WhatId = c.Id, OwnerId = c.OwnerId, Subject = …, ActivityDate = Date.today())); insert tasks; }",
-        en: "Pseudocode: if (Trigger.isBefore) { …Set… Map<Id, Account> hotAccounts = …; for (Case c : Trigger.new) if (hotAccounts.containsKey(c.AccountId)) c.Priority = 'High'; } if (Trigger.isAfter) { List<Task> tasks = …; for (…) if (c.Priority == 'High') tasks.add(new Task(WhatId = c.Id, OwnerId = c.OwnerId, Subject = …, ActivityDate = Date.today())); insert tasks; }",
+        es: "Te dejo el esquema: if (Trigger.isBefore) { …Set… Map<Id, Account> hotAccounts = …; for (Case c : Trigger.new) if (hotAccounts.containsKey(c.AccountId)) c.Priority = 'High'; } if (Trigger.isAfter) { List<Task> tasks = …; for (…) if (c.Priority == 'High') tasks.add(new Task(WhatId = c.Id, OwnerId = c.OwnerId, Subject = …, ActivityDate = Date.today())); insert tasks; }",
+        en: "Here is the outline: if (Trigger.isBefore) { …Set… Map<Id, Account> hotAccounts = …; for (Case c : Trigger.new) if (hotAccounts.containsKey(c.AccountId)) c.Priority = 'High'; } if (Trigger.isAfter) { List<Task> tasks = …; for (…) if (c.Priority == 'High') tasks.add(new Task(WhatId = c.Id, OwnerId = c.OwnerId, Subject = …, ActivityDate = Date.today())); insert tasks; }",
       },
     ],
     solution: {
@@ -548,6 +561,10 @@ trigger CaseEscalation on Case (before insert, after insert) {
           es: "trigger CaseEscalation on Case (before insert, after insert) con if (Trigger.isBefore) { … } y if (Trigger.isAfter) { … }",
           en: "trigger CaseEscalation on Case (before insert, after insert) with if (Trigger.isBefore) { … } and if (Trigger.isAfter) { … }",
         },
+        otter: {
+          es: "Los dos flows de Soporte en uno: trigger CaseEscalation on Case (before insert, after insert) con if (Trigger.isBefore) { … } y if (Trigger.isAfter) { … }",
+          en: "Support's two flows in one: trigger CaseEscalation on Case (before insert, after insert) with if (Trigger.isBefore) { … } and if (Trigger.isAfter) { … }",
+        },
       },
       {
         id: "m06-l06-c2",
@@ -569,6 +586,10 @@ trigger CaseEscalation on Case (before insert, after insert) {
           es: "new Map<Id, Account>([SELECT Id FROM Account WHERE Id IN :accountIds AND Rating = 'Hot']) — una sola consulta.",
           en: "new Map<Id, Account>([SELECT Id FROM Account WHERE Id IN :accountIds AND Rating = 'Hot']) — a single query.",
         },
+        otter: {
+          es: "Un solo Get Records de las cuentas Hot, fuera del Loop: new Map<Id, Account>([SELECT Id FROM Account WHERE Id IN :accountIds AND Rating = 'Hot']).",
+          en: "A single Get Records of the Hot accounts, outside the Loop: new Map<Id, Account>([SELECT Id FROM Account WHERE Id IN :accountIds AND Rating = 'Hot']).",
+        },
       },
       {
         id: "m06-l06-c3",
@@ -587,6 +608,10 @@ trigger CaseEscalation on Case (before insert, after insert) {
         onFail: {
           es: "if (hotAccounts.containsKey(c.AccountId)) { c.Priority = 'High'; } — en before, sin update.",
           en: "if (hotAccounts.containsKey(c.AccountId)) { c.Priority = 'High'; } — in before, no update.",
+        },
+        otter: {
+          es: "Es un Fast Field Updates: if (hotAccounts.containsKey(c.AccountId)) { c.Priority = 'High'; }, en before, sin Update Records.",
+          en: "It is a Fast Field Updates: if (hotAccounts.containsKey(c.AccountId)) { c.Priority = 'High'; }, in before, with no Update Records.",
         },
       },
       {
@@ -608,6 +633,10 @@ trigger CaseEscalation on Case (before insert, after insert) {
           es: "if (c.Priority == 'High') { tasks.add(new Task(WhatId = c.Id, OwnerId = c.OwnerId, Subject = …, ActivityDate = Date.today())); }",
           en: "if (c.Priority == 'High') { tasks.add(new Task(WhatId = c.Id, OwnerId = c.OwnerId, Subject = …, ActivityDate = Date.today())); }",
         },
+        otter: {
+          es: "La tarea necesita el Id del caso, así que va en after, tu Actions and Related Records: if (c.Priority == 'High') { tasks.add(new Task(WhatId = c.Id, OwnerId = c.OwnerId, Subject = …, ActivityDate = Date.today())); }",
+          en: "The task needs the case's Id, so it goes in after, your Actions and Related Records: if (c.Priority == 'High') { tasks.add(new Task(WhatId = c.Id, OwnerId = c.OwnerId, Subject = …, ActivityDate = Date.today())); }",
+        },
       },
       {
         id: "m06-l06-c5",
@@ -628,6 +657,10 @@ trigger CaseEscalation on Case (before insert, after insert) {
           es: "Ninguna consulta ni DML dentro de un for, ni Trigger.new[0]. Un único insert tasks; al final de la rama after.",
           en: "No query or DML inside a for, and no Trigger.new[0]. A single insert tasks; at the end of the after branch.",
         },
+        otter: {
+          es: "Las preguntas de siempre antes de activar un flow: ninguna consulta ni DML dentro de un for, nada de Trigger.new[0] y un único insert tasks; al final de la rama after.",
+          en: "The usual questions before activating a flow: no query or DML inside a for, no Trigger.new[0] and a single insert tasks; at the end of the after branch.",
+        },
         onPass: {
           es: "1 consulta y 1 DML, sean 3 casos o 200. Tu primer trigger listo para producción; en el Módulo 7 lo mudarás a un handler.",
           en: "1 query and 1 DML, whether 3 cases or 200. Your first production-ready trigger; in Module 7 you will move it into a handler.",
@@ -640,5 +673,10 @@ trigger CaseEscalation on Case (before insert, after insert) {
         en: "If tomorrow they want the same on case edits (update), which events do you add and which Trigger.oldMap comparison would you need to avoid a new task on every edit?",
       },
     ],
+    outro: {
+      es: "¡Migraste los seis flows de Northwind a Apex! Ya piensas en listas de 200, eliges el momento del guardado y sabes cuándo basta un flow. Pero el escalado de casos tiene un problema: si otro equipo escribe otro trigger en Case, nadie sabe cuál corre primero. En el Módulo 7 lo conviertes en una arquitectura profesional, con un solo trigger y un handler.",
+      en: "You migrated Northwind's six flows to Apex! You now think in lists of 200, choose the moment of the save and know when a flow is enough. But the case escalation has a problem: if another team writes another trigger on Case, nobody knows which runs first. In Module 7 you turn it into a professional architecture, with a single trigger and a handler.",
+    },
+    voice: "otter",
   },
 };
