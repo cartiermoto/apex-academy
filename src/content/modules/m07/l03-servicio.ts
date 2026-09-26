@@ -156,6 +156,17 @@ export const l03Servicio: Lesson = {
   n: 3,
   kind: "lesson",
   minutes: 34,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 2", en: "Remember? · Review of lesson 2" },
+    prompt: { es: "¿Qué debe quedar dentro del trigger delgado?", en: "What should remain inside the thin trigger?" },
+    options: [
+      { es: "Solo decidir el evento y llamar al handler", en: "Only deciding the event and calling the handler" },
+      { es: "Las consultas", en: "The queries" },
+      { es: "Toda la lógica, bien ordenada", en: "All the logic, well ordered" },
+    ],
+    answer: 0,
+    explain: { es: "El trigger es el Start: objeto y eventos. La lógica es el lienzo, y vive en el handler.", en: "The trigger is the Start: object and events. The logic is the canvas, and it lives in the handler." },
+  },
   title: { es: "Clases de servicio", en: "Service classes" },
   summary: {
     es: "El handler sabe de eventos; la regla de negocio no debería. Sacarla a una clase de servicio es lo que permite que un botón, un proceso nocturno y el trigger usen exactamente la misma regla.",
@@ -205,9 +216,10 @@ export const l03Servicio: Lesson = {
       variant: "admin",
       title: { es: "Ya lo hacías con subflows", en: "You already did this with subflows" },
       text: {
-        es: "Cuando dos flows necesitaban la misma lógica —calcular un descuento, asignar una cola—, la sacabas a un autolaunched flow y la llamabas como subflow desde los dos. Cambiabas la regla una vez y todos la heredaban. Una clase de servicio es eso: el subflow de Apex. El trigger, un botón o un proceso programado son los flows que lo llaman.",
-        en: "When two flows needed the same logic — work out a discount, assign a queue — you pulled it into an autolaunched flow and called it as a subflow from both. You changed the rule once and everyone inherited it. A service class is exactly that: Apex's subflow. The trigger, a button or a scheduled job are the flows calling it.",
+        es: "Yo lo hacía constantemente: cuando dos flows necesitaban la misma lógica —calcular un descuento, asignar una cola—, la sacaba a un autolaunched flow y la llamaba como subflow desde los dos. Cambiabas la regla una vez y todos la heredaban. Una clase de servicio es eso: el subflow de Apex. El trigger, un botón o un proceso programado son los flows que lo llaman.",
+        en: "I did it constantly: when two flows needed the same logic — working out a discount, assigning a queue — I moved it into an autolaunched flow and called it as a subflow from both. You changed the rule once and they all inherited it. A service class is exactly that: Apex's subflow. The trigger, a button or a scheduled process are the flows that call it.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -538,16 +550,16 @@ ${FROM_TASK2}${TAIL_EN}`,
     },
     hints: [
       {
-        es: "Tres preguntas antes de escribir: ¿qué parte del handler es regla de negocio (va al servicio)? ¿Qué se queda en el handler? ¿Qué tiene que hacer el botón que el trigger no necesita?",
-        en: "Three questions before writing: which part of the handler is business rule (goes to the service)? What stays in the handler? What must the button do that the trigger does not need?",
+        es: "Yo me haría las preguntas de cuando sacaba un subflow: ¿qué parte del handler es regla de negocio (va al servicio)? ¿Qué se queda en el handler? ¿Qué tiene que hacer el botón que el trigger no necesita?",
+        en: "I would ask the questions I asked when moving something into a subflow: which part of the handler is business rule (it goes to the service)? What stays in the handler? What does the button need to do that the trigger does not?",
       },
       {
-        es: "El contenido de beforeInsert se muda casi entero a un método static del servicio, y el de afterInsert a otro. Cada método del handler queda en una línea: CaseEscalationService.elMetodo(newCases);. El botón no está en un trigger before: los casos ya existen, así que después de aplicar la regla necesita un update.",
-        en: "beforeInsert's contents move almost whole into one static service method, and afterInsert's into another. Each handler method becomes one line: CaseEscalationService.theMethod(newCases);. The button is not in a before trigger: the cases already exist, so after applying the rule it needs an update.",
+        es: "Lo que me ayudó: el contenido de beforeInsert se muda casi entero a un método static del servicio, y el de afterInsert a otro. Cada método del handler queda en una línea: CaseEscalationService.elMetodo(newCases);. El botón no está en un trigger before: los casos ya existen, así que después de aplicar la regla necesita un update, como un Update Records.",
+        en: "What helped me: the contents of beforeInsert move almost whole into a static method of the service, and afterInsert's into another. Each handler method becomes one line: CaseEscalationService.theMethod(newCases);. The button is not in a before trigger: the cases already exist, so after applying the rule it needs an update, like an Update Records.",
       },
       {
-        es: "Pseudocódigo del botón: List<Case> cases = [SELECT Id, Origin, AccountId, Priority FROM Case WHERE Id IN :caseIds]; CaseEscalationService.applyPriorityRules(cases); update cases;",
-        en: "Button pseudocode: List<Case> cases = [SELECT Id, Origin, AccountId, Priority FROM Case WHERE Id IN :caseIds]; CaseEscalationService.applyPriorityRules(cases); update cases;",
+        es: "Te dejo el botón: List<Case> cases = [SELECT Id, Origin, AccountId, Priority FROM Case WHERE Id IN :caseIds]; CaseEscalationService.applyPriorityRules(cases); update cases;",
+        en: "Here is the button: List<Case> cases = [SELECT Id, Origin, AccountId, Priority FROM Case WHERE Id IN :caseIds]; CaseEscalationService.applyPriorityRules(cases); update cases;",
       },
     ],
     solution: { es: SOLUTION, en: SOLUTION },
@@ -563,6 +575,10 @@ ${FROM_TASK2}${TAIL_EN}`,
         onFail: {
           es: "Tienen que estar el trigger, CaseTriggerHandler, CaseEscalationService y CaseActions, en ese orden, como marcan los separadores del código de partida.",
           en: "The trigger, CaseTriggerHandler, CaseEscalationService and CaseActions must all be there, in that order, as the starter's separators mark.",
+        },
+        otter: {
+          es: "Cuatro piezas, como un flow, su subflow y el botón que también lo llama: el trigger, CaseTriggerHandler, CaseEscalationService y CaseActions, en ese orden, como marcan los separadores del código de partida.",
+          en: "Four pieces, like a flow, its subflow and the button that calls it too: the trigger, CaseTriggerHandler, CaseEscalationService and CaseActions, in that order, as the starter code's separators mark.",
         },
       },
       {
@@ -580,6 +596,10 @@ ${FROM_TASK2}${TAIL_EN}`,
         onFail: {
           es: "La consulta de cuentas Hot y el insert de tareas tienen que vivir en CaseEscalationService, en métodos public static que reciban List<Case>.",
           en: "The Hot accounts query and the task insert must live in CaseEscalationService, in public static methods taking List<Case>.",
+        },
+        otter: {
+          es: "El servicio es tu subflow: la consulta de cuentas Hot y el insert de tareas viven en CaseEscalationService, en métodos public static que reciben List<Case>.",
+          en: "The service is your subflow: the Hot accounts query and the task insert live in CaseEscalationService, in public static methods receiving List<Case>.",
         },
       },
       {
@@ -600,6 +620,10 @@ ${FROM_TASK2}${TAIL_EN}`,
           es: "Dentro de CaseTriggerHandler no puede quedar ni un bucle, ni una consulta, ni un insert: cada método se reduce a CaseEscalationService.elMetodo(newCases);. Y el botón también tiene que llamar al servicio.",
           en: "No loop, query or insert may remain in CaseTriggerHandler: each method shrinks to CaseEscalationService.theMethod(newCases);. And the button must call the service too.",
         },
+        otter: {
+          es: "El handler ya solo llama al subflow: dentro de CaseTriggerHandler no puede quedar ni un bucle, ni una consulta, ni un insert. Cada método se reduce a CaseEscalationService.elMetodo(newCases);, y el botón también llama al servicio.",
+          en: "The handler now only calls the subflow: inside CaseTriggerHandler there cannot be a loop, a query or an insert left. Each method shrinks to CaseEscalationService.theMethod(newCases);, and the button calls the service too.",
+        },
       },
       {
         id: "m07-l03-c4",
@@ -617,6 +641,10 @@ ${FROM_TASK2}${TAIL_EN}`,
           es: "recalculatePriority(Set<Id> caseIds) consulta los casos con WHERE Id IN :caseIds, llama al servicio y DESPUÉS hace update: fuera de un trigger before, nadie guarda por ti.",
           en: "recalculatePriority(Set<Id> caseIds) queries the cases with WHERE Id IN :caseIds, calls the service and THEN updates: outside a before trigger, nobody saves for you.",
         },
+        otter: {
+          es: "El botón es otro flow que llama al mismo subflow: recalculatePriority(Set<Id> caseIds) consulta los casos con WHERE Id IN :caseIds, llama al servicio y DESPUÉS hace update. Fuera de un trigger before, nadie guarda por ti.",
+          en: "The button is another flow calling the same subflow: recalculatePriority(Set<Id> caseIds) queries the cases with WHERE Id IN :caseIds, calls the service and THEN runs update. Outside a before trigger, nobody saves for you.",
+        },
       },
       {
         id: "m07-l03-c5",
@@ -632,6 +660,10 @@ ${FROM_TASK2}${TAIL_EN}`,
           es: "La regla lee Origin y AccountId. Los registros que vienen de una consulta solo traen los campos pedidos: sin ellos, el servicio fallaría al leerlos.",
           en: "The rule reads Origin and AccountId. Records coming from a query only carry the fields asked for: without them, the service would fail reading them.",
         },
+        otter: {
+          es: "Es la regla del Módulo 3: una columna que no pides no viene. La regla lee Origin y AccountId, así que la consulta del botón tiene que traerlos.",
+          en: "It is Module 3's rule: a column you do not ask for does not come. The rule reads Origin and AccountId, so the button's query has to fetch them.",
+        },
       },
       {
         id: "m07-l03-c6",
@@ -641,6 +673,10 @@ ${FROM_TASK2}${TAIL_EN}`,
           es: "Ni el handler, ni el servicio, ni el botón pueden usar Trigger.algo: el servicio recibe una lista y le da igual quién lo llame.",
           en: "Neither the handler, the service nor the button may use Trigger.something: the service takes a list and does not care who calls it.",
         },
+        otter: {
+          es: "Un subflow no sabe quién lo llama: ni el handler, ni el servicio, ni el botón pueden usar Trigger.algo. El servicio recibe una lista y le da igual de dónde venga.",
+          en: "A subflow does not know who calls it: neither the handler, nor the service, nor the button can use Trigger.anything. The service receives a list and does not care where it comes from.",
+        },
       },
     ],
     rubric: [
@@ -649,5 +685,10 @@ ${FROM_TASK2}${TAIL_EN}`,
         en: "Operations warns: the org has an old workflow rule on Case that fills in a field on save… and that fires the update triggers again. As soon as task 4 adds a rule on update, it will duplicate tasks.",
       },
     ],
+    outro: {
+      es: "Ya tienes la regla en un solo sitio: un servicio al que llaman el trigger y el botón, como un subflow compartido. En la tarea 4, una regla de workflow heredada crea tareas dobles, y la migración de casos antiguos no debería disparar nada.",
+      en: "You now have the rule in one place: a service called by both the trigger and the button, like a shared subflow. In task 4, an inherited workflow rule creates duplicate tasks, and the migration of old cases should fire nothing.",
+    },
+    voice: "otter",
   },
 };

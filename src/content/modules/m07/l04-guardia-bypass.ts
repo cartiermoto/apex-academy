@@ -208,6 +208,17 @@ export const l04GuardiaBypass: Lesson = {
   n: 4,
   kind: "lesson",
   minutes: 36,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 3", en: "Remember? · Review of lesson 3" },
+    prompt: { es: "El botón «Recalcular prioridad» aplica la regla del servicio a casos que ya existen. ¿Qué tiene que hacer después?", en: "The «Recalculate priority» button applies the service's rule to cases that already exist. What must it do afterwards?" },
+    options: [
+      { es: "Nada: se guarda solo", en: "Nothing: it saves by itself" },
+      { es: "Un update de los casos", en: "An update of the cases" },
+      { es: "Un insert", en: "An insert" },
+    ],
+    answer: 1,
+    explain: { es: "Fuera de un trigger before nadie guarda por ti: el botón aplica la regla y hace update.", en: "Outside a before trigger nobody saves for you: the button applies the rule and runs update." },
+  },
   title: { es: "La guardia y el interruptor", en: "The guard and the switch" },
   summary: {
     es: "Con la arquitectura ya ordenada, dos protecciones viven en un solo sitio: una guardia estática que impide hacer dos veces lo mismo en una transacción, y un interruptor con permiso personalizado para cargas de datos.",
@@ -268,9 +279,10 @@ export const l04GuardiaBypass: Lesson = {
       variant: "admin",
       title: { es: "¿Todavía hay reglas de workflow?", en: "Are there still workflow rules?" },
       text: {
-        es: "Salesforce dejó de dar soporte a Workflow Rules y Process Builder a finales de 2025 y recomienda migrarlas a Flow, pero en las orgs antiguas siguen activas muchas: por eso esto te lo vas a encontrar. Y la lección vale igual para los flows after-save que actualizan el mismo registro: cualquier segunda vuelta por el trigger es una ocasión de hacer las cosas dos veces.",
-        en: "Salesforce ended support for Workflow Rules and Process Builder at the end of 2025 and recommends migrating them to Flow, but many are still active in older orgs: that is why you will run into this. And the lesson holds just as well for after-save flows that update the same record: any second trip through the trigger is a chance to do things twice.",
+        es: "Te las vas a encontrar, como me las encontré yo: Salesforce dejó de dar soporte a Workflow Rules y Process Builder a finales de 2025 y recomienda migrarlas a Flow, pero en las orgs antiguas siguen activas muchas. Y la lección vale igual para los flows after-save que actualizan el mismo registro: cualquier segunda vuelta por el trigger es una ocasión de hacer las cosas dos veces.",
+        en: "You will run into them, as I did: Salesforce ended support for Workflow Rules and Process Builder at the end of 2025 and recommends migrating them to Flow, but many are still active in older orgs. And the lesson holds just as well for after-save flows that update the same record: any second pass through the trigger is a chance to do things twice.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -374,9 +386,10 @@ export const l04GuardiaBypass: Lesson = {
       variant: "admin",
       title: { es: "Es el mismo truco de tus reglas de validación", en: "It is the same trick as your validation rules" },
       text: {
-        es: "Muchas orgs tienen un permiso personalizado «Bypass Validation Rules» y en cada regla una condición NOT($Permission.Bypass_Validation_Rules), para que las cargas masivas no choquen con validaciones pensadas para usuarios. El bypass del trigger es exactamente eso: $Permission en una fórmula, FeatureManagement.checkPermission en Apex. Mismo permiso, mismo permission set, misma persona.",
-        en: "Many orgs have a “Bypass Validation Rules” custom permission and a NOT($Permission.Bypass_Validation_Rules) condition in every rule, so bulk loads do not collide with validations meant for users. The trigger bypass is exactly that: $Permission in a formula, FeatureManagement.checkPermission in Apex. Same permission, same permission set, same person.",
+        es: "Seguro que lo has configurado; yo lo hice en varias orgs: un permiso personalizado «Bypass Validation Rules» y en cada regla una condición NOT($Permission.Bypass_Validation_Rules), para que las cargas masivas no choquen con validaciones pensadas para usuarios. El bypass del trigger es exactamente eso: $Permission en una fórmula, FeatureManagement.checkPermission en Apex. Mismo permiso, mismo permission set, misma persona.",
+        en: "You have surely set it up; I did in several orgs: a «Bypass Validation Rules» custom permission and a NOT($Permission.Bypass_Validation_Rules) condition in every rule, so bulk loads do not clash with validations meant for users. The trigger bypass is exactly that: $Permission in a formula, FeatureManagement.checkPermission in Apex. Same permission, same permission set, same person.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -600,16 +613,16 @@ ${STARTER_CODE}
     },
     hints: [
       {
-        es: "Dos piezas independientes. La guardia es una variable que vive toda la transacción dentro del servicio; el interruptor es una comprobación que corta la ejecución antes de que empiece ninguna regla.",
-        en: "Two independent pieces. The guard is a variable living the whole transaction inside the service; the switch is a check that cuts execution before any rule starts.",
+        es: "Yo lo separaría como separas un bypass de una regla de validación: son dos piezas independientes. La guardia es una variable que vive toda la transacción dentro del servicio; el interruptor es una comprobación que corta la ejecución antes de que empiece ninguna regla.",
+        en: "I would separate them as you separate a bypass from a validation rule: they are two independent pieces. The guard is a variable that lives for the whole transaction inside the service; the switch is a check that cuts execution before any rule starts.",
       },
       {
-        es: "La guardia va en createReviewTasks, que es por donde pasan las dos puertas: añade !tasksCreatedFor.contains(c.Id) a la condición y tasksCreatedFor.add(c.Id) al crear la tarea. El interruptor, arriba del todo en el trigger: if (…) { return; }",
-        en: "The guard goes in createReviewTasks, which both doors go through: add !tasksCreatedFor.contains(c.Id) to the condition and tasksCreatedFor.add(c.Id) when creating the task. The switch, at the very top of the trigger: if (…) { return; }",
+        es: "Lo que me ayudó: la guardia va en createReviewTasks, que es por donde pasan las dos puertas: añade !tasksCreatedFor.contains(c.Id) a la condición y tasksCreatedFor.add(c.Id) al crear la tarea. El interruptor, arriba del todo en el trigger: if (…) { return; }",
+        en: "What helped me: the guard goes in createReviewTasks, which both doors go through: add !tasksCreatedFor.contains(c.Id) to the condition and tasksCreatedFor.add(c.Id) when creating the task. The switch, at the very top of the trigger: if (…) { return; }",
       },
       {
-        es: "Pseudocódigo: private static Set<Id> tasksCreatedFor = new Set<Id>(); … if (c.Priority == 'High' && !tasksCreatedFor.contains(c.Id)) { tasksCreatedFor.add(c.Id); tasks.add(…); } — y en el trigger: if (FeatureManagement.checkPermission('Bypass_Case_Triggers')) { return; }",
-        en: "Pseudocode: private static Set<Id> tasksCreatedFor = new Set<Id>(); … if (c.Priority == 'High' && !tasksCreatedFor.contains(c.Id)) { tasksCreatedFor.add(c.Id); tasks.add(…); } — and in the trigger: if (FeatureManagement.checkPermission('Bypass_Case_Triggers')) { return; }",
+        es: "Te dejo el esquema: private static Set<Id> tasksCreatedFor = new Set<Id>(); … if (c.Priority == 'High' && !tasksCreatedFor.contains(c.Id)) { tasksCreatedFor.add(c.Id); tasks.add(…); } — y en el trigger: if (FeatureManagement.checkPermission('Bypass_Case_Triggers')) { return; }",
+        en: "Here is the outline: private static Set<Id> tasksCreatedFor = new Set<Id>(); … if (c.Priority == 'High' && !tasksCreatedFor.contains(c.Id)) { tasksCreatedFor.add(c.Id); tasks.add(…); } — and in the trigger: if (FeatureManagement.checkPermission('Bypass_Case_Triggers')) { return; }",
       },
     ],
     solution: { es: SOLUTION, en: SOLUTION },
@@ -632,6 +645,10 @@ ${STARTER_CODE}
           es: "Declara la guardia dentro de CaseEscalationService: private static Set<Id> tasksCreatedFor = new Set<Id>();. Un static Boolean no vale: dejaría fuera el segundo lote de 200 de una misma carga.",
           en: "Declare the guard inside CaseEscalationService: private static Set<Id> tasksCreatedFor = new Set<Id>();. A static Boolean will not do: it would leave out the second batch of 200 in the same load.",
         },
+        otter: {
+          es: "La guardia es la memoria de la transacción, dentro del servicio: private static Set<Id> tasksCreatedFor = new Set<Id>();. Un static Boolean no vale: dejaría fuera el segundo lote de 200 de una misma carga.",
+          en: "The guard is the transaction's memory, inside the service: private static Set<Id> tasksCreatedFor = new Set<Id>();. A static Boolean will not do: it would leave out the second batch of 200 in the same load.",
+        },
       },
       {
         id: "m07-l04-c2",
@@ -646,6 +663,10 @@ ${STARTER_CODE}
         onFail: {
           es: "La guardia solo sirve si se usa: salta los casos que ya están (!tasksCreatedFor.contains(c.Id)) y apunta los que procesas (tasksCreatedFor.add(c.Id)), en el bucle que crea las tareas.",
           en: "The guard only helps if it is used: skip cases already in it (!tasksCreatedFor.contains(c.Id)) and record the ones you process (tasksCreatedFor.add(c.Id)), in the loop that creates the tasks.",
+        },
+        otter: {
+          es: "La guardia solo sirve si se usa, como una casilla que alguien mira: salta los casos que ya están (!tasksCreatedFor.contains(c.Id)) y apunta los que procesas (tasksCreatedFor.add(c.Id)), en el bucle que crea las tareas.",
+          en: "The guard only helps if it is used, like a checkbox someone looks at: skip the cases already there (!tasksCreatedFor.contains(c.Id)) and note the ones you process (tasksCreatedFor.add(c.Id)), in the loop that creates the tasks.",
         },
         onPass: {
           es: "Y como está en createReviewTasks, protege a la vez el after insert, el after update y la segunda pasada del workflow.",
@@ -663,6 +684,10 @@ ${STARTER_CODE}
           es: "if (FeatureManagement.checkPermission('Bypass_Case_Triggers')) { return; } — con el nombre de API exacto del permiso y un return que corte antes de que se aplique ninguna regla.",
           en: "if (FeatureManagement.checkPermission('Bypass_Case_Triggers')) { return; } — with the permission's exact API name and a return that cuts off before any rule applies.",
         },
+        otter: {
+          es: "Es tu NOT($Permission.Bypass_Validation_Rules), en Apex: if (FeatureManagement.checkPermission('Bypass_Case_Triggers')) { return; }, con el nombre de API exacto del permiso y un return que corte antes de ninguna regla.",
+          en: "It is your NOT($Permission.Bypass_Validation_Rules), in Apex: if (FeatureManagement.checkPermission('Bypass_Case_Triggers')) { return; }, with the permission's exact API name and a return that cuts before any rule.",
+        },
       },
       {
         id: "m07-l04-c4",
@@ -677,6 +702,10 @@ ${STARTER_CODE}
         onFail: {
           es: "Una sola comprobación, como primera línea del trigger: así apaga todas las reglas del objeto a la vez y nadie tiene que repetirla en cada método.",
           en: "A single check, as the trigger's first line: that way it turns off every rule on the object at once and nobody has to repeat it in each method.",
+        },
+        otter: {
+          es: "Un solo interruptor, como primera línea del trigger: así apaga todas las reglas del objeto a la vez y nadie tiene que repetir la condición en cada método, como pasaba con las reglas de validación.",
+          en: "A single switch, as the trigger's first line: that way it turns off all the object's rules at once and nobody has to repeat the condition in every method, as happened with validation rules.",
         },
       },
       {
@@ -697,6 +726,10 @@ ${STARTER_CODE}
           es: "El trigger sigue sin consultas, DML ni bucles, las clases no usan Trigger. y la rama AFTER_UPDATE sigue pasando Trigger.new y Trigger.oldMap al handler.",
           en: "The trigger still has no queries, DML or loops, the classes do not use Trigger., and the AFTER_UPDATE branch still hands Trigger.new and Trigger.oldMap to the handler.",
         },
+        otter: {
+          es: "No rompas lo que ya funcionaba: el trigger sigue sin consultas, DML ni bucles, las clases no usan Trigger. y la rama AFTER_UPDATE sigue pasando Trigger.new y Trigger.oldMap al handler.",
+          en: "Do not break what already worked: the trigger still has no queries, DML or loops, the classes do not use Trigger. and the AFTER_UPDATE branch still passes Trigger.new and Trigger.oldMap to the handler.",
+        },
       },
     ],
     rubric: [
@@ -705,5 +738,10 @@ ${STARTER_CODE}
         en: "You now have the full architecture: one trigger, a handler, a service, a guard and a switch. Task 5 fixes nothing: it uses it to deliver a brand-new rule from scratch.",
       },
     ],
+    outro: {
+      es: "Ya tienes la arquitectura completa: un trigger, un handler, un servicio, una guardia y un interruptor. La tarea 5 es la entrega: una regla nueva de Ventas, añadida sin tocar el trigger.",
+      en: "You now have the complete architecture: a trigger, a handler, a service, a guard and a switch. Task 5 is the delivery: a new rule from Sales, added without touching the trigger.",
+    },
+    voice: "otter",
   },
 };

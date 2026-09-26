@@ -111,6 +111,17 @@ export const l02Handler: Lesson = {
   n: 2,
   kind: "lesson",
   minutes: 34,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 1", en: "Remember? · Review of lesson 1" },
+    prompt: { es: "¿Cómo decide CaseTrigger en qué evento está?", en: "How does CaseTrigger decide which event it is in?" },
+    options: [
+      { es: "Con Flow Trigger Explorer", en: "With Flow Trigger Explorer" },
+      { es: "switch on Trigger.operationType", en: "switch on Trigger.operationType" },
+      { es: "Con un if por cada campo", en: "With an if for each field" },
+    ],
+    answer: 1,
+    explain: { es: "switch on Trigger.operationType, con when BEFORE_INSERT, AFTER_INSERT…: las salidas de un Decision, una por evento.", en: "switch on Trigger.operationType, with when BEFORE_INSERT, AFTER_INSERT…: a Decision's outcomes, one per event." },
+  },
   title: { es: "El patrón Handler", en: "The handler pattern" },
   summary: {
     es: "El trigger se queda con una sola tarea —decir QUÉ evento es— y todo lo demás se muda a una clase. Es el patrón que encontrarás en casi cualquier org profesional.",
@@ -160,9 +171,10 @@ export const l02Handler: Lesson = {
       variant: "admin",
       title: { es: "El Start y el lienzo", en: "The Start and the canvas" },
       text: {
-        es: "Un Record-Triggered Flow tiene dos partes: el elemento Start, donde eliges objeto, si se dispara al crear o al editar y si es antes o después de guardar; y el lienzo, donde van las decisiones y las acciones. El trigger delgado es el Start: objeto y eventos. El handler es el lienzo: la lógica. Nadie mete las decisiones dentro del Start.",
-        en: "A record-triggered flow has two parts: the Start element, where you pick the object, whether it fires on create or edit and whether it runs before or after save; and the canvas, where the decisions and actions go. The thin trigger is the Start: object and events. The handler is the canvas: the logic. Nobody puts the decisions inside the Start.",
+        es: "Así me lo explico yo: un Record-Triggered Flow tiene dos partes, el elemento Start, donde eliges objeto, si se dispara al crear o al editar y si es antes o después de guardar; y el lienzo, donde van las decisiones y las acciones. El trigger delgado es el Start: objeto y eventos. El handler es el lienzo: la lógica. Nadie mete las decisiones dentro del Start.",
+        en: "This is how I explain it to myself: a Record-Triggered Flow has two parts, the Start element, where you pick the object, whether it fires on create or edit and whether before or after saving; and the canvas, where the decisions and actions go. The thin trigger is the Start: object and events. The handler is the canvas: the logic. Nobody puts the decisions inside the Start.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -265,9 +277,10 @@ public with sharing class AccountTriggerHandler {
       variant: "admin",
       title: { es: "Simplificación: with sharing", en: "Simplification: with sharing" },
       text: {
-        es: "Verás public with sharing class en todos los ejemplos. De momento tómalo como «la forma correcta de declarar una clase que toca datos»: significa que la clase respeta las reglas de uso compartido del usuario, igual que un informe solo le enseña lo que puede ver. El Módulo 12 lo explica a fondo y cuándo se usa otra cosa.",
-        en: "You will see public with sharing class in every example. For now take it as “the right way to declare a class that touches data”: it means the class respects the user's sharing rules, just as a report only shows what they can see. Module 12 explains it in depth and when to use something else.",
+        es: "Verás public with sharing class en todos los ejemplos, y yo tampoco lo entendí del todo al principio. De momento tómalo como «la forma correcta de declarar una clase que toca datos»: significa que la clase respeta las reglas de uso compartido del usuario, igual que un informe solo le enseña lo que puede ver. El Módulo 12 lo explica a fondo y cuándo se usa otra cosa.",
+        en: "You will see public with sharing class in every example, and I did not fully get it at first either. For now take it as «the right way to declare a class that touches data»: it means the class respects the user's sharing rules, just as a report only shows them what they can see. Module 12 explains it in depth, and when something else is used.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -494,16 +507,16 @@ ${FROM_TASK1}${STARTER_TAIL_EN}`,
     },
     hints: [
       {
-        es: "Haz la mudanza por partes: primero escribe la clase con los dos métodos vacíos, luego corta el contenido de cada rama del switch y pégalo en su método. El trigger se queda solo con el switch.",
-        en: "Move in stages: first write the class with the two empty methods, then cut each switch branch's contents and paste them into its method. The trigger keeps only the switch.",
+        es: "Yo lo haría como sacar trozos del lienzo a un subflow, por partes: primero escribe la clase con los dos métodos vacíos, luego corta el contenido de cada rama del switch y pégalo en su método. El trigger se queda solo con el switch, tu elemento Start.",
+        en: "I would do it like moving pieces of the canvas into a subflow, step by step: first write the class with the two empty methods, then cut the contents of each switch branch and paste them into its method. The trigger keeps only the switch, your Start element.",
       },
       {
-        es: "Dentro del método ya no hay Trigger.new: hay un parámetro. Cambia cada Trigger.new pegado por el nombre del parámetro (newCases, por ejemplo). En el trigger, cada rama queda en una línea: handler.beforeInsert(Trigger.new);",
-        en: "Inside the method there is no Trigger.new any more: there is a parameter. Replace every pasted Trigger.new with the parameter name (newCases, for example). In the trigger, each branch becomes one line: handler.beforeInsert(Trigger.new);",
+        es: "Lo que me ayudó: dentro del método ya no hay Trigger.new, hay un parámetro, como la variable de entrada de un subflow. Cambia cada Trigger.new pegado por el nombre del parámetro (newCases, por ejemplo). En el trigger, cada rama queda en una línea: handler.beforeInsert(Trigger.new);",
+        en: "What helped me: inside the method there is no Trigger.new any more, there is a parameter, like a subflow's input variable. Replace each pasted Trigger.new with the parameter's name (newCases, for example). In the trigger, each branch becomes one line: handler.beforeInsert(Trigger.new);",
       },
       {
-        es: "Pseudocódigo: trigger CaseTrigger on Case (before insert, after insert) { CaseTriggerHandler handler = new CaseTriggerHandler(); switch on Trigger.operationType { when BEFORE_INSERT { handler.beforeInsert(Trigger.new); } when AFTER_INSERT { handler.afterInsert(Trigger.new); } } } y debajo public with sharing class CaseTriggerHandler { public void beforeInsert(List<Case> newCases) { … } public void afterInsert(List<Case> newCases) { … } }",
-        en: "Pseudocode: trigger CaseTrigger on Case (before insert, after insert) { CaseTriggerHandler handler = new CaseTriggerHandler(); switch on Trigger.operationType { when BEFORE_INSERT { handler.beforeInsert(Trigger.new); } when AFTER_INSERT { handler.afterInsert(Trigger.new); } } } and below it public with sharing class CaseTriggerHandler { public void beforeInsert(List<Case> newCases) { … } public void afterInsert(List<Case> newCases) { … } }",
+        es: "Te dejo el esquema: trigger CaseTrigger on Case (before insert, after insert) { CaseTriggerHandler handler = new CaseTriggerHandler(); switch on Trigger.operationType { when BEFORE_INSERT { handler.beforeInsert(Trigger.new); } when AFTER_INSERT { handler.afterInsert(Trigger.new); } } } y debajo public with sharing class CaseTriggerHandler { public void beforeInsert(List<Case> newCases) { … } public void afterInsert(List<Case> newCases) { … } }",
+        en: "Here is the outline: trigger CaseTrigger on Case (before insert, after insert) { CaseTriggerHandler handler = new CaseTriggerHandler(); switch on Trigger.operationType { when BEFORE_INSERT { handler.beforeInsert(Trigger.new); } when AFTER_INSERT { handler.afterInsert(Trigger.new); } } } and below it public with sharing class CaseTriggerHandler { public void beforeInsert(List<Case> newCases) { … } public void afterInsert(List<Case> newCases) { … } }",
       },
     ],
     solution: { es: SOLUTION, en: SOLUTION },
@@ -523,6 +536,10 @@ ${FROM_TASK1}${STARTER_TAIL_EN}`,
           es: "Mantén el trigger CaseTrigger con su switch, arriba del todo, y escribe la clase debajo, como en el código de partida.",
           en: "Keep the CaseTrigger trigger with its switch, at the very top, and write the class below it, as in the starter.",
         },
+        otter: {
+          es: "El Start sigue arriba: mantén el trigger CaseTrigger con su switch arriba del todo, y escribe la clase debajo, como en el código de partida.",
+          en: "The Start stays on top: keep the CaseTrigger trigger with its switch at the very top, and write the class below, as in the starter code.",
+        },
       },
       {
         id: "m07-l02-c2",
@@ -534,6 +551,10 @@ ${FROM_TASK1}${STARTER_TAIL_EN}`,
         onFail: {
           es: "Entre la cabecera del trigger y la clase no puede quedar ni un bucle, ni una consulta, ni un insert: todo eso es el QUÉ, y se muda al handler. El trigger solo dice CUÁNDO.",
           en: "Between the trigger's header and the class there must be no loop, no query and no insert: all of that is the WHAT, and it moves to the handler. The trigger only says WHEN.",
+        },
+        otter: {
+          es: "El trigger es tu elemento Start: objeto y eventos, nada más. Entre su cabecera y la clase no puede quedar ni un bucle, ni una consulta, ni un insert: todo eso es el lienzo, y se muda al handler.",
+          en: "The trigger is your Start element: object and events, nothing else. Between its header and the class there cannot be a loop, a query or an insert left: all of that is the canvas, and it moves to the handler.",
         },
       },
       {
@@ -551,6 +572,10 @@ ${FROM_TASK1}${STARTER_TAIL_EN}`,
           es: "La clase necesita un método por evento, y cada uno recibe la lista de casos: public void beforeInsert(List<Case> newCases) y public void afterInsert(List<Case> newCases).",
           en: "The class needs one method per event, each receiving the list of cases: public void beforeInsert(List<Case> newCases) and public void afterInsert(List<Case> newCases).",
         },
+        otter: {
+          es: "El handler es el lienzo, con un método por evento que recibe los casos como variable de entrada: public void beforeInsert(List<Case> newCases) y public void afterInsert(List<Case> newCases).",
+          en: "The handler is the canvas, with one method per event receiving the cases as an input variable: public void beforeInsert(List<Case> newCases) and public void afterInsert(List<Case> newCases).",
+        },
       },
       {
         id: "m07-l02-c4",
@@ -566,6 +591,10 @@ ${FROM_TASK1}${STARTER_TAIL_EN}`,
           es: "Cada rama del switch se reduce a una llamada: handler.beforeInsert(Trigger.new); y handler.afterInsert(Trigger.new);. Dentro del trigger, Trigger.new ya es List<Case>, así que viaja con su tipo.",
           en: "Each switch branch shrinks to one call: handler.beforeInsert(Trigger.new); and handler.afterInsert(Trigger.new);. Inside the trigger, Trigger.new is already List<Case>, so it travels typed.",
         },
+        otter: {
+          es: "Cada rama del switch se reduce a llamar al lienzo pasándole los registros, como pasar $Record a un subflow: handler.beforeInsert(Trigger.new); y handler.afterInsert(Trigger.new);",
+          en: "Each switch branch shrinks to calling the canvas and handing it the records, like passing $Record to a subflow: handler.beforeInsert(Trigger.new); and handler.afterInsert(Trigger.new);",
+        },
       },
       {
         id: "m07-l02-c5",
@@ -574,6 +603,10 @@ ${FROM_TASK1}${STARTER_TAIL_EN}`,
         onFail: {
           es: "Dentro de la clase no puede aparecer Trigger.new, Trigger.isInsert ni ningún otro Trigger.: al pegar la lógica, cambia cada Trigger.new por el parámetro del método.",
           en: "Trigger.new, Trigger.isInsert or any other Trigger. must not appear inside the class: when pasting the logic, replace each Trigger.new with the method's parameter.",
+        },
+        otter: {
+          es: "Un subflow no lee el $Record de quien lo llama: usa su variable de entrada. Dentro de la clase no puede aparecer Trigger.new ni ningún otro Trigger.: cambia cada Trigger.new por el parámetro del método.",
+          en: "A subflow does not read its caller's $Record: it uses its input variable. Inside the class no Trigger.new or any other Trigger. may appear: replace each Trigger.new with the method's parameter.",
         },
         onPass: {
           es: "Así la clase acepta cualquier lista de casos: la del trigger hoy, la de un botón en la tarea 3 y la de un test en el Módulo 10.",
@@ -594,6 +627,10 @@ ${FROM_TASK1}${STARTER_TAIL_EN}`,
           es: "Mudar el código no debe multiplicarlo: sigue haciendo falta exactamente una consulta y un insert.",
           en: "Moving the code must not multiply it: you still need exactly one query and one insert.",
         },
+        otter: {
+          es: "Mudar el lienzo no debe multiplicar los elementos: sigue haciendo falta exactamente una consulta y un insert.",
+          en: "Moving the canvas must not multiply the elements: you still need exactly one query and one insert.",
+        },
       },
     ],
     rubric: [
@@ -602,5 +639,10 @@ ${FROM_TASK1}${STARTER_TAIL_EN}`,
         en: "Support asks for a “Recalculate priority” button for old cases. Could it call your handler.beforeInsert? Technically yes… but does it make sense for a button to call something named beforeInsert? That discomfort is task 3.",
       },
     ],
+    outro: {
+      es: "Ya separas el Start del lienzo: un trigger delgado que decide el cuándo y un handler con el qué. En la tarea 3, Soporte quiere un botón «Recalcular prioridad» con la misma regla… y el handler no sirve para eso.",
+      en: "You can now separate the Start from the canvas: a thin trigger that decides the when and a handler with the what. In task 3, Support wants a «Recalculate priority» button with the same rule… and the handler is no good for that.",
+    },
+    voice: "otter",
   },
 };
