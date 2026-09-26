@@ -96,8 +96,8 @@ for (Opportunity o : wonToday) {
       type: "diagram",
       id: "m04-bulk",
       caption: {
-        es: "A la izquierda, un viaje a la base de datos por registro. A la derecha, dos viajes para todos.",
-        en: "On the left, one trip to the database per record. On the right, two trips for all of them.",
+        es: "Mueve el número de oportunidades y cambia de versión: una hace un viaje a la base de datos por registro; la otra, dos viajes para todos.",
+        en: "Move the number of opportunities and switch versions: one makes a trip to the database per record; the other, two trips for all of them.",
       },
     },
     {
