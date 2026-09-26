@@ -166,6 +166,32 @@ if (anyFailed) {
       },
     },
     {
+      type: "h",
+      text: { es: "Dos detalles que se aprenden a golpes", en: "Two details people learn the hard way" },
+    },
+    {
+      type: "list",
+      items: [
+        {
+          es: "Un savepoint no es gratis: cada Database.setSavepoint() y cada Database.rollback() cuentan como una instrucción DML del límite de 150. Úsalos donde hay una unidad que proteger, no en cada línea.",
+          en: "A savepoint is not free: every Database.setSavepoint() and every Database.rollback() counts as one DML statement against the 150 limit. Use them where there is a unit to protect, not on every line.",
+        },
+        {
+          es: "El rollback deshace la base de datos, no tus variables. Después de volver al savepoint, acc sigue teniendo el Id que recibió en el insert, aunque ese registro ya no exista. Si intentas insertarla otra vez tal cual, falla porque un insert no admite un Id: crea un registro nuevo o limpia el Id primero.",
+          en: "Rollback undoes the database, not your variables. After going back to the savepoint, acc still holds the Id it got from the insert, even though that record no longer exists. Try to insert it again as it is and it fails, because an insert does not accept an Id: create a new record or clear the Id first.",
+        },
+      ],
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "Ya conoces el «todo o nada» de un guardado", en: "You already know a save's «all or nothing»" },
+      text: {
+        es: "Cuando una regla de validación rechaza un registro en pantalla, no se guarda nada de ese guardado: ni el campo que estaba bien ni el que estaba mal. Toda la transacción funciona así por defecto: si algo falla sin tratar, se deshace entero. El savepoint sirve para lo contrario de lo habitual: cuando tú has decidido capturar el error y seguir, te deja elegir qué parte deshacer.",
+        en: "When a validation rule rejects a record on screen, nothing from that save is kept: neither the field that was fine nor the one that was wrong. The whole transaction works like that by default: if something fails unhandled, it is all undone. The savepoint is for the opposite case: when you have decided to catch the error and carry on, it lets you choose which part to undo.",
+      },
+    },
+    {
       type: "callout",
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },
@@ -351,8 +377,8 @@ insert acc;`,
 
   exercise: {
     prompt: {
-      es: "El alta de un cliente crea la cuenta y sus contactos. Hoy, si un contacto falla, la cuenta se queda huérfana y alguien del equipo tiene que borrarla a mano. Haz que el alta sea completa o no exista.",
-      en: "A customer onboarding creates the account and its contacts. Today, if a contact fails, the account is left orphaned and someone on the team has to delete it by hand. Make the onboarding either complete or non-existent.",
+      es: "TAREA 5 DE 6 · Vuelta a la pieza 1: el alta de clientes tiene un hueco, y hoy firma Aurora Foods. El alta de un cliente crea la cuenta y sus contactos. Hoy, si un contacto falla, la cuenta se queda huérfana y alguien del equipo tiene que borrarla a mano. Haz que el alta sea completa o no exista.",
+      en: "TASK 5 OF 6 · Back to piece 1: customer onboarding has a gap, and today Aurora Foods signs. A customer onboarding creates the account and its contacts. Today, if a contact fails, the account is left orphaned and someone on the team has to delete it by hand. Make the onboarding either complete or non-existent.",
     },
     brief: [
       {
@@ -369,7 +395,10 @@ insert acc;`,
       },
     ],
     starter: {
-      es: `Account acc = new Account(Name = 'Aurora Foods');
+      es: `// CASO: la operación diaria de Northwind, en código
+// Tarea 5 de 6: el alta de la tarea 1, completa o inexistente.
+
+Account acc = new Account(Name = 'Aurora Foods');
 insert acc;
 
 List<Contact> contacts = new List<Contact>{
@@ -378,7 +407,10 @@ List<Contact> contacts = new List<Contact>{
 };
 Database.insert(contacts, false);
 `,
-      en: `Account acc = new Account(Name = 'Aurora Foods');
+      en: `// CASE: Northwind's daily operation, in code
+// Task 5 of 6: task 1's onboarding, complete or non-existent.
+
+Account acc = new Account(Name = 'Aurora Foods');
 insert acc;
 
 List<Contact> contacts = new List<Contact>{
