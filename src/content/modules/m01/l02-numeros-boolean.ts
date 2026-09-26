@@ -425,8 +425,8 @@ System.debug(winRate);`,
 
   exercise: {
     prompt: {
-      es: "TAREA 2 DE 10 · Ayer apuntaste quién es el cliente. Hoy llegan los números del contrato de renovación de Northwind, y aquí el tipo ya no es cosmético: uno mal elegido se come los céntimos o pierde el identificador del registro. Te dan la descripción de cada dato, no el tipo: elígelo tú y calcula el importe con IVA.",
-      en: "TASK 2 OF 10 · Yesterday you wrote down who the customer is. Today the numbers of Northwind's renewal contract arrive, and here the type is no longer cosmetic: a wrong one eats the cents or loses the record identifier. You get a description of each value, not its type: choose it yourself and compute the amount with tax.",
+      es: "TAREA 2 DE 10 · Ayer apuntaste quién es el cliente. Hoy llegan los números del contrato de renovación de Northwind, y aquí el tipo cambia el resultado: en un Double los céntimos del importe acaban descuadrando, y en un String cabe cualquier identificador inventado sin que nadie te avise. Te dan la descripción de cada dato, no el tipo: elígelo tú y calcula el importe con IVA.",
+      en: "TASK 2 OF 10 · Yesterday you wrote down who the customer is. Today the numbers of Northwind's renewal contract arrive, and here the type changes the outcome: in a Double the amount's cents end up drifting, and a String will hold any made-up identifier without anyone warning you. You get a description of each value, not its type: choose it yourself and compute the amount with tax.",
     },
     brief: [
       {
