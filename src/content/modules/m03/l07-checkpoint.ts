@@ -122,10 +122,10 @@ export const l07Checkpoint: Lesson = {
     {
       type: "callout",
       variant: "admin",
-      title: { es: "Lo mismo que Flow te avisa", en: "The same thing Flow warns you about" },
+      title: { es: "¿Y por qué no un Flow? Porque así fue como reventó", en: "Why not a Flow? Because that is exactly how it blew up" },
       text: {
-        es: "En Flow me lo repitieron mil veces: nada de Get Records metido dentro de un Loop, y la guía de buenas prácticas lo dice claro, «saca los elementos de datos del bucle». Es exactamente esta regla: el límite de consultas es de la transacción, y Flow y Apex lo comparten.",
-        en: "In Flow I was told a thousand times: no Get Records inside a Loop, and the best-practice guide says it plainly, «take data elements out of the loop». It is exactly this rule: the query limit belongs to the transaction, and Flow and Apex share it.",
+        es: "El primer intento de la revisión por región fue un flow: Get Records de las cuentas, un Loop y, dentro, un Get Records de sus oportunidades. Con 80 cuentas iba bien; la región EMEA tiene 140 y el flow murió en «Too many SOQL queries: 101». Se podía rehacer con el operador In y otro Loop para sumar a mano los importes de cada cuenta. En Apex son dos consultas: una subconsulta para contar y un GROUP BY para sumar. El límite es de la transacción, y Flow y Apex lo comparten.",
+        en: "The first attempt at the regional review was a flow: Get Records of the accounts, a Loop and, inside it, a Get Records of their opportunities. With 80 accounts it ran fine; the EMEA region has 140 and the flow died with «Too many SOQL queries: 101». It could be rebuilt with the In operator and another Loop to add up each account's amounts by hand. In Apex it is two queries: a subquery to count and a GROUP BY to sum. The limit belongs to the transaction, and Flow and Apex share it.",
       },
       voice: "otter",
     },

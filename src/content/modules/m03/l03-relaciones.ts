@@ -251,6 +251,16 @@ for (Account a : accounts) {
     },
     {
       type: "callout",
+      variant: "admin",
+      title: { es: "¿Y por qué no un Flow? Porque Get Records no empareja padres e hijos", en: "Why not a Flow? Because Get Records does not pair parents with children" },
+      text: {
+        es: "Para la ronda de visitas de Retail lo probé primero en Flow. «Cada cuenta con sus contactos» eran dos Get Records (las cuentas, y los contactos con AccountId In) y dos Loops anidados para emparejarlos a mano; o un Get Records por cuenta dentro del Loop, que revienta con más de 100 cuentas. Y el filtro de Get Records solo ofrece campos del propio objeto: «contactos cuya cuenta es de Retail» no se puede escribir. Desde Summer '25 hay una opción beta para traer relacionados en el mismo Get Records, solo en flows autolanzados. En SOQL, una consulta te lo da ya emparejado.",
+        en: "For the Retail visit round I tried Flow first. «Each account with its contacts» meant two Get Records (the accounts, and the contacts with AccountId In) and two nested Loops to pair them by hand; or one Get Records per account inside the Loop, which blows up past 100 accounts. And the Get Records filter only offers the object's own fields: «contacts whose account is Retail» cannot be written. Since Summer '25 there is a beta option to bring related records in the same Get Records, in autolaunched flows only. In SOQL, one query hands it to you already paired.",
+      },
+      voice: "otter",
+    },
+    {
+      type: "callout",
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },
       text: {

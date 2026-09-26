@@ -184,6 +184,16 @@ List<Opportunity> opps     = (List<Opportunity>) results[2];`,
     },
     {
       type: "callout",
+      variant: "admin",
+      title: { es: "¿Y por qué no un Flow? Porque Flow no busca", en: "Why not a Flow? Because Flow does not search" },
+      text: {
+        es: "Para el buscador de la consola probé un Screen Flow. Flow no tiene un elemento de búsqueda: hicieron falta tres Get Records, uno por objeto, cada uno con «Contains» en los campos que yo eligiera, y solo en esos campos. SOSL busca en todos los campos de texto de los tres objetos a la vez, con el índice de búsqueda. Para usar SOSL desde un flow hace falta una acción escrita en Apex; aquí vas directo a la fuente.",
+        en: "For the console search I tried a Screen Flow. Flow has no search element: it took three Get Records, one per object, each with «Contains» on the fields I picked, and only on those fields. SOSL searches every text field of the three objects at once, using the search index. To use SOSL from a flow you need an action written in Apex; here you go straight to the source.",
+      },
+      voice: "otter",
+    },
+    {
+      type: "callout",
       variant: "recall",
       title: { es: "Antes de seguir", en: "Before moving on" },
       text: {
