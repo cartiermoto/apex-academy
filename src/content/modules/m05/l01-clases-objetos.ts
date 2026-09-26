@@ -6,6 +6,17 @@ export const l01ClasesObjetos: Lesson = {
   n: 1,
   kind: "lesson",
   minutes: 24,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso del Módulo 4", en: "Remember? · Review of Module 4" },
+    prompt: { es: "¿Qué hace Database.update(escalated, false) si uno de 200 casos no se puede actualizar?", en: "What does Database.update(escalated, false) do if one of 200 cases cannot be updated?" },
+    options: [
+      { es: "Actualiza los otros 199 y deja el fallo en su SaveResult", en: "It updates the other 199 and leaves the failure in its SaveResult" },
+      { es: "No actualiza ninguno", en: "It updates none" },
+      { es: "Se detiene en ese caso", en: "It stops at that case" },
+    ],
+    answer: 0,
+    explain: { es: "Guarda lo que puede, como Data Loader. Hoy cambias de tema: vas a crear tus propios «objetos» en código.", en: "It saves what it can, like Data Loader. Today you change subject: you are going to create your own «objects» in code." },
+  },
   title: { es: "Clases y objetos", en: "Classes and objects" },
   summary: {
     es: "Una clase es la definición de un objeto en Object Manager; un objeto es un registro. Ahora vas a crear tus propias definiciones, con sus campos y sus acciones.",
@@ -43,9 +54,10 @@ export const l01ClasesObjetos: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "Cuando creas un objeto personalizado en Object Manager, defines sus campos y, con botones y acciones, lo que se puede hacer con él. Todavía no existe ningún registro: solo la definición. Después, cada registro que alguien crea tiene sus propios valores en esos campos. Clase = la definición. Objeto o [[instancia]] = un registro.",
-        en: "When you create a custom object in Object Manager, you define its fields and, with buttons and actions, what can be done with it. No record exists yet: only the definition. Later, every record someone creates has its own values in those fields. Class = the definition. Object or [[instancia|instance]] = a record.",
+        es: "Así lo entendí yo: cuando creas un objeto personalizado en Object Manager, defines sus campos y, con botones y acciones, lo que se puede hacer con él. Todavía no existe ningún registro: solo la definición. Después, cada registro que alguien crea tiene sus propios valores en esos campos. Clase = la definición. Objeto o [[instancia]] = un registro.",
+        en: "This is how I understood it: when you create a custom object in Object Manager, you define its fields and, with buttons and actions, what can be done with it. No record exists yet: only the definition. Later, every record someone creates has its own values in those fields. Class = the definition. Object or [[instancia]] = a record.",
       },
+      voice: "otter",
     },
     {
       type: "diagram",
@@ -209,9 +221,10 @@ System.debug(training.cost(80));    // 0`,
       variant: "admin",
       title: { es: "Entonces, ¿para qué sirve una clase?", en: "So what is a class for?" },
       text: {
-        es: "Para todo lo que no merece una tabla: un cálculo que se repite en varios sitios, un resultado intermedio que junta datos de tres objetos, una regla de negocio con nombre propio. Piensa en las veces que creaste un campo fórmula o un campo oculto solo para que un flow pudiera hacer una cuenta: con Apex, eso vive en una clase y no ensucia el modelo de datos que ven los usuarios.",
-        en: "For everything that does not deserve a table: a calculation repeated in several places, an intermediate result pulling data from three objects, a business rule with its own name. Think of the times you created a formula field or a hidden field just so a flow could do a sum: with Apex, that lives in a class and does not clutter the data model users see.",
+        es: "Yo me lo pregunté también. Sirve para todo lo que no merece una tabla: un cálculo que se repite en varios sitios, un resultado intermedio que junta datos de tres objetos, una regla de negocio con nombre propio. Piensa en las veces que creaste un campo fórmula o un campo oculto solo para que un flow pudiera hacer una cuenta: con Apex, eso vive en una clase y no ensucia el modelo de datos que ven los usuarios.",
+        en: "I asked myself the same. It is for everything that does not deserve a table: a calculation repeated in several places, an intermediate result joining data from three objects, a business rule with its own name. Think of the times you created a formula field or a hidden field just so a flow could do a sum: with Apex, that lives in a class and does not clutter the data model users see.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -238,9 +251,10 @@ System.debug(training.cost(80));    // 0`,
       variant: "admin",
       title: { es: "Las doce piezas, en el orden en que se construyen", en: "The twelve pieces, in the order they are built" },
       text: {
-        es: "El coste de las horas de implantación · la renovación preparada desde la oportunidad de este año · el plan de soporte que nace completo · ese mismo plan, limpio · los precios calculados igual en todas partes · el presupuesto de campaña que nadie se salta · los avisos · los descuentos · el formato de las cifras para Finanzas · la puntuación de leads nuevos · el reparto de casos por nivel · y las comisiones del trimestre. Es como diseñar una app en Object Manager: primero los objetos sencillos, luego los que se apoyan en ellos.",
-        en: "The cost of implementation hours · the renewal prepared from this year's opportunity · the support plan born complete · that same plan, cleaned up · prices computed the same everywhere · the campaign budget nobody skips · the notices · the discounts · the figures' format for Finance · scoring new leads · routing cases by tier · and the quarter's commissions. It is like designing an app in Object Manager: first the simple objects, then the ones built on top of them.",
+        es: "Salgo de la reunión con Northwind con la lista de su motor comercial, en el orden en que lo vamos a construir: el coste de las horas de implantación · la renovación preparada desde la oportunidad de este año · el plan de soporte que nace completo · ese mismo plan, limpio · los precios calculados igual en todas partes · el presupuesto de campaña que nadie se salta · los avisos · los descuentos · el formato de las cifras para Finanzas · la puntuación de leads nuevos · el reparto de casos por nivel · y las comisiones del trimestre. Es como diseñar una app en Object Manager: primero los objetos sencillos, luego los que se apoyan en ellos.",
+        en: "I am coming out of the Northwind meeting with the list for their commercial engine, in the order we will build it: the cost of implementation hours · the renewal prepared from this year's opportunity · the support plan born complete · that same plan, cleaned up · prices calculated the same everywhere · the campaign budget nobody can bypass · the notifications · the discounts · the figures formatted for Finance · scoring new leads · routing cases by tier · and the quarter's commissions. It is like designing an app in Object Manager: first the simple objects, then the ones that build on them.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -452,16 +466,16 @@ System.debug(a.cost(100));`,
     },
     hints: [
       {
-        es: "Son dos piezas: la clase (con sus atributos y su método) y, fuera de sus llaves, el código que la usa. Revisa que el método tenga tipo de retorno, parámetro y return en todas sus ramas.",
-        en: "There are two pieces: the class (with its attributes and its method) and, outside its braces, the code that uses it. Check that the method has a return type, a parameter and a return on every branch.",
+        es: "Yo lo veo como definir un objeto y luego crear registros: son dos piezas, la clase (con sus atributos y su método) y, fuera de sus llaves, el código que la usa. Revisa que el método tenga tipo de retorno, parámetro y return en todas sus ramas.",
+        en: "I see it as defining an object and then creating records: two pieces, the class (with its attributes and its method) and, outside its braces, the code that uses it. Check that the method has a return type, a parameter and a return in every branch.",
       },
       {
-        es: "Los atributos son String, Decimal y Boolean. En el método, si no es facturable devuelve 0; si lo es, devuelve hoursSpent * hourlyRate. Para usarla: WorkTicket x = new WorkTicket(); y después x.hoursSpent = 8; …",
-        en: "The attributes are String, Decimal and Boolean. In the method, if not billable return 0; if it is, return hoursSpent * hourlyRate. To use it: WorkTicket x = new WorkTicket(); then x.hoursSpent = 8; …",
+        es: "Lo que me ayudó: los atributos son como los campos, String, Decimal y Boolean. En el método, si no es facturable devuelve 0; si lo es, devuelve hoursSpent * hourlyRate. Para usarla creas un «registro»: WorkTicket x = new WorkTicket(); y después x.hoursSpent = 8; …",
+        en: "What helped me: attributes are like fields, String, Decimal and Boolean. In the method, if it is not billable return 0; if it is, return hoursSpent * hourlyRate. To use it you create a «record»: WorkTicket x = new WorkTicket(); and then x.hoursSpent = 8; …",
       },
       {
-        es: "Pseudocódigo: public class WorkTicket { public String subject; public Decimal hoursSpent; public Boolean isBillable; public Decimal cost(Decimal hourlyRate) { si no facturable → return 0; return hoursSpent * hourlyRate; } }",
-        en: "Pseudocode: public class WorkTicket { public String subject; public Decimal hoursSpent; public Boolean isBillable; public Decimal cost(Decimal hourlyRate) { if not billable → return 0; return hoursSpent * hourlyRate; } }",
+        es: "Te dejo el esquema: public class WorkTicket { public String subject; public Decimal hoursSpent; public Boolean isBillable; public Decimal cost(Decimal hourlyRate) { si no facturable → return 0; return hoursSpent * hourlyRate; } }",
+        en: "Here is the outline: public class WorkTicket { public String subject; public Decimal hoursSpent; public Boolean isBillable; public Decimal cost(Decimal hourlyRate) { if not billable → return 0; return hoursSpent * hourlyRate; } }",
       },
     ],
     solution: {
@@ -527,6 +541,10 @@ Decimal internalCost = internalTicket.cost(95);   // 0`,
           es: "La clase empieza así: public class WorkTicket { … } — con mayúscula inicial, porque es un tipo.",
           en: "The class starts like this: public class WorkTicket { … } — with a leading capital, because it is a type.",
         },
+        otter: {
+          es: "Es la definición de tu «objeto»: public class WorkTicket { … }, con mayúscula inicial porque es un tipo, como el nombre de un objeto.",
+          en: "It is the definition of your «object»: public class WorkTicket { … }, with a capital letter because it is a type, like an object's name.",
+        },
       },
       {
         id: "m05-l01-c2",
@@ -545,6 +563,10 @@ Decimal internalCost = internalTicket.cost(95);   // 0`,
         onFail: {
           es: "Texto, número con decimales y sí/no: public String subject; public Decimal hoursSpent; public Boolean isBillable;",
           en: "Text, number with decimals and yes/no: public String subject; public Decimal hoursSpent; public Boolean isBillable;",
+        },
+        otter: {
+          es: "Los atributos son los campos de tu objeto, cada uno con su tipo: texto, número con decimales y checkbox. public String subject; public Decimal hoursSpent; public Boolean isBillable;",
+          en: "The attributes are your object's fields, each with its type: text, a decimal number and a checkbox. public String subject; public Decimal hoursSpent; public Boolean isBillable;",
         },
       },
       {
@@ -565,6 +587,10 @@ Decimal internalCost = internalTicket.cost(95);   // 0`,
           es: "public Decimal cost(Decimal hourlyRate) { … } con dos return: 0 si no es facturable y hoursSpent * hourlyRate si lo es.",
           en: "public Decimal cost(Decimal hourlyRate) { … } with two returns: 0 if not billable and hoursSpent * hourlyRate if it is.",
         },
+        otter: {
+          es: "El método es como un campo fórmula que recibe un dato de fuera: public Decimal cost(Decimal hourlyRate) { … }, con dos return: 0 si no es facturable y hoursSpent * hourlyRate si lo es.",
+          en: "The method is like a formula field that takes a value from outside: public Decimal cost(Decimal hourlyRate) { … }, with two returns: 0 if it is not billable and hoursSpent * hourlyRate if it is.",
+        },
       },
       {
         id: "m05-l01-c4",
@@ -582,6 +608,10 @@ Decimal internalCost = internalTicket.cost(95);   // 0`,
         onFail: {
           es: "Cada parte es una instancia: WorkTicket billableTicket = new WorkTicket(); y lo mismo para internalTicket.",
           en: "Each ticket is an instance: WorkTicket billableTicket = new WorkTicket(); and the same for internalTicket.",
+        },
+        otter: {
+          es: "Cada parte de trabajo es un registro nuevo hecho con el molde: WorkTicket billableTicket = new WorkTicket(); y lo mismo para internalTicket.",
+          en: "Each work ticket is a new record made from the mould: WorkTicket billableTicket = new WorkTicket(); and the same for internalTicket.",
         },
       },
       {
@@ -605,6 +635,10 @@ Decimal internalCost = internalTicket.cost(95);   // 0`,
           es: "Con el punto entras en cada instancia: billableTicket.hoursSpent = 8; billableTicket.isBillable = true; … y después billableTicket.cost(95).",
           en: "The dot takes you into each instance: billableTicket.hoursSpent = 8; billableTicket.isBillable = true; … and then billableTicket.cost(95).",
         },
+        otter: {
+          es: "Con el punto rellenas los campos de cada registro: billableTicket.hoursSpent = 8; billableTicket.isBillable = true; … y después pides billableTicket.cost(95).",
+          en: "With the dot you fill in each record's fields: billableTicket.hoursSpent = 8; billableTicket.isBillable = true; … and then you ask for billableTicket.cost(95).",
+        },
         onPass: {
           es: "Un método, dos resultados: 760 y 0. Cada instancia responde con sus propios valores.",
           en: "One method, two results: 760 and 0. Each instance answers with its own values.",
@@ -616,10 +650,11 @@ Decimal internalCost = internalTicket.cost(95);   // 0`,
         es: "¿Qué devuelve tu método si alguien crea un WorkTicket y nunca rellena isBillable? ¿Falla o devuelve 0?",
         en: "What does your method return if someone creates a WorkTicket and never fills in isBillable? Does it fail or return 0?",
       },
-      {
-        es: "Tarea 2: con las horas ya calculables, toca la renovación en sí… y ahí aparece el error más desconcertante de Apex.",
-        en: "Task 2: with hours now computable, the renewal itself comes next… and with it Apex's most baffling bug.",
-      },
     ],
+    outro: {
+      es: "Ya defines tus propias clases, con sus atributos y métodos, y creas instancias con new, como registros de un objeto que tú diseñas. En la tarea 2 toca la renovación en sí… y con ella el error más desconcertante de Apex.",
+      en: "You can now define your own classes, with their attributes and methods, and create instances with new, like records of an object you design. Task 2 is the renewal itself… and with it Apex's most baffling mistake.",
+    },
+    voice: "otter",
   },
 };

@@ -6,6 +6,17 @@ export const l12Checkpoint: Lesson = {
   n: 12,
   kind: "checkpoint",
   minutes: 50,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 11", en: "Remember? · Review of lesson 11" },
+    prompt: { es: "¿Qué diferencia hay entre un picklist restringido y un enum?", en: "What is the difference between a restricted picklist and an enum?" },
+    options: [
+      { es: "Ninguna", en: "None" },
+      { es: "El picklist protege los datos y el enum protege el código", en: "The picklist protects the data and the enum protects the code" },
+      { es: "El enum se cambia desde Setup", en: "The enum is changed from Setup" },
+    ],
+    answer: 1,
+    explain: { es: "El picklist lo cambia un Admin desde Setup; el enum solo cambia con un despliegue, y lo vigila el compilador.", en: "An Admin changes the picklist from Setup; the enum only changes with a deployment, and the compiler guards it." },
+  },
   title: { es: "Checkpoint del Módulo 5", en: "Module 5 Checkpoint" },
   summary: {
     es: "Las once piezas de la programación orientada a objetos trabajando juntas en un sistema de comisiones, y tu primera clase guardada en una org real.",
@@ -197,9 +208,10 @@ export const l12Checkpoint: Lesson = {
       variant: "admin",
       title: { es: "Diseñar clases es diseñar un modelo de datos", en: "Designing classes is designing a data model" },
       text: {
-        es: "Cuando te piden un proceso nuevo, antes de tocar Flow dibujas los objetos y sus relaciones: qué es padre de qué, qué campos son comunes. Con las clases se hace igual y en el mismo orden: primero qué cosas hay y qué comparten (herencia), luego qué saben hacer (métodos e interfaces), y al final qué se protege (private). Tu experiencia diseñando modelos de datos es la mejor preparación que existe para esto.",
-        en: "When asked for a new process, before touching Flow you sketch the objects and their relationships: what is parent of what, which fields are common. With classes you do the same, in the same order: first which things exist and what they share (inheritance), then what they know how to do (methods and interfaces), and finally what gets protected (private). Your experience designing data models is the best preparation there is for this.",
+        es: "Lo que más me ayudó en este módulo: cuando te piden un proceso nuevo, antes de tocar Flow dibujas los objetos y sus relaciones, qué es padre de qué, qué campos son comunes. Con las clases se hace igual y en el mismo orden: primero qué cosas hay y qué comparten (herencia), luego qué saben hacer (métodos e interfaces), y al final qué se protege (private). Tu experiencia diseñando modelos de datos es la mejor preparación que existe para esto.",
+        en: "What helped me most in this module: when you are asked for a new process, before touching Flow you draw the objects and their relationships, what is parent of what, which fields are shared. With classes it is the same and in the same order: first what things exist and what they share (inheritance), then what they can do (methods and interfaces), and finally what is protected (private). Your experience designing data models is the best preparation there is for this.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -523,16 +535,16 @@ System.debug(x.greet());`,
     },
     hints: [
       {
-        es: "Ve de arriba abajo: el contrato (interfaz), la base con lo común (abstracta, con su constante, propiedades y constructor), las dos hijas y, al final, un bucle que solo conoce el contrato. Cada palabra clave del módulo aparece al menos una vez.",
-        en: "Go top to bottom: the contract (interface), the base with what is shared (abstract, with its constant, properties and constructor), the two children and, finally, a loop that only knows the contract. Every keyword from the module appears at least once.",
+        es: "Yo iría de arriba abajo, como dibujando un modelo de datos: el contrato (interfaz), la base con lo común (abstracta, con su constante, propiedades y constructor), las dos hijas y, al final, un bucle que solo conoce el contrato. Cada palabra clave del módulo aparece al menos una vez.",
+        en: "I would go top-down, like drawing a data model: the contract (interface), the base with the common part (abstract, with its constant, properties and constructor), the two children and, at the end, a loop that only knows the contract. Every keyword from the module appears at least once.",
       },
       {
-        es: "public abstract class Deal implements Commissionable { public static final Decimal BASE_RATE = 0.05; public String name { get; private set; } … this.amount = amount ?? 0; public virtual Decimal commission() { … } } — en la hija: super(name, amount); y public override Decimal commission() { return super.commission() * 2; }",
-        en: "public abstract class Deal implements Commissionable { public static final Decimal BASE_RATE = 0.05; public String name { get; private set; } … this.amount = amount ?? 0; public virtual Decimal commission() { … } } — in the child: super(name, amount); and public override Decimal commission() { return super.commission() * 2; }",
+        es: "Lo que me ayudó: public abstract class Deal implements Commissionable { public static final Decimal BASE_RATE = 0.05; public String name { get; private set; } … this.amount = amount ?? 0; public virtual Decimal commission() { … } } — en la hija: super(name, amount); y public override Decimal commission() { return super.commission() * 2; }",
+        en: "What helped me: public abstract class Deal implements Commissionable { public static final Decimal BASE_RATE = 0.05; public String name { get; private set; } … this.amount = amount ?? 0; public virtual Decimal commission() { … } } — in the child: super(name, amount); and public override Decimal commission() { return super.commission() * 2; }",
       },
       {
-        es: "Pseudocódigo del uso: List<Commissionable> items = new List<Commissionable>{ new NewBusinessDeal('Acme', 10000), new RenewalDeal('Globex', 20000) }; Decimal totalCommission = 0; para cada item → totalCommission += item.commission(); (debe dar 2000)",
-        en: "Usage pseudocode: List<Commissionable> items = new List<Commissionable>{ new NewBusinessDeal('Acme', 10000), new RenewalDeal('Globex', 20000) }; Decimal totalCommission = 0; for each item → totalCommission += item.commission(); (it should give 2000)",
+        es: "Te dejo el uso: List<Commissionable> items = new List<Commissionable>{ new NewBusinessDeal('Acme', 10000), new RenewalDeal('Globex', 20000) }; Decimal totalCommission = 0; para cada item → totalCommission += item.commission(); (debe dar 2000)",
+        en: "Here is the usage: List<Commissionable> items = new List<Commissionable>{ new NewBusinessDeal('Acme', 10000), new RenewalDeal('Globex', 20000) }; Decimal totalCommission = 0; for each item → totalCommission += item.commission(); (it should give 2000)",
       },
     ],
     solution: {
@@ -644,6 +656,10 @@ System.debug(totalCommission);   // 2000`,
           es: "public interface Commissionable { Decimal commission(); }",
           en: "public interface Commissionable { Decimal commission(); }",
         },
+        otter: {
+          es: "El contrato primero, como el subflow del que solo conoces entradas y salidas: public interface Commissionable { Decimal commission(); }",
+          en: "The contract first, like the subflow whose inputs and outputs are all you know: public interface Commissionable { Decimal commission(); }",
+        },
       },
       {
         id: "m05-l12-c2",
@@ -659,6 +675,10 @@ System.debug(totalCommission);   // 2000`,
           es: "Nadie crea un «Deal» genérico, y todos son comisionables: public abstract class Deal implements Commissionable { … }",
           en: "Nobody creates a generic “Deal”, and all of them are commissionable: public abstract class Deal implements Commissionable { … }",
         },
+        otter: {
+          es: "Deal es tu Activity: nadie crea un «Deal» genérico, y todos son comisionables. public abstract class Deal implements Commissionable { … }",
+          en: "Deal is your Activity: nobody creates a generic «Deal», and they are all commissionable. public abstract class Deal implements Commissionable { … }",
+        },
       },
       {
         id: "m05-l12-c3",
@@ -673,6 +693,10 @@ System.debug(totalCommission);   // 2000`,
         onFail: {
           es: "Un valor de toda la clase que no cambia: public static final Decimal BASE_RATE = 0.05;",
           en: "A class-wide value that never changes: public static final Decimal BASE_RATE = 0.05;",
+        },
+        otter: {
+          es: "La comisión base es un valor único y fijo, como un Custom Setting que no se edita: public static final Decimal BASE_RATE = 0.05;",
+          en: "The base commission is a single, fixed value, like a Custom Setting nobody edits: public static final Decimal BASE_RATE = 0.05;",
         },
       },
       {
@@ -691,6 +715,10 @@ System.debug(totalCommission);   // 2000`,
         onFail: {
           es: "public String name { get; private set; } y public Decimal amount { get; private set; }",
           en: "public String name { get; private set; } and public Decimal amount { get; private set; }",
+        },
+        otter: {
+          es: "name y amount son campos de solo lectura para los demás: public String name { get; private set; } y public Decimal amount { get; private set; }",
+          en: "name and amount are read-only fields for everyone else: public String name { get; private set; } and public Decimal amount { get; private set; }",
         },
       },
       {
@@ -711,6 +739,10 @@ System.debug(totalCommission);   // 2000`,
           es: "public Deal(String name, Decimal amount) { this.name = name; this.amount = amount ?? 0; } — mismos nombres, así que hace falta this.",
           en: "public Deal(String name, Decimal amount) { this.name = name; this.amount = amount ?? 0; } — same names, so this is required.",
         },
+        otter: {
+          es: "El constructor usa this, tu $Record, porque parámetros y atributos se llaman igual, y convierte el importe vacío en 0 como un BLANKVALUE(): public Deal(String name, Decimal amount) { this.name = name; this.amount = amount ?? 0; }",
+          en: "The constructor uses this, your $Record, because parameters and attributes share names, and turns an empty amount into 0 like a BLANKVALUE(): public Deal(String name, Decimal amount) { this.name = name; this.amount = amount ?? 0; }",
+        },
       },
       {
         id: "m05-l12-c6",
@@ -725,6 +757,10 @@ System.debug(totalCommission);   // 2000`,
         onFail: {
           es: "public virtual Decimal commission() { return amount * BASE_RATE; } — virtual para que una hija pueda cambiarla.",
           en: "public virtual Decimal commission() { return amount * BASE_RATE; } — virtual so a child can change it.",
+        },
+        otter: {
+          es: "La comisión base es el valor por defecto que una hija puede cambiar: public virtual Decimal commission() { return amount * BASE_RATE; }",
+          en: "The base commission is the default value a child may change: public virtual Decimal commission() { return amount * BASE_RATE; }",
         },
       },
       {
@@ -745,6 +781,10 @@ System.debug(totalCommission);   // 2000`,
           es: "public class NewBusinessDeal extends Deal { public NewBusinessDeal(String name, Decimal amount) { super(name, amount); } … } — y lo mismo con RenewalDeal.",
           en: "public class NewBusinessDeal extends Deal { public NewBusinessDeal(String name, Decimal amount) { super(name, amount); } … } — and the same for RenewalDeal.",
         },
+        otter: {
+          es: "Las dos hijas heredan lo común y dejan que el padre lo rellene: public class NewBusinessDeal extends Deal { public NewBusinessDeal(String name, Decimal amount) { super(name, amount); } … }, y lo mismo con RenewalDeal.",
+          en: "Both children inherit the common part and let the parent fill it in: public class NewBusinessDeal extends Deal { public NewBusinessDeal(String name, Decimal amount) { super(name, amount); } … }, and the same with RenewalDeal.",
+        },
       },
       {
         id: "m05-l12-c8",
@@ -759,6 +799,10 @@ System.debug(totalCommission);   // 2000`,
         onFail: {
           es: "public override Decimal commission() { return super.commission() * 2; } — sin copiar la fórmula del padre.",
           en: "public override Decimal commission() { return super.commission() * 2; } — without copying the parent's formula.",
+        },
+        otter: {
+          es: "El negocio nuevo cambia el valor por defecto sin copiarlo: public override Decimal commission() { return super.commission() * 2; }",
+          en: "New business changes the default value without copying it: public override Decimal commission() { return super.commission() * 2; }",
         },
         onPass: {
           es: "Si Finanzas cambia la comisión base, el negocio nuevo sigue pagando el doble sin tocar NewBusinessDeal.",
@@ -786,6 +830,10 @@ System.debug(totalCommission);   // 2000`,
           es: "List<Commissionable> items = new List<Commissionable>{ new NewBusinessDeal('…', 10000), new RenewalDeal('…', 20000) }; Decimal totalCommission = 0; for (Commissionable item : items) { totalCommission += item.commission(); }",
           en: "List<Commissionable> items = new List<Commissionable>{ new NewBusinessDeal('…', 10000), new RenewalDeal('…', 20000) }; Decimal totalCommission = 0; for (Commissionable item : items) { totalCommission += item.commission(); }",
         },
+        otter: {
+          es: "El bucle final solo conoce el contrato, como el flow que llama a subflows: List<Commissionable> items = new List<Commissionable>{ new NewBusinessDeal('…', 10000), new RenewalDeal('…', 20000) }; Decimal totalCommission = 0; for (Commissionable item : items) { totalCommission += item.commission(); }",
+          en: "The final loop only knows the contract, like the flow calling subflows: List<Commissionable> items = new List<Commissionable>{ new NewBusinessDeal('…', 10000), new RenewalDeal('…', 20000) }; Decimal totalCommission = 0; for (Commissionable item : items) { totalCommission += item.commission(); }",
+        },
         onPass: {
           es: "El total sale 2000. Y cuando lleguen conceptos comisionables que no son oportunidades, entrarán en la misma lista sin tocar el bucle.",
           en: "The total comes out at 2000. And when commissionable items that are not opportunities arrive, they will join the same list without touching the loop.",
@@ -802,5 +850,10 @@ System.debug(totalCommission);   // 2000`,
         en: "If a ReferralBonus appears tomorrow that is not an opportunity but is commissionable, which class or interface would you start from?",
       },
     ],
+    outro: {
+      es: "¡Entregaste el motor comercial de Northwind! Ya diseñas clases como diseñabas modelos de datos: lo común arriba, lo que cambia en las hijas, contratos claros y lo privado bien guardado. En el Módulo 6 llegan los triggers: Northwind migra sus flows a Apex, y lo que aprendiste aquí mantendrá ese código ordenado.",
+      en: "You delivered Northwind's commercial engine! You now design classes the way you designed data models: the common part on top, what changes in the children, clear contracts and the private part well guarded. Module 6 brings triggers: Northwind migrates its flows to Apex, and what you learnt here will keep that code tidy.",
+    },
+    voice: "otter",
   },
 };

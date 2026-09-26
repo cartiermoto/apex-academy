@@ -6,6 +6,17 @@ export const l07Herencia: Lesson = {
   n: 7,
   kind: "lesson",
   minutes: 22,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 6", en: "Remember? · Review of lesson 6" },
+    prompt: { es: "Una propiedad public Decimal spent { get; private set; }, ¿quién puede cambiarla?", en: "A property public Decimal spent { get; private set; }: who can change it?" },
+    options: [
+      { es: "Cualquier clase", en: "Any class" },
+      { es: "Solo el código de su propia clase", en: "Only the code in its own class" },
+      { es: "Nadie", en: "Nobody" },
+    ],
+    answer: 1,
+    explain: { es: "Leer, cualquiera; escribir, solo dentro. Es tu campo de solo lectura en la Field-Level Security.", en: "Anyone can read it; only the inside can write it. It is your read-only field in Field-Level Security." },
+  },
   title: { es: "Herencia", en: "Inheritance" },
   summary: {
     es: "Una clase hija recibe todo lo de su clase padre y añade lo suyo. En Apex, además, el padre tiene que dar permiso para ser heredado.",
@@ -43,9 +54,10 @@ export const l07Herencia: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "Cuando creas un objeto personalizado, ya trae Id, Name, OwnerId, CreatedDate y LastModifiedDate. No los defines: los hereda de lo que todo objeto de Salesforce tiene en común. Tú solo añades los campos que lo hacen distinto. Una clase hija es eso: todo lo del padre, más lo suyo.",
-        en: "When you create a custom object, it already comes with Id, Name, OwnerId, CreatedDate and LastModifiedDate. You do not define them: it inherits them from what every Salesforce object has in common. You only add the fields that make it different. A child class is exactly that: everything from the parent, plus its own.",
+        es: "Cuando creé mi primer objeto personalizado me sorprendió que ya trajera Id, Name, OwnerId, CreatedDate y LastModifiedDate. No los defines: los hereda de lo que todo objeto de Salesforce tiene en común. Tú solo añades los campos que lo hacen distinto. Una clase hija es eso: todo lo del padre, más lo suyo.",
+        en: "When I created my first custom object I was surprised it already had Id, Name, OwnerId, CreatedDate and LastModifiedDate. You do not define them: it inherits them from what every Salesforce object has in common. You only add the fields that make it different. A child class is exactly that: everything from the parent, plus its own.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -206,9 +218,10 @@ Notification anyNotice = reminder;    // a TaskReminder IS a Notification`,
       variant: "admin",
       title: { es: "Un perfil base y lo que se añade encima", en: "A base profile and what is added on top" },
       text: {
-        es: "Simplificación útil: piensa en un perfil mínimo que todos comparten y en los permission sets que se suman encima para cada rol. El comercial tiene todo lo del perfil base y además lo suyo; si mañana arreglas algo en el perfil, lo reciben todos a la vez. La herencia funciona así: lo común se escribe una vez en el padre y cada hija añade lo que la hace distinta. (Donde la analogía falla: un usuario puede sumar varios permission sets, y en Apex una clase solo puede heredar de UNA.)",
-        en: "Useful simplification: think of a minimal profile everyone shares and the permission sets added on top for each role. The sales rep has everything from the base profile plus their own; fix something in the profile tomorrow and everyone gets it at once. Inheritance works like that: the common part is written once in the parent and each child adds what makes it different. (Where the analogy breaks: a user can stack several permission sets, while in Apex a class can inherit from only ONE.)",
+        es: "Simplificación útil, la que yo usé: piensa en un perfil mínimo que todos comparten y en los permission sets que se suman encima para cada rol. El comercial tiene todo lo del perfil base y además lo suyo; si mañana arreglas algo en el perfil, lo reciben todos a la vez. La herencia funciona así: lo común se escribe una vez en el padre y cada hija añade lo que la hace distinta. (Donde la analogía falla: un usuario puede sumar varios permission sets, y en Apex una clase solo puede heredar de UNA.)",
+        en: "A useful simplification, the one I used: think of a minimal profile everyone shares and the permission sets added on top for each role. The sales rep has everything from the base profile plus their own; if you fix something in the profile tomorrow, everyone gets it at once. Inheritance works like that: the common part is written once in the parent and each child adds what makes it different. (Where the analogy breaks: a user can stack several permission sets, and in Apex a class can inherit from only ONE.)",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -440,16 +453,16 @@ System.debug(r.preview() + ' · ' + r.isOverdue());`,
     },
     hints: [
       {
-        es: "Tres palabras clave hacen que esto funcione: una en la cabecera del padre, otra en la cabecera de la hija y otra en la primera línea del constructor de la hija. Y una más para el acceso «de familia».",
-        en: "Three keywords make this work: one in the parent's header, one in the child's header and one on the first line of the child's constructor. And one more for “family” access.",
+        es: "Yo buscaría las tres palabras clave que hacen que esto funcione, como el perfil base y lo que se suma encima: una en la cabecera del padre, otra en la cabecera de la hija y otra en la primera línea del constructor de la hija. Y una más para el acceso «de familia».",
+        en: "I would look for the three keywords that make this work, like the base profile and what is added on top: one in the parent's header, another in the child's header and another on the first line of the child's constructor. And one more for «family» access.",
       },
       {
-        es: "public virtual class Notification { protected String recipient; … } — public class TaskReminder extends Notification { … } — y en su constructor, super(recipient, subject); antes que nada.",
-        en: "public virtual class Notification { protected String recipient; … } — public class TaskReminder extends Notification { … } — and in its constructor, super(recipient, subject); before anything else.",
+        es: "Lo que me ayudó: public virtual class Notification { protected String recipient; … } — public class TaskReminder extends Notification { … } — y en su constructor, super(recipient, subject); antes que nada.",
+        en: "What helped me: public virtual class Notification { protected String recipient; … } — public class TaskReminder extends Notification { … } — and in its constructor, super(recipient, subject); before anything else.",
       },
       {
-        es: "Pseudocódigo: isOverdue() → return dueDate < Date.today(); — Uso: TaskReminder r = new TaskReminder('…', '…', Date.today().addDays(-1)); String previewText = r.preview();",
-        en: "Pseudocode: isOverdue() → return dueDate < Date.today(); — Usage: TaskReminder r = new TaskReminder('…', '…', Date.today().addDays(-1)); String previewText = r.preview();",
+        es: "Te dejo el esquema: isOverdue() → return dueDate < Date.today(); — Uso: TaskReminder r = new TaskReminder('…', '…', Date.today().addDays(-1)); String previewText = r.preview();",
+        en: "Here is the outline: isOverdue() → return dueDate < Date.today(); — Usage: TaskReminder r = new TaskReminder('…', '…', Date.today().addDays(-1)); String previewText = r.preview();",
       },
     ],
     solution: {
@@ -535,6 +548,10 @@ System.debug(previewText + ' · overdue: ' + reminder.isOverdue());`,
           es: "public virtual class Notification { protected String recipient; public String subject; … } — sin virtual no se puede heredar.",
           en: "public virtual class Notification { protected String recipient; public String subject; … } — without virtual it cannot be inherited from.",
         },
+        otter: {
+          es: "El padre tiene que dejarse heredar, como un perfil base pensado para que se le sume algo: public virtual class Notification { protected String recipient; public String subject; … }. Sin virtual no se puede heredar.",
+          en: "The parent has to allow inheritance, like a base profile meant to have things added on top: public virtual class Notification { protected String recipient; public String subject; … }. Without virtual it cannot be inherited.",
+        },
       },
       {
         id: "m05-l07-c2",
@@ -557,6 +574,10 @@ System.debug(previewText + ' · overdue: ' + reminder.isOverdue());`,
           es: "public Notification(String recipient, String subject) { … } y public String preview() { return subject + ' → ' + recipient; }",
           en: "public Notification(String recipient, String subject) { … } and public String preview() { return subject + ' → ' + recipient; }",
         },
+        otter: {
+          es: "Lo común se escribe una vez en el padre: public Notification(String recipient, String subject) { … } y public String preview() { return subject + ' → ' + recipient; }",
+          en: "The common part is written once in the parent: public Notification(String recipient, String subject) { … } and public String preview() { return subject + ' → ' + recipient; }",
+        },
       },
       {
         id: "m05-l07-c3",
@@ -575,6 +596,10 @@ System.debug(previewText + ' · overdue: ' + reminder.isOverdue());`,
           es: "public class TaskReminder extends Notification { public Date dueDate; … }",
           en: "public class TaskReminder extends Notification { public Date dueDate; … }",
         },
+        otter: {
+          es: "La hija recibe todo lo del padre y añade lo suyo, como los campos estándar más los tuyos: public class TaskReminder extends Notification { public Date dueDate; … }",
+          en: "The child gets everything from the parent and adds its own, like the standard fields plus yours: public class TaskReminder extends Notification { public Date dueDate; … }",
+        },
       },
       {
         id: "m05-l07-c4",
@@ -590,6 +615,10 @@ System.debug(previewText + ' · overdue: ' + reminder.isOverdue());`,
         onFail: {
           es: "public TaskReminder(String recipient, String subject, Date dueDate) { super(recipient, subject); this.dueDate = dueDate; }",
           en: "public TaskReminder(String recipient, String subject, Date dueDate) { super(recipient, subject); this.dueDate = dueDate; }",
+        },
+        otter: {
+          es: "Antes de rellenar lo suyo, la hija deja que el padre rellene lo común: public TaskReminder(String recipient, String subject, Date dueDate) { super(recipient, subject); this.dueDate = dueDate; }",
+          en: "Before filling in its own part, the child lets the parent fill in the common one: public TaskReminder(String recipient, String subject, Date dueDate) { super(recipient, subject); this.dueDate = dueDate; }",
         },
         onPass: {
           es: "El padre se encarga de lo suyo: si mañana Notification valida el correo en su constructor, TaskReminder lo recibe gratis.",
@@ -615,6 +644,10 @@ System.debug(previewText + ' · overdue: ' + reminder.isOverdue());`,
           es: "isOverdue() devuelve dueDate < Date.today(). En el uso, crea el recordatorio con Date.today().addDays(-1) y guarda String previewText = r.preview();",
           en: "isOverdue() returns dueDate < Date.today(). In the usage, create the reminder with Date.today().addDays(-1) and store String previewText = r.preview();",
         },
+        otter: {
+          es: "isOverdue() es una fórmula que compara con TODAY(): return dueDate < Date.today(). En el uso, crea el recordatorio con Date.today().addDays(-1) y guarda String previewText = r.preview();",
+          en: "isOverdue() is a formula comparing with TODAY(): return dueDate < Date.today(). In the usage, create the reminder with Date.today().addDays(-1) and keep String previewText = r.preview();",
+        },
       },
     ],
     rubric: [
@@ -622,10 +655,11 @@ System.debug(previewText + ' · overdue: ' + reminder.isOverdue());`,
         es: "Si Marketing pide mañana EmailNotification con una lista de adjuntos, ¿qué clase escribirías y qué no tendrías que tocar?",
         en: "If Marketing asks tomorrow for an EmailNotification with a list of attachments, which class would you write and what would you not have to touch?",
       },
-      {
-        es: "Tarea 8: los descuentos de la renovación. Todos se aplican sobre un importe, pero cada uno a su manera, y no existe «un descuento» genérico.",
-        en: "Task 8: the renewal discounts. They all apply to an amount, each its own way, and there is no generic “discount”.",
-      },
     ],
+    outro: {
+      es: "Ya reutilizas lo común con herencia: virtual en el padre, extends en la hija y super para delegar. En la tarea 8 llegan los descuentos de la renovación: todos se aplican sobre un importe, pero cada uno a su manera, y no existe «un descuento» genérico.",
+      en: "You can now reuse the common part with inheritance: virtual in the parent, extends in the child and super to delegate. Task 8 brings the renewal discounts: they all apply to an amount, but each in its own way, and there is no generic «discount».",
+    },
+    voice: "otter",
   },
 };

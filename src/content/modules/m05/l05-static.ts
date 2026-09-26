@@ -6,6 +6,17 @@ export const l05Static: Lesson = {
   n: 5,
   kind: "lesson",
   minutes: 20,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 4", en: "Remember? · Review of lesson 4" },
+    prompt: { es: "En un constructor con un parámetro level, ¿qué hace la línea level = level; sin this?", en: "In a constructor with a level parameter, what does the line level = level; without this do?" },
+    options: [
+      { es: "Asigna el atributo", en: "It assigns the attribute" },
+      { es: "Asigna el parámetro a sí mismo y el atributo queda en null", en: "It assigns the parameter to itself and the attribute stays null" },
+      { es: "No compila", en: "It does not compile" },
+    ],
+    answer: 1,
+    explain: { es: "Sin this gana el parámetro, y el atributo queda vacío sin ningún aviso. this.level es tu $Record.level.", en: "Without this the parameter wins, and the attribute stays empty with no warning. this.level is your $Record.level." },
+  },
   title: { es: "Static vs Non-Static", en: "Static vs Non-Static" },
   summary: {
     es: "Lo que pertenece a cada instancia frente a lo que pertenece a la clase entera. Llevas usando métodos estáticos desde el Módulo 1 sin saberlo.",
@@ -43,9 +54,10 @@ export const l05Static: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "Un campo guarda un valor distinto en cada registro. Un Custom Setting de organización, o un registro de Custom Metadata, guarda un único valor para toda la org, que cualquiera puede consultar sin abrir ningún registro. Instancia = campo del registro. Static = ese valor compartido.",
-        en: "A field holds a different value on each record. An org-level Custom Setting, or a Custom Metadata record, holds a single value for the whole org, which anyone can read without opening any record. Instance = a record's field. Static = that shared value.",
+        es: "Así lo separo yo: un campo guarda un valor distinto en cada registro. Un Custom Setting de organización, o un registro de Custom Metadata, guarda un único valor para toda la org, que cualquiera puede consultar sin abrir ningún registro. Instancia = campo del registro. Static = ese valor compartido.",
+        en: "This is how I tell them apart: a field holds a different value in each record. An org-wide Custom Setting, or a Custom Metadata record, holds a single value for the whole org, which anyone can read without opening any record. Instance = a record's field. Static = that shared value.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -163,18 +175,20 @@ Decimal total = PricingUtils.withVat(1000);   // 1210`,
       variant: "admin",
       title: { es: "Tú mismo pedirías esto", en: "You would ask for this yourself" },
       text: {
-        es: "Si un desarrollador te dice «para cambiar el descuento máximo hay que desplegar», como Admin tienes derecho a quejarte. Lo profesional es que ese valor esté en un registro de Custom Metadata que tú puedes editar, y que la clase lo lea. Saber distinguir qué va en una constante y qué va en configuración es lo que hace que el código no dependa de ti para cada cambio pequeño… ni tú de él.",
-        en: "If a developer tells you “changing the maximum discount needs a deployment”, as an Admin you have every right to complain. The professional way is for that value to sit in a Custom Metadata record you can edit, with the class reading it. Knowing what goes in a constant and what goes in configuration is what keeps the code from depending on you for every small change… and you on it.",
+        es: "Si un desarrollador te dice «para cambiar el descuento máximo hay que desplegar», como Admin tienes derecho a quejarte; yo lo hice. Lo profesional es que ese valor esté en un registro de Custom Metadata que tú puedes editar, y que la clase lo lea. Saber distinguir qué va en una constante y qué va en configuración es lo que hace que el código no dependa de ti para cada cambio pequeño… ni tú de él.",
+        en: "If a developer tells you «changing the maximum discount needs a deployment», as an Admin you have every right to complain; I did. The professional way is for that value to live in a Custom Metadata record you can edit, and for the class to read it. Knowing what goes in a constant and what goes in configuration is what keeps the code from depending on you for every small change… and you on it.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
       variant: "admin",
       title: { es: "Static y los triggers del Módulo 7", en: "Static and Module 7's triggers" },
       text: {
-        es: "La guardia static Set<Id> del Módulo 7 funcionaba precisamente por lo que ves en esta lección: una variable static es compartida por todo el código de la transacción, así que la segunda pasada del trigger veía los Ids que había guardado la primera. Una variable de instancia no habría servido: cada new CaseTriggerHandler() empieza con la suya, vacía.",
-        en: "Module 7's static Set<Id> guard worked precisely because of what you see in this lesson: a static variable is shared by all the code in the transaction, so the trigger's second pass saw the Ids the first one had stored. An instance variable would not have worked: every new CaseTriggerHandler() starts with its own, empty.",
+        es: "Esto lo agradecerás más adelante: la guardia static Set<Id> que verás en el Módulo 7 funciona precisamente por lo que ves en esta lección. Una variable static es compartida por todo el código de la transacción, así que la segunda pasada del trigger ve los Ids que guardó la primera. Una variable de instancia no serviría: cada new CaseTriggerHandler() empieza con la suya, vacía.",
+        en: "You will be grateful for this later: the static Set<Id> guard you will see in Module 7 works precisely because of what you see in this lesson. A static variable is shared by all the code in the transaction, so the trigger's second pass sees the Ids the first one stored. An instance variable would not do: each new CaseTriggerHandler() starts with its own, empty.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -391,16 +405,16 @@ Decimal total = PricingUtils.withVat(1000);   // 1210`,
     },
     hints: [
       {
-        es: "Tres miembros y los tres llevan static. La constante lleva además final. Ninguno usa atributos de instancia: todo les llega por parámetro.",
-        en: "Three members and all three are static. The constant is final as well. None uses instance attributes: everything arrives as a parameter.",
+        es: "Yo lo pensaría como un Custom Setting: tres miembros y los tres llevan static. La constante lleva además final. Ninguno usa atributos de instancia: todo les llega por parámetro.",
+        en: "I would think of it as a Custom Setting: three members and all three are static. The constant is also final. None uses instance attributes: everything reaches them as a parameter.",
       },
       {
-        es: "IVA: (amount ?? 0) * (1 + VAT_RATE). Descuento: amount * (1 - percent / 100). Para encadenar, pasa el resultado de uno como argumento del otro.",
-        en: "VAT: (amount ?? 0) * (1 + VAT_RATE). Discount: amount * (1 - percent / 100). To chain them, pass one's result as the other's argument.",
+        es: "Lo que me ayudó: IVA, (amount ?? 0) * (1 + VAT_RATE). Descuento, amount * (1 - percent / 100). Para encadenar, pasa el resultado de uno como argumento del otro, como anidar funciones en una fórmula.",
+        en: "What helped me: VAT, (amount ?? 0) * (1 + VAT_RATE). Discount, amount * (1 - percent / 100). To chain them, pass one's result as the other's argument, like nesting functions in a formula.",
       },
       {
-        es: "Pseudocódigo: public static final Decimal VAT_RATE = 0.21; public static Decimal withVat(Decimal amount) { … } public static Decimal applyDiscount(Decimal amount, Decimal percent) { … } — Decimal finalPrice = PricingUtils.withVat(PricingUtils.applyDiscount(2000, 10));",
-        en: "Pseudocode: public static final Decimal VAT_RATE = 0.21; public static Decimal withVat(Decimal amount) { … } public static Decimal applyDiscount(Decimal amount, Decimal percent) { … } — Decimal finalPrice = PricingUtils.withVat(PricingUtils.applyDiscount(2000, 10));",
+        es: "Te dejo el esquema: public static final Decimal VAT_RATE = 0.21; public static Decimal withVat(Decimal amount) { … } public static Decimal applyDiscount(Decimal amount, Decimal percent) { … } — Decimal finalPrice = PricingUtils.withVat(PricingUtils.applyDiscount(2000, 10));",
+        en: "Here is the outline: public static final Decimal VAT_RATE = 0.21; public static Decimal withVat(Decimal amount) { … } public static Decimal applyDiscount(Decimal amount, Decimal percent) { … } — Decimal finalPrice = PricingUtils.withVat(PricingUtils.applyDiscount(2000, 10));",
       },
     ],
     solution: {
@@ -450,6 +464,10 @@ Decimal finalPrice = PricingUtils.withVat(discounted);        // 2178`,
           es: "Compartida y no modificable: public static final Decimal VAT_RATE = 0.21;",
           en: "Shared and unchangeable: public static final Decimal VAT_RATE = 0.21;",
         },
+        otter: {
+          es: "El IVA es un valor único para toda la org, como un Custom Setting que nadie puede editar: public static final Decimal VAT_RATE = 0.21;",
+          en: "VAT is a single value for the whole org, like a Custom Setting nobody can edit: public static final Decimal VAT_RATE = 0.21;",
+        },
       },
       {
         id: "m05-l05-c2",
@@ -468,6 +486,10 @@ Decimal finalPrice = PricingUtils.withVat(discounted);        // 2178`,
         onFail: {
           es: "public static Decimal withVat(Decimal amount) { return (amount ?? 0) * (1 + VAT_RATE); } — usando la constante, no un 0.21 escrito a mano.",
           en: "public static Decimal withVat(Decimal amount) { return (amount ?? 0) * (1 + VAT_RATE); } — using the constant, not a hand-typed 0.21.",
+        },
+        otter: {
+          es: "withVat es una utilidad compartida, sin registro detrás: public static Decimal withVat(Decimal amount) { return (amount ?? 0) * (1 + VAT_RATE); }, usando la constante, no un 0.21 escrito a mano.",
+          en: "withVat is a shared utility, with no record behind it: public static Decimal withVat(Decimal amount) { return (amount ?? 0) * (1 + VAT_RATE); }, using the constant, not a hand-typed 0.21.",
         },
       },
       {
@@ -490,6 +512,10 @@ Decimal finalPrice = PricingUtils.withVat(discounted);        // 2178`,
           es: "public static Decimal applyDiscount(Decimal amount, Decimal percent) — y el 10 % se convierte en fracción con percent / 100.",
           en: "public static Decimal applyDiscount(Decimal amount, Decimal percent) — and 10% becomes a fraction with percent / 100.",
         },
+        otter: {
+          es: "applyDiscount también es compartido y recibe todo por parámetro: public static Decimal applyDiscount(Decimal amount, Decimal percent), con el 10 % convertido en fracción con percent / 100.",
+          en: "applyDiscount is shared too and takes everything as parameters: public static Decimal applyDiscount(Decimal amount, Decimal percent), with the 10% turned into a fraction with percent / 100.",
+        },
       },
       {
         id: "m05-l05-c4",
@@ -508,6 +534,10 @@ Decimal finalPrice = PricingUtils.withVat(discounted);        // 2178`,
         onFail: {
           es: "Los estáticos se llaman sobre la clase: PricingUtils.applyDiscount(2000, 10) y PricingUtils.withVat(…). Sin crear instancias.",
           en: "Statics are called on the class: PricingUtils.applyDiscount(2000, 10) and PricingUtils.withVat(…). No instances.",
+        },
+        otter: {
+          es: "Lo compartido se usa sin crear ningún registro, como leer un Custom Setting: PricingUtils.applyDiscount(2000, 10) y PricingUtils.withVat(…), sin new.",
+          en: "Shared things are used without creating any record, like reading a Custom Setting: PricingUtils.applyDiscount(2000, 10) and PricingUtils.withVat(…), with no new.",
         },
       },
       {
@@ -533,6 +563,10 @@ Decimal finalPrice = PricingUtils.withVat(discounted);        // 2178`,
           es: "El orden importa: primero el descuento sobre 2000 y, sobre ese resultado, el IVA. finalPrice debería salir 2178.",
           en: "Order matters: first the discount on 2000 and, on that result, VAT. finalPrice should come out at 2178.",
         },
+        otter: {
+          es: "El orden importa, como al anidar funciones en una fórmula: primero el descuento sobre 2000 y, sobre ese resultado, el IVA. finalPrice debería salir 2178.",
+          en: "Order matters, as when nesting functions in a formula: first the discount on 2000 and, on that result, the VAT. finalPrice should come out as 2178.",
+        },
         onPass: {
           es: "Si Finanzas cambia el IVA, se toca una línea y todo el código de la org lo recoge.",
           en: "If Finance changes VAT, one line is touched and all the org's code picks it up.",
@@ -544,10 +578,11 @@ Decimal finalPrice = PricingUtils.withVat(discounted);        // 2178`,
         es: "¿Por qué es mejor que el IVA viva en PricingUtils que repetido en cada clase que lo necesite?",
         en: "Why is it better for VAT to live in PricingUtils than repeated in every class that needs it?",
       },
-      {
-        es: "Tarea 6: Marketing financia campañas para empujar las renovaciones, y su presupuesto no se puede saltar desde ningún sitio.",
-        en: "Task 6: Marketing funds campaigns to push renewals, and their budget must not be skippable from anywhere.",
-      },
     ],
+    outro: {
+      es: "Ya distingues lo que vive en cada objeto de lo que se comparte con static, como un campo frente a un Custom Setting. En la tarea 6, Marketing financia campañas para empujar las renovaciones, y su presupuesto no se puede saltar desde ningún sitio.",
+      en: "You can now tell what lives in each object from what is shared with static, like a field versus a Custom Setting. In task 6, Marketing funds campaigns to push renewals, and their budget cannot be bypassed from anywhere.",
+    },
+    voice: "otter",
   },
 };

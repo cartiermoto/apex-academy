@@ -6,6 +6,17 @@ export const l04This: Lesson = {
   n: 4,
   kind: "lesson",
   minutes: 16,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 3", en: "Remember? · Review of lesson 3" },
+    prompt: { es: "¿Qué tipo de retorno lleva un constructor?", en: "What return type does a constructor have?" },
+    options: [
+      { es: "void", en: "void" },
+      { es: "El de la clase", en: "The class's type" },
+      { es: "Ninguno", en: "None" },
+    ],
+    answer: 2,
+    explain: { es: "Ninguno, ni siquiera void: se llama igual que la clase y solo prepara el objeto que está naciendo.", en: "None, not even void: it has the class's name and only prepares the object being born." },
+  },
   title: { es: "this: el objeto hablando de sí mismo", en: "this: the object talking about itself" },
   summary: {
     es: "Dentro de una clase, this es «esta instancia». Sirve para distinguir un atributo de un parámetro con el mismo nombre y para que un constructor llame a otro.",
@@ -43,9 +54,10 @@ export const l04This: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "En un Flow disparado por registro escribes $Record.Amount para decir «el importe del registro que ha disparado este Flow». Da igual qué registro sea: $Record siempre es el actual. this es lo mismo dentro de una clase: la instancia sobre la que se ha llamado el método o el constructor.",
-        en: "In a record-triggered Flow you write $Record.Amount to say “the amount of the record that triggered this Flow”. Whichever record it is, $Record is always the current one. this is the same inside a class: the instance the method or constructor was called on.",
+        es: "En mis Flows disparados por registro escribía $Record.Amount para decir «el importe del registro que ha disparado este Flow». Da igual qué registro sea: $Record siempre es el actual. this es lo mismo dentro de una clase: la instancia sobre la que se ha llamado el método o el constructor.",
+        en: "In my record-triggered Flows I wrote $Record.Amount to say «the amount of the record that triggered this Flow». Whatever the record is, $Record is always the current one. this is the same inside a class: the instance the method or constructor was called on.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -197,9 +209,10 @@ SupportPlan plan = new SupportPlan('Gold')
       variant: "admin",
       title: { es: "Pasar $Record a un subflow", en: "Passing $Record to a subflow" },
       text: {
-        es: "En un Record-Triggered Flow, cuando llamas a un subflow y le das $Record como variable de entrada, le estás diciendo «trabaja con este registro, el que me disparó a mí». Pasar this a otro método es exactamente eso: el objeto se entrega entero al código que lo necesita, sin copiar sus campos uno a uno.",
-        en: "In a record-triggered flow, when you call a subflow and give it $Record as an input variable, you are saying “work with this record, the one that fired me”. Passing this to another method is exactly that: the object hands itself over whole to the code that needs it, without copying its fields one by one.",
+        es: "Esto lo hacía a menudo: en un Record-Triggered Flow, cuando llamas a un subflow y le das $Record como variable de entrada, le estás diciendo «trabaja con este registro, el que me disparó a mí». Pasar this a otro método es exactamente eso: el objeto se entrega entero al código que lo necesita, sin copiar sus campos uno a uno.",
+        en: "I did this often: in a Record-Triggered Flow, when you call a subflow and hand it $Record as an input variable, you are telling it «work with this record, the one that triggered me». Passing this to another method is exactly that: the object is handed over whole to the code that needs it, without copying its fields one by one.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -449,16 +462,16 @@ public class SupportPlan {
     },
     hints: [
       {
-        es: "Al renombrar planLevel a level, la línea level = level; dejaría el atributo en null sin avisar. Y el constructor nuevo no debe copiar las tres líneas.",
-        en: "Once planLevel is renamed to level, the line level = level; would leave the attribute null without warning. And the new constructor must not copy the three lines.",
+        es: "Yo miraría qué pasa al renombrar planLevel a level: la línea level = level; dejaría el atributo en null sin avisar. Y el constructor nuevo no debe copiar las tres líneas.",
+        en: "I would look at what happens when you rename planLevel to level: the line level = level; would leave the attribute null without warning. And the new constructor must not copy the three lines.",
       },
       {
-        es: "this.level = level; distingue atributo de parámetro. En el constructor sin parámetros, la primera y única línea es this('Basic');",
-        en: "this.level = level; tells attribute from parameter. In the parameterless constructor, the first and only line is this('Basic');",
+        es: "Lo que me ayudó: this.level es tu $Record.level, el atributo del objeto actual; level a secas es el parámetro. En el constructor sin parámetros, la primera y única línea es this('Basic');",
+        en: "What helped me: this.level is your $Record.level, the current object's attribute; plain level is the parameter. In the parameterless constructor, the first and only line is this('Basic');",
       },
       {
-        es: "Pseudocódigo: public SupportPlan(String level) { this.level = level; this.startDate = Date.today(); this.contacts = new List<String>(); } public SupportPlan() { this('Basic'); } — SupportPlan basicPlan = new SupportPlan();",
-        en: "Pseudocode: public SupportPlan(String level) { this.level = level; this.startDate = Date.today(); this.contacts = new List<String>(); } public SupportPlan() { this('Basic'); } — SupportPlan basicPlan = new SupportPlan();",
+        es: "Te dejo el esquema: public SupportPlan(String level) { this.level = level; this.startDate = Date.today(); this.contacts = new List<String>(); } public SupportPlan() { this('Basic'); } — SupportPlan basicPlan = new SupportPlan();",
+        en: "Here is the outline: public SupportPlan(String level) { this.level = level; this.startDate = Date.today(); this.contacts = new List<String>(); } public SupportPlan() { this('Basic'); } — SupportPlan basicPlan = new SupportPlan();",
       },
     ],
     solution: {
@@ -513,6 +526,10 @@ System.debug(basicPlan.level);   // Basic`,
           es: "Renombra el parámetro: public SupportPlan(String level) { … }",
           en: "Rename the parameter: public SupportPlan(String level) { … }",
         },
+        otter: {
+          es: "Renombra el parámetro para que se llame como el atributo: public SupportPlan(String level) { … }",
+          en: "Rename the parameter so it has the attribute's name: public SupportPlan(String level) { … }",
+        },
       },
       {
         id: "m05-l04-c2",
@@ -530,6 +547,10 @@ System.debug(basicPlan.level);   // Basic`,
         onFail: {
           es: "Sin this, level = level; asigna el parámetro a sí mismo y el atributo queda en null. Escribe this.level = level;",
           en: "Without this, level = level; assigns the parameter to itself and the attribute stays null. Write this.level = level;",
+        },
+        otter: {
+          es: "Sin this, level = level; asigna el parámetro a sí mismo y el atributo queda en null. this.level es tu $Record.level: el campo del objeto actual. Escribe this.level = level;",
+          en: "Without this, level = level; assigns the parameter to itself and the attribute stays null. this.level is your $Record.level: the current object's field. Write this.level = level;",
         },
       },
       {
@@ -549,6 +570,10 @@ System.debug(basicPlan.level);   // Basic`,
           es: "No pierdas las otras dos líneas del constructor principal: this.startDate = Date.today(); this.contacts = new List<String>();",
           en: "Do not lose the main constructor's other two lines: this.startDate = Date.today(); this.contacts = new List<String>();",
         },
+        otter: {
+          es: "No pierdas los otros dos valores por defecto del constructor principal: this.startDate = Date.today(); this.contacts = new List<String>();",
+          en: "Do not lose the main constructor's other two default values: this.startDate = Date.today(); this.contacts = new List<String>();",
+        },
       },
       {
         id: "m05-l04-c4",
@@ -563,6 +588,10 @@ System.debug(basicPlan.level);   // Basic`,
         onFail: {
           es: "public SupportPlan() { this('Basic'); } — una sola línea que reutiliza el constructor principal.",
           en: "public SupportPlan() { this('Basic'); } — a single line reusing the main constructor.",
+        },
+        otter: {
+          es: "El plan Basic es otra acción rápida que reutiliza la principal en lugar de copiarla: public SupportPlan() { this('Basic'); }",
+          en: "The Basic plan is another quick action that reuses the main one instead of copying it: public SupportPlan() { this('Basic'); }",
         },
         onPass: {
           es: "La lógica de creación vive en un solo sitio: si mañana cambia, se toca un constructor.",
@@ -580,6 +609,10 @@ System.debug(basicPlan.level);   // Basic`,
           es: "Debajo de la clase: SupportPlan basicPlan = new SupportPlan();",
           en: "Below the class: SupportPlan basicPlan = new SupportPlan();",
         },
+        otter: {
+          es: "Debajo de la clase, pulsa el New sin datos: SupportPlan basicPlan = new SupportPlan();",
+          en: "Below the class, click New with no data: SupportPlan basicPlan = new SupportPlan();",
+        },
       },
     ],
     rubric: [
@@ -587,10 +620,11 @@ System.debug(basicPlan.level);   // Basic`,
         es: "¿Queda alguna línea duplicada entre los dos constructores?",
         en: "Is there any line left duplicated between the two constructors?",
       },
-      {
-        es: "Tarea 5: el motor ya tiene piezas; ahora hace falta que todas calculen los precios de la misma manera.",
-        en: "Task 5: the engine has pieces now; next they must all compute prices the same way.",
-      },
     ],
+    outro: {
+      es: "Ya distingues el atributo del parámetro con this y haces que un constructor reutilice otro. En la tarea 5, el motor ya tiene piezas, y ahora hace falta que todas calculen los precios de la misma manera.",
+      en: "You can now tell the attribute from the parameter with this and make one constructor reuse another. In task 5 the engine already has pieces, and now they all need to calculate prices the same way.",
+    },
+    voice: "otter",
   },
 };
