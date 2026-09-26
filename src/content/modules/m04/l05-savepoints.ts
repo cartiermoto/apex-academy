@@ -6,6 +6,17 @@ export const l05Savepoints: Lesson = {
   n: 5,
   kind: "lesson",
   minutes: 25,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 4", en: "Remember? · Review of lesson 4" },
+    prompt: { es: "Limits.getQueries() devuelve 95 y Limits.getLimitQueries() devuelve 100. ¿Qué significa?", en: "Limits.getQueries() returns 95 and Limits.getLimitQueries() returns 100. What does it mean?" },
+    options: [
+      { es: "Quedan 95 consultas hoy en la org", en: "95 queries are left today in the org" },
+      { es: "Llevas 95 errores", en: "You have 95 errors" },
+      { es: "Llevas 95 de las 100 consultas de esta transacción", en: "You have used 95 of this transaction's 100 queries" },
+    ],
+    answer: 2,
+    explain: { es: "Es por transacción, no por día: estás al 95 % y a punto de morir en la consulta 101.", en: "It is per transaction, not per day: you are at 95% and about to die at query 101." },
+  },
   title: {
     es: "Savepoints y rollback",
     en: "Savepoints and rollback",
@@ -46,9 +57,10 @@ export const l05Savepoints: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "En un Flow, cuando un Create Records falla, puedes conectar un camino de error (fault path) y poner en él el elemento Roll Back Records: deshace los cambios pendientes de ese flow y luego decides qué hacer, por ejemplo mandar un aviso. Database.rollback() es ese elemento, con una ventaja: tú eliges exactamente a qué punto volver.",
-        en: "In a Flow, when a Create Records fails, you can connect a fault path and place the Roll Back Records element on it: it undoes that flow's pending changes and then you decide what to do, for example send an alert. Database.rollback() is that element, with one advantage: you choose exactly which point to go back to.",
+        es: "En mis Flows, cuando un Create Records fallaba, conectaba un camino de error (fault path) y ponía en él el elemento Roll Back Records: deshace los cambios pendientes de ese flow y luego decides qué hacer, por ejemplo mandar un aviso. Database.rollback() es ese elemento, con una ventaja: tú eliges exactamente a qué punto volver.",
+        en: "In my Flows, when a Create Records failed, I connected a fault path and put the Roll Back Records element on it: it undoes that flow's pending changes and then you decide what to do, for example send an alert. Database.rollback() is that element, with one advantage: you choose exactly which point to go back to.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -187,9 +199,10 @@ if (anyFailed) {
       variant: "admin",
       title: { es: "Ya conoces el «todo o nada» de un guardado", en: "You already know a save's «all or nothing»" },
       text: {
-        es: "Cuando una regla de validación rechaza un registro en pantalla, no se guarda nada de ese guardado: ni el campo que estaba bien ni el que estaba mal. Toda la transacción funciona así por defecto: si algo falla sin tratar, se deshace entero. El savepoint sirve para lo contrario de lo habitual: cuando tú has decidido capturar el error y seguir, te deja elegir qué parte deshacer.",
-        en: "When a validation rule rejects a record on screen, nothing from that save is kept: neither the field that was fine nor the one that was wrong. The whole transaction works like that by default: if something fails unhandled, it is all undone. The savepoint is for the opposite case: when you have decided to catch the error and carry on, it lets you choose which part to undo.",
+        es: "Piensa en lo que ves cada día: cuando una regla de validación rechaza un registro en pantalla, no se guarda nada de ese guardado, ni el campo que estaba bien ni el que estaba mal. Toda la transacción funciona así por defecto: si algo falla sin tratar, se deshace entero. El savepoint sirve para el caso contrario: cuando has decidido capturar el error y seguir, te deja elegir qué parte deshacer.",
+        en: "Think of what you see every day: when a validation rule rejects a record on screen, nothing from that save is kept, neither the field that was fine nor the one that was wrong. The whole transaction works like that by default: if something fails unhandled, it is all undone. The savepoint is for the opposite case: when you have decided to catch the error and carry on, it lets you choose which part to undo.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -422,16 +435,16 @@ Database.insert(contacts, false);
     },
     hints: [
       {
-        es: "La marca tiene que ir antes del insert de la cuenta: si va después, el rollback no la deshace.",
-        en: "The mark has to come before the account insert: if it comes after, the rollback does not undo it.",
+        es: "Yo pensaría en dónde pondrías el Roll Back Records en tu Flow: la marca tiene que ir antes del insert de la cuenta. Si va después, el rollback no la deshace.",
+        en: "I would think about where you would put the Roll Back Records in your Flow: the mark has to go before the account's insert. If it goes after, the rollback does not undo it.",
       },
       {
-        es: "Guarda los SaveResult, recórrelos y pon anyFailed = true si alguno no es isSuccess(). Después, un if/else.",
-        en: "Store the SaveResults, walk them and set anyFailed = true if any is not isSuccess(). Then an if/else.",
+        es: "Lo que me ayudó: guarda los SaveResult, recórrelos y pon anyFailed = true si alguno no es isSuccess(). Después, un if/else: el camino de error y el camino feliz.",
+        en: "What helped me: keep the SaveResults, walk through them and set anyFailed = true if any is not isSuccess(). Then an if/else: the fault path and the happy path.",
       },
       {
-        es: "Pseudocódigo: Savepoint sp = Database.setSavepoint(); insert acc; ... List<Database.SaveResult> results = Database.insert(contacts, false); Boolean anyFailed = false; for (...) if (!sr.isSuccess()) anyFailed = true; if (anyFailed) { Database.rollback(sp); System.debug(...); } else { System.debug(acc.Id); }",
-        en: "Pseudocode: Savepoint sp = Database.setSavepoint(); insert acc; ... List<Database.SaveResult> results = Database.insert(contacts, false); Boolean anyFailed = false; for (...) if (!sr.isSuccess()) anyFailed = true; if (anyFailed) { Database.rollback(sp); System.debug(...); } else { System.debug(acc.Id); }",
+        es: "Te dejo el esquema: Savepoint sp = Database.setSavepoint(); insert acc; ... List<Database.SaveResult> results = Database.insert(contacts, false); Boolean anyFailed = false; for (...) if (!sr.isSuccess()) anyFailed = true; if (anyFailed) { Database.rollback(sp); System.debug(...); } else { System.debug(acc.Id); }",
+        en: "Here is the outline: Savepoint sp = Database.setSavepoint(); insert acc; ... List<Database.SaveResult> results = Database.insert(contacts, false); Boolean anyFailed = false; for (...) if (!sr.isSuccess()) anyFailed = true; if (anyFailed) { Database.rollback(sp); System.debug(...); } else { System.debug(acc.Id); }",
       },
     ],
     solution: {
@@ -496,6 +509,10 @@ if (anyFailed) {
           es: "Savepoint sp = Database.setSavepoint(); tiene que ir antes de insert acc;",
           en: "Savepoint sp = Database.setSavepoint(); has to come before insert acc;",
         },
+        otter: {
+          es: "La marca es el punto al que vuelves: Savepoint sp = Database.setSavepoint(); tiene que ir antes de insert acc;, o la cuenta quedará huérfana.",
+          en: "The mark is the point you go back to: Savepoint sp = Database.setSavepoint(); has to come before insert acc;, or the account will be left orphaned.",
+        },
       },
       {
         id: "m04-l05-c2",
@@ -515,6 +532,10 @@ if (anyFailed) {
           es: "Guarda List<Database.SaveResult> results = Database.insert(contacts, false); y en un bucle: if (!sr.isSuccess()) anyFailed = true;",
           en: "Store List<Database.SaveResult> results = Database.insert(contacts, false); and in a loop: if (!sr.isSuccess()) anyFailed = true;",
         },
+        otter: {
+          es: "Como en el fault path, primero hay que saber si algo falló: guarda List<Database.SaveResult> results = Database.insert(contacts, false); y en un bucle, if (!sr.isSuccess()) anyFailed = true;",
+          en: "As with the fault path, first you need to know whether something failed: keep List<Database.SaveResult> results = Database.insert(contacts, false); and in a loop, if (!sr.isSuccess()) anyFailed = true;",
+        },
       },
       {
         id: "m04-l05-c3",
@@ -526,6 +547,10 @@ if (anyFailed) {
         onFail: {
           es: "if (anyFailed) { Database.rollback(sp); ... }",
           en: "if (anyFailed) { Database.rollback(sp); ... }",
+        },
+        otter: {
+          es: "Si algo falló, es tu Roll Back Records: if (anyFailed) { Database.rollback(sp); ... }",
+          en: "If something failed, it is your Roll Back Records: if (anyFailed) { Database.rollback(sp); ... }",
         },
       },
       {
@@ -539,6 +564,10 @@ if (anyFailed) {
           es: "En el else: System.debug('Alta completa: ' + acc.Id);",
           en: "In the else: System.debug('Onboarding complete: ' + acc.Id);",
         },
+        otter: {
+          es: "Y el camino feliz: en el else, System.debug('Alta completa: ' + acc.Id);",
+          en: "And the happy path: in the else, System.debug('Onboarding complete: ' + acc.Id);",
+        },
         onPass: {
           es: "Nadie más tendrá que borrar cuentas huérfanas a mano: el alta existe entera o no existe.",
           en: "Nobody will have to delete orphaned accounts by hand again: the onboarding exists whole or not at all.",
@@ -551,5 +580,10 @@ if (anyFailed) {
         en: "What would happen if you moved the Savepoint right after insert acc? Walk through it in your head with the Okafor contact failing.",
       },
     ],
+    outro: {
+      es: "Ya proteges una unidad de trabajo con un savepoint: o se guarda el alta completa o no existe. La tarea 6 es la entrega: el escalado diario de casos de Soporte, con todo lo del módulo junto.",
+      en: "You can now protect a unit of work with a savepoint: either the whole onboarding is saved or it does not exist. Task 6 is the delivery: Support's daily case escalation, with the whole module together.",
+    },
+    voice: "otter",
   },
 };

@@ -6,6 +6,17 @@ export const l04GovernorLimits: Lesson = {
   n: 4,
   kind: "lesson",
   minutes: 30,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 3", en: "Remember? · Review of lesson 3" },
+    prompt: { es: "¿Por qué en la tarea 3 la consulta y el update salieron del bucle?", en: "Why did the query and the update move out of the loop in task 3?" },
+    options: [
+      { es: "Por estilo, nada más", en: "For style, nothing else" },
+      { es: "Para que 200 registros gasten lo mismo que 1", en: "So that 200 records spend the same as 1" },
+      { es: "Porque un update no se puede escribir en un bucle", en: "Because an update cannot be written in a loop" },
+    ],
+    answer: 1,
+    explain: { es: "Dentro del bucle, cada registro gastaba una consulta y un DML: con 100 ya reventaba. Fuera, dos consultas y un DML para todos.", en: "Inside the loop, each record spent one query and one DML: at 100 it blew up. Outside, two queries and one DML for all of them." },
+  },
   title: {
     es: "Governor Limits: qué se cuenta y por qué",
     en: "Governor limits: what is counted and why",
@@ -46,9 +57,10 @@ export const l04GovernorLimits: Lesson = {
       variant: "admin",
       title: { es: "Ya te has cruzado con ellos", en: "You have already run into them" },
       text: {
-        es: "Si alguna vez te llegó el correo «An error occurred with your … flow» con el texto «Too many SOQL queries: 101» o «Too many DML statements: 151», ya conoces un governor limit. El Flow no tenía un fallo de lógica: hizo más viajes a la base de datos de los que la transacción permite. Apex juega exactamente con las mismas reglas, y con el mismo contador.",
-        en: "If you ever got the “An error occurred with your … flow” email with the text “Too many SOQL queries: 101” or “Too many DML statements: 151”, you already know a governor limit. The Flow had no logic bug: it made more trips to the database than the transaction allows. Apex plays by exactly the same rules, and with the same counter.",
+        es: "A mí me llegó más de una vez el correo «An error occurred with your … flow» con el texto «Too many SOQL queries: 101» o «Too many DML statements: 151». Si a ti también, ya conoces un governor limit. El Flow no tenía un fallo de lógica: hizo más viajes a la base de datos de los que la transacción permite. Apex juega exactamente con las mismas reglas, y con el mismo contador.",
+        en: "More than once I got the «An error occurred with your … flow» email with the text «Too many SOQL queries: 101» or «Too many DML statements: 151». If you did too, you already know a governor limit. The Flow had no logic bug: it made more trips to the database than the transaction allows. Apex plays by exactly the same rules, with the same counter.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -188,18 +200,20 @@ System.debug('CPU (ms): '  + Limits.getCpuTime() + ' of ' + Limits.getLimitCpuTi
       variant: "admin",
       title: { es: "Leer el log como un Admin con lupa", en: "Reading the log like an Admin with a magnifying glass" },
       text: {
-        es: "Al final de cualquier debug log hay un bloque LIMIT_USAGE_FOR_NS con todos los contadores: «Number of SOQL queries: 3 out of 100». Si depuras un Flow que falla por límites, ese bloque te dice quién se come el presupuesto. Es la misma información que la clase Limits, pero al final en lugar de en el momento que tú elijas.",
-        en: "At the end of any debug log there is a LIMIT_USAGE_FOR_NS block with every counter: “Number of SOQL queries: 3 out of 100”. If you are debugging a Flow that fails on limits, that block tells you who is eating the budget. It is the same information as the Limits class, but at the end instead of at the moment you choose.",
+        es: "Mi truco cuando un Flow fallaba por límites: ir al final del debug log. Ahí hay un bloque LIMIT_USAGE_FOR_NS con todos los contadores: «Number of SOQL queries: 3 out of 100». Ese bloque te dice quién se come el presupuesto. Es la misma información que la clase Limits, pero al final en lugar de en el momento que tú elijas.",
+        en: "My trick when a Flow failed on limits: go to the end of the debug log. There is a LIMIT_USAGE_FOR_NS block with every counter: «Number of SOQL queries: 3 out of 100». That block tells you who is eating the budget. It is the same information as the Limits class, but at the end instead of at the moment you choose.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
       variant: "admin",
       title: { es: "No son los límites de la página System Overview", en: "These are not the System Overview limits" },
       text: {
-        es: "En Setup ya has visto límites: las llamadas API de las últimas 24 horas, el almacenamiento de datos y archivos, en System Overview o en Company Information. Esos son límites de la org, y se gastan a lo largo del día. Los governor limits de esta lección son otra cosa: son por transacción, empiezan en cero en cada guardado y desaparecen al terminar. Un proceso puede estar lejísimos del límite diario de API y morir igualmente en la consulta 101 de una sola transacción.",
-        en: "You have already seen limits in Setup: API calls in the last 24 hours, data and file storage, in System Overview or Company Information. Those are org limits, and they are spent over the day. This lesson's governor limits are something else: they are per transaction, they start at zero on every save and vanish when it ends. A process can be nowhere near the daily API limit and still die at query 101 of a single transaction.",
+        es: "Yo los confundía al principio: en Setup ya has visto límites, las llamadas API de las últimas 24 horas, el almacenamiento de datos y archivos, en System Overview o en Company Information. Esos son límites de la org, y se gastan a lo largo del día. Los governor limits de esta lección son otra cosa: son por transacción, empiezan en cero en cada guardado y desaparecen al terminar. Un proceso puede estar lejísimos del límite diario de API y morir igualmente en la consulta 101 de una sola transacción.",
+        en: "I mixed them up at first: in Setup you have already seen limits, API calls in the last 24 hours, data and file storage, in System Overview or Company Information. Those are org limits, and they are spent over the day. This lesson's governor limits are something else: they are per transaction, they start at zero on every save and vanish when it ends. A process can be nowhere near the daily API limit and still die at query 101 of a single transaction.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -393,16 +407,16 @@ public class LimitsReport {
     },
     hints: [
       {
-        es: "Todos los métodos de Limits van en parejas: getQueries / getLimitQueries, getDmlStatements / getLimitDmlStatements, getDmlRows / getLimitDmlRows, getCpuTime / getLimitCpuTime.",
-        en: "All Limits methods come in pairs: getQueries / getLimitQueries, getDmlStatements / getLimitDmlStatements, getDmlRows / getLimitDmlRows, getCpuTime / getLimitCpuTime.",
+        es: "Yo lo pensaría como el bloque del final del debug log, pero cuando tú quieras: todos los métodos de Limits van en parejas, getQueries / getLimitQueries, getDmlStatements / getLimitDmlStatements, getDmlRows / getLimitDmlRows, getCpuTime / getLimitCpuTime.",
+        en: "I would think of it as the block at the end of the debug log, but whenever you want: every Limits method comes in pairs, getQueries / getLimitQueries, getDmlStatements / getLimitDmlStatements, getDmlRows / getLimitDmlRows, getCpuTime / getLimitCpuTime.",
       },
       {
-        es: "El método es static porque no guarda estado: se llama LimitsReport.log('antes del bucle'). El 80 % es un if del Módulo 2: Limits.getQueries() > Limits.getLimitQueries() * 0.8.",
-        en: "The method is static because it holds no state: you call LimitsReport.log('before the loop'). The 80% is a Module 2 if: Limits.getQueries() > Limits.getLimitQueries() * 0.8.",
+        es: "Lo que me ayudó: el método es static porque no guarda estado, y se llama LimitsReport.log('antes del bucle'). El 80 % es un if del Módulo 2: Limits.getQueries() > Limits.getLimitQueries() * 0.8.",
+        en: "What helped me: the method is static because it keeps no state, and you call it as LimitsReport.log('before the loop'). The 80% is a Module 2 if: Limits.getQueries() > Limits.getLimitQueries() * 0.8.",
       },
       {
-        es: "Pseudocódigo: public static void log(String label) { System.debug(label + ' · SOQL ' + Limits.getQueries() + '/' + Limits.getLimitQueries()); … cuatro líneas … if (Limits.getQueries() > Limits.getLimitQueries() * 0.8) { System.debug(LoggingLevel.WARN, ...); } }",
-        en: "Pseudocode: public static void log(String label) { System.debug(label + ' · SOQL ' + Limits.getQueries() + '/' + Limits.getLimitQueries()); … four lines … if (Limits.getQueries() > Limits.getLimitQueries() * 0.8) { System.debug(LoggingLevel.WARN, ...); } }",
+        es: "Te dejo el esquema: public static void log(String label) { System.debug(label + ' · SOQL ' + Limits.getQueries() + '/' + Limits.getLimitQueries()); … cuatro líneas … if (Limits.getQueries() > Limits.getLimitQueries() * 0.8) { System.debug(LoggingLevel.WARN, ...); } }",
+        en: "Here is the outline: public static void log(String label) { System.debug(label + ' · SOQL ' + Limits.getQueries() + '/' + Limits.getLimitQueries()); … four lines … if (Limits.getQueries() > Limits.getLimitQueries() * 0.8) { System.debug(LoggingLevel.WARN, ...); } }",
       },
     ],
     solution: {
@@ -451,6 +465,10 @@ public class LimitsReport {
           es: "Dentro de la clase: public static void log(String label) { ... }",
           en: "Inside the class: public static void log(String label) { ... }",
         },
+        otter: {
+          es: "Tu herramienta es una clase con un método que cualquiera puede llamar: dentro de la clase, public static void log(String label) { ... }",
+          en: "Your tool is a class with a method anyone can call: inside the class, public static void log(String label) { ... }",
+        },
       },
       {
         id: "m04-l04-c2",
@@ -470,6 +488,10 @@ public class LimitsReport {
         onFail: {
           es: "Usa las parejas getQueries/getLimitQueries y getDmlStatements/getLimitDmlStatements.",
           en: "Use the pairs getQueries/getLimitQueries and getDmlStatements/getLimitDmlStatements.",
+        },
+        otter: {
+          es: "Como en el bloque LIMIT_USAGE_FOR_NS del log, cada contador va con su máximo: usa las parejas getQueries/getLimitQueries y getDmlStatements/getLimitDmlStatements.",
+          en: "As in the log's LIMIT_USAGE_FOR_NS block, each counter comes with its maximum: use the pairs getQueries/getLimitQueries and getDmlStatements/getLimitDmlStatements.",
         },
       },
       {
@@ -491,6 +513,10 @@ public class LimitsReport {
           es: "Faltan getDmlRows/getLimitDmlRows o getCpuTime/getLimitCpuTime.",
           en: "getDmlRows/getLimitDmlRows or getCpuTime/getLimitCpuTime are missing.",
         },
+        otter: {
+          es: "Faltan dos contadores del bloque del log: filas DML y CPU, con sus parejas getDmlRows/getLimitDmlRows y getCpuTime/getLimitCpuTime.",
+          en: "Two counters from the log's block are missing: DML rows and CPU, with their pairs getDmlRows/getLimitDmlRows and getCpuTime/getLimitCpuTime.",
+        },
       },
       {
         id: "m04-l04-c4",
@@ -509,6 +535,10 @@ public class LimitsReport {
           es: "if (Limits.getQueries() > Limits.getLimitQueries() * 0.8) { System.debug(LoggingLevel.WARN, ...); }",
           en: "if (Limits.getQueries() > Limits.getLimitQueries() * 0.8) { System.debug(LoggingLevel.WARN, ...); }",
         },
+        otter: {
+          es: "El aviso es la alarma que te habría ahorrado aquel correo de «Too many SOQL queries»: if (Limits.getQueries() > Limits.getLimitQueries() * 0.8) { System.debug(LoggingLevel.WARN, ...); }",
+          en: "The warning is the alarm that would have spared you that «Too many SOQL queries» email: if (Limits.getQueries() > Limits.getLimitQueries() * 0.8) { System.debug(LoggingLevel.WARN, ...); }",
+        },
         onPass: {
           es: "Una herramienta que usarás en cada revisión: LimitsReport.log('antes') y LimitsReport.log('después') alrededor del bloque sospechoso.",
           en: "A tool you will use in every review: LimitsReport.log('before') and LimitsReport.log('after') around the suspicious block.",
@@ -521,5 +551,10 @@ public class LimitsReport {
         en: "Why compare with getLimitQueries() instead of writing the number 100 directly?",
       },
     ],
+    outro: {
+      es: "Ya mides el presupuesto de la transacción con la clase Limits y distingues sus límites de los de la org. En la tarea 5 vuelves al alta de la tarea 1: si un contacto falla, la cuenta se queda huérfana.",
+      en: "You can now measure the transaction's budget with the Limits class and tell its limits from the org's. In task 5 you go back to task 1's onboarding: if a contact fails, the account is left orphaned.",
+    },
+    voice: "otter",
   },
 };
