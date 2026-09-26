@@ -6,6 +6,17 @@ export const l01QueEsTrigger: Lesson = {
   n: 1,
   kind: "lesson",
   minutes: 30,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso del Módulo 5", en: "Remember? · Review of Module 5" },
+    prompt: { es: "¿Qué es this dentro de una clase?", en: "What is this inside a class?" },
+    options: [
+      { es: "La instancia sobre la que se llamó el método", en: "The instance the method was called on" },
+      { es: "La clase entera", en: "The whole class" },
+      { es: "El último objeto creado", en: "The last object created" },
+    ],
+    answer: 0,
+    explain: { es: "Tu $Record: el objeto actual. Hoy vuelve $Record, pero en plural: un trigger recibe todos los registros del lote.", en: "Your $Record: the current object. Today $Record comes back, but in the plural: a trigger receives every record in the batch." },
+  },
   title: {
     es: "Qué es un trigger y cuándo se dispara",
     en: "What a trigger is and when it fires",
@@ -46,9 +57,10 @@ export const l01QueEsTrigger: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "Ya construiste esto con clics. Un Record-Triggered Flow empieza con tres preguntas: sobre qué objeto, cuándo (se crea, se actualiza, se crea o actualiza, se borra) y si optimizas para «Fast Field Updates» o para «Actions and Related Records». Un trigger responde a las mismas tres preguntas, en una sola línea de código.",
-        en: "You have already built this with clicks. A record-triggered Flow starts with three questions: on which object, when (created, updated, created or updated, deleted) and whether you optimise for “Fast Field Updates” or for “Actions and Related Records”. A trigger answers the same three questions, in a single line of code.",
+        es: "Tú ya construiste esto con clics, como yo. Un Record-Triggered Flow empieza con tres preguntas: sobre qué objeto, cuándo (se crea, se actualiza, se crea o actualiza, se borra) y si optimizas para «Fast Field Updates» o para «Actions and Related Records». Un trigger responde a las mismas tres preguntas, en una sola línea de código.",
+        en: "You have already built this with clicks, as I did. A Record-Triggered Flow starts with three questions: on which object, when (created, updated, created or updated, deleted) and whether you optimise for «Fast Field Updates» or for «Actions and Related Records». A trigger answers the same three questions, in a single line of code.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -233,9 +245,10 @@ export const l01QueEsTrigger: Lesson = {
       variant: "admin",
       title: { es: "Como un change set, pero con examen", en: "Like a change set, but with an exam" },
       text: {
-        es: "Si alguna vez subiste campos o flows de un sandbox a producción con un change set, ya conoces el camino. Con Apex es el mismo, con una condición más: al desplegar, Salesforce ejecuta los tests y rechaza el paquete si no llegan a la cobertura mínima. Por eso ningún developer serio escribe un trigger sin su clase de test al lado.",
-        en: "If you ever moved fields or flows from a sandbox to production with a change set, you already know the path. With Apex it is the same, with one extra condition: on deployment, Salesforce runs the tests and rejects the package if they fall short of the minimum coverage. That is why no serious developer writes a trigger without its test class next to it.",
+        es: "Si alguna vez subiste campos o flows de un sandbox a producción con un change set, como hice yo tantas veces, ya conoces el camino. Con Apex es el mismo, con una condición más: al desplegar, Salesforce ejecuta los tests y rechaza el paquete si no llegan a la cobertura mínima. Por eso ningún developer serio escribe un trigger sin su clase de test al lado.",
+        en: "If you ever moved fields or flows from a sandbox to production with a change set, as I did so many times, you already know the path. With Apex it is the same, with one extra condition: on deployment, Salesforce runs the tests and rejects the package if they fall short of the minimum coverage. That is why no serious developer writes a trigger without its test class next to it.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -253,9 +266,10 @@ export const l01QueEsTrigger: Lesson = {
       variant: "admin",
       title: { es: "Los seis flows que se migran", en: "The six flows being migrated" },
       text: {
-        es: "1 · El registro de leads del formulario web (Marketing). 2 · El rastro de cambios de etapa de las oportunidades (Ventas). 3 · El alta de cuentas nuevas con su tarea de bienvenida. 4 · El país de los contactos que exige una regla de validación. 5 · La revisión de oportunidades que se pelea con otro equipo. 6 · El escalado de casos de Soporte. Seis objetos distintos: al acabar habrás tocado casi todo Sales Cloud desde el código.",
-        en: "1 · Logging web-form leads (Marketing). 2 · The opportunity stage-change trail (Sales). 3 · Onboarding new accounts with their welcome task. 4 · The contacts' country a validation rule requires. 5 · The opportunity review clashing with another team. 6 · Support's case escalation. Six different objects: by the end you will have touched nearly all of Sales Cloud from code.",
+        es: "Vengo de la reunión con Northwind: han decidido migrar a Apex seis de sus flows, y nos toca a nosotros. 1 · El registro de leads del formulario web (Marketing). 2 · El rastro de cambios de etapa de las oportunidades (Ventas). 3 · El alta de cuentas nuevas con su tarea de bienvenida. 4 · El país de los contactos que exige una regla de validación. 5 · La revisión de oportunidades que se pelea con otro equipo. 6 · El escalado de casos de Soporte. Seis objetos distintos: al acabar habrás tocado casi todo Sales Cloud desde el código.",
+        en: "I have just come out of the Northwind meeting: they have decided to migrate six of their flows to Apex, and it is our job. 1 · Logging web-form leads (Marketing). 2 · The opportunity stage-change trail (Sales). 3 · Onboarding new accounts with their welcome task. 4 · The contacts' country a validation rule requires. 5 · The opportunity review clashing with another team. 6 · Support's case escalation. Six different objects: by the end you will have touched nearly all of Sales Cloud from code.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -446,16 +460,16 @@ export const l01QueEsTrigger: Lesson = {
     },
     hints: [
       {
-        es: "Cabecera: palabra clave, nombre, on y el objeto, y el evento entre paréntesis.",
-        en: "Header: keyword, name, on and the object, and the event in brackets.",
+        es: "Yo empezaría por las tres preguntas del elemento Start de un flow, que aquí son la cabecera: palabra clave, nombre, on y el objeto, y el evento entre paréntesis.",
+        en: "I would start with the three questions of a flow's Start element, which here are the header: keyword, name, on and the object, and the event in brackets.",
       },
       {
-        es: "Dentro, for (Lead l : Trigger.new) { … }. Trigger.new es una List<Lead>, así que tiene size().",
-        en: "Inside, for (Lead l : Trigger.new) { … }. Trigger.new is a List<Lead>, so it has size().",
+        es: "Lo que me ayudó: dentro, for (Lead l : Trigger.new) { … }. Trigger.new es la lista de todos los $Record del lote, una List<Lead>, así que tiene size().",
+        en: "What helped me: inside, for (Lead l : Trigger.new) { … }. Trigger.new is the list of every $Record in the batch, a List<Lead>, so it has size().",
       },
       {
-        es: "Pseudocódigo: trigger LeadWelcome on Lead (after insert) { for (Lead l : Trigger.new) { System.debug(l.LastName + ' · ' + l.Company); } System.debug(Trigger.new.size()); }",
-        en: "Pseudocode: trigger LeadWelcome on Lead (after insert) { for (Lead l : Trigger.new) { System.debug(l.LastName + ' · ' + l.Company); } System.debug(Trigger.new.size()); }",
+        es: "Te dejo el esquema: trigger LeadWelcome on Lead (after insert) { for (Lead l : Trigger.new) { System.debug(l.LastName + ' · ' + l.Company); } System.debug(Trigger.new.size()); }",
+        en: "Here is the outline: trigger LeadWelcome on Lead (after insert) { for (Lead l : Trigger.new) { System.debug(l.LastName + ' · ' + l.Company); } System.debug(Trigger.new.size()); }",
       },
     ],
     solution: {
@@ -484,6 +498,10 @@ export const l01QueEsTrigger: Lesson = {
           es: "trigger LeadWelcome on Lead (after insert) { … } — un solo evento: after insert.",
           en: "trigger LeadWelcome on Lead (after insert) { … } — a single event: after insert.",
         },
+        otter: {
+          es: "Es tu elemento Start en una línea: objeto Lead y «A record is created», después de guardar. trigger LeadWelcome on Lead (after insert) { … }",
+          en: "It is your Start element on one line: the Lead object and «A record is created», after saving. trigger LeadWelcome on Lead (after insert) { … }",
+        },
       },
       {
         id: "m06-l01-c2",
@@ -501,6 +519,10 @@ export const l01QueEsTrigger: Lesson = {
         onFail: {
           es: "for (Lead l : Trigger.new) { … }. Trigger.new[0] se queda solo con el primero del lote.",
           en: "for (Lead l : Trigger.new) { … }. Trigger.new[0] keeps only the first in the batch.",
+        },
+        otter: {
+          es: "Un flow ve un $Record; un trigger recibe hasta 200. Trigger.new[0] se queda solo con el primero del lote: recórrelos todos con for (Lead l : Trigger.new) { … }.",
+          en: "A flow sees one $Record; a trigger gets up to 200. Trigger.new[0] keeps only the first of the batch: walk them all with for (Lead l : Trigger.new) { … }.",
         },
       },
       {
@@ -520,6 +542,10 @@ export const l01QueEsTrigger: Lesson = {
           es: "Dentro del bucle: System.debug(l.LastName + ' · ' + l.Company);",
           en: "Inside the loop: System.debug(l.LastName + ' · ' + l.Company);",
         },
+        otter: {
+          es: "Dentro del bucle, cada l es tu $Record: System.debug(l.LastName + ' · ' + l.Company);",
+          en: "Inside the loop, each l is your $Record: System.debug(l.LastName + ' · ' + l.Company);",
+        },
       },
       {
         id: "m06-l01-c4",
@@ -532,6 +558,10 @@ export const l01QueEsTrigger: Lesson = {
           es: "Trigger.new es una lista: System.debug(Trigger.new.size());",
           en: "Trigger.new is a list: System.debug(Trigger.new.size());",
         },
+        otter: {
+          es: "Cuántos llegaron en el lote te lo dice la propia lista: System.debug(Trigger.new.size());",
+          en: "How many arrived in the batch is told by the list itself: System.debug(Trigger.new.size());",
+        },
         onPass: {
           es: "Un lead desde la pantalla o 200 desde Data Loader: el mismo código los recorre todos.",
           en: "One lead from the screen or 200 from Data Loader: the same code walks them all.",
@@ -543,10 +573,11 @@ export const l01QueEsTrigger: Lesson = {
         es: "Si Marketing también quisiera verlo cuando un lead se edita, ¿qué cambiarías en la cabecera y qué se quedaría igual?",
         en: "If Marketing also wanted to see it when a lead is edited, what would you change in the header and what would stay the same?",
       },
-      {
-        es: "Tarea 2: el siguiente flow es de Ventas y no mira solo el registro nuevo: necesita saber qué valor tenía antes.",
-        en: "Task 2: the next flow belongs to Sales and does not only look at the new record: it needs to know the previous value.",
-      },
     ],
+    outro: {
+      es: "Ya escribes tu primer trigger: la cabecera responde a las tres preguntas del Start de un flow, y Trigger.new es la lista de todos los $Record del lote. En la tarea 2, el flow de Ventas no mira solo el registro nuevo: necesita saber qué valor tenía antes.",
+      en: "You have written your first trigger: the header answers the three questions of a flow's Start, and Trigger.new is the list of every $Record in the batch. In task 2, Sales' flow does not only look at the new record: it needs to know the previous value.",
+    },
+    voice: "otter",
   },
 };

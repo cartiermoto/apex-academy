@@ -6,6 +6,17 @@ export const l04OrdenEjecucion: Lesson = {
   n: 4,
   kind: "lesson",
   minutes: 35,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 3", en: "Remember? · Review of lesson 3" },
+    prompt: { es: "En after insert haces a.Rating = 'Warm'; sobre un registro de Trigger.new. ¿Qué pasa?", en: "In after insert you write a.Rating = 'Warm'; on a record from Trigger.new. What happens?" },
+    options: [
+      { es: "Se guarda solo", en: "It saves by itself" },
+      { es: "Da error: en after, Trigger.new es de solo lectura", en: "An error: in after, Trigger.new is read-only" },
+      { es: "Hay que hacer upsert", en: "You have to upsert" },
+    ],
+    answer: 1,
+    explain: { es: "En after el registro ya está guardado y Trigger.new es de solo lectura. Lo del propio registro va en before, tu Fast Field Updates.", en: "In after the record is already saved and Trigger.new is read-only. Changes to the record itself go in before, your Fast Field Updates." },
+  },
   title: {
     es: "Orden de ejecución en Salesforce",
     en: "Salesforce order of execution",
@@ -46,9 +57,10 @@ export const l04OrdenEjecucion: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "Flow Trigger Explorer te enseña, para un objeto, qué flows corren antes de guardar y cuáles después, y te deja ordenarlos entre sí. Es un trozo del orden de ejecución. Aquí vas a ver el mapa completo: dónde encajan tus triggers, tus validation rules, las reglas de asignación, los workflows heredados y los roll-ups, todo en la misma línea de tiempo.",
-        en: "Flow Trigger Explorer shows you, for one object, which flows run before saving and which after, and lets you order them among themselves. It is a piece of the order of execution. Here you will see the full map: where your triggers, your validation rules, assignment rules, legacy workflows and roll-ups fit, all on the same timeline.",
+        es: "Yo usaba Flow Trigger Explorer para ver, en un objeto, qué flows corren antes de guardar y cuáles después, y para ordenarlos entre sí. Es un trozo del orden de ejecución. Aquí vas a ver el mapa completo: dónde encajan tus triggers, tus validation rules, las reglas de asignación, los workflows heredados y los roll-ups, todo en la misma línea de tiempo.",
+        en: "I used Flow Trigger Explorer to see, for an object, which flows run before saving and which after, and to order them among themselves. It is a slice of the order of execution. Here you will see the whole map: where your triggers, your validation rules, the assignment rules, the legacy workflows and the roll-ups fit, all on the same timeline.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -180,9 +192,10 @@ export const l04OrdenEjecucion: Lesson = {
       variant: "admin",
       title: { es: "Ver el orden de verdad: los Debug Logs", en: "Seeing the real order: Debug Logs" },
       text: {
-        es: "No hace falta imaginar el orden de ejecución: se puede ver. Setup → Debug Logs → añade un Trace Flag para tu usuario, guarda un registro y abre el log. Aparecen, en el orden real en que ocurrieron, tus triggers, las reglas de validación que se evaluaron y los flows que se lanzaron. Cuando algo «a veces sale mal», el log es la primera parada, igual que el historial de un flow cuando depurabas con clics.",
-        en: "You do not have to imagine the order of execution: you can see it. Setup → Debug Logs → add a Trace Flag for your user, save a record and open the log. Your triggers, the validation rules evaluated and the flows launched all appear, in the real order they happened. When something “sometimes goes wrong”, the log is the first stop, just like a flow's run history when you debugged with clicks.",
+        es: "Mi consejo: no imagines el orden de ejecución, míralo. Setup → Debug Logs → añade un Trace Flag para tu usuario, guarda un registro y abre el log. Aparecen, en el orden real en que ocurrieron, tus triggers, las reglas de validación que se evaluaron y los flows que se lanzaron. Cuando algo «a veces sale mal», el log es la primera parada, igual que el historial de un flow cuando depurabas con clics.",
+        en: "My advice: do not imagine the order of execution, look at it. Setup → Debug Logs → add a Trace Flag for your user, save a record and open the log. Your triggers, the validation rules evaluated and the flows launched all appear, in the real order they happened. When something «sometimes goes wrong», the log is the first stop, just like a flow's run history when you debugged with clicks.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -381,16 +394,16 @@ export const l04OrdenEjecucion: Lesson = {
     },
     hints: [
       {
-        es: "Mira el orden de ejecución: ¿qué corre justo antes que las validation rules? Y como vas a leer cuentas, recuerda la receta del Módulo 4.",
-        en: "Look at the order of execution: what runs just before validation rules? And since you will read accounts, remember Module 4's recipe.",
+        es: "Yo miraría el orden de ejecución: ¿qué corre justo antes que las validation rules? Y como vas a leer cuentas, recuerda la receta del Módulo 4: nada de Get Records dentro del Loop.",
+        en: "I would look at the order of execution: what runs just before the validation rules? And since you are going to read accounts, remember Module 4's recipe: no Get Records inside the Loop.",
       },
       {
-        es: "before insert. Primer for: juntar AccountId de los que tienen String.isBlank(c.MailingCountry). Consulta con IN :accountIds a un Map. Segundo for: accounts.get(c.AccountId) y copiar.",
-        en: "before insert. First for: gather AccountId of those with String.isBlank(c.MailingCountry). Query with IN :accountIds into a Map. Second for: accounts.get(c.AccountId) and copy.",
+        es: "Lo que me ayudó: before insert. Primer for, juntar AccountId de los que tienen String.isBlank(c.MailingCountry). Consulta con IN :accountIds a un Map, tu BUSCARV. Segundo for, accounts.get(c.AccountId) y copiar.",
+        en: "What helped me: before insert. First for, collect the AccountId of those with String.isBlank(c.MailingCountry). A query with IN :accountIds into a Map, your VLOOKUP. Second for, accounts.get(c.AccountId) and copy.",
       },
       {
-        es: "Pseudocódigo: trigger ContactCountry on Contact (before insert) { Set<Id> accountIds …; for (…) if (String.isBlank(c.MailingCountry) && c.AccountId != null) accountIds.add(c.AccountId); Map<Id, Account> accounts = new Map<Id, Account>([SELECT Id, BillingCountry FROM Account WHERE Id IN :accountIds]); for (…) { Account acc = accounts.get(c.AccountId); if (… && acc != null) c.MailingCountry = acc.BillingCountry; } }",
-        en: "Pseudocode: trigger ContactCountry on Contact (before insert) { Set<Id> accountIds …; for (…) if (String.isBlank(c.MailingCountry) && c.AccountId != null) accountIds.add(c.AccountId); Map<Id, Account> accounts = new Map<Id, Account>([SELECT Id, BillingCountry FROM Account WHERE Id IN :accountIds]); for (…) { Account acc = accounts.get(c.AccountId); if (… && acc != null) c.MailingCountry = acc.BillingCountry; } }",
+        es: "Te dejo el esquema: trigger ContactCountry on Contact (before insert) { Set<Id> accountIds …; for (…) if (String.isBlank(c.MailingCountry) && c.AccountId != null) accountIds.add(c.AccountId); Map<Id, Account> accounts = new Map<Id, Account>([SELECT Id, BillingCountry FROM Account WHERE Id IN :accountIds]); for (…) { Account acc = accounts.get(c.AccountId); if (… && acc != null) c.MailingCountry = acc.BillingCountry; } }",
+        en: "Here is the outline: trigger ContactCountry on Contact (before insert) { Set<Id> accountIds …; for (…) if (String.isBlank(c.MailingCountry) && c.AccountId != null) accountIds.add(c.AccountId); Map<Id, Account> accounts = new Map<Id, Account>([SELECT Id, BillingCountry FROM Account WHERE Id IN :accountIds]); for (…) { Account acc = accounts.get(c.AccountId); if (… && acc != null) c.MailingCountry = acc.BillingCountry; } }",
       },
     ],
     solution: {
@@ -445,6 +458,10 @@ export const l04OrdenEjecucion: Lesson = {
           es: "Tiene que correr antes que las validation rules: trigger ContactCountry on Contact (before insert).",
           en: "It has to run before validation rules: trigger ContactCountry on Contact (before insert).",
         },
+        otter: {
+          es: "Tiene que llegar antes que la regla de validación, como un flow Fast Field Updates: trigger ContactCountry on Contact (before insert).",
+          en: "It has to arrive before the validation rule, like a Fast Field Updates flow: trigger ContactCountry on Contact (before insert).",
+        },
       },
       {
         id: "m06-l04-c2",
@@ -470,6 +487,10 @@ export const l04OrdenEjecucion: Lesson = {
           es: "for (Contact c : Trigger.new) { if (String.isBlank(c.MailingCountry) && c.AccountId != null) accountIds.add(c.AccountId); }",
           en: "for (Contact c : Trigger.new) { if (String.isBlank(c.MailingCountry) && c.AccountId != null) accountIds.add(c.AccountId); }",
         },
+        otter: {
+          es: "Primero junta las cuentas que vas a necesitar, sin repetir: for (Contact c : Trigger.new) { if (String.isBlank(c.MailingCountry) && c.AccountId != null) accountIds.add(c.AccountId); }",
+          en: "First collect the accounts you will need, without repeats: for (Contact c : Trigger.new) { if (String.isBlank(c.MailingCountry) && c.AccountId != null) accountIds.add(c.AccountId); }",
+        },
       },
       {
         id: "m06-l04-c3",
@@ -490,6 +511,10 @@ export const l04OrdenEjecucion: Lesson = {
           es: "new Map<Id, Account>([SELECT Id, BillingCountry FROM Account WHERE Id IN :accountIds]) — una vez, fuera de los bucles.",
           en: "new Map<Id, Account>([SELECT Id, BillingCountry FROM Account WHERE Id IN :accountIds]) — once, outside the loops.",
         },
+        otter: {
+          es: "Un solo Get Records, fuera del Loop, a tu tabla de consulta: new Map<Id, Account>([SELECT Id, BillingCountry FROM Account WHERE Id IN :accountIds]).",
+          en: "A single Get Records, outside the Loop, into your lookup table: new Map<Id, Account>([SELECT Id, BillingCountry FROM Account WHERE Id IN :accountIds]).",
+        },
       },
       {
         id: "m06-l04-c4",
@@ -502,6 +527,10 @@ export const l04OrdenEjecucion: Lesson = {
           es: "c.MailingCountry = acc.BillingCountry; (con acc = accounts.get(c.AccountId)).",
           en: "c.MailingCountry = acc.BillingCountry; (with acc = accounts.get(c.AccountId)).",
         },
+        otter: {
+          es: "Es como una fórmula que copia un campo de la cuenta: c.MailingCountry = acc.BillingCountry; (con acc = accounts.get(c.AccountId)).",
+          en: "It is like a formula copying a field from the account: c.MailingCountry = acc.BillingCountry; (with acc = accounts.get(c.AccountId)).",
+        },
       },
       {
         id: "m06-l04-c5",
@@ -513,6 +542,10 @@ export const l04OrdenEjecucion: Lesson = {
         onFail: {
           es: "Quita el DML: en before insert, cambiar c.MailingCountry ya viaja con el registro.",
           en: "Remove the DML: in before insert, changing c.MailingCountry already travels with the record.",
+        },
+        otter: {
+          es: "Es un Fast Field Updates: en before insert, cambiar c.MailingCountry ya viaja con el registro. Quita el DML.",
+          en: "It is a Fast Field Updates: in before insert, changing c.MailingCountry already travels with the record. Remove the DML.",
         },
         onPass: {
           es: "Una consulta, cero DML y la validación ya ve el país. El orden de ejecución, trabajando a tu favor.",
@@ -545,10 +578,11 @@ export const l04OrdenEjecucion: Lesson = {
         es: "Si en vez de before insert lo hubieras escrito en after insert con un update, ¿llegaría a ejecutarse alguna vez con un contacto sin país? Piensa en qué paso lo rechazaría.",
         en: "If you had written it in after insert with an update instead of before insert, would it ever even run for a contact without a country? Think about which step would reject it.",
       },
-      {
-        es: "Tarea 5: el flow de revisión de oportunidades convive con el trigger de otro equipo, y los dos se disparan mutuamente.",
-        en: "Task 5: the opportunity review flow lives alongside another team's trigger, and they fire each other.",
-      },
     ],
+    outro: {
+      es: "Ya sabes dónde encaja tu código en el orden de ejecución, y cómo usarlo a tu favor. En la tarea 5, la revisión de oportunidades convive con el trigger de otro equipo, y los dos se disparan mutuamente.",
+      en: "You now know where your code fits in the order of execution, and how to use it in your favour. In task 5, the opportunity review lives alongside another team's trigger, and they fire each other.",
+    },
+    voice: "otter",
   },
 };

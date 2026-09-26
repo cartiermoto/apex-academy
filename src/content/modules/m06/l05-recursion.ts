@@ -6,6 +6,17 @@ export const l05Recursion: Lesson = {
   n: 5,
   kind: "lesson",
   minutes: 35,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 4", en: "Remember? · Review of lesson 4" },
+    prompt: { es: "¿Qué corre antes: tu trigger before o la regla de validación?", en: "What runs first: your before trigger or the validation rule?" },
+    options: [
+      { es: "La regla de validación", en: "The validation rule" },
+      { es: "Tu trigger before", en: "Your before trigger" },
+      { es: "Los dos a la vez", en: "Both at once" },
+    ],
+    answer: 1,
+    explain: { es: "El trigger before corre antes que las reglas de validación: por eso puede rellenar lo que la regla exige.", en: "The before trigger runs before the validation rules: that is why it can fill in what the rule requires." },
+  },
   title: {
     es: "Recursión y cómo evitarla",
     en: "Recursion and how to avoid it",
@@ -46,9 +57,10 @@ export const l05Recursion: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "Si alguna vez hiciste un Record-Triggered Flow «Actions and Related Records» que actualiza el mismo registro que lo disparó, ya conoces el problema: ese Update Records vuelve a guardar el registro y relanza la automatización del objeto. Por eso Salesforce recomienda cambiar el propio registro con «Fast Field Updates». Y en los tiempos de Process Builder, «Allow process to evaluate a record multiple times in a single transaction» era exactamente esta pregunta. En un trigger no hay casilla ni aviso: la defensa la escribes tú.",
-        en: "If you ever built an “Actions and Related Records” record-triggered Flow that updates the same record that fired it, you already know the problem: that Update Records saves the record again and reruns the object's automation. That is why Salesforce recommends changing the record itself with “Fast Field Updates”. And back in the Process Builder days, “Allow process to evaluate a record multiple times in a single transaction” was exactly this question. In a trigger there is no checkbox and no warning: you write the defence yourself.",
+        es: "Esto me pasó con un flow: hice un Record-Triggered Flow «Actions and Related Records» que actualizaba el mismo registro que lo disparó, y ese Update Records volvía a guardar el registro y relanzaba la automatización del objeto. Por eso Salesforce recomienda cambiar el propio registro con «Fast Field Updates». Y en los tiempos de Process Builder, «Allow process to evaluate a record multiple times in a single transaction» era exactamente esta pregunta. En un trigger no hay casilla ni aviso: la defensa la escribes tú.",
+        en: "It happened to me with a flow: I built an «Actions and Related Records» Record-Triggered Flow that updated the same record that fired it, and that Update Records saved the record again and relaunched the object's automation. That is why Salesforce recommends changing the record itself with «Fast Field Updates». And back in the Process Builder days, «Allow process to evaluate a record multiple times in a single transaction» was exactly this question. In a trigger there is no checkbox and no warning: you write the defence yourself.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -197,9 +209,10 @@ trigger OpportunityReview on Opportunity (after update) {
       variant: "admin",
       title: { es: "Cómo se nota una recursión desde fuera", en: "How recursion shows from the outside" },
       text: {
-        es: "Antes de leer ningún código, un Admin puede sospechar de recursión por sus síntomas: tareas o notificaciones duplicadas, un campo con varias entradas idénticas seguidas en el historial de campos (Field History Tracking), o el error «Maximum trigger depth exceeded» en una carga de datos. Si ves cualquiera de los tres, busca un trigger —o un flow— que guarde registros de su propio objeto.",
-        en: "Before reading any code, an Admin can suspect recursion from its symptoms: duplicated tasks or notifications, a field with several identical consecutive entries in Field History Tracking, or the “Maximum trigger depth exceeded” error during a data load. If you see any of the three, look for a trigger — or a flow — that saves records of its own object.",
+        es: "Antes de leer ningún código, yo sospecho de recursión por sus síntomas: tareas o notificaciones duplicadas, un campo con varias entradas idénticas seguidas en el historial de campos (Field History Tracking), o el error «Maximum trigger depth exceeded» en una carga de datos. Si ves cualquiera de los tres, busca un trigger —o un flow— que guarde registros de su propio objeto.",
+        en: "Before reading any code, I suspect recursion from its symptoms: duplicated tasks or notifications, a field with several identical consecutive entries in Field History Tracking, or the «Maximum trigger depth exceeded» error during a data load. If you see any of the three, look for a trigger — or a flow — that saves records of its own object.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -416,16 +429,16 @@ trigger OpportunityReview on Opportunity (after update) {
     },
     hints: [
       {
-        es: "Dos preguntas al principio del bucle, para cada oportunidad: ¿ya la procesé? y ¿cambió la etapa?",
-        en: "Two questions at the top of the loop, for each opportunity: did I already process it? and did the stage change?",
+        es: "Yo me haría dos preguntas al principio del bucle, para cada oportunidad, como la casilla de Process Builder y la condición de entrada de un flow: ¿ya la procesé? y ¿cambió la etapa?",
+        en: "I would ask two questions at the start of the loop, for each opportunity, like the Process Builder checkbox and a flow's entry condition: have I processed it already? and did the stage change?",
       },
       {
-        es: "OpportunityTriggerGuard.processed.contains(o.Id) → continue. Luego .add(o.Id). La etapa: o.StageName != Trigger.oldMap.get(o.Id).StageName.",
-        en: "OpportunityTriggerGuard.processed.contains(o.Id) → continue. Then .add(o.Id). The stage: o.StageName != Trigger.oldMap.get(o.Id).StageName.",
+        es: "Lo que me ayudó: OpportunityTriggerGuard.processed.contains(o.Id) → continue. Luego .add(o.Id). La etapa, tu ISCHANGED(): o.StageName != Trigger.oldMap.get(o.Id).StageName.",
+        en: "What helped me: OpportunityTriggerGuard.processed.contains(o.Id) → continue. Then .add(o.Id). The stage, your ISCHANGED(): o.StageName != Trigger.oldMap.get(o.Id).StageName.",
       },
       {
-        es: "Pseudocódigo: public static Set<Id> processed = new Set<Id>(); … for (…) { if (OpportunityTriggerGuard.processed.contains(o.Id)) continue; OpportunityTriggerGuard.processed.add(o.Id); if (o.StageName != Trigger.oldMap.get(o.Id).StageName) toUpdate.add(…); } if (!toUpdate.isEmpty()) update toUpdate;",
-        en: "Pseudocode: public static Set<Id> processed = new Set<Id>(); … for (…) { if (OpportunityTriggerGuard.processed.contains(o.Id)) continue; OpportunityTriggerGuard.processed.add(o.Id); if (o.StageName != Trigger.oldMap.get(o.Id).StageName) toUpdate.add(…); } if (!toUpdate.isEmpty()) update toUpdate;",
+        es: "Te dejo el esquema: public static Set<Id> processed = new Set<Id>(); … for (…) { if (OpportunityTriggerGuard.processed.contains(o.Id)) continue; OpportunityTriggerGuard.processed.add(o.Id); if (o.StageName != Trigger.oldMap.get(o.Id).StageName) toUpdate.add(…); } if (!toUpdate.isEmpty()) update toUpdate;",
+        en: "Here is the outline: public static Set<Id> processed = new Set<Id>(); … for (…) { if (OpportunityTriggerGuard.processed.contains(o.Id)) continue; OpportunityTriggerGuard.processed.add(o.Id); if (o.StageName != Trigger.oldMap.get(o.Id).StageName) toUpdate.add(…); } if (!toUpdate.isEmpty()) update toUpdate;",
       },
     ],
     solution: {
@@ -482,6 +495,10 @@ trigger OpportunityReview on Opportunity (after update) {
           es: "public static Set<Id> processed = new Set<Id>(); dentro de OpportunityTriggerGuard.",
           en: "public static Set<Id> processed = new Set<Id>(); inside OpportunityTriggerGuard.",
         },
+        otter: {
+          es: "La guarda es una lista que comparte toda la transacción, lo que viste con static en el Módulo 5: public static Set<Id> processed = new Set<Id>(); dentro de OpportunityTriggerGuard.",
+          en: "The guard is a list shared by the whole transaction, what you saw with static in Module 5: public static Set<Id> processed = new Set<Id>(); inside OpportunityTriggerGuard.",
+        },
       },
       {
         id: "m06-l05-c2",
@@ -500,6 +517,10 @@ trigger OpportunityReview on Opportunity (after update) {
         onFail: {
           es: "if (OpportunityTriggerGuard.processed.contains(o.Id)) { continue; } y después OpportunityTriggerGuard.processed.add(o.Id);",
           en: "if (OpportunityTriggerGuard.processed.contains(o.Id)) { continue; } and then OpportunityTriggerGuard.processed.add(o.Id);",
+        },
+        otter: {
+          es: "Es tu casilla de Process Builder, escrita a mano: if (OpportunityTriggerGuard.processed.contains(o.Id)) { continue; } y después OpportunityTriggerGuard.processed.add(o.Id);",
+          en: "It is your Process Builder checkbox, written by hand: if (OpportunityTriggerGuard.processed.contains(o.Id)) { continue; } and then OpportunityTriggerGuard.processed.add(o.Id);",
         },
       },
       {
@@ -520,6 +541,10 @@ trigger OpportunityReview on Opportunity (after update) {
           es: "if (o.StageName != Trigger.oldMap.get(o.Id).StageName) { toUpdate.add(…); }",
           en: "if (o.StageName != Trigger.oldMap.get(o.Id).StageName) { toUpdate.add(…); }",
         },
+        otter: {
+          es: "Es tu «Only when a record is updated to meet the condition requirements»: if (o.StageName != Trigger.oldMap.get(o.Id).StageName) { toUpdate.add(…); }",
+          en: "It is your «Only when a record is updated to meet the condition requirements»: if (o.StageName != Trigger.oldMap.get(o.Id).StageName) { toUpdate.add(…); }",
+        },
       },
       {
         id: "m06-l05-c4",
@@ -531,6 +556,10 @@ trigger OpportunityReview on Opportunity (after update) {
         onFail: {
           es: "Un Boolean estático se salta el segundo lote de 200. La guarda es el Set<Id>.",
           en: "A static Boolean skips the second batch of 200. The guard is the Set<Id>.",
+        },
+        otter: {
+          es: "Un Boolean estático es un interruptor para toda la transacción: se apaga con el primer lote de 200 y el segundo se queda sin revisar. La guarda es el Set<Id>, que recuerda registro a registro.",
+          en: "A static Boolean is a switch for the whole transaction: it flips off with the first batch of 200 and the second is left unreviewed. The guard is the Set<Id>, which remembers record by record.",
         },
       },
       {
@@ -550,6 +579,10 @@ trigger OpportunityReview on Opportunity (after update) {
           es: "if (!toUpdate.isEmpty()) { update toUpdate; } — sin cambios, sin DML.",
           en: "if (!toUpdate.isEmpty()) { update toUpdate; } — no changes, no DML.",
         },
+        otter: {
+          es: "Sin cambios, sin Update Records: if (!toUpdate.isEmpty()) { update toUpdate; }",
+          en: "No changes, no Update Records: if (!toUpdate.isEmpty()) { update toUpdate; }",
+        },
         onPass: {
           es: "La segunda vuelta encuentra todos los Ids apuntados y no hace nada: el ping-pong se para en seco.",
           en: "The second round finds every Id already noted and does nothing: the ping-pong stops dead.",
@@ -561,10 +594,11 @@ trigger OpportunityReview on Opportunity (after update) {
         es: "Con solo la comparación de StageName (sin el Set), ¿se pararía el bucle? ¿Y con solo el Set, sin la comparación? ¿Qué aporta cada una?",
         en: "With only the StageName comparison (no Set), would the loop stop? And with only the Set, no comparison? What does each one contribute?",
       },
-      {
-        es: "Tarea 6: la entrega. El último flow es el escalado de casos de Soporte, y lo usa todo: before, after, consultas bulk y 200 casos cada mañana.",
-        en: "Task 6: delivery. The last flow is Support's case escalation, and it uses everything: before, after, bulk queries and 200 cases each morning.",
-      },
     ],
+    outro: {
+      es: "Ya proteges tus triggers de la recursión con las tres defensas, de mejor a peor. La tarea 6 es la entrega: el escalado de casos de Soporte, con before, after, consultas bulk y 200 casos cada mañana.",
+      en: "You can now protect your triggers from recursion with the three defences, from best to worst. Task 6 is the delivery: Support's case escalation, with before, after, bulk queries and 200 cases every morning.",
+    },
+    voice: "otter",
   },
 };

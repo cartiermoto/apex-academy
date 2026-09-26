@@ -6,6 +6,17 @@ export const l02Contexto: Lesson = {
   n: 2,
   kind: "lesson",
   minutes: 35,
+  warmup: {
+    title: { es: "¿Te acuerdas? · Repaso de la lección 1", en: "Remember? · Review of lesson 1" },
+    prompt: { es: "Un trigger after insert recibe 150 leads. ¿Qué tiene Trigger.new?", en: "An after insert trigger receives 150 leads. What does Trigger.new hold?" },
+    options: [
+      { es: "Solo el primero", en: "Only the first one" },
+      { es: "Los 150", en: "All 150" },
+      { es: "Ninguno hasta que los consultes", en: "None until you query them" },
+    ],
+    answer: 1,
+    explain: { es: "La lista entera del lote. Por eso se recorre con un for, nunca con [0].", en: "The whole batch. That is why you walk it with a for, never with [0]." },
+  },
   title: {
     es: "Contexto: Trigger.new, Trigger.old, Trigger.newMap",
     en: "Context: Trigger.new, Trigger.old, Trigger.newMap",
@@ -46,9 +57,10 @@ export const l02Contexto: Lesson = {
       variant: "admin",
       title: { es: "El paralelo de Admin", en: "The Admin parallel" },
       text: {
-        es: "En un Record-Triggered Flow que se ejecuta al actualizar, usas {!$Record.StageName} para el valor nuevo y {!$Record__Prior.StageName} para el que tenía antes. Y la condición de entrada «Only when a record is updated to meet the condition requirements» compara los dos por ti. En un trigger tienes lo mismo, pero en plural: Trigger.new son todos los $Record del lote y Trigger.old todos los $Record__Prior. La comparación la escribes tú.",
-        en: "In a record-triggered Flow that runs on update, you use {!$Record.StageName} for the new value and {!$Record__Prior.StageName} for the one it had before. And the entry condition “Only when a record is updated to meet the condition requirements” compares both for you. In a trigger you have the same thing, but plural: Trigger.new is every $Record in the batch and Trigger.old every $Record__Prior. You write the comparison yourself.",
+        es: "En mis Record-Triggered Flows de actualización usaba {!$Record.StageName} para el valor nuevo y {!$Record__Prior.StageName} para el que tenía antes. Y la condición de entrada «Only when a record is updated to meet the condition requirements» comparaba los dos por mí. En un trigger tienes lo mismo, pero en plural: Trigger.new son todos los $Record del lote y Trigger.old todos los $Record__Prior. La comparación la escribes tú.",
+        en: "In my update Record-Triggered Flows I used {!$Record.StageName} for the new value and {!$Record__Prior.StageName} for the one it had before. And the «Only when a record is updated to meet the condition requirements» entry condition compared them for me. In a trigger you have the same, but in the plural: Trigger.new is every $Record in the batch and Trigger.old every $Record__Prior. You write the comparison yourself.",
       },
+      voice: "otter",
     },
     {
       type: "h",
@@ -223,9 +235,10 @@ export const l02Contexto: Lesson = {
       variant: "admin",
       title: { es: "ISCHANGED() y PRIORVALUE(): old y new en tus fórmulas", en: "ISCHANGED() and PRIORVALUE(): old and new in your formulas" },
       text: {
-        es: "En una regla de validación escribes ISCHANGED(StageName) para saber si la etapa cambió, y PRIORVALUE(StageName) para leer la que había antes. Son exactamente Trigger.oldMap.get(o.Id).StageName comparado con o.StageName. La diferencia es de escala: la fórmula mira un registro; el trigger recibe hasta 200 y compara cada uno con su versión anterior, buscándola por Id en oldMap.",
-        en: "In a validation rule you write ISCHANGED(StageName) to know whether the stage changed, and PRIORVALUE(StageName) to read the previous one. They are exactly Trigger.oldMap.get(o.Id).StageName compared with o.StageName. The difference is scale: the formula looks at one record; the trigger gets up to 200 and compares each with its previous version, finding it by Id in oldMap.",
+        es: "Esto lo escribiste mil veces, como yo: en una regla de validación usas ISCHANGED(StageName) para saber si la etapa cambió, y PRIORVALUE(StageName) para leer la que había antes. Son exactamente Trigger.oldMap.get(o.Id).StageName comparado con o.StageName. La diferencia es de escala: la fórmula mira un registro; el trigger recibe hasta 200 y compara cada uno con su versión anterior, buscándola por Id en oldMap.",
+        en: "You have written this a thousand times, as I have: in a validation rule you use ISCHANGED(StageName) to know whether the stage changed, and PRIORVALUE(StageName) to read the previous one. They are exactly Trigger.oldMap.get(o.Id).StageName compared with o.StageName. The difference is scale: the formula looks at one record; the trigger gets up to 200 and compares each with its previous version, finding it by Id in oldMap.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
@@ -436,16 +449,16 @@ trigger OpportunityStage on Opportunity (before update) {
     },
     hints: [
       {
-        es: "El valor anterior no hay que consultarlo: ya te lo da el contexto del trigger.",
-        en: "You do not need to query the previous value: the trigger context already gives it to you.",
+        es: "Yo me acordaría de $Record__Prior: el valor anterior no hay que consultarlo, ya te lo da el contexto del trigger.",
+        en: "I would remember $Record__Prior: you do not need to query the previous value, the trigger context already gives it to you.",
       },
       {
-        es: "Opportunity before = Trigger.oldMap.get(opp.Id); y después un if que compare opp.StageName con before.StageName.",
-        en: "Opportunity before = Trigger.oldMap.get(opp.Id); then an if comparing opp.StageName with before.StageName.",
+        es: "Lo que me ayudó: Opportunity before = Trigger.oldMap.get(opp.Id); es tu $Record__Prior, y después un if que compare opp.StageName con before.StageName, tu ISCHANGED().",
+        en: "What helped me: Opportunity before = Trigger.oldMap.get(opp.Id); is your $Record__Prior, and then an if comparing opp.StageName with before.StageName, your ISCHANGED().",
       },
       {
-        es: "Pseudocódigo: for (Opportunity opp : Trigger.new) { Opportunity before = Trigger.oldMap.get(opp.Id); if (opp.StageName != before.StageName) { opp.NextStep = 'Etapa: ' + before.StageName + ' → ' + opp.StageName; } }",
-        en: "Pseudocode: for (Opportunity opp : Trigger.new) { Opportunity before = Trigger.oldMap.get(opp.Id); if (opp.StageName != before.StageName) { opp.NextStep = 'Stage: ' + before.StageName + ' → ' + opp.StageName; } }",
+        es: "Te dejo el esquema: for (Opportunity opp : Trigger.new) { Opportunity before = Trigger.oldMap.get(opp.Id); if (opp.StageName != before.StageName) { opp.NextStep = 'Etapa: ' + before.StageName + ' → ' + opp.StageName; } }",
+        en: "Here is the outline: for (Opportunity opp : Trigger.new) { Opportunity before = Trigger.oldMap.get(opp.Id); if (opp.StageName != before.StageName) { opp.NextStep = 'Stage: ' + before.StageName + ' → ' + opp.StageName; } }",
       },
     ],
     solution: {
@@ -480,6 +493,10 @@ trigger OpportunityStage on Opportunity (before update) {
           es: "trigger OpportunityStage on Opportunity (before update) { … }",
           en: "trigger OpportunityStage on Opportunity (before update) { … }",
         },
+        otter: {
+          es: "Es un flow «Fast Field Updates» al actualizar: cambia el propio registro antes de guardar. trigger OpportunityStage on Opportunity (before update) { … }",
+          en: "It is a «Fast Field Updates» flow on update: it changes the record itself before saving. trigger OpportunityStage on Opportunity (before update) { … }",
+        },
       },
       {
         id: "m06-l02-c2",
@@ -497,6 +514,10 @@ trigger OpportunityStage on Opportunity (before update) {
         onFail: {
           es: "for (Opportunity opp : Trigger.new) y dentro Trigger.oldMap.get(opp.Id).",
           en: "for (Opportunity opp : Trigger.new) and inside Trigger.oldMap.get(opp.Id).",
+        },
+        otter: {
+          es: "Recorre los $Record del lote y busca el $Record__Prior de cada uno por su Id: for (Opportunity opp : Trigger.new) y dentro, Trigger.oldMap.get(opp.Id).",
+          en: "Walk the batch's $Records and find each one's $Record__Prior by its Id: for (Opportunity opp : Trigger.new) and inside, Trigger.oldMap.get(opp.Id).",
         },
       },
       {
@@ -517,6 +538,10 @@ trigger OpportunityStage on Opportunity (before update) {
           es: "Compara: if (opp.StageName != before.StageName) { … }. Sin ese if, NextStep cambiaría con cualquier edición.",
           en: "Compare: if (opp.StageName != before.StageName) { … }. Without that if, NextStep would change on any edit.",
         },
+        otter: {
+          es: "Es tu ISCHANGED(StageName): if (opp.StageName != before.StageName) { … }. Sin ese if, NextStep cambiaría con cualquier edición, aunque fuera la descripción.",
+          en: "It is your ISCHANGED(StageName): if (opp.StageName != before.StageName) { … }. Without that if, NextStep would change on any edit, even the description.",
+        },
       },
       {
         id: "m06-l02-c4",
@@ -528,6 +553,10 @@ trigger OpportunityStage on Opportunity (before update) {
         onFail: {
           es: "opp.NextStep = 'Etapa: ' + before.StageName + ' → ' + opp.StageName;",
           en: "opp.NextStep = 'Stage: ' + before.StageName + ' → ' + opp.StageName;",
+        },
+        otter: {
+          es: "NextStep lleva el antes y el después, como una fórmula con PRIORVALUE(): opp.NextStep = 'Etapa: ' + before.StageName + ' → ' + opp.StageName;",
+          en: "NextStep carries the before and the after, like a formula with PRIORVALUE(): opp.NextStep = 'Stage: ' + before.StageName + ' → ' + opp.StageName;",
         },
       },
       {
@@ -547,6 +576,10 @@ trigger OpportunityStage on Opportunity (before update) {
           es: "En before, cambiar opp.NextStep ya lo guarda. El valor anterior está en Trigger.oldMap: no hace falta consultarlo.",
           en: "In before, changing opp.NextStep already saves it. The previous value is in Trigger.oldMap: no need to query it.",
         },
+        otter: {
+          es: "Es un Fast Field Updates: en before, cambiar opp.NextStep ya lo guarda, sin Update Records. Y el valor anterior está en Trigger.oldMap: no hace falta ningún Get Records.",
+          en: "It is a Fast Field Updates: in before, changing opp.NextStep already saves it, with no Update Records. And the previous value is in Trigger.oldMap: no Get Records is needed.",
+        },
         onPass: {
           es: "Cero consultas y cero DML, para 1 oportunidad o para 200: el contexto del trigger ya te lo daba todo.",
           en: "Zero queries and zero DML, for 1 opportunity or 200: the trigger context already gave you everything.",
@@ -558,10 +591,11 @@ trigger OpportunityStage on Opportunity (before update) {
         es: "Si el trigger también escuchara before insert, ¿qué línea fallaría al crear una oportunidad y cómo la protegerías?",
         en: "If the trigger also listened to before insert, which line would fail when creating an opportunity and how would you protect it?",
       },
-      {
-        es: "Tarea 3: el flow de alta de cuentas hace dos cosas, y cada una necesita un momento distinto del guardado.",
-        en: "Task 3: the account onboarding flow does two things, and each needs a different moment of the save.",
-      },
     ],
+    outro: {
+      es: "Ya comparas el antes y el después con Trigger.oldMap, tu $Record__Prior en plural. En la tarea 3, el flow de alta de cuentas hace dos cosas, y cada una necesita un momento distinto del guardado.",
+      en: "You can now compare before and after with Trigger.oldMap, your $Record__Prior in the plural. In task 3, the account onboarding flow does two things, and each needs a different moment of the save.",
+    },
+    voice: "otter",
   },
 };
