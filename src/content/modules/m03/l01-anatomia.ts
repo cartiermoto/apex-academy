@@ -151,27 +151,6 @@ for (Account a : accounts) {
     },
     {
       type: "h",
-      text: { es: "Dónde se escribe SOQL", en: "Where SOQL is written" },
-    },
-    {
-      type: "list",
-      items: [
-        {
-          es: "Dentro de Apex, entre corchetes: lo que haces en este módulo. El resultado es una lista de registros.",
-          en: "Inside Apex, in square brackets: what you do in this module. The result is a list of records.",
-        },
-        {
-          es: "En el Query Editor de la Developer Console: pegas la consulta sin corchetes y ves una tabla. Ideal para probar antes de meterla en código.",
-          en: "In the Developer Console's Query Editor: you paste the query without brackets and see a table. Ideal for testing before putting it in code.",
-        },
-        {
-          es: "En Data Loader y Workbench, para exportar. La sintaxis es exactamente la misma.",
-          en: "In Data Loader and Workbench, to export. The syntax is exactly the same.",
-        },
-      ],
-    },
-    {
-      type: "h",
       text: { es: "Solo ves lo que pediste", en: "You only see what you asked for" },
     },
     {
@@ -233,19 +212,22 @@ if (!found.isEmpty()) {
       text: { es: "El encargo de este módulo", en: "This module's assignment" },
     },
     {
-      type: "p",
-      text: {
-        es: "En los Módulos 1 y 2 los datos te los daban escritos en el código. En la vida real están en la org, y hay que ir a buscarlos. Por eso el encargo de este módulo lo trae el equipo de cuentas, y es el de cada trimestre: la revisión de cartera. Como en los módulos anteriores, los ocho talleres son ese mismo encargo, troceado en el orden en que se aprende a consultar.",
-        en: "In Modules 1 and 2 the data was handed to you written in the code. In real life it lives in the org, and you have to go and get it. So this module's assignment comes from the account team, and it is the one they have every quarter: the portfolio review. As in earlier modules, the eight workshops are that same assignment, cut into pieces in the order you learn to query.",
-      },
-    },
-    {
       type: "callout",
       variant: "admin",
       title: { es: "Lo que pide el equipo de cuentas", en: "What the account team asks for" },
       text: {
         es: "Vengo de hablar con el equipo de cuentas y esto es lo que quieren: «Para la revisión trimestral queremos: ver la cartera; las diez oportunidades grandes del trimestre; cada cuenta de Retail con su propietario y sus contactos; cuáles tienen negocio abierto y cuáles no han comprado nunca; un buscador de casos que no sea un agujero de seguridad; el pipeline sumado por etapa; un buscador para cuando llaman y no sabemos qué es; y todo eso junto para una región». Yo lo habría montado con varios informes, un par de Report Types personalizados y alguna exportación a Excel. Aquí son consultas, y la primera es la de hoy: ver qué hay.",
         en: "I have just talked to the accounts team and this is what they want: “For the quarterly review we want: to see the portfolio; the quarter's ten big opportunities; each Retail account with its owner and contacts; which have open business and which never bought; a case search that is not a security hole; the pipeline summed by stage; a search for when someone calls and we do not know what it is about; and all of that together for one region.” I would have built it with several reports, a couple of custom Report Types and an export to Excel. Here it is queries, and the first one is today's: see what is there.",
+      },
+      voice: "otter",
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "¿Y por qué no un informe o un Flow?", en: "Why not a report or a Flow?" },
+      text: {
+        es: "Te lo digo con franqueza: para mirar datos, un informe gana. Y en Flow, cada Get Records es una consulta SOQL montada con clics; por eso cuenta para el mismo límite de 100 consultas. Entonces, ¿para qué SOQL? Porque el código de los próximos módulos (triggers, procesos nocturnos, integraciones) no puede abrir un informe: siempre empieza por una consulta. Y porque en varios encargos de este módulo Get Records se queda corto; en esas lecciones te enseño dónde y por qué.",
+        en: "I will be frank: for looking at data, a report wins. And in Flow, every Get Records is a SOQL query built with clicks; that is why it counts toward the same 100-query limit. So why SOQL? Because the code of the coming modules (triggers, nightly jobs, integrations) cannot open a report: it always starts with a query. And because in several of this module's requests Get Records falls short; in those lessons I show you where and why.",
       },
       voice: "otter",
     },

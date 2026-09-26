@@ -198,6 +198,16 @@ List<AggregateResult> busy = [
     },
     {
       type: "callout",
+      variant: "admin",
+      title: { es: "¿Y por qué no un Flow? Porque Get Records no agrupa", en: "Why not a Flow? Because Get Records does not group" },
+      text: {
+        es: "El pipeline por etapa lo intenté con un flow programado. Get Records no tiene GROUP BY ni HAVING: devuelve filas, no totales por grupo. Tocaba traer todas las oportunidades abiertas al flow y repartirlas por etapa a mano, con un Loop y una Decision con una rama por etapa, que había que tocar cada vez que Ventas creaba una etapa nueva. En SOQL, GROUP BY StageName hace el reparto en la base de datos y te devuelve una fila por etapa, sea cual sea el número de etapas.",
+        en: "I tried the pipeline by stage with a scheduled flow. Get Records has no GROUP BY or HAVING: it returns rows, not totals per group. You had to bring every open opportunity into the flow and split them by stage by hand, with a Loop and a Decision with one branch per stage, which needed editing every time Sales created a new stage. In SOQL, GROUP BY StageName does the split in the database and returns one row per stage, however many stages there are.",
+      },
+      voice: "otter",
+    },
+    {
+      type: "callout",
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },
       text: {

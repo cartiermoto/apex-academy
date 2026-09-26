@@ -49,8 +49,8 @@ export const l08Subconsultas: Lesson = {
     {
       type: "lead",
       text: {
-        es: "Abre una cuenta en Salesforce y baja hasta la related list de Oportunidades. Ahora pulsa «Ver todo» y fíjate: puedes ordenarla por importe y quedarte con las primeras. Eso, escrito como texto y para todas las cuentas a la vez, es una [[subconsulta]] con su propio ORDER BY y LIMIT. Y el filtro cruzado de un informe («Cuentas con Oportunidades») es la otra mitad de esta sub-lección.",
-        en: "Open an account in Salesforce and scroll to the Opportunities related list. Now click “View All” and notice: you can sort it by amount and keep the top ones. That, written as text and for every account at once, is a [[subconsulta|subquery]] with its own ORDER BY and LIMIT. And a report's cross filter — “Accounts with Opportunities” — is the other half of this sub-lesson.",
+        es: "Abre la related list de Oportunidades de una cuenta, ordénala por importe y quédate con las primeras: eso, para todas las cuentas a la vez, es una [[subconsulta]] con su propio ORDER BY y LIMIT. Y el filtro cruzado de un informe («Cuentas con Oportunidades») es la otra mitad de la sub-lección.",
+        en: "Open an account's Opportunities related list, sort it by amount and keep the top ones: that, for every account at once, is a [[subconsulta|subquery]] with its own ORDER BY and LIMIT. And a report's cross filter («Accounts with Opportunities») is the other half of the sub-lesson.",
       },
     },
     {
@@ -69,8 +69,8 @@ export const l08Subconsultas: Lesson = {
       variant: "admin",
       title: { es: "Lo configuraste tú al crear el campo", en: "You set it yourself when you created the field" },
       text: {
-        es: "Yo lo busqué muchas veces sin saber que un día lo necesitaría: Object Manager → el objeto HIJO → Fields & Relationships → el campo de búsqueda o maestro-detalle que apunta al padre. En su página aparece «Child Relationship Name». Es el mismo nombre que viste en el asistente cuando creaste la relación, en el paso donde también eliges la etiqueta de la related list. Ese valor, con __r detrás, es lo que va en el FROM.",
-        en: "I looked it up many times without knowing I would need it one day: Object Manager → the CHILD object → Fields & Relationships → the lookup or master-detail field pointing at the parent. Its page shows «Child Relationship Name». It is the same name you saw in the wizard when you created the relationship, in the step where you also choose the related list label. That value, with __r after it, is what goes in the FROM.",
+        es: "Está en Object Manager → el objeto HIJO → Fields & Relationships → el campo que apunta al padre → «Child Relationship Name». Es el nombre que elegiste en el asistente al crear la relación, junto a la etiqueta de la related list. Con __r detrás, es lo que va en el FROM.",
+        en: "It is in Object Manager → the CHILD object → Fields & Relationships → the field pointing at the parent → «Child Relationship Name». It is the name you chose in the wizard when you created the relationship, next to the related list label. With __r after it, it is what goes in the FROM.",
       },
       voice: "otter",
     },
@@ -167,8 +167,8 @@ export const l08Subconsultas: Lesson = {
     {
       type: "p",
       text: {
-        es: "Cada cuenta que vuelve trae sus hijos en una propiedad con el mismo nombre de la relación: a.Opportunities, a.Contacts. Es una List normal, así que se recorre con el for que ya conoces. Y como vimos, si no hay hijos llega vacía, no null: el bucle simplemente no da ninguna vuelta.",
-        en: "Every account that comes back carries its children in a property with the same name as the relationship: a.Opportunities, a.Contacts. It is a normal List, so you loop it with the for you already know. And as we saw, with no children it arrives empty, not null: the loop simply does not go round.",
+        es: "Cada cuenta trae sus hijos en una propiedad con el nombre de la relación (a.Opportunities, a.Contacts): una List normal que recorres con el for de siempre. Si no hay hijos llega vacía, no null, y el bucle no da ninguna vuelta.",
+        en: "Every account carries its children in a property named after the relationship (a.Opportunities, a.Contacts): a normal List you loop with the usual for. With no children it arrives empty, not null, and the loop does not go round.",
       },
     },
     {
@@ -243,10 +243,6 @@ List<Account> neverSold = [
           es: "Los dos lados tienen que hablar del mismo objeto: Id de Account a la izquierda, AccountId a la derecha.",
           en: "Both sides must talk about the same object: an Account Id on the left, AccountId on the right.",
         },
-        {
-          es: "Como mucho dos filtros de este tipo por consulta, y solo en el WHERE principal: no dentro del WHERE de otra subconsulta.",
-          en: "At most two filters of this kind per query, and only in the main WHERE: not inside another subquery's WHERE.",
-        },
       ],
     },
     {
@@ -311,11 +307,6 @@ List<Account> support = [
           { es: "Contact.Account.Owner.Manager.Name es válido.", en: "Contact.Account.Owner.Manager.Name is valid." },
         ],
         [
-          { es: "Subconsultas en un SELECT", en: "Subqueries in one SELECT" },
-          { es: "20", en: "20" },
-          { es: "Una cuenta con sus contactos, oportunidades y casos en la misma consulta: sin problema.", en: "An account with its contacts, opportunities and cases in one query: no problem." },
-        ],
-        [
           { es: "IN / NOT IN con subconsulta", en: "IN / NOT IN with a subquery" },
           { es: "2 por consulta", en: "2 per query" },
           { es: "«Con casos abiertos Y sin oportunidades» cabe; una tercera condición así, no.", en: "“With open cases AND without opportunities” fits; a third such condition does not." },
@@ -344,12 +335,13 @@ List<Account> support = [
     },
     {
       type: "callout",
-      variant: "tip",
-      title: { es: "Pruébalo en tu Developer Org", en: "Try it in your Developer Org" },
+      variant: "admin",
+      title: { es: "¿Y por qué no un Flow? Porque «las que nunca compraron» no se puede preguntar", en: "Why not a Flow? Because «the ones that never bought» cannot be asked" },
       text: {
-        es: "En el Developer Console, pestaña Query Editor, pega la consulta de los casos de arriba (sin los corchetes ni el List<Account> =) y pulsa Execute. Fíjate en cómo aparecen los casos de cada cuenta en el resultado. Luego cambia Cases por Case en el FROM de la subconsulta y lee el error: es el que te encontrarás el día que olvides que va el nombre de la relación.",
-        en: "In the Developer Console, Query Editor tab, paste the cases query above (without the brackets or the List<Account> =) and press Execute. Notice how each account's cases show up in the result. Then change Cases to Case in the subquery's FROM and read the error: it is the one you will meet the day you forget it takes the relationship name.",
+        es: "«Cuentas con negocio abierto» sale en Flow con dos Get Records y un Loop que copia los AccountId para el operador In. Pero «las que nunca han tenido una oportunidad» obliga a traer al flow todas las oportunidades de la historia solo para saber qué cuentas tienen alguna, y en una org con años de datos ese Get Records revienta en «Too many query rows: 50001». Con NOT IN (SELECT AccountId FROM Opportunity), el cruce lo hace la base de datos y a tu código solo llegan las cuentas.",
+        en: "«Accounts with open business» comes out of Flow with two Get Records and a Loop that copies the AccountIds for the In operator. But «the ones that never had an opportunity» forces you to bring every opportunity in history into the flow just to learn which accounts have one, and in an org with years of data that Get Records blows up with «Too many query rows: 50001». With NOT IN (SELECT AccountId FROM Opportunity), the database does the match and only the accounts reach your code.",
       },
+      voice: "otter",
     },
     {
       type: "callout",
