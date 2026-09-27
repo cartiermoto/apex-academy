@@ -182,8 +182,8 @@ System.debug(training.cost(80));    // 0`,
     {
       type: "p",
       text: {
-        es: "Aquí está la confusión número uno de un Admin que empieza con Apex, así que conviene deshacerla pronto. Cuando creas un objeto personalizado en Object Manager, Salesforce crea una tabla en la base de datos: sus registros se guardan, salen en vistas de lista, en informes y en el formato de página. Cuando escribes una clase de Apex, no se crea nada de eso. La clase es solo un molde que vive en el código, y sus objetos existen en memoria mientras dura la transacción; al terminar, desaparecen. Si quieres que algo quede guardado, tienes que pasar los datos a un sObject (un Account, un Case, un objeto personalizado) y hacer DML, como en el Módulo 4.",
-        en: "Here is an Admin's number-one confusion when starting with Apex, so it is worth clearing up early. When you create a custom object in Object Manager, Salesforce creates a table in the database: its records are saved, show up in list views, reports and the page layout. When you write an Apex class, none of that happens. The class is only a mould living in the code, and its objects exist in memory for as long as the transaction lasts; when it ends, they vanish. If you want something to stay saved, you have to move the data into an sObject — an Account, a Case, a custom object — and do DML, as in Module 4.",
+        es: "Es la confusión número uno de un Admin que empieza con Apex. Un objeto personalizado crea una tabla: sus registros se guardan y salen en vistas de lista e informes. Una clase no crea nada de eso: es un molde que vive en el código, y sus objetos existen en memoria mientras dura la transacción. Si quieres que algo quede guardado, pasas los datos a un sObject y haces DML, como en el Módulo 4.",
+        en: "It is an Admin's number-one confusion when starting with Apex. A custom object creates a table: its records are saved and show up in list views and reports. A class creates none of that: it is a mould living in the code, and its objects exist in memory for as long as the transaction lasts. If you want something to stay saved, you move the data into an sObject and do DML, as in Module 4.",
       },
     },
     {
@@ -240,19 +240,22 @@ System.debug(training.cost(80));    // 0`,
       text: { es: "El encargo de este módulo", en: "This module's assignment" },
     },
     {
-      type: "p",
-      text: {
-        es: "Hasta ahora cada módulo resolvía un encargo con código suelto: variables, consultas, un trigger. Este módulo te enseña a construir piezas con nombre propio que se reutilizan, y por eso el encargo es más grande: el motor comercial de Northwind, el conjunto de clases que el equipo de Ventas, Servicios, Marketing y Soporte necesita para vender, renovar y cobrar. Cada taller añade una pieza al motor; el checkpoint, las comisiones del trimestre, usa casi todas a la vez.",
-        en: "Until now each module solved its assignment with loose code: variables, queries, a trigger. This module teaches you to build named pieces that get reused, which is why the assignment is bigger: Northwind's commercial engine, the set of classes the Sales, Services, Marketing and Support teams need to sell, renew and get paid. Each workshop adds one piece to the engine; the checkpoint, the quarter's commissions, uses nearly all of them at once.",
-      },
-    },
-    {
       type: "callout",
       variant: "admin",
       title: { es: "Las doce piezas, en el orden en que se construyen", en: "The twelve pieces, in the order they are built" },
       text: {
         es: "Salgo de la reunión con Northwind con la lista de su motor comercial, en el orden en que lo vamos a construir: el coste de las horas de implantación · la renovación preparada desde la oportunidad de este año · el plan de soporte que nace completo · ese mismo plan, limpio · los precios calculados igual en todas partes · el presupuesto de campaña que nadie se salta · los avisos · los descuentos · el formato de las cifras para Finanzas · la puntuación de leads nuevos · el reparto de casos por nivel · y las comisiones del trimestre. Es como diseñar una app en Object Manager: primero los objetos sencillos, luego los que se apoyan en ellos.",
         en: "I am coming out of the Northwind meeting with the list for their commercial engine, in the order we will build it: the cost of implementation hours · the renewal prepared from this year's opportunity · the support plan born complete · that same plan, cleaned up · prices calculated the same everywhere · the campaign budget nobody can bypass · the notifications · the discounts · the figures formatted for Finance · scoring new leads · routing cases by tier · and the quarter's commissions. It is like designing an app in Object Manager: first the simple objects, then the ones that build on them.",
+      },
+      voice: "otter",
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "¿Y por qué no un Flow? Porque en Flow no hay clases", en: "Why not a Flow? Because Flow has no classes" },
+      text: {
+        es: "Con franqueza: este módulo es de fundamentos, como el 1 y el 2. Flow no tiene clases, herencia ni interfaces; lo más parecido son los subflows, y cada uno vive por su cuenta. Lo aprendes porque todo lo que viene está hecho de clases: el handler de un trigger, un proceso nocturno, un test. Donde el motor sí choca con Flow (reglas que cambian cada trimestre) te lo señalo en su lección.",
+        en: "Frankly: this module is foundations, like 1 and 2. Flow has no classes, inheritance or interfaces; the closest thing is subflows, and each one lives on its own. You learn it because everything ahead is made of classes: a trigger's handler, a nightly job, a test. Where the engine does clash with Flow (rules that change every quarter) I point it out in its lesson.",
       },
       voice: "otter",
     },
