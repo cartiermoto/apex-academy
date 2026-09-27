@@ -208,10 +208,10 @@ System.debug('CPU (ms): '  + Limits.getCpuTime() + ' of ' + Limits.getLimitCpuTi
     {
       type: "callout",
       variant: "admin",
-      title: { es: "No son los límites de la página System Overview", en: "These are not the System Overview limits" },
+      title: { es: "¿Y por qué no un Flow? Porque Flow no te deja mirar el contador", en: "Why not a Flow? Because Flow does not let you read the counter" },
       text: {
-        es: "Yo los confundía al principio: en Setup ya has visto límites, las llamadas API de las últimas 24 horas, el almacenamiento de datos y archivos, en System Overview o en Company Information. Esos son límites de la org, y se gastan a lo largo del día. Los governor limits de esta lección son otra cosa: son por transacción, empiezan en cero en cada guardado y desaparecen al terminar. Un proceso puede estar lejísimos del límite diario de API y morir igualmente en la consulta 101 de una sola transacción.",
-        en: "I mixed them up at first: in Setup you have already seen limits, API calls in the last 24 hours, data and file storage, in System Overview or Company Information. Those are org limits, and they are spent over the day. This lesson's governor limits are something else: they are per transaction, they start at zero on every save and vanish when it ends. A process can be nowhere near the daily API limit and still die at query 101 of a single transaction.",
+        es: "En Flow, cuánto presupuesto llevas gastado solo lo ves en el debug log, cuando todo ha terminado o ya ha reventado. No hay ningún elemento que te diga «llevas 85 consultas» a mitad de camino; para eso hace falta una acción escrita en Apex. La clase Limits te lo dice en cualquier línea de tu código.",
+        en: "In Flow, how much budget you have used only shows up in the debug log, once everything has finished or already blown up. There is no element that tells you «85 queries so far» halfway through; for that you need an action written in Apex. The Limits class tells you on any line of your code.",
       },
       voice: "otter",
     },

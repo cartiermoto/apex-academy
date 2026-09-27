@@ -170,6 +170,16 @@ update accounts;`,
       voice: "otter",
     },
     {
+      type: "callout",
+      variant: "admin",
+      title: { es: "¿Y por qué no un Flow? Aquí Flow habría acertado solo", en: "Why not a Flow? Here Flow would have got it right on its own" },
+      text: {
+        es: "Te debo una confesión: un flow desencadenado por registro que actualiza la cuenta de cada oportunidad ganada habría aguantado el cierre de trimestre, porque Salesforce junta en un solo guardado los Update Records de las interviews del mismo lote. Apex no hace eso por ti: si tu código guarda dentro del bucle, guarda 180 veces. Bulkificar en Apex es responsabilidad tuya, y por eso existe esta lección.",
+        en: "I owe you a confession: a record-triggered flow that updates each won opportunity's account would have survived the quarter close, because Salesforce merges the Update Records of the interviews in the same batch into one save. Apex does not do that for you: if your code saves inside the loop, it saves 180 times. Bulkifying in Apex is your job, and that is why this lesson exists.",
+      },
+      voice: "otter",
+    },
+    {
       type: "h",
       text: { es: "La trampa del Id duplicado", en: "The duplicate Id trap" },
     },
