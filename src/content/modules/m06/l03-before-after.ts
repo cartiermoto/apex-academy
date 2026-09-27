@@ -232,6 +232,16 @@ export const l03BeforeAfter: Lesson = {
     },
     {
       type: "callout",
+      variant: "admin",
+      title: { es: "¿Y por qué no un Flow? Porque Account ya tiene trigger", en: "Why not a Flow? Because Account already has a trigger" },
+      text: {
+        es: "Los dos flows del alta funcionaban. Pero Account ya tiene el trigger de otro equipo (el de la tarea 5), y con dos flows más el objeto tenía tres puntos de entrada: justo la mezcla que la guía de Salesforce pide evitar, porque nadie ve de un vistazo qué pasa al guardar una cuenta. Un solo trigger con sus dos momentos, before y after, lo deja todo en un sitio.",
+        en: "Both onboarding flows worked. But Account already has another team's trigger (the one in task 5), and with two more flows the object had three entry points: exactly the mix Salesforce's guide asks you to avoid, because nobody can see at a glance what happens when an account is saved. A single trigger with its two moments, before and after, keeps everything in one place.",
+      },
+      voice: "otter",
+    },
+    {
+      type: "callout",
       variant: "recall",
       title: { es: "Antes de seguir", en: "Before moving on" },
       text: {

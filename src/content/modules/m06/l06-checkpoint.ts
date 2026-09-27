@@ -110,6 +110,16 @@ export const l06Checkpoint: Lesson = {
       voice: "otter",
     },
     {
+      type: "callout",
+      variant: "admin",
+      title: { es: "¿Y por qué no un Flow? Porque es la regla que más va a crecer", en: "Why not a Flow? Because it is the rule that will grow the most" },
+      text: {
+        es: "El escalado de hoy lo harían dos flows: uno before-save para la prioridad y otro after-save para la tarea. Se migra porque llega con 200 casos cada mañana y porque es la regla que más va a crecer: en el Módulo 7 le añadirás un traspaso a Ventas, una guardia contra tareas duplicadas con un static Set<Id>, que Flow no tiene, y un interruptor para las cargas masivas. Todo eso, en un solo sitio.",
+        en: "Today's escalation could be done by two flows: a before-save one for the priority and an after-save one for the task. It is migrated because it arrives with 200 cases every morning and because it is the rule that will grow the most: in Module 7 you will add a handoff to Sales, a guard against duplicate tasks with a static Set<Id>, which Flow does not have, and a switch for bulk loads. All of it, in one place.",
+      },
+      voice: "otter",
+    },
+    {
       type: "h",
       text: { es: "Lo que viene: el Módulo 7", en: "What comes next: Module 7" },
     },

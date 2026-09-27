@@ -242,6 +242,16 @@ export const l02Contexto: Lesson = {
     },
     {
       type: "callout",
+      variant: "admin",
+      title: { es: "¿Y por qué no un Flow? Aquí el flow era la herramienta correcta", en: "Why not a Flow? Here the flow was the right tool" },
+      text: {
+        es: "Con franqueza: el rastro de etapas era un flow before-save con $Record__Prior, y es justo lo que Salesforce recomienda para cambiar un campo del propio registro. Se migra por otra razón: en la tarea 5, Opportunity va a tener un trigger sí o sí, y la guía oficial pide no mezclar flows y triggers como punto de entrada del mismo objeto. Si el objeto no tuviera trigger, el flow se quedaba donde estaba.",
+        en: "Frankly: the stage trail was a before-save flow with $Record__Prior, and that is exactly what Salesforce recommends for changing a field on the record itself. It is migrated for another reason: in task 5, Opportunity will have a trigger no matter what, and the official guide asks you not to mix flows and triggers as entry points of the same object. If the object had no trigger, the flow would have stayed where it was.",
+      },
+      voice: "otter",
+    },
+    {
+      type: "callout",
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },
       text: {

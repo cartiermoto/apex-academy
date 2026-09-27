@@ -199,6 +199,16 @@ export const l04OrdenEjecucion: Lesson = {
     },
     {
       type: "callout",
+      variant: "admin",
+      title: { es: "¿Y por qué no un Flow? La salida en Flow existía", en: "Why not a Flow? The Flow fix existed" },
+      text: {
+        es: "Te lo cuento como fue: el flow after-save llegaba tarde a la regla de validación, y la salida en Flow era pasarlo a before-save, que corre antes que las reglas de validación y puede leer $Record.Account.BillingCountry. Se migró porque la integración de eventos ya tenía un trigger en Contact y la guía de Salesforce pide no mezclar. Lo que te llevas de esta lección, el orden de ejecución, vale igual para los dos.",
+        en: "Here is how it went: the after-save flow reached the validation rule too late, and the Flow fix was to make it before-save, which runs before validation rules and can read $Record.Account.BillingCountry. It was migrated because the events integration already had a trigger on Contact and Salesforce's guide asks you not to mix. What you take from this lesson, the order of execution, applies equally to both.",
+      },
+      voice: "otter",
+    },
+    {
+      type: "callout",
       variant: "recall",
       title: { es: "Antes de seguir", en: "Before moving on" },
       text: {
