@@ -393,6 +393,16 @@ export const l04GuardiaBypass: Lesson = {
     },
     {
       type: "callout",
+      variant: "admin",
+      title: { es: "¿Y por qué no un Flow? Porque en Flow el interruptor va en cada flow", en: "Why not a Flow? Because in Flow the switch goes in every flow" },
+      text: {
+        es: "En Flow también puedes poner $Permission en las condiciones de entrada, pero en cada flow del objeto, uno por uno, y el día que alguien crea uno nuevo y se olvida, la migración lo dispara. Aquí es una línea al principio del único trigger, y cubre todas las reglas, las de hoy y las que vengan. La guardia, como viste en el Módulo 6, no tiene equivalente en Flow: no hay memoria static.",
+        en: "In Flow you can also put $Permission in the entry conditions, but in every flow of the object, one by one, and the day someone creates a new one and forgets, the migration fires it. Here it is one line at the top of the only trigger, and it covers every rule, today's and those to come. The guard, as you saw in Module 6, has no Flow equivalent: there is no static memory.",
+      },
+      voice: "otter",
+    },
+    {
+      type: "callout",
       variant: "warn",
       title: { es: "Un bypass para todos es un agujero", en: "A bypass for everyone is a hole" },
       text: {

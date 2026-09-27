@@ -180,6 +180,16 @@ export const l01UnTriggerPorObjeto: Lesson = {
       voice: "otter",
     },
     {
+      type: "callout",
+      variant: "admin",
+      title: { es: "¿Y por qué no un Flow? Este módulo no compite con Flow", en: "Why not a Flow? This module does not compete with Flow" },
+      text: {
+        es: "Aquí la decisión ya está tomada: el escalado vive en Apex desde el Módulo 6. Este módulo ordena ese código, y copia ideas que ya conoces de Flow: Flow Trigger Explorer para el orden (tarea 1), los subflows para separar reglas (tareas 2 y 3) y $Permission para el interruptor (tarea 4). Lo único que Flow no tiene es la guardia de la tarea 4, porque necesita memoria static durante toda la transacción.",
+        en: "Here the decision is already made: the escalation lives in Apex since Module 6. This module puts that code in order, and borrows ideas you already know from Flow: Flow Trigger Explorer for the order (task 1), subflows to separate rules (tasks 2 and 3) and $Permission for the switch (task 4). The only thing Flow lacks is task 4's guard, because it needs static memory for the whole transaction.",
+      },
+      voice: "otter",
+    },
+    {
       type: "h",
       text: { es: "Dos triggers, dos resultados", en: "Two triggers, two results" },
     },
@@ -280,8 +290,8 @@ export const l01UnTriggerPorObjeto: Lesson = {
     {
       type: "p",
       text: {
-        es: "Unir los dos triggers en uno arregla el orden, pero deja otro problema a la vista: el archivo empieza a mezclar reglas que no tienen nada que ver. Con dos reglas se lee; con diez, es un documento de 400 líneas donde nadie se atreve a tocar nada. Además, esa lógica solo se puede ejecutar guardando un caso: si mañana Soporte quiere un botón que aplique la misma regla, habría que copiarla. Por eso la norma completa es «un trigger por objeto, y sin lógica». Hoy cumples la primera mitad; la segunda es la tarea 2.",
-        en: "Merging the two triggers into one fixes the order, but exposes another problem: the file starts mixing rules that have nothing to do with each other. With two rules it reads fine; with ten, it is a 400-line document nobody dares touch. Besides, that logic can only run by saving a case: if Support wants a button tomorrow that applies the same rule, it would have to be copied. That is why the full rule is “one trigger per object, and no logic”. Today you meet the first half; the second is task 2.",
+        es: "Unir los dos triggers arregla el orden, pero el archivo empieza a mezclar reglas que no tienen nada que ver: con diez, son 400 líneas que nadie se atreve a tocar. Y esa lógica solo se ejecuta guardando un caso; un botón con la misma regla obligaría a copiarla. Por eso la norma completa es «un trigger por objeto, y sin lógica». Hoy cumples la primera mitad; la segunda es la tarea 2.",
+        en: "Merging the two triggers fixes the order, but the file starts mixing rules that have nothing to do with each other: with ten, it is 400 lines nobody dares touch. And that logic only runs by saving a case; a button with the same rule would force a copy. That is why the full rule is “one trigger per object, and no logic”. Today you meet the first half; the second is task 2.",
       },
     },
     {
