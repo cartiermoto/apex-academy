@@ -206,10 +206,10 @@ export const l12Checkpoint: Lesson = {
     {
       type: "callout",
       variant: "admin",
-      title: { es: "Diseñar clases es diseñar un modelo de datos", en: "Designing classes is designing a data model" },
+      title: { es: "¿Y por qué no un Flow? Porque las comisiones van a cambiar", en: "Why not a Flow? Because commissions are going to change" },
       text: {
-        es: "Lo que más me ayudó en este módulo: cuando te piden un proceso nuevo, antes de tocar Flow dibujas los objetos y sus relaciones, qué es padre de qué, qué campos son comunes. Con las clases se hace igual y en el mismo orden: primero qué cosas hay y qué comparten (herencia), luego qué saben hacer (métodos e interfaces), y al final qué se protege (private). Tu experiencia diseñando modelos de datos es la mejor preparación que existe para esto.",
-        en: "What helped me most in this module: when you are asked for a new process, before touching Flow you draw the objects and their relationships, what is parent of what, which fields are shared. With classes it is the same and in the same order: first what things exist and what they share (inheritance), then what they can do (methods and interfaces), and finally what is protected (private). Your experience designing data models is the best preparation there is for this.",
+        es: "En Flow, cada tipo de oportunidad sería una rama de una Decision con su fórmula de comisión, y cada concepto nuevo que invente Ventas, otra rama más en un flow que al final nadie se atreve a tocar. Con Commissionable, un concepto nuevo es una clase nueva que cumple el contrato, y el bucle que suma las comisiones no cambia ni una línea.",
+        en: "In Flow, each opportunity type would be a branch of a Decision with its commission formula, and every new concept Sales invents, one more branch in a flow that in the end nobody dares to touch. With Commissionable, a new concept is a new class that meets the contract, and the loop that adds up the commissions does not change a single line.",
       },
       voice: "otter",
     },

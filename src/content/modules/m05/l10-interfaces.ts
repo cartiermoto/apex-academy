@@ -247,6 +247,16 @@ System.debug(total);   // 50`,
     },
     {
       type: "callout",
+      variant: "admin",
+      title: { es: "¿Y por qué no un Flow? Porque un flow no elige el subflow al ejecutarse", en: "Why not a Flow? Because a flow cannot pick the subflow at run time" },
+      text: {
+        es: "Con subflows llegué hasta aquí: cada regla de scoring era un subflow. Pero el elemento Subflow apunta a un flow concreto que eliges al diseñar; no puedes recorrer una lista de reglas y llamar a cada una. Cada regla nueva era un elemento más en el flow principal, y quitar una, otro cambio y otro despliegue. Con la interfaz, añadir una regla es añadir una línea a la lista y el cálculo del total no se toca.",
+        en: "With subflows I got this far: each scoring rule was a subflow. But the Subflow element points at one specific flow you choose at design time; you cannot loop over a list of rules and call each one. Every new rule meant one more element in the main flow, and removing one meant another change and another deployment. With the interface, adding a rule is adding a line to the list, and the total calculation is not touched.",
+      },
+      voice: "otter",
+    },
+    {
+      type: "callout",
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },
       text: {
