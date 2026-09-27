@@ -110,6 +110,16 @@ export const l06Checkpoint: Lesson = {
       voice: "otter",
     },
     {
+      type: "callout",
+      variant: "admin",
+      title: { es: "¿Y por qué no un Flow? El escalado sí; el resumen, no", en: "Why not a Flow? The escalation yes; the summary, no" },
+      text: {
+        es: "Un flow programado sobre los casos de ayer podría escalar los de cuentas Hot (mirando $Record.Account.Rating) y crear las tareas. Pero Soporte quería cada mañana un resumen: cuántos se escalaron y cuántos fallaron. En un flow programado cada caso es una interview independiente, con sus propias variables, así que no hay un contador común para los 200. En Apex el proceso ve los 200 a la vez y los SaveResult te dan el recuento.",
+        en: "A scheduled flow on yesterday's cases could escalate those with Hot accounts (checking $Record.Account.Rating) and create the tasks. But Support wanted a summary every morning: how many were escalated and how many failed. In a scheduled flow each case is an independent interview with its own variables, so there is no shared counter for the 200. In Apex the process sees all 200 at once and the SaveResults give you the count.",
+      },
+      voice: "otter",
+    },
+    {
       type: "h",
       text: { es: "Ahora en tu Developer Org", en: "Now in your Developer Org" },
     },

@@ -206,6 +206,16 @@ if (anyFailed) {
     },
     {
       type: "callout",
+      variant: "admin",
+      title: { es: "¿Y por qué no un Flow? Roll Back Records se lo lleva todo", en: "Why not a Flow? Roll Back Records takes everything" },
+      text: {
+        es: "Para el alta de Aurora Foods sola, un fault path con Roll Back Records habría funcionado. El problema llega cuando el mismo proceso hace varias cosas: Roll Back Records deshace todo lo pendiente de la transacción. Si el proceso da de alta tres clientes y falla el tercero, se lleva también los dos que salieron bien. Con un savepoint antes de cada alta, solo se deshace la que falló.",
+        en: "For Aurora Foods' onboarding alone, a fault path with Roll Back Records would have worked. The problem comes when the same process does several things: Roll Back Records undoes everything pending in the transaction. If the process onboards three customers and the third fails, it also takes the two that went fine. With a savepoint before each onboarding, only the failed one is undone.",
+      },
+      voice: "otter",
+    },
+    {
+      type: "callout",
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },
       text: {

@@ -212,6 +212,16 @@ for (Integer i = 0; i < results.size(); i++) {
     },
     {
       type: "callout",
+      variant: "admin",
+      title: { es: "¿Y por qué no un Flow? Porque Marketing quiere la lista", en: "Why not a Flow? Because Marketing wants the list" },
+      text: {
+        es: "Desde Winter '25, Create Records puede guardar parcialmente: los leads buenos entran aunque haya uno malo. Pero el flow no recibe qué registros fallaron ni por qué, y Marketing quiere exactamente esa lista para corregirlos por la mañana. Con Database.insert(leads, false), cada SaveResult te dice cuál falló y su motivo, como el error.csv de Data Loader.",
+        en: "Since Winter '25, Create Records can save partially: the good leads get in even if one is bad. But the flow does not receive which records failed or why, and Marketing wants exactly that list to fix them in the morning. With Database.insert(leads, false), each SaveResult tells you which one failed and its reason, like Data Loader's error.csv.",
+      },
+      voice: "otter",
+    },
+    {
+      type: "callout",
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },
       text: {
