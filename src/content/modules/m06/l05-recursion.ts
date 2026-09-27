@@ -216,6 +216,16 @@ trigger OpportunityReview on Opportunity (after update) {
     },
     {
       type: "callout",
+      variant: "admin",
+      title: { es: "¿Y por qué no un Flow? Porque Flow no tiene memoria entre vueltas", en: "Why not a Flow? Because Flow has no memory between passes" },
+      text: {
+        es: "Este sí que no tenía arreglo limpio en Flow. Cada interview empieza de cero: no hay nada como un static Set<Id> que recuerde «esta oportunidad ya la procesé» durante toda la transacción. La salida habitual es un campo casilla en el registro que haga de bandera, y eso significa un campo más en el objeto y un guardado más para marcarlo y desmarcarlo. La guía de Salesforce lo dice tal cual: la memoria de la transacción con variables static es terreno de Apex.",
+        en: "This one had no clean fix in Flow. Every interview starts from scratch: there is nothing like a static Set<Id> that remembers «I already processed this opportunity» for the whole transaction. The usual workaround is a checkbox field on the record acting as a flag, which means one more field on the object and one more save to set and clear it. Salesforce's guide says it plainly: transaction memory with static variables is Apex territory.",
+      },
+      voice: "otter",
+    },
+    {
+      type: "callout",
       variant: "tip",
       title: { es: "📘 Del libro de Java a Apex", en: "📘 From the Java book to Apex" },
       text: {

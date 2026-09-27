@@ -186,8 +186,8 @@ export const l01QueEsTrigger: Lesson = {
     {
       type: "p",
       text: {
-        es: "Esta es la diferencia más importante con Flow. Un Record-Triggered Flow trabaja con un registro, $Record, y Salesforce agrupa por ti las interviews cuando llegan muchas. Un trigger, en cambio, recibe todos los registros del lote a la vez en Trigger.new, que es una List: uno si alguien guarda desde la pantalla, hasta 200 si llegan de Data Loader. Por eso el código de dentro es un for, y por eso el Módulo 4 insistía tanto en bulkificar. Aquí no es un consejo: es la forma en que llegan los datos.",
-        en: "This is the most important difference from Flow. A record-triggered Flow works with one record, $Record, and Salesforce groups the interviews for you when many arrive. A trigger, by contrast, receives every record in the batch at once in Trigger.new, which is a List: one if someone saves from the screen, up to 200 if they come from Data Loader. That is why the code inside is a for, and why Module 4 insisted so much on bulkifying. Here it is not advice: it is how the data arrives.",
+        es: "Es la diferencia más importante con Flow. Un flow trabaja con un registro, $Record, y Salesforce agrupa por ti las interviews. Un trigger recibe todo el lote a la vez en Trigger.new, que es una List: uno si alguien guarda desde la pantalla, hasta 200 si llegan de Data Loader. Por eso el código de dentro es un for: aquí bulkificar no es un consejo, es la forma en que llegan los datos.",
+        en: "It is the most important difference from Flow. A flow works with one record, $Record, and Salesforce groups the interviews for you. A trigger receives the whole batch at once in Trigger.new, which is a List: one if someone saves from the screen, up to 200 if they come from Data Loader. That is why the code inside is a for: here bulkifying is not advice, it is how the data arrives.",
       },
     },
     {
@@ -198,27 +198,6 @@ export const l01QueEsTrigger: Lesson = {
         es: "El error de principiante más visto en revisiones de código: escribir Account a = Trigger.new[0]; y trabajar con esa cuenta. Funciona cuando pruebas guardando una cuenta a mano, y con una carga de 200 procesa la primera e ignora las 199 restantes, sin dar ningún error. Recorre siempre la lista entera.",
         en: "The beginner mistake seen most often in code reviews: writing Account a = Trigger.new[0]; and working with that account. It works when you test by saving one account by hand, and with a load of 200 it processes the first and ignores the other 199, without any error. Always walk the whole list.",
       },
-    },
-    {
-      type: "h",
-      text: { es: "Dónde vive en tu org", en: "Where it lives in your org" },
-    },
-    {
-      type: "list",
-      items: [
-        {
-          es: "Setup → Object Manager → Lead → Triggers: la lista de triggers de ese objeto. Justo al lado está Flow Triggers, con los flows del mismo objeto. Son vecinos por algo.",
-          en: "Setup → Object Manager → Lead → Triggers: the list of that object's triggers. Right next to it is Flow Triggers, with the same object's flows. They are neighbours for a reason.",
-        },
-        {
-          es: "Para crear uno: Developer Console → File → New → Apex Trigger. Te pide el nombre y el objeto, y te da la cabecera escrita.",
-          en: "To create one: Developer Console → File → New → Apex Trigger. It asks for the name and the object, and gives you the header already written.",
-        },
-        {
-          es: "Setup → Apex Triggers: todos los triggers de la org. Desde ahí se ve si están activos, como las versiones de un flow.",
-          en: "Setup → Apex Triggers: every trigger in the org. From there you can see whether they are active, like a flow's versions.",
-        },
-      ],
     },
     {
       type: "callout",
@@ -236,38 +215,41 @@ export const l01QueEsTrigger: Lesson = {
     {
       type: "p",
       text: {
-        es: "Un flow lo puedes crear y activar directamente en producción. Un trigger no: en una org de producción no se puede escribir ni editar código Apex desde la interfaz. Se escribe en un sandbox o en una Developer Org, se prueba, y se despliega a producción, y el despliegue solo se acepta si las clases de test cubren al menos el 75 % del código (Módulo 10). Tu Developer Org es la excepción: es tu propio laboratorio, y en ella sí puedes escribir directamente.",
-        en: "A flow can be built and activated straight in production. A trigger cannot: in a production org you cannot write or edit Apex code from the UI. It is written in a sandbox or a Developer Org, tested, and deployed to production, and the deployment is only accepted if the test classes cover at least 75% of the code (Module 10). Your Developer Org is the exception: it is your own lab, and there you can write directly.",
+        es: "Un flow lo puedes crear y activar directamente en producción; un trigger no. Se escribe en un sandbox o en una Developer Org y se despliega, como un change set, con una condición más: el despliegue solo se acepta si los tests cubren al menos el 75 % del código (Módulo 10). Tu Developer Org es tu laboratorio: en ella sí escribes directamente.",
+        en: "A flow can be built and activated straight in production; a trigger cannot. It is written in a sandbox or a Developer Org and deployed, like a change set, with one extra condition: the deployment is only accepted if tests cover at least 75% of the code (Module 10). Your Developer Org is your lab: there you write directly.",
       },
-    },
-    {
-      type: "callout",
-      variant: "admin",
-      title: { es: "Como un change set, pero con examen", en: "Like a change set, but with an exam" },
-      text: {
-        es: "Si alguna vez subiste campos o flows de un sandbox a producción con un change set, como hice yo tantas veces, ya conoces el camino. Con Apex es el mismo, con una condición más: al desplegar, Salesforce ejecuta los tests y rechaza el paquete si no llegan a la cobertura mínima. Por eso ningún developer serio escribe un trigger sin su clase de test al lado.",
-        en: "If you ever moved fields or flows from a sandbox to production with a change set, as I did so many times, you already know the path. With Apex it is the same, with one extra condition: on deployment, Salesforce runs the tests and rejects the package if they fall short of the minimum coverage. That is why no serious developer writes a trigger without its test class next to it.",
-      },
-      voice: "otter",
     },
     {
       type: "h",
       text: { es: "El encargo de este módulo", en: "This module's assignment" },
     },
     {
-      type: "p",
-      text: {
-        es: "La org de Northwind ha crecido a base de Record-Triggered Flows, y algunos se han quedado cortos: se vuelven lentos con las cargas masivas, chocan entre sí o necesitan lógica que en el lienzo es un laberinto. El equipo ha decidido migrar los más críticos a Apex, uno por uno. Ese es el encargo del módulo: cada taller migra uno de esos flows a un trigger, empezando por el más sencillo y terminando por el escalado de casos de Soporte, que es el que el Módulo 7 convertirá en una arquitectura profesional.",
-        en: "Northwind's org has grown on record-triggered flows, and some have fallen short: they slow down under bulk loads, collide with each other or need logic that is a maze on the canvas. The team has decided to migrate the most critical ones to Apex, one by one. That is this module's assignment: each workshop migrates one of those flows to a trigger, starting with the simplest and ending with Support's case escalation, which Module 7 will turn into a professional architecture.",
-      },
-    },
-    {
       type: "callout",
       variant: "admin",
       title: { es: "Los seis flows que se migran", en: "The six flows being migrated" },
       text: {
-        es: "Vengo de la reunión con Northwind: han decidido migrar a Apex seis de sus flows, y nos toca a nosotros. 1 · El registro de leads del formulario web (Marketing). 2 · El rastro de cambios de etapa de las oportunidades (Ventas). 3 · El alta de cuentas nuevas con su tarea de bienvenida. 4 · El país de los contactos que exige una regla de validación. 5 · La revisión de oportunidades que se pelea con otro equipo. 6 · El escalado de casos de Soporte. Seis objetos distintos: al acabar habrás tocado casi todo Sales Cloud desde el código.",
-        en: "I have just come out of the Northwind meeting: they have decided to migrate six of their flows to Apex, and it is our job. 1 · Logging web-form leads (Marketing). 2 · The opportunity stage-change trail (Sales). 3 · Onboarding new accounts with their welcome task. 4 · The contacts' country a validation rule requires. 5 · The opportunity review clashing with another team. 6 · Support's case escalation. Six different objects: by the end you will have touched nearly all of Sales Cloud from code.",
+        es: "Northwind ha decidido migrar a Apex seis de sus flows, y nos toca a nosotros, un taller por flow: 1 · el registro de leads del formulario web; 2 · el rastro de cambios de etapa; 3 · el alta de cuentas con su tarea de bienvenida; 4 · el país de los contactos; 5 · la revisión de oportunidades que se pelea con otro equipo; 6 · el escalado de casos de Soporte, que el Módulo 7 convertirá en una arquitectura profesional.",
+        en: "Northwind has decided to migrate six of its flows to Apex, and it is our job, one workshop per flow: 1 · logging web-form leads; 2 · the stage-change trail; 3 · onboarding accounts with their welcome task; 4 · the contacts' country; 5 · the opportunity review clashing with another team; 6 · Support's case escalation, which Module 7 will turn into a professional architecture.",
+      },
+      voice: "otter",
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "¿Y por qué migrar flows que funcionan?", en: "Why migrate flows that work?" },
+      text: {
+        es: "Buena pregunta, y la respuesta oficial es de Salesforce: su guía de decisión dice que para cambiar campos del propio registro, el flow before-save es la primera opción. Apex se recomienda cuando hace falta volumen alto, Map y Set (que Flow no tiene), savepoints, reaccionar a undelete, varios errores por campo o una memoria que dure toda la transacción. Y pide no mezclar flows y triggers como punto de entrada del mismo objeto. Cada flow de Northwind se migra por una de esas razones, y en cada lección te digo cuál.",
+        en: "Good question, and the official answer comes from Salesforce: its decision guide says that for changing fields on the record itself, the before-save flow is the first choice. Apex is recommended when you need high volume, Map and Set (which Flow does not have), savepoints, reacting to undelete, several errors per field or a memory that lasts the whole transaction. And it asks you not to mix flows and triggers as entry points of the same object. Each Northwind flow is migrated for one of those reasons, and in each lesson I tell you which.",
+      },
+      voice: "otter",
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "¿Y por qué no un Flow? Porque Flow no escribe en el log", en: "Why not a Flow? Because Flow does not write to the log" },
+      text: {
+        es: "El flow de Marketing no podía escribir sus propios mensajes en el debug log: Flow no tiene nada parecido a System.debug. Así que creaba un registro de un objeto de log por cada lead, y con las cargas nocturnas eran cientos de registros más al día ocupando almacenamiento. En Apex, System.debug escribe en el log sin guardar nada. Es el flow más sencillo, y por eso es el primero.",
+        en: "Marketing's flow could not write its own messages to the debug log: Flow has nothing like System.debug. So it created a record in a log object for every lead, and with the nightly loads that was hundreds of extra records a day taking up storage. In Apex, System.debug writes to the log without saving anything. It is the simplest flow, and that is why it goes first.",
       },
       voice: "otter",
     },
