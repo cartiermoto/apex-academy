@@ -27,6 +27,7 @@ import {
 } from "./diagrams-anim-m02";
 import { GuardBypassPlay, LayerChooserPlay, ServiceDoorsPlay, ThinTriggerPlay, TwoTriggersPlay } from "./diagrams-anim-m07";
 import { BeforeAfterPlay, ContextPlay, FlowToTriggerPlay, RecursionPlay, TriggerAnatomyPlay } from "./diagrams-anim-m06";
+import { AsyncChooserPlay, BatchPlay, CronPlay, FuturePlay, NightlyPipelinePlay, QueueableChainPlay, SyncAsyncPlay } from "./diagrams-anim-m09";
 import { AddErrorPlay, CustomExceptionPlay, ErrorDictionaryPlay, ExceptionTypesPlay, PropagationPlay, TryFlowPlay } from "./diagrams-anim-m08";
 import { AllOrNonePlay, BulkPlay, DmlOpsPlay, LimitsPlay, RecipeOrderPlay, SavepointPlay } from "./diagrams-anim-m04";
 import {
@@ -551,6 +552,13 @@ const REGISTRY: Record<string, (p: P) => React.ReactElement> = {
   "m08-custom-exception": CustomExceptionPlay,
   "m08-adderror": AddErrorPlay,
   "m08-cp-map": ErrorDictionaryPlay,
+  "m09-sync-async": SyncAsyncPlay,
+  "m09-future": FuturePlay,
+  "m09-queueable-chain": QueueableChainPlay,
+  "m09-batch": BatchPlay,
+  "m09-cron": CronPlay,
+  "m09-chooser": AsyncChooserPlay,
+  "m09-cp-pipeline": NightlyPipelinePlay,
   "m06-anatomy": TriggerAnatomyPlay,
   "m06-before-after": BeforeAfterPlay,
   "m06-order": OrderOfExecution,

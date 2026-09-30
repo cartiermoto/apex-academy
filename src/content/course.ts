@@ -7,6 +7,7 @@ import { m05 } from "./modules/m05";
 import { m06 } from "./modules/m06";
 import { m07 } from "./modules/m07";
 import { m08 } from "./modules/m08";
+import { m09 } from "./modules/m09";
 import { challenge1, challenge2 } from "./challenges";
 
 /* -------------------------------------------------------------------------- */
@@ -33,26 +34,6 @@ function planned(
     outline: outline.map(([es, en]) => ({ es, en })),
   };
 }
-
-const m09 = planned(
-  9,
-  "m09",
-  "robust",
-  { es: "Apex Asíncrono", en: "Asynchronous Apex" },
-  {
-    es: "Trabajo que no cabe en una transacción: cuatro herramientas y cuándo usar cada una.",
-    en: "Work that does not fit in one transaction: four tools and when to use each.",
-  },
-  [
-    ["Por qué existe el asíncrono", "Why async exists"],
-    ["@future", "@future"],
-    ["Queueable Apex", "Queueable Apex"],
-    ["Batch Apex", "Batch Apex"],
-    ["Scheduled Apex", "Scheduled Apex"],
-    ["Elegir la herramienta correcta", "Choosing the right tool"],
-    ["Checkpoint del Módulo 9", "Module 9 checkpoint"],
-  ],
-);
 
 const m10 = planned(
   10,
