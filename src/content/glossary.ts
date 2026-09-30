@@ -479,6 +479,45 @@ export const glossary: GlossaryEntry[] = [
     },
     taughtIn: { es: "Módulo 8", en: "Module 8" },
   },
+  {
+    id: "asincrono",
+    term: { es: "asíncrono", en: "asynchronous" },
+    definition: {
+      es: "Código que no se ejecuta ahora, mientras el usuario espera, sino más tarde, en una cola de Salesforce, en su propia transacción y con límites más amplios.",
+      en: "Code that does not run now, while the user waits, but later, in a Salesforce queue, in its own transaction and with wider limits.",
+    },
+    admin: {
+      es: "El camino «Run Asynchronously» de un flow desencadenado por registro: se ejecuta después, sin hacer esperar a quien guardó.",
+      en: "A record-triggered flow's «Run Asynchronously» path: it runs afterwards, without making whoever saved wait.",
+    },
+    taughtIn: { es: "Módulo 9", en: "Module 9" },
+  },
+  {
+    id: "cola-apex",
+    term: { es: "cola de Apex", en: "Apex queue" },
+    definition: {
+      es: "La lista de trabajos asíncronos que Salesforce ejecuta cuando tiene recursos libres. Se ve en Setup → Apex Jobs, y desde código en el objeto AsyncApexJob.",
+      en: "The list of asynchronous jobs Salesforce runs when it has free resources. You see it in Setup → Apex Jobs, and from code in the AsyncApexJob object.",
+    },
+    admin: {
+      es: "Como Setup → Paused and Failed Flow Interviews, pero para Apex: ahí ves qué trabajos esperan, corren o fallaron.",
+      en: "Like Setup → Paused and Failed Flow Interviews, but for Apex: there you see which jobs are waiting, running or failed.",
+    },
+    taughtIn: { es: "Módulo 9", en: "Module 9" },
+  },
+  {
+    id: "cron",
+    term: { es: "expresión cron", en: "cron expression" },
+    definition: {
+      es: "Un texto con siete posiciones (segundos, minutos, horas, día del mes, mes, día de la semana y año opcional) que dice cuándo se repite un trabajo programado. '0 0 2 ? * MON-FRI' es «a las 2:00, de lunes a viernes».",
+      en: "A text with seven positions (seconds, minutes, hours, day of month, month, day of week and optional year) saying when a scheduled job repeats. '0 0 2 ? * MON-FRI' is «at 2:00, Monday to Friday».",
+    },
+    admin: {
+      es: "La frecuencia de un flow programado (una vez, diario, semanal), pero con toda la precisión que quieras.",
+      en: "A scheduled flow's frequency (once, daily, weekly), but with as much precision as you want.",
+    },
+    taughtIn: { es: "Módulo 9", en: "Module 9" },
+  },
 ];
 
 const byId = new Map(glossary.map((g) => [g.id, g]));
