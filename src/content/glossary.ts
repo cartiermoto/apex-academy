@@ -518,6 +518,32 @@ export const glossary: GlossaryEntry[] = [
     },
     taughtIn: { es: "Módulo 9", en: "Module 9" },
   },
+  {
+    id: "cobertura",
+    term: { es: "cobertura de código", en: "code coverage" },
+    definition: {
+      es: "El porcentaje de líneas de tu Apex que se ejecutan al pasar los tests. Para desplegar a producción hace falta al menos un 75 % en conjunto, y cada trigger tiene que ejecutarse alguna vez. Mide qué líneas corren, no si hacen lo correcto: eso lo comprueban los asserts.",
+      en: "The percentage of your Apex lines that run when the tests pass. Deploying to production needs at least 75% overall, and every trigger has to run at least once. It measures which lines run, not whether they do the right thing: asserts check that.",
+    },
+    admin: {
+      es: "Como una lista de comprobación de UAT: dice qué pantallas se han probado, no si el resultado era el bueno.",
+      en: "Like a UAT checklist: it says which screens were tested, not whether the result was the right one.",
+    },
+    taughtIn: { es: "Módulo 10", en: "Module 10" },
+  },
+  {
+    id: "mock",
+    term: { es: "mock", en: "mock" },
+    definition: {
+      es: "Una pieza falsa que ocupa el lugar de otra real durante un test. En Apex, un HttpCalloutMock responde en lugar del sistema externo, porque los tests no pueden hacer llamadas reales.",
+      en: "A fake piece that stands in for a real one during a test. In Apex, an HttpCalloutMock answers in place of the external system, because tests cannot make real calls.",
+    },
+    admin: {
+      es: "Como probar un flow en una sandbox con un usuario y datos de prueba en lugar de los de verdad.",
+      en: "Like testing a flow in a sandbox with a test user and data instead of the real ones.",
+    },
+    taughtIn: { es: "Módulo 10", en: "Module 10" },
+  },
 ];
 
 const byId = new Map(glossary.map((g) => [g.id, g]));

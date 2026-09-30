@@ -8,6 +8,7 @@ import { m06 } from "./modules/m06";
 import { m07 } from "./modules/m07";
 import { m08 } from "./modules/m08";
 import { m09 } from "./modules/m09";
+import { m10 } from "./modules/m10";
 import { challenge1, challenge2 } from "./challenges";
 
 /* -------------------------------------------------------------------------- */
@@ -34,26 +35,6 @@ function planned(
     outline: outline.map(([es, en]) => ({ es, en })),
   };
 }
-
-const m10 = planned(
-  10,
-  "m10",
-  "robust",
-  { es: "Testing en Apex", en: "Testing in Apex" },
-  {
-    es: "El 75 % no es la meta: es el mínimo para desplegar. La meta es dormir tranquilo.",
-    en: "75% is not the goal: it is the minimum to deploy. The goal is sleeping well.",
-  },
-  [
-    ["@isTest y la clase de test", "@isTest and the test class"],
-    ["Datos de prueba y @testSetup", "Test data and @testSetup"],
-    ["Assert: verificar de verdad", "Assert: actually verifying"],
-    ["Test.startTest / Test.stopTest", "Test.startTest / Test.stopTest"],
-    ["Probar excepciones y casos límite", "Testing exceptions and edge cases"],
-    ["Mocks para callouts", "Mocks for callouts"],
-    ["Checkpoint del Módulo 10", "Module 10 checkpoint"],
-  ],
-);
 
 const m11 = planned(
   11,
