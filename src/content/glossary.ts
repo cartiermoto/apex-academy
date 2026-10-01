@@ -544,6 +544,45 @@ export const glossary: GlossaryEntry[] = [
     },
     taughtIn: { es: "Módulo 10", en: "Module 10" },
   },
+  {
+    id: "callout",
+    term: { es: "callout", en: "callout" },
+    definition: {
+      es: "Una llamada que tu código hace desde Salesforce a otro sistema: una petición HTTP con su método (GET, POST…), su dirección y su cuerpo, y la respuesta que vuelve con un código de estado.",
+      en: "A call your code makes from Salesforce to another system: an HTTP request with its method (GET, POST…), its address and its body, and the response that comes back with a status code.",
+    },
+    admin: {
+      es: "La acción HTTP Callout de un flow: lo mismo, montado con clics.",
+      en: "A flow's HTTP Callout action: the same thing, built with clicks.",
+    },
+    taughtIn: { es: "Módulo 11", en: "Module 11" },
+  },
+  {
+    id: "json",
+    term: { es: "JSON", en: "JSON" },
+    definition: {
+      es: "El formato de texto con el que casi todos los sistemas se pasan datos: llaves para los objetos, corchetes para las listas y pares «nombre»: valor. En Apex se convierte a clases y de vuelta con JSON.serialize y JSON.deserialize.",
+      en: "The text format nearly every system uses to pass data around: braces for objects, brackets for lists and «name»: value pairs. In Apex it is turned into classes and back with JSON.serialize and JSON.deserialize.",
+    },
+    admin: {
+      es: "Como una fila de un CSV de Data Loader, pero con nombres en cada valor y la posibilidad de anidar listas dentro.",
+      en: "Like a row of a Data Loader CSV, but with a name on each value and the option of nesting lists inside.",
+    },
+    taughtIn: { es: "Módulo 11", en: "Module 11" },
+  },
+  {
+    id: "named-credential",
+    term: { es: "Named Credential", en: "Named Credential" },
+    definition: {
+      es: "Una configuración de Setup que guarda la dirección de un sistema externo y cómo autenticarse en él. El código la usa con callout:Nombre y nunca ve la contraseña ni el token.",
+      en: "A Setup configuration that stores an external system's address and how to authenticate with it. Code uses it with callout:Name and never sees the password or token.",
+    },
+    admin: {
+      es: "Como un usuario de integración con su permiso: lo configura el Admin una vez, y el código solo lo nombra.",
+      en: "Like an integration user with its permission: the Admin sets it up once, and the code only names it.",
+    },
+    taughtIn: { es: "Módulo 11", en: "Module 11" },
+  },
 ];
 
 const byId = new Map(glossary.map((g) => [g.id, g]));

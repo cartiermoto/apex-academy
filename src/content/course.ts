@@ -9,6 +9,7 @@ import { m07 } from "./modules/m07";
 import { m08 } from "./modules/m08";
 import { m09 } from "./modules/m09";
 import { m10 } from "./modules/m10";
+import { m11 } from "./modules/m11";
 import { challenge1, challenge2 } from "./challenges";
 
 /* -------------------------------------------------------------------------- */
@@ -35,26 +36,6 @@ function planned(
     outline: outline.map(([es, en]) => ({ es, en })),
   };
 }
-
-const m11 = planned(
-  11,
-  "m11",
-  "scope",
-  { es: "Integraciones", en: "Integrations" },
-  {
-    es: "Salesforce hablando con el resto del mundo.",
-    en: "Salesforce talking to the rest of the world.",
-  },
-  [
-    ["HTTP callouts: Http, HttpRequest, HttpResponse", "HTTP callouts: Http, HttpRequest, HttpResponse"],
-    ["JSON: serializar y deserializar", "JSON: serialize and deserialize"],
-    ["Named Credentials y Remote Site Settings", "Named credentials and remote site settings"],
-    ["Exponer Apex como REST", "Exposing Apex as REST"],
-    ["SOAP y WSDL2Apex", "SOAP and WSDL2Apex"],
-    ["Callouts en asíncrono", "Callouts from async context"],
-    ["Checkpoint del Módulo 11", "Module 11 checkpoint"],
-  ],
-);
 
 const m12 = planned(
   12,

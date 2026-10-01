@@ -27,6 +27,7 @@ import {
 } from "./diagrams-anim-m02";
 import { GuardBypassPlay, LayerChooserPlay, ServiceDoorsPlay, ThinTriggerPlay, TwoTriggersPlay } from "./diagrams-anim-m07";
 import { BeforeAfterPlay, ContextPlay, FlowToTriggerPlay, RecursionPlay, TriggerAnatomyPlay } from "./diagrams-anim-m06";
+import { JsonMouldPlay, NamedCredentialPlay, RequestPlay, RestDoorPlay, RestVsSoapPlay, RetryPlay, RoundTripPlay } from "./diagrams-anim-m11";
 import { AssertPlay, CoveragePlay, EdgeCasesPlay, MockPlay, StopTestPlay, SuitePlay, TestDataPlay } from "./diagrams-anim-m10";
 import { AsyncChooserPlay, BatchPlay, CronPlay, FuturePlay, NightlyPipelinePlay, QueueableChainPlay, SyncAsyncPlay } from "./diagrams-anim-m09";
 import { AddErrorPlay, CustomExceptionPlay, ErrorDictionaryPlay, ExceptionTypesPlay, PropagationPlay, TryFlowPlay } from "./diagrams-anim-m08";
@@ -567,6 +568,13 @@ const REGISTRY: Record<string, (p: P) => React.ReactElement> = {
   "m10-edge-cases": EdgeCasesPlay,
   "m10-mock": MockPlay,
   "m10-cp-suite": SuitePlay,
+  "m11-request": RequestPlay,
+  "m11-json": JsonMouldPlay,
+  "m11-named-credential": NamedCredentialPlay,
+  "m11-rest": RestDoorPlay,
+  "m11-soap": RestVsSoapPlay,
+  "m11-retry": RetryPlay,
+  "m11-cp-roundtrip": RoundTripPlay,
   "m06-anatomy": TriggerAnatomyPlay,
   "m06-before-after": BeforeAfterPlay,
   "m06-order": OrderOfExecution,
