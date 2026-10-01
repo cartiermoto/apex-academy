@@ -583,6 +583,45 @@ export const glossary: GlossaryEntry[] = [
     },
     taughtIn: { es: "Módulo 11", en: "Module 11" },
   },
+  {
+    id: "modo-sistema",
+    term: { es: "modo sistema", en: "system mode" },
+    definition: {
+      es: "Código que se ejecuta sin mirar los permisos de objeto ni de campo del usuario que lo dispara. Era el comportamiento por defecto de Apex hasta la versión 66 de la API; desde la 67 (Summer '26), las consultas y los guardados van en modo usuario salvo que pidas lo contrario.",
+      en: "Code that runs without checking the object or field permissions of the user who triggers it. It was Apex's default behaviour up to API version 66; from 67 (Summer '26), queries and saves run in user mode unless you ask otherwise.",
+    },
+    admin: {
+      es: "Un flow configurado como «System Context»: hace lo que el usuario no podría hacer a mano.",
+      en: "A flow set to «System Context»: it does what the user could not do by hand.",
+    },
+    taughtIn: { es: "Módulo 12", en: "Module 12" },
+  },
+  {
+    id: "modo-usuario",
+    term: { es: "modo usuario", en: "user mode" },
+    definition: {
+      es: "Código que respeta lo que el usuario puede hacer: permisos de objeto, seguridad a nivel de campo y sharing. En Apex se pide con WITH USER_MODE en una consulta y con «as user» en un guardado.",
+      en: "Code that respects what the user may do: object permissions, field-level security and sharing. In Apex you ask for it with WITH USER_MODE in a query and «as user» in a save.",
+    },
+    admin: {
+      es: "Un flow configurado como «User Context»: solo llega hasta donde llegaría el usuario.",
+      en: "A flow set to «User Context»: it only reaches as far as the user would.",
+    },
+    taughtIn: { es: "Módulo 12", en: "Module 12" },
+  },
+  {
+    id: "fls",
+    term: { es: "seguridad a nivel de campo (FLS)", en: "field-level security (FLS)" },
+    definition: {
+      es: "Lo que decide, en perfiles y permission sets, si un usuario puede ver o editar cada campo. Junto con los permisos de objeto (crear, leer, editar, borrar: CRUD), es lo que tu código tiene que respetar.",
+      en: "What decides, in profiles and permission sets, whether a user can see or edit each field. Together with object permissions (create, read, edit, delete: CRUD), it is what your code has to respect.",
+    },
+    admin: {
+      es: "La pantalla Field-Level Security de un campo en Object Manager, que tú configuras cada día.",
+      en: "A field's Field-Level Security screen in Object Manager, which you configure every day.",
+    },
+    taughtIn: { es: "Módulo 12", en: "Module 12" },
+  },
 ];
 
 const byId = new Map(glossary.map((g) => [g.id, g]));
