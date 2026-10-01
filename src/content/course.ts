@@ -1,4 +1,4 @@
-import type { Challenge, Course, Lesson, Module, ModuleCategory } from "@/lib/types";
+import type { Challenge, Course, Lesson, Module } from "@/lib/types";
 import { m01 } from "./modules/m01";
 import { m02 } from "./modules/m02";
 import { m03 } from "./modules/m03";
@@ -10,50 +10,8 @@ import { m08 } from "./modules/m08";
 import { m09 } from "./modules/m09";
 import { m10 } from "./modules/m10";
 import { m11 } from "./modules/m11";
+import { m12 } from "./modules/m12";
 import { challenge1, challenge2 } from "./challenges";
-
-/* -------------------------------------------------------------------------- */
-/* Modules 8–12 — outlines. Each becomes a full module with the same shape as  */
-/* m01 (Teoría → Quiz → Ejercicio per sub-lesson + a Checkpoint).              */
-/* -------------------------------------------------------------------------- */
-
-function planned(
-  n: number,
-  id: string,
-  category: ModuleCategory,
-  title: { es: string; en: string },
-  subtitle: { es: string; en: string },
-  outline: Array<[string, string]>,
-): Module {
-  return {
-    id,
-    n,
-    category,
-    title,
-    subtitle,
-    status: "planned",
-    lessons: [],
-    outline: outline.map(([es, en]) => ({ es, en })),
-  };
-}
-
-const m12 = planned(
-  12,
-  "m12",
-  "scope",
-  { es: "Seguridad", en: "Security" },
-  {
-    es: "Apex corre en modo sistema por defecto. Ese 'por defecto' es tu responsabilidad.",
-    en: "Apex runs in system mode by default. That default is your responsibility.",
-  },
-  [
-    ["with sharing / without sharing / inherited sharing", "with sharing / without sharing / inherited sharing"],
-    ["CRUD y FLS: comprobar antes de tocar", "CRUD and FLS: check before you touch"],
-    ["Security.stripInaccessible y WITH USER_MODE", "Security.stripInaccessible and WITH USER_MODE"],
-    ["Inyección de SOQL y escaping", "SOQL injection and escaping"],
-    ["Checkpoint del Módulo 12", "Module 12 checkpoint"],
-  ],
-);
 
 export const course: Course = {
   modules: [m01, m02, m03, m04, m05, m06, m07, m08, m09, m10, m11, m12],

@@ -189,8 +189,8 @@ public class PushResult {
     {
       type: "p",
       text: {
-        es: "En la tarea 4 escribiste with sharing sin saber del todo qué hacía. El último módulo va de eso: Apex se ejecuta por defecto con más poder que el usuario que lo dispara, y asegurarte de que no enseña ni cambia lo que ese usuario no debería tocar es responsabilidad tuya. Es el Módulo 12, y con él se desbloquea el Desafío 2.",
-        en: "In task 4 you wrote with sharing without quite knowing what it did. The last module is about that: Apex runs by default with more power than the user who triggers it, and making sure it does not show or change what that user should not touch is your responsibility. That is Module 12, and it unlocks Challenge 2.",
+        es: "En la tarea 4 escribiste with sharing sin saber del todo qué hacía. El último módulo va de eso: Apex puede ejecutarse con más poder que el usuario que lo dispara, y asegurarte de que no enseña ni cambia lo que ese usuario no debería tocar es responsabilidad tuya. Es el Módulo 12, y con él se desbloquea el Desafío 2.",
+        en: "In task 4 you wrote with sharing without quite knowing what it did. The last module is about that: Apex can run with more power than the user who triggers it, and making sure it does not show or change what that user should not touch is your responsibility. That is Module 12, and it unlocks Challenge 2.",
       },
     },
     {
