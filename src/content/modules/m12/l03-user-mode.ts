@@ -1,7 +1,7 @@
 import type { Lesson } from "@/lib/types";
 
 const SOLUTION_ES = `// CASO: el puente con el ERP, auditado
-// Tarea 3 de 5: que los permisos los aplique Salesforce, todos a la vez.
+// Tarea 3 de 6: que los permisos los aplique Salesforce, todos a la vez.
 
 public with sharing class RenewalDesk {
     public static void applyDiscount(Id oppId, Decimal percent) {
@@ -25,15 +25,15 @@ public with sharing class RenewalDesk {
 }`;
 
 const SOLUTION_EN = SOLUTION_ES.replace(
-  "// CASO: el puente con el ERP, auditado\n// Tarea 3 de 5: que los permisos los aplique Salesforce, todos a la vez.",
-  "// CASE: the ERP bridge, audited\n// Task 3 of 5: let Salesforce apply the permissions, all at once.",
+  "// CASO: el puente con el ERP, auditado\n// Tarea 3 de 6: que los permisos los aplique Salesforce, todos a la vez.",
+  "// CASE: the ERP bridge, audited\n// Task 3 of 6: let Salesforce apply the permissions, all at once.",
 )
   .replace("// Modo usuario: objeto, campos y sharing, comprobados por la plataforma", "// User mode: object, fields and sharing, checked by the platform")
   .replace("// Se quitan los campos que este usuario no puede ver, sin fallar", "// Fields this user cannot see are removed, without failing");
 
 const STARTER_ES = `// CASO: el puente con el ERP, auditado
 // Ya resuelto (tareas 1-2): sharing declarado y permisos comprobados a mano.
-// Tarea 3 de 5: que los permisos los aplique Salesforce, todos a la vez.
+// Tarea 3 de 6: que los permisos los aplique Salesforce, todos a la vez.
 
 public with sharing class RenewalDesk {
     public static void applyDiscount(Id oppId, Decimal percent) {
@@ -302,8 +302,8 @@ List<Opportunity> all = [SELECT Id FROM Opportunity WITH SYSTEM_MODE];`,
 
   exercise: {
     prompt: {
-      es: "TAREA 3 DE 5 · Dos cambios. En applyDiscount, sustituye las comprobaciones a mano por el modo usuario: que sea Salesforce quien rechace la operación si falta un permiso. Y arregla el tercer hallazgo: myOpenRenewals devuelve Margin__c a quien lo tiene oculto; recorta los campos que el usuario no puede ver.",
-      en: "TASK 3 OF 5 · Two changes. In applyDiscount, replace the manual checks with user mode: let Salesforce reject the operation if a permission is missing. And fix the third finding: myOpenRenewals returns Margin__c to those who have it hidden; trim the fields the user cannot see.",
+      es: "TAREA 3 DE 6 · Dos cambios. En applyDiscount, sustituye las comprobaciones a mano por el modo usuario: que sea Salesforce quien rechace la operación si falta un permiso. Y arregla el tercer hallazgo: myOpenRenewals devuelve Margin__c a quien lo tiene oculto; recorta los campos que el usuario no puede ver.",
+      en: "TASK 3 OF 6 · Two changes. In applyDiscount, replace the manual checks with user mode: let Salesforce reject the operation if a permission is missing. And fix the third finding: myOpenRenewals returns Margin__c to those who have it hidden; trim the fields the user cannot see.",
     },
     brief: [
       {
@@ -318,8 +318,8 @@ List<Opportunity> all = [SELECT Id FROM Opportunity WITH SYSTEM_MODE];`,
     starter: {
       es: STARTER_ES,
       en: STARTER_ES.replace(
-        "// CASO: el puente con el ERP, auditado\n// Ya resuelto (tareas 1-2): sharing declarado y permisos comprobados a mano.\n// Tarea 3 de 5: que los permisos los aplique Salesforce, todos a la vez.",
-        "// CASE: the ERP bridge, audited\n// Already solved (tasks 1-2): sharing declared and permissions checked by hand.\n// Task 3 of 5: let Salesforce apply the permissions, all at once.",
+        "// CASO: el puente con el ERP, auditado\n// Ya resuelto (tareas 1-2): sharing declarado y permisos comprobados a mano.\n// Tarea 3 de 6: que los permisos los aplique Salesforce, todos a la vez.",
+        "// CASE: the ERP bridge, audited\n// Already solved (tasks 1-2): sharing declared and permissions checked by hand.\n// Task 3 of 6: let Salesforce apply the permissions, all at once.",
       )
         .replace("'No tienes permiso para editar oportunidades'", "'You do not have permission to edit opportunities'")
         .replace("'No tienes permiso para cambiar el descuento'", "'You do not have permission to change the discount'")

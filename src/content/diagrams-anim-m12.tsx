@@ -234,7 +234,47 @@ export function InjectionPlay({ lang }: P) {
   );
 }
 
-/* ------------------------------------------------ 5. checkpoint: the audit --- */
+/* ------------------------------------------------ 5. runAs: who runs vs how the code saves --- */
+
+export function RunAsPlay({ lang }: P) {
+  const [intern, setIntern] = useState(false);
+  const [userMode, setUserMode] = useState(true);
+  const saved = !intern || !userMode;
+  const green = !saved;
+  const say = !intern
+    ? pick(lang, "El usuario del test puede con todo: el descuento se guarda escriba lo que escriba el código. Este test no demuestra nada sobre el becario.", "The test's user can do everything: the discount is saved whatever the code says. This test proves nothing about the intern.")
+    : userMode
+      ? pick(lang, "El código pregunta por los permisos y quien contesta es el becario: rechazado. El test demuestra que el permiso se respeta.", "The code asks about permissions and the intern is the one answering: rejected. The test proves the permission is respected.")
+      : pick(lang, "runAs cambia el usuario, pero el modo sistema no pregunta: el descuento se guarda. El test en rojo avisa de que alguien abrió el agujero.", "runAs changes the user, but system mode does not ask: the discount is saved. The red test warns that someone opened the hole.");
+  return (
+    <div className="w-full">
+      <div className="mb-3 flex flex-wrap items-center gap-2">
+        <span className="t-small text-ink">{pick(lang, "Ejecuta la llamada:", "The call is run by:")}</span>
+        <button type="button" className="btn btn-ghost" aria-pressed={!intern} onClick={() => setIntern(false)}>
+          {pick(lang, "El usuario del test", "The test's user")}
+        </button>
+        <button type="button" className="btn btn-ghost" aria-pressed={intern} onClick={() => setIntern(true)}>
+          System.runAs(intern)
+        </button>
+      </div>
+      <p className={eyebrow}>{pick(lang, "EL CÓDIGO GUARDA CON…", "THE CODE SAVES WITH…")}</p>
+      <Tabs items={["update as user o;", pick(lang, "update o;  (modo sistema)", "update o;  (system mode)")]} value={userMode ? 0 : 1} onChange={(n) => setUserMode(n === 0)} />
+      <ul className="space-y-1" aria-live="polite">
+        <li className="t-small flex flex-wrap items-center justify-between gap-2 rounded-[4px] border border-line px-3 py-1.5">
+          <span>Discount__c</span>
+          <Tag tone={saved ? "plain" : "ok"}>{saved ? pick(lang, "guardado: 10", "saved: 10") : pick(lang, "sigue vacío", "still empty")}</Tag>
+        </li>
+        <li className="t-small flex flex-wrap items-center justify-between gap-2 rounded-[4px] border border-line px-3 py-1.5">
+          <span>{pick(lang, "El test «el becario no puede»", "The «intern cannot» test")}</span>
+          <Tag tone={green ? "ok" : "bad"}>{green ? pick(lang, "en verde", "green") : pick(lang, "en rojo", "red")}</Tag>
+        </li>
+      </ul>
+      <p className="t-small mt-3 text-muted">{say}</p>
+    </div>
+  );
+}
+
+/* ------------------------------------------------ 6. checkpoint: the audit --- */
 
 export function AuditPlay({ lang }: P) {
   const [fixed, setFixed] = useState([false, false, false, false]);

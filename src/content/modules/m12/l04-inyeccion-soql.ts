@@ -1,7 +1,7 @@
 import type { Lesson } from "@/lib/types";
 
 const SOLUTION_ES = `// CASO: el puente con el ERP, auditado
-// Tarea 4 de 5: que el usuario escriba valores, nunca código.
+// Tarea 4 de 6: que el usuario escriba valores, nunca código.
 
 public with sharing class RenewalSearch {
     private static final Set<String> SORTABLE = new Set<String>{ 'Name', 'Amount', 'CloseDate' };
@@ -22,15 +22,15 @@ public with sharing class RenewalSearch {
 }`;
 
 const SOLUTION_EN = SOLUTION_ES.replace(
-  "// CASO: el puente con el ERP, auditado\n// Tarea 4 de 5: que el usuario escriba valores, nunca código.",
-  "// CASE: the ERP bridge, audited\n// Task 4 of 5: let the user type values, never code.",
+  "// CASO: el puente con el ERP, auditado\n// Tarea 4 de 6: que el usuario escriba valores, nunca código.",
+  "// CASE: the ERP bridge, audited\n// Task 4 of 6: let the user type values, never code.",
 )
   .replace("// Un nombre de campo no se puede enlazar: se compara con una lista cerrada", "// A field name cannot be bound: it is checked against a closed list")
   .replace("// Lo que escribe el usuario viaja como valor enlazado, nunca pegado al texto", "// What the user types travels as a bound value, never glued into the text");
 
 const STARTER_ES = `// CASO: el puente con el ERP, auditado
 // Ya resuelto (tareas 1-3): sharing declarado y permisos aplicados por la plataforma.
-// Tarea 4 de 5: que el usuario escriba valores, nunca código.
+// Tarea 4 de 6: que el usuario escriba valores, nunca código.
 
 // El buscador de renovaciones: el comercial escribe un nombre de cuenta y elige por qué campo ordenar.
 public with sharing class RenewalSearch {
@@ -273,8 +273,8 @@ export const l04InyeccionSoql: Lesson = {
 
   exercise: {
     prompt: {
-      es: "TAREA 4 DE 5 · Cuarto hallazgo: el buscador de renovaciones pega en la consulta lo que escribe el comercial y el nombre del campo por el que ordena. Ciérralo: el término de búsqueda tiene que viajar enlazado, el campo de ordenación solo puede ser uno de una lista cerrada, y la consulta se ejecuta en modo usuario.",
-      en: "TASK 4 OF 5 · Fourth finding: the renewal search glues into the query what the rep types and the name of the field it sorts by. Close it: the search term must travel bound, the sort field may only be one from a closed list, and the query runs in user mode.",
+      es: "TAREA 4 DE 6 · Cuarto hallazgo: el buscador de renovaciones pega en la consulta lo que escribe el comercial y el nombre del campo por el que ordena. Ciérralo: el término de búsqueda tiene que viajar enlazado, el campo de ordenación solo puede ser uno de una lista cerrada, y la consulta se ejecuta en modo usuario.",
+      en: "TASK 4 OF 6 · Fourth finding: the renewal search glues into the query what the rep types and the name of the field it sorts by. Close it: the search term must travel bound, the sort field may only be one from a closed list, and the query runs in user mode.",
     },
     brief: [
       {
@@ -293,8 +293,8 @@ export const l04InyeccionSoql: Lesson = {
     starter: {
       es: STARTER_ES,
       en: STARTER_ES.replace(
-        "// CASO: el puente con el ERP, auditado\n// Ya resuelto (tareas 1-3): sharing declarado y permisos aplicados por la plataforma.\n// Tarea 4 de 5: que el usuario escriba valores, nunca código.",
-        "// CASE: the ERP bridge, audited\n// Already solved (tasks 1-3): sharing declared and permissions applied by the platform.\n// Task 4 of 5: let the user type values, never code.",
+        "// CASO: el puente con el ERP, auditado\n// Ya resuelto (tareas 1-3): sharing declarado y permisos aplicados por la plataforma.\n// Tarea 4 de 6: que el usuario escriba valores, nunca código.",
+        "// CASE: the ERP bridge, audited\n// Already solved (tasks 1-3): sharing declared and permissions applied by the platform.\n// Task 4 of 6: let the user type values, never code.",
       ).replace(
         "// El buscador de renovaciones: el comercial escribe un nombre de cuenta y elige por qué campo ordenar.",
         "// The renewal search: the rep types an account name and picks which field to sort by.",
@@ -383,8 +383,8 @@ export const l04InyeccionSoql: Lesson = {
     ],
     voice: "otter",
     outro: {
-      es: "El buscador ya solo acepta valores. Quedan los cuatro hallazgos juntos en una misma clase, la que usa la pantalla de renovaciones. En la tarea 5, la última del curso, la dejas lista para producción.",
-      en: "The search now accepts only values. The four findings remain together in a single class, the one the renewals screen uses. In task 5, the course's last, you make it production-ready.",
+      es: "El buscador ya solo acepta valores, y los cuatro hallazgos están cerrados. Pero el auditor quiere saber cómo se asegura que sigan cerrados. En la tarea 5 escribes el test que lo demuestra, poniéndote en la piel de un usuario sin permisos.",
+      en: "The search now accepts only values, and the four findings are closed. But the auditor wants to know how they are kept closed. In task 5 you write the test that proves it, stepping into the shoes of a user without permissions.",
     },
   },
 };
