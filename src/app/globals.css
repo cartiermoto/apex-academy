@@ -776,6 +776,60 @@ body:has(.editorial) {
   border-top: 4px solid var(--e-accent);
 }
 
+/* Category tabs: pinned under the header while the module grid scrolls. */
+.e-tabs {
+  isolation: isolate;
+}
+.e-tabs::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: color-mix(in srgb, var(--e-bg) 86%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  pointer-events: none;
+}
+.e-tablist {
+  border-bottom: 1px solid var(--e-divider);
+  scrollbar-width: none;
+}
+.e-tablist::-webkit-scrollbar {
+  display: none;
+}
+.e-tab {
+  cursor: pointer;
+  opacity: 0.78;
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+}
+.e-tab:hover,
+.e-tab[aria-selected="true"] {
+  opacity: 1;
+}
+.e-tab[aria-selected="true"] {
+  font-weight: 700;
+  color: var(--e-accent-text);
+}
+.e-tab:active {
+  transform: scale(0.97);
+}
+.editorial .e-tab:focus-visible {
+  outline-offset: -3px;
+}
+/* The sliding underline: 100px wide, placed and stretched by a transform. */
+.e-tab-bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100px;
+  height: 3px;
+  background: var(--e-accent);
+  transform-origin: left center;
+  opacity: 0;
+  transition: transform 0.25s ease-out, opacity 0.15s ease-out;
+  pointer-events: none;
+}
+
 .editorial :where(a, button):focus-visible {
   outline: 2px solid var(--e-accent);
   outline-offset: 2px;

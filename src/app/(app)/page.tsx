@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import Link from "next/link";
 import { course, requiredLessons } from "@/content/course";
@@ -165,6 +165,105 @@ function Header() {
         )}
       </div>
     </header>
+  );
+}
+
+/* ----------------------------------------------------------- category tabs */
+
+type CatFilter = "all" | ModuleCategory;
+
+const TABS: Array<{ id: CatFilter; name: L }> = [{ id: "all", name: { es: "Todos", en: "All" } }, ...CATEGORIES];
+
+/**
+ * The category legend, as tabs that filter the module grid. One underline
+ * slides between them: it is a fixed 100px bar moved and stretched with a
+ * transform, so nothing but transform animates.
+ */
+function CategoryTabs({ value, onChange }: { value: CatFilter; onChange: (c: CatFilter) => void }) {
+  const { lang } = useSettings();
+  const listRef = useRef<HTMLDivElement>(null);
+  const [bar, setBar] = useState<{ x: number; w: number } | null>(null);
+
+  useLayoutEffect(() => {
+    const list = listRef.current;
+    if (!list) return;
+    const measure = () => {
+      const el = list.querySelector<HTMLElement>('[aria-selected="true"]');
+      if (el) setBar({ x: el.offsetLeft, w: el.offsetWidth });
+    };
+    measure();
+    // Web fonts and viewport changes move the tabs: keep the bar under its tab.
+    const ro = new ResizeObserver(measure);
+    ro.observe(list);
+    list.querySelectorAll('[role="tab"]').forEach((el) => ro.observe(el));
+    return () => ro.disconnect();
+  }, [value, lang]);
+
+  const select = (id: CatFilter, focus = false) => {
+    onChange(id);
+    const el = listRef.current?.querySelector<HTMLElement>(`#tab-${id}`);
+    if (focus) el?.focus();
+    el?.scrollIntoView({ inline: "nearest", block: "nearest" });
+  };
+
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    const i = TABS.findIndex((x) => x.id === value);
+    const next =
+      e.key === "ArrowRight"
+        ? (i + 1) % TABS.length
+        : e.key === "ArrowLeft"
+          ? (i - 1 + TABS.length) % TABS.length
+          : e.key === "Home"
+            ? 0
+            : e.key === "End"
+              ? TABS.length - 1
+              : -1;
+    if (next < 0) return;
+    e.preventDefault();
+    select(TABS[next].id, true);
+  };
+
+  return (
+    <div className="e-tabs sticky top-[68px] z-20 -mx-5 px-5 sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12 xl:-mx-24 xl:px-24">
+      <div
+        ref={listRef}
+        role="tablist"
+        aria-label={t(ui.modules, lang)}
+        onKeyDown={onKeyDown}
+        className="e-tablist e-mono relative flex gap-1 overflow-x-auto text-[11px] uppercase tracking-[0.06em]"
+      >
+        {TABS.map((tab) => {
+          const selected = tab.id === value;
+          return (
+            <button
+              key={tab.id}
+              id={`tab-${tab.id}`}
+              type="button"
+              role="tab"
+              aria-selected={selected}
+              aria-controls="panel-modulos"
+              tabIndex={selected ? 0 : -1}
+              onClick={() => select(tab.id)}
+              className="e-tab inline-flex min-h-[44px] shrink-0 items-center gap-2 whitespace-nowrap px-3.5"
+            >
+              {tab.id !== "all" && (
+                <span
+                  data-cat={tab.id}
+                  className="e-swatch inline-block h-2.5 w-2.5"
+                  style={{ border: "1px solid var(--e-legend-border)" }}
+                />
+              )}
+              {t(tab.name, lang)}
+            </button>
+          );
+        })}
+        <span
+          aria-hidden
+          className="e-tab-bar"
+          style={bar ? { opacity: 1, transform: `translateX(${bar.x}px) scaleX(${bar.w / 100})` } : undefined}
+        />
+      </div>
+    </div>
   );
 }
 
@@ -338,6 +437,19 @@ export default function HomePage() {
   const nextUp = pairs.find(({ l }) => statusOf(l.id) !== "completed") ?? pairs[0];
   const published = course.modules.filter((m) => m.status === "ready").length;
 
+  const [cat, setCat] = useState<CatFilter>("all");
+  const shownModules = cat === "all" ? course.modules : course.modules.filter((m) => m.category === cat);
+  const chooseCat = (c: CatFilter) => {
+    setCat(c);
+    // The tabs stay pinned while the grid scrolls under them: after filtering
+    // from further down, bring the start of the shorter grid back into view.
+    const section = document.getElementById("modulos");
+    if (section && section.getBoundingClientRect().top < 0) {
+      const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      section.scrollIntoView({ behavior: calm ? "auto" : "smooth", block: "start" });
+    }
+  };
+
   // The bar starts empty and fills to the real value after the first paint,
   // and again whenever the value changes.
   const [shownPct, setShownPct] = useState(0);
@@ -463,20 +575,6 @@ export default function HomePage() {
           )}
         </section>
 
-        {/* ---------------------------------------------------------- legend */}
-        <div className="e-mono flex flex-wrap gap-x-7 gap-y-3 text-[11px] uppercase tracking-[0.06em]">
-          {CATEGORIES.map((c) => (
-            <span key={c.id} className="flex items-center gap-2">
-              <span
-                data-cat={c.id}
-                className="e-swatch inline-block h-2.5 w-2.5"
-                style={{ border: "1px solid var(--e-legend-border)" }}
-              />
-              {t(c.name, lang)}
-            </span>
-          ))}
-        </div>
-
         {/* --------------------------------------------------------- modules */}
         <section id="modulos" className="flex scroll-mt-[84px] flex-col gap-7">
           <div className={sectionHead}>
@@ -486,8 +584,12 @@ export default function HomePage() {
             </span>
           </div>
 
-          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
-            {course.modules.map((m) => {
+          <CategoryTabs value={cat} onChange={chooseCat} />
+
+          {/* Re-keyed per category: the filtered cards mount fresh and rise in. */}
+          <div id="panel-modulos" role="tabpanel" aria-labelledby={`tab-${cat}`}>
+          <ul key={cat} className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
+            {shownModules.map((m, i) => {
               const ready = m.status === "ready";
               const done = requiredLessons(m).filter((l) => statusOf(l.id) === "completed").length;
               const current = ready && nextUp?.m.id === m.id && !moduleDone(m);
@@ -520,7 +622,7 @@ export default function HomePage() {
               );
 
               return (
-                <li key={m.id}>
+                <li key={m.id} className="e-rise" style={{ "--i": Math.min(i, 8) } as React.CSSProperties}>
                   {ready && m.lessons[0] ? (
                     <Link
                       href={`/m/${m.id}/${m.lessons[0].slug}`}
@@ -535,6 +637,7 @@ export default function HomePage() {
               );
             })}
           </ul>
+          </div>
         </section>
 
         {/* ------------------------------------------------------ challenges */}
