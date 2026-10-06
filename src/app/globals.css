@@ -596,8 +596,23 @@ body:has(.editorial) {
   font-weight: 600;
   letter-spacing: 0.03em;
   text-transform: uppercase;
-  transition: opacity 0.15s ease, background-color 0.15s ease;
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
   cursor: pointer;
+}
+.e-btn .e-arrow {
+  display: inline-block;
+  transition: transform 0.2s ease-out;
+}
+@media (hover: hover) {
+  .e-btn:hover {
+    transform: translateY(-2px);
+  }
+  .e-btn:hover .e-arrow {
+    transform: translateX(4px);
+  }
+}
+.e-btn:active {
+  transform: scale(0.98);
 }
 .e-btn-primary {
   background: var(--e-accent);
@@ -682,6 +697,69 @@ body:has(.editorial) {
 ::view-transition-new(root) {
   animation-duration: 0.25s;
   animation-timing-function: ease-out;
+}
+
+/* Hero: each line rises into place, one after another (--i is its turn). */
+@keyframes e-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.e-rise {
+  animation: e-rise 0.3s ease-out both;
+  animation-delay: calc(var(--i, 0) * 60ms);
+}
+
+/* The otter arrives softly and then floats, barely. */
+@keyframes e-otter-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes e-float {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-5px);
+  }
+}
+.e-otter {
+  animation:
+    e-otter-in 0.3s ease-out both,
+    e-float 2.8s ease-in-out 0.3s infinite alternate;
+}
+@media (prefers-reduced-motion: reduce) {
+  /* the global rule shortens animations; an endless one must simply stop */
+  .e-otter {
+    animation: none;
+  }
+}
+
+/* Course facts as chips. */
+.e-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  padding: 8px 12px;
+  border: 1px solid var(--e-divider);
+  border-radius: 4px;
+  background: var(--e-banner-surface);
+}
+.e-chip strong {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--e-accent-text);
 }
 
 .editorial :where(a, button):focus-visible {

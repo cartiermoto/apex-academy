@@ -44,6 +44,31 @@ function withFade(change: () => void) {
   doc.startViewTransition(() => flushSync(change));
 }
 
+/** A number that counts up from zero once, when it first appears. */
+function CountUp({ to }: { to: number }) {
+  const [n, setN] = useState(to);
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const start = performance.now();
+    const ms = 600;
+    let raf = 0;
+    const tick = (now: number) => {
+      const k = Math.min(1, (now - start) / ms);
+      setN(Math.round(to * (1 - Math.pow(1 - k, 3))));
+      if (k < 1) raf = requestAnimationFrame(tick);
+    };
+    setN(0);
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [to]);
+  // Fixed width: the digits change, the layout does not.
+  return (
+    <span className="inline-block text-right tabular-nums" style={{ minWidth: `${String(to).length}ch` }}>
+      {n}
+    </span>
+  );
+}
+
 /* ------------------------------------------------------------------ header */
 
 function Header() {
@@ -314,7 +339,7 @@ export default function HomePage() {
         {/* -------------------------------------------------- welcome banner */}
         <section className="e-banner" aria-label={lang === "es" ? "Bienvenida" : "Welcome"}>
           {/* eslint-disable-next-line @next/next/no-img-element -- fixed illustration from /public */}
-          <img src="/mascot/apex-academy-mascota-verde-full-illustration.png" alt="" width={96} height={96} />
+          <img className="e-otter" src="/mascot/apex-academy-mascota-verde-full-illustration.png" alt="" width={96} height={96} />
           <div className="min-w-0">
             <p className="e-mono m-0 text-[11px] uppercase tracking-[0.1em]" style={{ color: "var(--e-accent-text)" }}>
               {lang === "es" ? "Tu guía en el curso" : "Your guide through the course"}
@@ -329,33 +354,53 @@ export default function HomePage() {
 
         {/* ------------------------------------------------------------ hero */}
         <section className="flex flex-col gap-12 lg:flex-row lg:items-start lg:gap-[72px]">
-          <div className="flex min-w-0 flex-1 flex-col gap-[26px]">
-            <p className="e-mono flex items-center gap-2.5 text-[12px] uppercase tracking-[0.14em]">
+          <div className="flex min-w-0 flex-1 flex-col gap-7">
+            <p className="e-mono e-rise flex items-center gap-2.5 text-[12px] uppercase tracking-[0.14em]">
               <span className="inline-block h-2.5 w-2.5 shrink-0" style={{ background: "var(--e-accent)" }} />
               <span>
                 Apex · Salesforce · {lang === "es" ? "Curso personal" : "Personal course"}
               </span>
             </p>
 
-            <h1 className="m-0 text-[clamp(2.25rem,1.4rem+3.6vw,4rem)] font-bold leading-[1.02] tracking-[-0.02em]">
+            <h1
+              className="e-rise m-0 text-[clamp(2.5rem,1.4rem+3.6vw,4rem)] font-bold leading-[1.06] tracking-[-0.025em] [text-wrap:balance] xl:text-[4.5rem]"
+              style={{ "--i": 1 } as React.CSSProperties}
+            >
               {lang === "es" ? "De Admin a desarrollador Apex." : "From Admin to Apex developer."}
             </h1>
 
-            <p className="m-0 max-w-[600px] text-[17px] leading-[1.6]">
+            <p className="e-rise m-0 max-w-[600px] text-[17px] leading-[1.65] sm:text-[18px]" style={{ "--i": 2 } as React.CSSProperties}>
               {lang === "es"
                 ? "Cada concepto se explica desde algo que ya configuraste con clicks, y nunca se te pide escribir nada que no se haya explicado antes."
                 : "Every concept starts from something you already configured with clicks, and you are never asked to write anything that has not been explained first."}
             </p>
 
-            <p className="e-mono text-[12px] uppercase tracking-[0.08em]">
-              {course.modules.length} {lang === "es" ? "módulos" : "modules"} ·{" "}
-              {course.challenges.length} {lang === "es" ? "desafíos" : "challenges"} · ES / EN
-            </p>
+            <ul
+              className="e-mono e-rise m-0 flex list-none flex-wrap gap-2 p-0 text-[12px] uppercase tracking-[0.08em]"
+              style={{ "--i": 3 } as React.CSSProperties}
+            >
+              <li className="e-chip">
+                <strong>
+                  <CountUp to={course.modules.length} />
+                </strong>
+                {lang === "es" ? "módulos" : "modules"}
+              </li>
+              <li className="e-chip">
+                <strong>
+                  <CountUp to={course.challenges.length} />
+                </strong>
+                {lang === "es" ? "desafíos" : "challenges"}
+              </li>
+              <li className="e-chip">ES / EN</li>
+            </ul>
 
-            <div className="mt-2 flex flex-col gap-3.5 sm:flex-row">
+            <div className="e-rise mt-2 flex flex-col gap-3.5 sm:flex-row" style={{ "--i": 4 } as React.CSSProperties}>
               {nextUp && (
                 <Link href={`/m/${nextUp.m.id}/${nextUp.l.slug}`} className="e-btn e-btn-primary">
-                  {stepsDone === 0 ? t(ui.startCourse, lang) : t(ui.continueLearning, lang)} →
+                  {stepsDone === 0 ? t(ui.startCourse, lang) : t(ui.continueLearning, lang)}{" "}
+                  <span className="e-arrow" aria-hidden>
+                    →
+                  </span>
                 </Link>
               )}
               <a href="#modulos" className="e-btn e-btn-secondary">
