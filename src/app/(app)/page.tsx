@@ -139,7 +139,7 @@ function Header() {
               key={l}
               onClick={() => lang !== l && withFade(() => setLang(l))}
               aria-pressed={lang === l}
-              className="e-press inline-flex min-h-[40px] min-w-[44px] items-center justify-center rounded-[3px] px-2.5 text-[12px] font-semibold uppercase tracking-[0.06em]"
+              className="e-press inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-[3px] px-2.5 text-[12px] font-semibold uppercase tracking-[0.06em]"
               style={
                 lang === l
                   ? { background: "var(--e-accent)", color: "var(--e-on-accent)" }
@@ -308,7 +308,7 @@ function SyncStatus() {
       ) : (
         <>
           {t(ui.syncOff, lang)} ·{" "}
-          <Link href="/login?next=/" className="underline underline-offset-4">
+          <Link href="/login?next=/" className="-my-4 inline-block py-4 underline underline-offset-4">
             {t(ui.signIn, lang)}
           </Link>
         </>
