@@ -12,6 +12,10 @@ import { Tabs, codeBox, pick } from "./diagrams-anim";
 type P = { lang: Lang };
 const eyebrow = "t-micro mb-2 font-semibold tracking-[0.06em] text-faint";
 
+/** The selected option of a pair of buttons, in the same colours as Tabs. */
+const pressed = (on: boolean): React.CSSProperties | undefined =>
+  on ? { borderColor: "var(--c-brand)", background: "var(--c-brand-soft)", color: "var(--c-brand)" } : undefined;
+
 type Tone = "ok" | "bad" | "plain";
 function Tag({ tone, children }: { tone: Tone; children: React.ReactNode }) {
   const c =
@@ -71,10 +75,10 @@ export function SharingPlay({ lang }: P) {
     <div className="w-full">
       <div className="mb-3 flex flex-wrap items-center gap-2">
         <span className="t-small text-ink">{pick(lang, "Ejecuta:", "Run by:")}</span>
-        <button type="button" className="btn btn-ghost" aria-pressed={!boss} onClick={() => setBoss(false)}>
+        <button type="button" className="btn btn-ghost" style={pressed(!boss)} aria-pressed={!boss} onClick={() => setBoss(false)}>
           {pick(lang, "Ana, comercial", "Ana, sales rep")}
         </button>
-        <button type="button" className="btn btn-ghost" aria-pressed={boss} onClick={() => setBoss(true)}>
+        <button type="button" className="btn btn-ghost" style={pressed(boss)} aria-pressed={boss} onClick={() => setBoss(true)}>
           {pick(lang, "Dirección", "Management")}
         </button>
       </div>
@@ -206,10 +210,10 @@ export function InjectionPlay({ lang }: P) {
     <div className="w-full">
       <div className="mb-3 flex flex-wrap items-center gap-2">
         <span className="t-small text-ink">{pick(lang, "Escribe:", "Typed by:")}</span>
-        <button type="button" className="btn btn-ghost" aria-pressed={!auditor} onClick={() => setAuditor(false)}>
+        <button type="button" className="btn btn-ghost" style={pressed(!auditor)} aria-pressed={!auditor} onClick={() => setAuditor(false)}>
           {pick(lang, "Un comercial", "A sales rep")}
         </button>
-        <button type="button" className="btn btn-ghost" aria-pressed={auditor} onClick={() => setAuditor(true)}>
+        <button type="button" className="btn btn-ghost" style={pressed(auditor)} aria-pressed={auditor} onClick={() => setAuditor(true)}>
           {pick(lang, "El auditor", "The auditor")}
         </button>
       </div>
@@ -250,10 +254,10 @@ export function RunAsPlay({ lang }: P) {
     <div className="w-full">
       <div className="mb-3 flex flex-wrap items-center gap-2">
         <span className="t-small text-ink">{pick(lang, "Ejecuta la llamada:", "The call is run by:")}</span>
-        <button type="button" className="btn btn-ghost" aria-pressed={!intern} onClick={() => setIntern(false)}>
+        <button type="button" className="btn btn-ghost" style={pressed(!intern)} aria-pressed={!intern} onClick={() => setIntern(false)}>
           {pick(lang, "El usuario del test", "The test's user")}
         </button>
-        <button type="button" className="btn btn-ghost" aria-pressed={intern} onClick={() => setIntern(true)}>
+        <button type="button" className="btn btn-ghost" style={pressed(intern)} aria-pressed={intern} onClick={() => setIntern(true)}>
           System.runAs(intern)
         </button>
       </div>
