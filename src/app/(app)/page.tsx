@@ -760,8 +760,11 @@ export default function HomePage() {
                       condition is the last line of the card. */}
                   {!unlocked && (
                     <span id={`tip-${c.id}`} role="tooltip" className="e-tip e-mono">
-                      {t(ui.unlockedBy, lang)} · M{pad(required?.n ?? 0)}
-                      {required ? ` ${t(required.title, lang)}` : ""}
+                      <MascotMark size={26} className="shrink-0" />
+                      <span>
+                        {t(ui.unlockedBy, lang)} · M{pad(required?.n ?? 0)}
+                        {required ? ` ${t(required.title, lang)}` : ""}
+                      </span>
                     </span>
                   )}
                   <Link
@@ -792,11 +795,17 @@ export default function HomePage() {
                       </div>
                       <h3 className="m-0 text-[22px] font-bold leading-[1.25]">{t(c.title, lang)}</h3>
                       <p className="m-0 flex-1 text-[14px] leading-[1.55]">{t(c.subtitle, lang)}</p>
-                      <span className="e-mono text-[11px] uppercase tracking-[0.06em] opacity-[0.72]">
-                        {unlocked
-                          ? `${c.components.length} ${t(ui.components, lang).toLowerCase()} · ${c.minutes} min`
-                          : `${t(ui.unlockedBy, lang)} · M${pad(required?.n ?? 0)}`}
-                      </span>
+                      {unlocked ? (
+                        <span className="e-mono text-[11px] uppercase tracking-[0.06em] opacity-[0.72]">
+                          {c.components.length} {t(ui.components, lang).toLowerCase()} · {c.minutes} min
+                        </span>
+                      ) : (
+                        /* the otter keeps you company here too, with the way in */
+                        <span className="e-mono flex items-center gap-2.5 text-[11px] uppercase tracking-[0.06em]">
+                          <MascotMark size={30} className="e-lock-otter shrink-0" />
+                          {t(ui.unlockedBy, lang)} · M{pad(required?.n ?? 0)}
+                        </span>
+                      )}
                     </article>
                   </Link>
                 </li>

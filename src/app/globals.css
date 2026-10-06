@@ -1094,6 +1094,9 @@ body:has(.editorial) {
   }
 }
 .e-tip {
+  display: flex;
+  align-items: center;
+  gap: 9px;
   position: absolute;
   right: 16px;
   top: -18px;
@@ -1120,6 +1123,16 @@ body:has(.editorial) {
 li:focus-within > .e-tip {
   opacity: 1;
   transform: none;
+}
+
+/* The small otter on a locked challenge nods when the card is hovered. */
+.e-lock-otter {
+  transition: transform 0.2s ease-out;
+}
+@media (hover: hover) {
+  li:hover .e-lock-otter {
+    transform: translateY(-3px) rotate(-8deg);
+  }
 }
 
 .editorial :where(a, button):focus-visible {

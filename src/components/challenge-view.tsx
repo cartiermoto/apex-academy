@@ -9,6 +9,7 @@ import { useProgress, useSettings } from "./providers";
 import { Theory } from "./theory";
 import { ExercisePanel } from "./exercise";
 import { OtterWarmup } from "./otter";
+import { MascotMark } from "./logo";
 
 export function ChallengeView({
   challenge,
@@ -57,12 +58,16 @@ export function ChallengeView({
             className="mt-6 flex items-start gap-3 rounded-[4px] border border-dashed border-line px-4 py-4"
             style={{ background: "var(--c-surface)" }}
           >
-            <svg width="17" height="17" viewBox="0 0 16 16" className="mt-[2px] shrink-0 text-accent" fill="none" stroke="currentColor" strokeWidth="1.6">
-              <rect x="3.2" y="7" width="9.6" height="7" rx="1.6" />
-              <path d="M5.5 7V5.2a2.5 2.5 0 0 1 5 0V7" />
-            </svg>
+            {/* the otter delivers the news, the lock stays beside the word */}
+            <MascotMark size={40} className="shrink-0" />
             <div>
-              <p className="t-small font-semibold text-ink">{t(ui.locked, lang)}</p>
+              <p className="t-small flex items-center gap-1.5 font-semibold text-ink">
+                <svg width="15" height="15" viewBox="0 0 16 16" className="shrink-0 text-accent" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
+                  <rect x="3.2" y="7" width="9.6" height="7" rx="1.6" />
+                  <path d="M5.5 7V5.2a2.5 2.5 0 0 1 5 0V7" />
+                </svg>
+                {t(ui.locked, lang)}
+              </p>
               <p className="t-small mt-1 text-muted">
                 {t(ui.challengeLockedMsg, lang)}{" "}
                 {requiredModule && (
