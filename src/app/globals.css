@@ -642,6 +642,48 @@ body:has(.editorial) {
   }
 }
 
+/* --- Home motion ------------------------------------------------------------
+   Everything below animates transform and opacity only, 150-300 ms, ease-out.
+   Reduced motion is honoured by the global rule at the end of this file. */
+
+/* Sticky header: transparent at the top; once the page scrolls, a translucent
+   blurred backdrop fades in behind it (a pseudo-element, so only its opacity
+   changes). */
+.e-header {
+  isolation: isolate;
+}
+.e-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: color-mix(in srgb, var(--e-bg) 82%, transparent);
+  border-bottom: 1px solid var(--e-divider);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+  pointer-events: none;
+}
+.e-header[data-scrolled="true"]::before {
+  opacity: 1;
+}
+
+/* Small controls: a clear pressed state. */
+.e-press {
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+}
+.e-press:active {
+  transform: scale(0.96);
+}
+
+/* Theme and language swaps cross-fade the page (see withFade in the home). */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.25s;
+  animation-timing-function: ease-out;
+}
+
 .editorial :where(a, button):focus-visible {
   outline: 2px solid var(--e-accent);
   outline-offset: 2px;

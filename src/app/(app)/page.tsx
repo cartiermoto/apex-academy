@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { flushSync } from "react-dom";
 import Link from "next/link";
 import { course, requiredLessons } from "@/content/course";
 import { useProgress, useSettings } from "@/components/providers";
@@ -26,17 +28,46 @@ const CATEGORIES: Array<{ id: ModuleCategory; name: L }> = [
   { id: "scope", name: { es: "Alcance", en: "Scope" } },
 ];
 
+/* ------------------------------------------------------------------ motion */
+
+/**
+ * Cross-fades the whole page while `change` is applied (theme, language), so
+ * the swap is an opacity transition instead of a hard cut. Falls back to the
+ * plain change where View Transitions are missing or motion is reduced.
+ */
+function withFade(change: () => void) {
+  const doc = document as Document & { startViewTransition?: (cb: () => void) => unknown };
+  if (!doc.startViewTransition || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    change();
+    return;
+  }
+  doc.startViewTransition(() => flushSync(change));
+}
+
 /* ------------------------------------------------------------------ header */
 
 function Header() {
   const { lang, setLang, theme, setTheme } = useSettings();
   const { authed, logout } = useProgress();
 
+  // The bar is transparent at the top of the page and gains its translucent
+  // backdrop once the content starts sliding under it.
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const iconBtn =
-    "grid h-10 w-10 place-items-center rounded-[4px] border border-[var(--e-divider)] text-[var(--e-ink)] transition hover:opacity-75";
+    "e-press grid h-11 w-11 place-items-center rounded-[4px] border border-[var(--e-divider)] text-[var(--e-ink)] hover:opacity-75";
 
   return (
-    <header className="flex items-center justify-between gap-3">
+    <header
+      data-scrolled={scrolled}
+      className="e-header sticky top-0 z-30 -mx-5 flex items-center justify-between gap-3 px-5 py-3 sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12 xl:-mx-24 xl:px-24"
+    >
       <Link href="/" className="inline-flex min-h-[44px] min-w-[44px] items-center gap-2.5 text-[var(--e-ink)]">
         <MascotMark size={44} className="shrink-0" />
         {/* Under 400px the controls leave no room: the mascot alone carries the
@@ -53,9 +84,9 @@ function Header() {
           {(["es", "en"] as const).map((l) => (
             <button
               key={l}
-              onClick={() => setLang(l)}
+              onClick={() => lang !== l && withFade(() => setLang(l))}
               aria-pressed={lang === l}
-              className="inline-flex min-h-[36px] min-w-[44px] items-center justify-center rounded-[3px] px-2.5 text-[12px] font-semibold uppercase tracking-[0.06em] transition"
+              className="e-press inline-flex min-h-[40px] min-w-[44px] items-center justify-center rounded-[3px] px-2.5 text-[12px] font-semibold uppercase tracking-[0.06em]"
               style={
                 lang === l
                   ? { background: "var(--e-accent)", color: "var(--e-on-accent)" }
@@ -68,7 +99,7 @@ function Header() {
         </div>
 
         <button
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          onClick={() => withFade(() => setTheme(theme === "dark" ? "light" : "dark"))}
           aria-label={theme === "dark" ? t(ui.light, lang) : t(ui.dark, lang)}
           className={iconBtn}
         >
@@ -87,7 +118,7 @@ function Header() {
         {authed === false && (
           <Link
             href="/login?next=/"
-            className="e-mono inline-flex min-h-[40px] items-center rounded-[4px] px-3.5 text-[12px] font-semibold uppercase tracking-[0.06em] transition hover:opacity-90"
+            className="e-mono e-press inline-flex min-h-[44px] items-center rounded-[4px] px-3.5 text-[12px] font-semibold uppercase tracking-[0.06em] hover:opacity-90"
             style={{ background: "var(--e-accent)", color: "var(--e-on-accent)" }}
           >
             {t(ui.signIn, lang)}
@@ -383,7 +414,7 @@ export default function HomePage() {
         </div>
 
         {/* --------------------------------------------------------- modules */}
-        <section id="modulos" className="flex scroll-mt-6 flex-col gap-7">
+        <section id="modulos" className="flex scroll-mt-[84px] flex-col gap-7">
           <div className={sectionHead}>
             <span>{t(ui.modules, lang)}</span>
             <span>
