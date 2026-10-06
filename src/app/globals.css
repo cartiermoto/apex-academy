@@ -647,30 +647,6 @@ body:has(.editorial) {
   background: rgba(255, 255, 255, 0.06);
 }
 
-/* Welcome strip under the header: the otter, full size. */
-.e-banner {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  background: var(--e-banner-surface);
-  padding: 26px 32px;
-}
-.e-banner img {
-  width: 96px;
-  height: 96px;
-  flex-shrink: 0;
-}
-@media (max-width: 639px) {
-  .e-banner {
-    gap: 16px;
-    padding: 18px 16px;
-  }
-  .e-banner img {
-    width: 72px;
-    height: 72px;
-  }
-}
-
 /* --- Home motion ------------------------------------------------------------
    Everything below animates transform and opacity only, 150-300 ms, ease-out.
    Reduced motion is honoured by the global rule at the end of this file. */
@@ -729,34 +705,237 @@ body:has(.editorial) {
   animation-delay: calc(var(--i, 0) * 60ms);
 }
 
-/* The otter arrives softly and then floats, barely. */
-@keyframes e-otter-in {
+/* --- The otter, host of the home (src/components/home-otter.tsx) -----------
+   One flat PNG: every reaction moves the whole figure. Each motion has its own
+   wrapper (lean > float > react > img) so the transforms add up. */
+.e-guide {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+}
+.e-otter-stage {
+  position: relative;
+  flex-shrink: 0;
+  width: 112px;
+  height: 112px;
+  touch-action: manipulation;
+}
+@media (min-width: 640px) {
+  .e-otter-stage {
+    width: 160px;
+    height: 160px;
+  }
+}
+@media (min-width: 1024px) {
+  .e-guide {
+    gap: 8px;
+  }
+  .e-otter-stage {
+    width: 220px;
+    height: 220px;
+  }
+}
+@media (min-width: 1280px) {
+  .e-otter-stage {
+    width: 250px;
+    height: 250px;
+  }
+}
+.e-otter-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  transform-origin: 50% 92%;
+  /* in with a small bounce, then a slow breath */
+  animation:
+    e-otter-enter 0.5s cubic-bezier(0.3, 1.45, 0.5, 1) both,
+    e-otter-breathe 3.6s ease-in-out 0.6s infinite alternate;
+}
+@keyframes e-otter-enter {
   from {
     opacity: 0;
-    transform: translateY(8px) scale(0.92);
+    transform: translateY(26px) scale(0.8);
   }
   to {
     opacity: 1;
     transform: none;
   }
 }
-@keyframes e-float {
+@keyframes e-otter-breathe {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.025, 1.035);
+  }
+}
+.e-otter-float {
+  animation: e-otter-float 3.2s ease-in-out 0.6s infinite alternate;
+}
+@keyframes e-otter-float {
   from {
     transform: translateY(0);
   }
   to {
-    transform: translateY(-5px);
+    transform: translateY(-7px);
   }
 }
-.e-otter {
-  animation:
-    e-otter-in 0.3s ease-out both,
-    e-float 2.8s ease-in-out 0.3s infinite alternate;
+/* leans toward the cursor: --lx / --ly run from -1 to 1 (set from script) */
+.e-otter-lean {
+  transform: translate(calc(var(--lx, 0) * 7px), calc(var(--ly, 0) * 5px)) rotate(calc(var(--lx, 0) * 3.5deg));
+  transform-origin: 50% 90%;
+  transition: transform 0.25s ease-out;
+}
+.e-otter-react {
+  transform-origin: 50% 92%;
+}
+.e-otter-react[data-mood="greet"] {
+  animation: e-otter-greet 0.75s ease-in-out both;
+}
+.e-otter-react[data-mood="hop"] {
+  animation: e-otter-hop 0.38s ease-out both;
+}
+.e-otter-react[data-mood="excited"] {
+  animation: e-otter-excited 0.46s ease-in-out infinite alternate;
+}
+.e-otter-react[data-mood="celebrate"] {
+  animation: e-otter-celebrate 1s ease-out both;
+}
+@keyframes e-otter-greet {
+  0%,
+  100% {
+    transform: none;
+  }
+  25% {
+    transform: rotate(-8deg);
+  }
+  50% {
+    transform: rotate(7deg);
+  }
+  75% {
+    transform: rotate(-4deg);
+  }
+}
+@keyframes e-otter-hop {
+  0%,
+  100% {
+    transform: none;
+  }
+  45% {
+    transform: translateY(-20px) scale(0.97, 1.04);
+  }
+  80% {
+    transform: translateY(0) scale(1.04, 0.96);
+  }
+}
+@keyframes e-otter-excited {
+  from {
+    transform: translateY(0) rotate(-3deg);
+  }
+  to {
+    transform: translateY(-9px) rotate(3deg);
+  }
+}
+@keyframes e-otter-celebrate {
+  0%,
+  100% {
+    transform: none;
+  }
+  22% {
+    transform: translateY(-30px) rotate(-9deg);
+  }
+  44% {
+    transform: translateY(0) rotate(0) scale(1.05, 0.95);
+  }
+  66% {
+    transform: translateY(-18px) rotate(7deg);
+  }
+  86% {
+    transform: translateY(0) scale(1.03, 0.97);
+  }
+}
+/* Confetti in the category colours, thrown from the otter when it celebrates. */
+.e-confetti {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  pointer-events: none;
+}
+.e-confetti i {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  opacity: 0;
+  animation: e-confetti 0.95s ease-out both;
+}
+.e-confetti i:nth-child(odd) {
+  border-radius: 50%;
+  animation-delay: 0.06s;
+}
+@keyframes e-confetti {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0);
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), var(--dy)) rotate(200deg);
+  }
+}
+/* What it says: a speech bubble whose tail points back at the otter. */
+.e-bubble {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  margin-bottom: 18px;
+  padding: 14px 16px;
+  border: 1px solid var(--e-divider);
+  border-radius: 14px;
+  background: var(--e-banner-surface);
+  transform-origin: 0 100%;
+  animation: e-bubble-in 0.3s ease-out 0.5s both;
+}
+.e-bubble::before {
+  content: "";
+  position: absolute;
+  left: -7px;
+  bottom: 22px;
+  width: 12px;
+  height: 12px;
+  border-left: 1px solid var(--e-divider);
+  border-bottom: 1px solid var(--e-divider);
+  background: var(--e-banner-surface);
+  transform: rotate(45deg);
+}
+@keyframes e-bubble-in {
+  from {
+    opacity: 0;
+    transform: translateX(-8px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  /* the global rule shortens animations; an endless one must simply stop */
-  .e-otter {
-    animation: none;
+  /* the global rule shortens animations; the endless ones must simply stop,
+     and the picture stays still */
+  .e-otter-img,
+  .e-otter-float,
+  .e-otter-react,
+  .e-bubble,
+  .e-confetti i {
+    animation: none !important;
+  }
+  .e-otter-lean {
+    transform: none;
+  }
+  .e-confetti {
+    display: none;
   }
 }
 

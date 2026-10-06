@@ -6,6 +6,7 @@ import Link from "next/link";
 import { course, requiredLessons } from "@/content/course";
 import { useProgress, useSettings } from "@/components/providers";
 import { MascotMark } from "@/components/logo";
+import { HomeOtter } from "@/components/home-otter";
 import { t, ui } from "@/lib/i18n";
 import type { L, Lesson, LessonStatus, Module, ModuleCategory } from "@/lib/types";
 
@@ -119,7 +120,7 @@ function Header() {
   return (
     <header
       data-scrolled={scrolled}
-      className="e-header sticky top-0 z-30 -mx-5 flex items-center justify-between gap-3 px-5 py-3 sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12 xl:-mx-24 xl:px-24"
+      className="e-header sticky top-0 z-30 -mx-5 flex items-center justify-between gap-3 px-5 py-2.5 sm:-mx-8 sm:px-8 lg:-mx-12 lg:-mb-6 lg:px-12 xl:-mx-24 xl:px-24"
     >
       <Link href="/" className="inline-flex min-h-[44px] min-w-[44px] items-center gap-2.5 text-[var(--e-ink)]">
         <MascotMark size={44} className="shrink-0" />
@@ -252,7 +253,7 @@ function CategoryTabs({ value, onChange }: { value: CatFilter; onChange: (c: Cat
   };
 
   return (
-    <div className="e-tabs sticky top-[68px] z-20 -mx-5 px-5 sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12 xl:-mx-24 xl:px-24">
+    <div className="e-tabs sticky top-[64px] z-20 -mx-5 px-5 sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12 xl:-mx-24 xl:px-24">
       <div
         ref={listRef}
         role="tablist"
@@ -346,7 +347,7 @@ function UpNext({
       href={`/m/${mod.id}/${lesson.slug}`}
       /* Floating card (as in the reference site): tilted on wide screens, lifted
          by a shadow, and it straightens on hover. Colours unchanged. */
-      className="e-upnext e-rise group flex w-full flex-col gap-[22px] p-6 transition-transform duration-300 ease-out hover:-translate-y-1.5 focus-visible:-translate-y-1.5 sm:p-8 lg:mt-4 lg:w-[420px] lg:shrink-0 lg:rotate-[1.5deg] lg:hover:rotate-0 lg:focus-visible:rotate-0 xl:w-[460px]"
+      className="e-upnext e-rise group flex w-full flex-col gap-[22px] p-6 transition-transform duration-300 ease-out hover:-translate-y-1.5 focus-visible:-translate-y-1.5 sm:p-8 lg:rotate-[1.5deg] lg:hover:rotate-0 lg:focus-visible:rotate-0"
       style={
         {
           "--i": 3,
@@ -443,7 +444,7 @@ function UpNext({
 
 export default function HomePage() {
   const { lang } = useSettings();
-  const { snapshot, authed } = useProgress();
+  const { snapshot, authed, ready: progressReady } = useProgress();
 
   const statusOf = (id: string): LessonStatus => snapshot.lessons[id]?.status ?? "not_started";
 
@@ -464,6 +465,44 @@ export default function HomePage() {
   const pairs = course.modules.flatMap((m) => requiredLessons(m).map((l) => ({ m, l })));
   const nextUp = pairs.find(({ l }) => statusOf(l.id) !== "completed") ?? pairs[0];
   const published = course.modules.filter((m) => m.status === "ready").length;
+
+  // What the otter says follows the reader's progress.
+  const courseDone = allLessons.length > 0 && doneCount === allLessons.length;
+  const nextIsModuleStart = !!nextUp && requiredLessons(nextUp.m)[0]?.id === nextUp.l.id;
+  const prevModule = nextUp ? course.modules[course.modules.indexOf(nextUp.m) - 1] : undefined;
+  const moduleJustDone = !courseDone && nextIsModuleStart && !!prevModule && moduleDone(prevModule);
+  const otterSays = courseDone
+    ? lang === "es"
+      ? `¡Curso completo! Los ${course.modules.length} módulos son tuyos. Ahora, los desafíos.`
+      : `Course complete! All ${course.modules.length} modules are yours. Now, the challenges.`
+    : stepsDone === 0 || !nextUp
+      ? lang === "es"
+        ? "¡Hola! Soy tu nutria trailblazer. Voy módulo a módulo contigo, sin dar nada por sabido."
+        : "Hi! I'm your trailblazer otter — I go module by module with you, taking nothing for granted."
+      : moduleJustDone && prevModule
+        ? lang === "es"
+          ? `¡Módulo ${pad(prevModule.n)} terminado! Buen trabajo. Te espera «${t(nextUp.m.title, lang)}».`
+          : `Module ${pad(prevModule.n)} done! Nice work. «${t(nextUp.m.title, lang)}» is waiting for you.`
+        : lang === "es"
+          ? `¡Qué bien verte! Vas por «${t(nextUp.l.title, lang)}». ¿Seguimos?`
+          : `Good to see you! You are on «${t(nextUp.l.title, lang)}». Shall we continue?`;
+
+  // The otter gets excited while the main button is hovered or focused.
+  const [cheer, setCheer] = useState(false);
+
+  // It celebrates once when this browser comes back with more lessons done
+  // than the last time the home was open.
+  const [party, setParty] = useState(0);
+  useEffect(() => {
+    if (!progressReady) return;
+    try {
+      const raw = localStorage.getItem("apex.home.seenDone");
+      if (raw !== null && doneCount > Number(raw)) setParty((p) => p + 1);
+      localStorage.setItem("apex.home.seenDone", String(doneCount));
+    } catch {
+      /* private mode: no celebration, nothing else changes */
+    }
+  }, [progressReady, doneCount]);
 
   const [cat, setCat] = useState<CatFilter>("all");
   const shownModules = cat === "all" ? course.modules : course.modules.filter((m) => m.category === cat);
@@ -493,28 +532,23 @@ export default function HomePage() {
 
   return (
     <div className="editorial min-h-dvh">
-      <main className="mx-auto flex w-full max-w-[1440px] flex-col gap-12 px-5 py-8 sm:px-8 sm:py-12 lg:gap-[72px] lg:px-12 lg:py-16 xl:px-24 xl:py-[88px]">
+      <main className="mx-auto flex w-full max-w-[1440px] flex-col gap-10 px-5 pb-8 pt-2 sm:px-8 sm:pb-12 sm:pt-3 lg:gap-16 lg:px-12 lg:pb-16 xl:px-24 xl:pb-[88px]">
         <Header />
 
-        {/* -------------------------------------------------- welcome banner */}
-        <section className="e-banner" aria-label={lang === "es" ? "Bienvenida" : "Welcome"}>
-          {/* eslint-disable-next-line @next/next/no-img-element -- fixed illustration from /public */}
-          <img className="e-otter" src="/mascot/apex-academy-mascota-verde-full-illustration.png" alt="" width={96} height={96} />
-          <div className="min-w-0">
-            <p className="e-mono m-0 text-[11px] uppercase tracking-[0.1em]" style={{ color: "var(--e-accent-text)" }}>
-              {lang === "es" ? "Tu guía en el curso" : "Your guide through the course"}
-            </p>
-            <p className="m-0 mt-1.5 max-w-[720px] text-[15px] leading-[1.55]">
-              {lang === "es"
-                ? "¡Hola! Soy tu nutria trailblazer. Voy módulo a módulo contigo, sin dar nada por sabido."
-                : "Hi! I'm your trailblazer otter — I go module by module with you, taking nothing for granted."}
-            </p>
-          </div>
-        </section>
-
         {/* ------------------------------------------------------------ hero */}
-        <section className="flex flex-col gap-12 lg:flex-row lg:items-start lg:gap-[72px]">
-          <div className="flex min-w-0 flex-1 flex-col gap-7">
+        {/* Phone: otter, then the copy, then the card. Desktop: the copy on the
+            left; the otter on the right, presenting the card under it. */}
+        <section className="grid grid-cols-1 gap-9 lg:grid-cols-[minmax(0,1fr)_420px] lg:grid-rows-[auto_1fr] lg:gap-x-[72px] lg:gap-y-9 xl:grid-cols-[minmax(0,1fr)_460px]">
+          <div className="lg:col-start-2 lg:row-start-1">
+            <HomeOtter
+              label={lang === "es" ? "Tu guía en el curso" : "Your guide through the course"}
+              message={otterSays}
+              excited={cheer}
+              celebrate={party}
+            />
+          </div>
+
+          <div className="flex min-w-0 flex-col gap-7 lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:pt-6">
             <p className="e-mono e-rise flex items-center gap-2.5 text-[12px] uppercase tracking-[0.14em]">
               <span className="inline-block h-2.5 w-2.5 shrink-0" style={{ background: "var(--e-accent)" }} />
               <span>
@@ -556,7 +590,14 @@ export default function HomePage() {
 
             <div className="e-rise mt-2 flex flex-col gap-3.5 sm:flex-row" style={{ "--i": 4 } as React.CSSProperties}>
               {nextUp && (
-                <Link href={`/m/${nextUp.m.id}/${nextUp.l.slug}`} className="e-btn e-btn-primary">
+                <Link
+                  href={`/m/${nextUp.m.id}/${nextUp.l.slug}`}
+                  className="e-btn e-btn-primary"
+                  onPointerEnter={() => setCheer(true)}
+                  onPointerLeave={() => setCheer(false)}
+                  onFocus={() => setCheer(true)}
+                  onBlur={() => setCheer(false)}
+                >
                   {stepsDone === 0 ? t(ui.startCourse, lang) : t(ui.continueLearning, lang)}{" "}
                   <span className="e-arrow" aria-hidden>
                     →
@@ -593,21 +634,23 @@ export default function HomePage() {
           </div>
 
           {nextUp && (
-            <UpNext
-              mod={nextUp.m}
-              lesson={nextUp.l}
-              status={statusOf(nextUp.l.id)}
-              steps={{
-                theory: Boolean(snapshot.lessons[nextUp.l.id]?.theoryDone),
-                quiz: Boolean(snapshot.lessons[nextUp.l.id]?.quizDone),
-                exercise: Boolean(snapshot.lessons[nextUp.l.id]?.exerciseDone),
-              }}
-            />
+            <div className="self-start lg:col-start-2 lg:row-start-2">
+              <UpNext
+                mod={nextUp.m}
+                lesson={nextUp.l}
+                status={statusOf(nextUp.l.id)}
+                steps={{
+                  theory: Boolean(snapshot.lessons[nextUp.l.id]?.theoryDone),
+                  quiz: Boolean(snapshot.lessons[nextUp.l.id]?.quizDone),
+                  exercise: Boolean(snapshot.lessons[nextUp.l.id]?.exerciseDone),
+                }}
+              />
+            </div>
           )}
         </section>
 
         {/* --------------------------------------------------------- modules */}
-        <section id="modulos" className="flex scroll-mt-[84px] flex-col gap-7">
+        <section id="modulos" className="flex scroll-mt-[80px] flex-col gap-7">
           <div className={sectionHead}>
             <span>{t(ui.modules, lang)}</span>
             <span>
