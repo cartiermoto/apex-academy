@@ -762,17 +762,17 @@ export default function HomePage() {
           </ul>
         </section>
 
-        <footer className="e-mono pt-2" style={{ borderTop: "1px solid var(--e-divider)" }}>
-          <div className="flex flex-wrap justify-between gap-3 text-[11px] uppercase tracking-[0.08em]">
-            <span className="pt-4">Apex Academy</span>
-            <span className="pt-4">
+        <footer className="e-mono flex flex-col gap-4 pb-2 pt-8" style={{ borderTop: "1px solid var(--e-divider)" }}>
+          <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2 text-[11px] uppercase tracking-[0.08em]">
+            <span className="text-[12px] font-semibold tracking-[0.1em]">Apex Academy</span>
+            <span>
               {allLessons.length} {t(ui.lessons, lang)} · {lang === "es" ? "publicadas" : "published"}
             </span>
           </div>
           {/* Credit line (footer proposal A). Mixed toward the page colour instead
               of opacity, so the accent span keeps its own full contrast. */}
           <p
-            className="mt-[10px] text-[10px] tracking-[0.02em]"
+            className="m-0 text-[11px] leading-[1.6] tracking-[0.02em]"
             style={{ color: "color-mix(in srgb, var(--e-ink) 80%, var(--e-bg))" }}
           >
             {lang === "es" ? "construido por elias · salesforce admin · con " : "built by elias · salesforce admin — with "}
