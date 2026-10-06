@@ -891,6 +891,58 @@ body:has(.editorial) {
   background: color-mix(in srgb, var(--e-ink) 14%, transparent);
 }
 
+/* Locked challenges: a lock badge, quieter copy, and a tooltip with the
+   condition. The copy keeps 4.5:1 on the green at this opacity. */
+.e-challenge[data-locked="true"] h3,
+.e-challenge[data-locked="true"] p {
+  opacity: 0.8;
+}
+.e-lock {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 4px;
+  font-weight: 600;
+}
+.e-lock svg {
+  transition: transform 0.2s ease-out;
+}
+@media (hover: hover) {
+  li:hover .e-lock svg {
+    transform: rotate(-12deg);
+  }
+}
+.e-tip {
+  position: absolute;
+  right: 16px;
+  top: -18px;
+  z-index: 5;
+  max-width: calc(100% - 32px);
+  padding: 9px 12px;
+  border-radius: 4px;
+  background: var(--e-ink);
+  color: var(--e-bg);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+  pointer-events: none;
+}
+@media (hover: hover) {
+  li:hover > .e-tip {
+    opacity: 1;
+    transform: none;
+  }
+}
+li:focus-within > .e-tip {
+  opacity: 1;
+  transform: none;
+}
+
 .editorial :where(a, button):focus-visible {
   outline: 2px solid var(--e-accent);
   outline-offset: 2px;

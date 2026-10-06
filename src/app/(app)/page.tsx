@@ -712,10 +712,24 @@ export default function HomePage() {
               const progress = snapshot.challenges[c.id];
 
               return (
-                <li key={c.id} className="e-rise" style={{ "--i": i } as React.CSSProperties}>
-                  <Link href={`/c/${c.id}`} className="block h-full">
-                    <article className="e-challenge flex h-full flex-col gap-3.5 p-6 sm:p-[30px]">
-                      <div className="e-mono flex items-center justify-between text-[11px] uppercase tracking-[0.08em] opacity-[0.72]">
+                <li key={c.id} className="e-rise relative" style={{ "--i": i } as React.CSSProperties}>
+                  {/* Shown on hover and keyboard focus; on touch the same
+                      condition is the last line of the card. */}
+                  {!unlocked && (
+                    <span id={`tip-${c.id}`} role="tooltip" className="e-tip e-mono">
+                      {t(ui.unlockedBy, lang)} · M{pad(required?.n ?? 0)}
+                      {required ? ` ${t(required.title, lang)}` : ""}
+                    </span>
+                  )}
+                  <Link
+                    href={`/c/${c.id}`}
+                    className="block h-full"
+                    aria-describedby={unlocked ? undefined : `tip-${c.id}`}
+                  >
+                    <article data-locked={!unlocked} className="e-challenge flex h-full flex-col gap-3.5 p-6 sm:p-[30px]">
+                      <div
+                        className={`e-mono flex items-center justify-between text-[11px] uppercase tracking-[0.08em] ${unlocked ? "opacity-[0.72]" : ""}`}
+                      >
                         <span>
                           {t(ui.challenge, lang)} {pad(c.n)}
                         </span>
@@ -723,13 +737,13 @@ export default function HomePage() {
                           {unlocked ? (
                             progress?.status === "completed" ? t(ui.completed, lang) : t(ui.ready, lang)
                           ) : (
-                            <>
-                              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden>
-                                <rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" strokeWidth="1.8" />
-                                <path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                            <span className="e-lock">
+                              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden>
+                                <rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" strokeWidth="2" />
+                                <path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                               </svg>
                               {t(ui.locked, lang)}
-                            </>
+                            </span>
                           )}
                         </span>
                       </div>
