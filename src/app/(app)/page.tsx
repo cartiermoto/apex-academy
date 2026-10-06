@@ -219,12 +219,15 @@ function UpNext({
       href={`/m/${mod.id}/${lesson.slug}`}
       /* Floating card (as in the reference site): tilted on wide screens, lifted
          by a shadow, and it straightens on hover. Colours unchanged. */
-      className="group flex w-full flex-col gap-[22px] p-6 transition-transform duration-300 ease-out sm:p-8 lg:mt-4 lg:w-[420px] lg:shrink-0 lg:rotate-[1.5deg] lg:hover:rotate-0 xl:w-[460px]"
-      style={{
-        background: "var(--e-cat-fund-surface)",
-        color: "var(--e-ink)",
-        boxShadow: "var(--e-float-shadow)",
-      }}
+      className="e-upnext e-rise group flex w-full flex-col gap-[22px] p-6 transition-transform duration-300 ease-out hover:-translate-y-1.5 focus-visible:-translate-y-1.5 sm:p-8 lg:mt-4 lg:w-[420px] lg:shrink-0 lg:rotate-[1.5deg] lg:hover:rotate-0 lg:focus-visible:rotate-0 xl:w-[460px]"
+      style={
+        {
+          "--i": 3,
+          background: "var(--e-cat-fund-surface)",
+          color: "var(--e-ink)",
+          boxShadow: "var(--e-float-shadow)",
+        } as React.CSSProperties
+      }
     >
       <div className="flex items-center gap-3">
         <MascotMark size={30} className="shrink-0" />
@@ -242,7 +245,7 @@ function UpNext({
       <div className="flex flex-col gap-4">
         <div className="grid grid-cols-[110px_1fr] gap-3 sm:grid-cols-[130px_1fr]">
           <span className={k}>{lang === "es" ? "Concepto" : "Concept"}</span>
-          <span className="e-mono text-[14px] leading-[1.5]">{t(lesson.title, lang)}</span>
+          <span className="text-[19px] font-bold leading-[1.25] tracking-[-0.01em] sm:text-[21px]">{t(lesson.title, lang)}</span>
         </div>
         {lesson.analogy && (
           <div className="grid grid-cols-[110px_1fr] gap-3 sm:grid-cols-[130px_1fr]">
@@ -295,8 +298,14 @@ function UpNext({
         <span className="e-mono text-[11px] uppercase tracking-[0.05em]">
           ↳ {t(ui.module, lang)} {mod.n} · {t(mod.title, lang)}
         </span>
-        <span className="e-mono whitespace-nowrap text-[12px] font-bold uppercase tracking-[0.05em] transition group-hover:opacity-70">
-          {lang === "es" ? "Abrir" : "Open"} →
+        <span
+          className="e-mono inline-flex min-h-[44px] shrink-0 items-center gap-2 whitespace-nowrap rounded-[4px] px-4 text-[12px] font-bold uppercase tracking-[0.05em]"
+          style={{ background: "var(--e-accent)", color: "var(--e-on-accent)" }}
+        >
+          {lang === "es" ? "Abrir" : "Open"}
+          <span className="inline-block transition-transform duration-200 ease-out group-hover:translate-x-1 group-focus-visible:translate-x-1" aria-hidden>
+            →
+          </span>
         </span>
       </div>
     </Link>

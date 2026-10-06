@@ -769,6 +769,13 @@ body:has(.editorial) {
   transition: transform 0.3s ease-out 0.15s;
 }
 
+/* "Siguiente lección": the main thing after the hero. A green edge on top of
+   its floating shadow sets it apart from the module cards. */
+.e-upnext {
+  border: 1px solid color-mix(in srgb, var(--e-accent) 45%, transparent);
+  border-top: 4px solid var(--e-accent);
+}
+
 .editorial :where(a, button):focus-visible {
   outline: 2px solid var(--e-accent);
   outline-offset: 2px;
