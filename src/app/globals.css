@@ -502,13 +502,23 @@ body:has(.editorial) {
   --e-num: var(--e-module-num);
   background: var(--e-surface);
   border: none;
-  transition:
-    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-    box-shadow 0.35s ease;
+  position: relative;
+  transition: transform 0.25s ease-out;
+}
+/* The lift shadow lives on a pseudo-element so only its opacity animates. */
+.e-module::after,
+.e-challenge::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: var(--e-float-shadow);
+  opacity: 0;
+  transition: opacity 0.25s ease-out;
+  pointer-events: none;
 }
 .e-module .e-num {
   display: inline-block;
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.25s ease-out;
 }
 /* Hover: the card lifts and tilts like the "Siguiente" card, alternating
    direction so the grid feels alive; the number nudges forward. Only on
@@ -518,7 +528,13 @@ body:has(.editorial) {
   li:hover > a > .e-module,
   li:focus-within .e-module {
     transform: translateY(-6px) rotate(-1.2deg);
-    box-shadow: var(--e-float-shadow);
+  }
+  li:hover > .e-module::after,
+  li:hover > a > .e-module::after,
+  li:focus-within .e-module::after,
+  li:hover > a > .e-challenge::after,
+  li:focus-within .e-challenge::after {
+    opacity: 1;
   }
   li:nth-child(even):hover > .e-module,
   li:nth-child(even):hover > a > .e-module,
@@ -532,7 +548,6 @@ body:has(.editorial) {
   li:hover > a > .e-challenge,
   li:focus-within .e-challenge {
     transform: translateY(-8px) rotate(-1deg);
-    box-shadow: var(--e-float-shadow);
   }
   li:nth-child(even):hover > a > .e-challenge,
   li:nth-child(even):focus-within .e-challenge {
@@ -543,9 +558,8 @@ body:has(.editorial) {
   background: var(--e-challenge-bg);
   color: var(--e-challenge-text);
   border: var(--e-challenge-border);
-  transition:
-    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-    box-shadow 0.35s ease;
+  position: relative;
+  transition: transform 0.25s ease-out;
 }
 .e-module[data-cat="logic"] {
   --e-surface: var(--e-cat-logic-surface);
@@ -828,6 +842,53 @@ body:has(.editorial) {
   opacity: 0;
   transition: transform 0.25s ease-out, opacity 0.15s ease-out;
   pointer-events: none;
+}
+
+/* Cards wait for their grid to enter the viewport, then rise in one after
+   another. Without scripting nothing waits. */
+.e-stagger:not([data-in="true"]) .e-rise {
+  animation-play-state: paused;
+}
+@media (scripting: none) {
+  .e-rise {
+    animation: none;
+  }
+}
+
+/* Module state, readable at a glance. */
+.e-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border: 1px solid var(--e-legend-border);
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.e-tag[data-state="done"] {
+  background: var(--e-accent);
+  border-color: var(--e-accent);
+  color: var(--e-on-accent);
+  font-weight: 600;
+}
+.e-tag[data-state="current"] {
+  border-color: var(--e-accent-text);
+  color: var(--e-accent-text);
+  font-weight: 600;
+}
+.e-tag[data-state="current"]::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.e-module[data-state="current"] {
+  outline: 2px solid var(--e-accent);
+  outline-offset: -2px;
+}
+.e-track {
+  background: color-mix(in srgb, var(--e-ink) 14%, transparent);
 }
 
 .editorial :where(a, button):focus-visible {

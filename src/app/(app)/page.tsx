@@ -69,6 +69,34 @@ function CountUp({ to }: { to: number }) {
   );
 }
 
+/**
+ * True once the element has entered the viewport (and it stays true). The
+ * cards inside wait for it before rising in, so the stagger is seen.
+ */
+function useInView<T extends HTMLElement>() {
+  const ref = useRef<T>(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof IntersectionObserver === "undefined") {
+      setInView(true);
+      return;
+    }
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "0px 0px -10% 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return [ref, inView] as const;
+}
+
 /* ------------------------------------------------------------------ header */
 
 function Header() {
@@ -450,6 +478,9 @@ export default function HomePage() {
     }
   };
 
+  const [modulesRef, modulesInView] = useInView<HTMLDivElement>();
+  const [challengesRef, challengesInView] = useInView<HTMLUListElement>();
+
   // The bar starts empty and fills to the real value after the first paint,
   // and again whenever the value changes.
   const [shownPct, setShownPct] = useState(0);
@@ -587,12 +618,21 @@ export default function HomePage() {
           <CategoryTabs value={cat} onChange={chooseCat} />
 
           {/* Re-keyed per category: the filtered cards mount fresh and rise in. */}
-          <div id="panel-modulos" role="tabpanel" aria-labelledby={`tab-${cat}`}>
+          <div
+            ref={modulesRef}
+            data-in={modulesInView}
+            id="panel-modulos"
+            role="tabpanel"
+            aria-labelledby={`tab-${cat}`}
+            className="e-stagger"
+          >
           <ul key={cat} className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
             {shownModules.map((m, i) => {
               const ready = m.status === "ready";
               const done = requiredLessons(m).filter((l) => statusOf(l.id) === "completed").length;
               const current = ready && nextUp?.m.id === m.id && !moduleDone(m);
+              const state = moduleDone(m) ? "done" : current ? "current" : ready ? "ready" : "planned";
+              const total = requiredLessons(m).length;
               const tag = moduleDone(m)
                 ? t(ui.completed, lang)
                 : current
@@ -609,15 +649,28 @@ export default function HomePage() {
               const card = (
                 <article
                   data-cat={m.category}
+                  data-state={state}
                   className="e-module flex h-full min-h-[190px] flex-col gap-3.5 p-6 sm:p-[30px]"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <span className="e-num text-[30px] font-bold leading-none">{pad(m.n)}</span>
-                    <span className="e-mono text-[10px] uppercase tracking-[0.08em]">{tag}</span>
+                    <span data-state={state} className="e-tag e-mono text-[10px] uppercase tracking-[0.08em]">
+                      {state === "done" && <span aria-hidden>✓</span>}
+                      {tag}
+                    </span>
                   </div>
                   <h3 className="e-title m-0 text-[21px] font-semibold leading-[1.2]">{t(m.title, lang)}</h3>
                   <p className="m-0 flex-1 text-[13.5px] leading-[1.5]">{t(m.subtitle, lang)}</p>
                   <span className="e-mono text-[11px] uppercase tracking-[0.06em]">{meta}</span>
+                  {/* decorative: the line above already says done/total */}
+                  {ready && total > 0 && (
+                    <div aria-hidden className="e-track h-1 overflow-hidden rounded-[2px]">
+                      <div
+                        className="e-fill h-1"
+                        style={{ transform: `scaleX(${modulesInView ? done / total : 0})`, background: "var(--e-accent)" }}
+                      />
+                    </div>
+                  )}
                 </article>
               );
 
@@ -647,15 +700,19 @@ export default function HomePage() {
             <span>{lang === "es" ? "Proyectos con feedback" : "Projects with feedback"}</span>
           </div>
 
-          <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:gap-5">
-            {course.challenges.map((c) => {
+          <ul
+            ref={challengesRef}
+            data-in={challengesInView}
+            className="e-stagger grid grid-cols-1 gap-4 md:grid-cols-2 lg:gap-5"
+          >
+            {course.challenges.map((c, i) => {
               const required = course.modules.find((m) => m.id === c.requires);
               // Admin mode: signed in, the challenges open regardless of progress.
               const unlocked = authed === true || (required ? moduleDone(required) : false);
               const progress = snapshot.challenges[c.id];
 
               return (
-                <li key={c.id}>
+                <li key={c.id} className="e-rise" style={{ "--i": i } as React.CSSProperties}>
                   <Link href={`/c/${c.id}`} className="block h-full">
                     <article className="e-challenge flex h-full flex-col gap-3.5 p-6 sm:p-[30px]">
                       <div className="e-mono flex items-center justify-between text-[11px] uppercase tracking-[0.08em] opacity-[0.72]">
