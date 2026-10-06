@@ -329,6 +329,14 @@ export default function HomePage() {
   const nextUp = pairs.find(({ l }) => statusOf(l.id) !== "completed") ?? pairs[0];
   const published = course.modules.filter((m) => m.status === "ready").length;
 
+  // The bar starts empty and fills to the real value after the first paint,
+  // and again whenever the value changes.
+  const [shownPct, setShownPct] = useState(0);
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setShownPct(overallPct));
+    return () => cancelAnimationFrame(id);
+  }, [overallPct]);
+
   const sectionHead = "e-mono flex items-baseline justify-between gap-4 text-[12px] uppercase tracking-[0.1em]";
 
   return (
@@ -409,7 +417,7 @@ export default function HomePage() {
             </div>
 
             {allLessons.length > 0 && (
-              <div className="mt-5 flex flex-col gap-2.5">
+              <div className="e-rise mt-5 flex flex-col gap-2.5" style={{ "--i": 5 } as React.CSSProperties}>
                 <div className="e-mono flex justify-between text-[11px] uppercase tracking-[0.1em]">
                   <span>{t(ui.overallProgress, lang)}</span>
                   <span className="tabular-nums">
@@ -417,14 +425,16 @@ export default function HomePage() {
                   </span>
                 </div>
                 <SyncStatus />
-                <div className="h-1.5" style={{ background: "var(--e-track-bg)" }}>
-                  <div
-                    className="h-1.5 transition-[width] duration-500"
-                    style={{
-                      width: `${overallPct}%`,
-                      background: "var(--e-accent)",
-                    }}
-                  />
+                <div
+                  role="progressbar"
+                  aria-label={t(ui.overallProgress, lang)}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  aria-valuenow={overallPct}
+                  className="h-2 overflow-hidden rounded-[2px]"
+                  style={{ background: "var(--e-track-bg)" }}
+                >
+                  <div className="e-fill h-2" style={{ transform: `scaleX(${shownPct / 100})`, background: "var(--e-accent)" }} />
                 </div>
               </div>
             )}

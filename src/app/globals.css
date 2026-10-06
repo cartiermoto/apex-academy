@@ -762,6 +762,13 @@ body:has(.editorial) {
   color: var(--e-accent-text);
 }
 
+/* Progress bars fill by scaling from the left edge. */
+.e-fill {
+  width: 100%;
+  transform-origin: left center;
+  transition: transform 0.3s ease-out 0.15s;
+}
+
 .editorial :where(a, button):focus-visible {
   outline: 2px solid var(--e-accent);
   outline-offset: 2px;
