@@ -28,7 +28,7 @@ import {
 import { GuardBypassPlay, LayerChooserPlay, ServiceDoorsPlay, ThinTriggerPlay, TwoTriggersPlay } from "./diagrams-anim-m07";
 import { BeforeAfterPlay, ContextPlay, FlowToTriggerPlay, RecursionPlay, TriggerAnatomyPlay } from "./diagrams-anim-m06";
 import { JsonMouldPlay, NamedCredentialPlay, RequestPlay, RestDoorPlay, RestVsSoapPlay, RetryPlay, RoundTripPlay } from "./diagrams-anim-m11";
-import { AuditPlay, CrudFlsPlay, InjectionPlay, SharingPlay, UserModePlay } from "./diagrams-anim-m12";
+import { AuditPlay, CrudFlsPlay, InjectionPlay, RunAsPlay, SharingPlay, UserModePlay } from "./diagrams-anim-m12";
 import { AssertPlay, CoveragePlay, EdgeCasesPlay, MockPlay, StopTestPlay, SuitePlay, TestDataPlay } from "./diagrams-anim-m10";
 import { AsyncChooserPlay, BatchPlay, CronPlay, FuturePlay, NightlyPipelinePlay, QueueableChainPlay, SyncAsyncPlay } from "./diagrams-anim-m09";
 import { AddErrorPlay, CustomExceptionPlay, ErrorDictionaryPlay, ExceptionTypesPlay, PropagationPlay, TryFlowPlay } from "./diagrams-anim-m08";
@@ -580,6 +580,7 @@ const REGISTRY: Record<string, (p: P) => React.ReactElement> = {
   "m12-crud-fls": CrudFlsPlay,
   "m12-user-mode": UserModePlay,
   "m12-injection": InjectionPlay,
+  "m12-runas": RunAsPlay,
   "m12-cp-audit": AuditPlay,
   "m06-anatomy": TriggerAnatomyPlay,
   "m06-before-after": BeforeAfterPlay,

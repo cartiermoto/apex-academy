@@ -34,8 +34,8 @@ const C_EN = [
   "// A utility both call: let it inherit its caller's mode",
 ];
 
-const HEAD_ES = "// CASO: el puente con el ERP, auditado\n// Tarea 1 de 5: quién ve qué registros.\n\n";
-const HEAD_EN = "// CASE: the ERP bridge, audited\n// Task 1 of 5: who sees which records.\n\n";
+const HEAD_ES = "// CASO: el puente con el ERP, auditado\n// Tarea 1 de 6: quién ve qué registros.\n\n";
+const HEAD_EN = "// CASE: the ERP bridge, audited\n// Task 1 of 6: who sees which records.\n\n";
 
 const SOLUTION_ES =
   HEAD_ES + BODY("public with sharing class", "public without sharing class", "public inherited sharing class", C_ES[0], C_ES[1], C_ES[2]);
@@ -43,11 +43,11 @@ const SOLUTION_EN =
   HEAD_EN + BODY("public with sharing class", "public without sharing class", "public inherited sharing class", C_EN[0], C_EN[1], C_EN[2]);
 
 const STARTER_ES =
-  "// CASO: el puente con el ERP, auditado\n// Ya resuelto (Módulos 8 a 11): el puente funciona, está probado y habla con otros sistemas.\n// Tarea 1 de 5: quién ve qué registros.\n\n// Las tres clases son de la versión 58 de la API: sin declaración, se ejecutan sin sharing.\n\n" +
+  "// CASO: el puente con el ERP, auditado\n// Ya resuelto (Módulos 8 a 11): el puente funciona, está probado y habla con otros sistemas.\n// Tarea 1 de 6: quién ve qué registros.\n\n// Las tres clases son de la versión 58 de la API: sin declaración, se ejecutan sin sharing.\n\n" +
   BODY("public class", "public class", "public class", C_ES[0], C_ES[1], C_ES[2]) +
   "\n";
 const STARTER_EN =
-  "// CASE: the ERP bridge, audited\n// Already solved (Modules 8 to 11): the bridge works, is tested and talks to other systems.\n// Task 1 of 5: who sees which records.\n\n// All three classes are on API version 58: with no declaration, they run without sharing.\n\n" +
+  "// CASE: the ERP bridge, audited\n// Already solved (Modules 8 to 11): the bridge works, is tested and talks to other systems.\n// Task 1 of 6: who sees which records.\n\n// All three classes are on API version 58: with no declaration, they run without sharing.\n\n" +
   BODY("public class", "public class", "public class", C_EN[0], C_EN[1], C_EN[2]) +
   "\n";
 
@@ -287,8 +287,8 @@ export const l01Sharing: Lesson = {
 
   exercise: {
     prompt: {
-      es: "TAREA 1 DE 5 · Primer hallazgo de la auditoría: tres clases del puente no declaran sharing, y un comercial ve las renovaciones de toda la empresa. Declara en cada una lo que le corresponde según para qué sirve.",
-      en: "TASK 1 OF 5 · The audit's first finding: three bridge classes declare no sharing, and a rep sees the whole company's renewals. Declare in each what fits its purpose.",
+      es: "TAREA 1 DE 6 · Primer hallazgo de la auditoría: tres clases del puente no declaran sharing, y un comercial ve las renovaciones de toda la empresa. Declara en cada una lo que le corresponde según para qué sirve.",
+      en: "TASK 1 OF 6 · The audit's first finding: three bridge classes declare no sharing, and a rep sees the whole company's renewals. Declare in each what fits its purpose.",
     },
     brief: [
       {

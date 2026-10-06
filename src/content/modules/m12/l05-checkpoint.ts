@@ -1,7 +1,7 @@
 import type { Lesson } from "@/lib/types";
 
 const SOLUTION_ES = `// CASO: el puente con el ERP, auditado
-// Tarea 5 de 5: la entrega. La clase de la pantalla de renovaciones, lista para producción.
+// Tarea 6 de 6: la entrega. La clase de la pantalla de renovaciones, lista para producción.
 
 public with sharing class RenewalDeskController {
     public static List<Opportunity> search(String term) {
@@ -27,16 +27,16 @@ public with sharing class RenewalDeskController {
 }`;
 
 const SOLUTION_EN = SOLUTION_ES.replace(
-  "// CASO: el puente con el ERP, auditado\n// Tarea 5 de 5: la entrega. La clase de la pantalla de renovaciones, lista para producción.",
-  "// CASE: the ERP bridge, audited\n// Task 5 of 5: the delivery. The renewals screen's class, production-ready.",
+  "// CASO: el puente con el ERP, auditado\n// Tarea 6 de 6: la entrega. La clase de la pantalla de renovaciones, lista para producción.",
+  "// CASE: the ERP bridge, audited\n// Task 6 of 6: the delivery. The renewals screen's class, production-ready.",
 )
   .replace("// Consulta entre corchetes y con el valor enlazado: no se puede inyectar", "// A query in square brackets with the value bound: it cannot be injected")
   .replace("// El margen solo llega a quien puede verlo", "// The margin only reaches those who may see it")
   .replace("// Leer y guardar con los permisos de quien pulsa el botón", "// Read and save with the permissions of whoever clicks the button");
 
 const STARTER_ES = `// CASO: el puente con el ERP, auditado
-// Ya resuelto (tareas 1-4): cada hallazgo, por separado.
-// Tarea 5 de 5: la entrega. La clase de la pantalla de renovaciones, lista para producción.
+// Ya resuelto (tareas 1-5): cada hallazgo, por separado.
+// Tarea 6 de 6: la entrega. La clase de la pantalla de renovaciones, lista para producción.
 
 // El informe del auditor señala cuatro hallazgos en esta clase. Encuéntralos y ciérralos.
 public class RenewalDeskController {
@@ -55,8 +55,8 @@ public class RenewalDeskController {
 `;
 
 const STARTER_EN = STARTER_ES.replace(
-  "// CASO: el puente con el ERP, auditado\n// Ya resuelto (tareas 1-4): cada hallazgo, por separado.\n// Tarea 5 de 5: la entrega. La clase de la pantalla de renovaciones, lista para producción.",
-  "// CASE: the ERP bridge, audited\n// Already solved (tasks 1-4): each finding, on its own.\n// Task 5 of 5: the delivery. The renewals screen's class, production-ready.",
+  "// CASO: el puente con el ERP, auditado\n// Ya resuelto (tareas 1-5): cada hallazgo, por separado.\n// Tarea 6 de 6: la entrega. La clase de la pantalla de renovaciones, lista para producción.",
+  "// CASE: the ERP bridge, audited\n// Already solved (tasks 1-5): each finding, on its own.\n// Task 6 of 6: the delivery. The renewals screen's class, production-ready.",
 ).replace(
   "// El informe del auditor señala cuatro hallazgos en esta clase. Encuéntralos y ciérralos.",
   "// The auditor's report flags four findings in this class. Find them and close them.",
@@ -65,24 +65,24 @@ const STARTER_EN = STARTER_ES.replace(
 export const l05Checkpoint: Lesson = {
   id: "m12-l05",
   slug: "checkpoint",
-  n: 5,
+  n: 6,
   kind: "checkpoint",
   minutes: 45,
   warmup: {
-    title: { es: "¿Te acuerdas? · Repaso de la lección 4", en: "Remember? · Review of lesson 4" },
+    title: { es: "¿Te acuerdas? · Repaso de la lección 5", en: "Remember? · Review of lesson 5" },
     prompt: {
-      es: "El usuario escribe un texto de búsqueda. ¿Cómo llega a la consulta sin riesgo de inyección?",
-      en: "The user types a search text. How does it reach the query with no injection risk?",
+      es: "¿Qué hace System.runAs(intern) { … } en un test?",
+      en: "What does System.runAs(intern) { … } do in a test?",
     },
     options: [
-      { es: "Enlazado como valor, con dos puntos", en: "Bound as a value, with a colon" },
-      { es: "Pegado al texto con el operador +", en: "Glued into the text with the + operator" },
-      { es: "En una clase with sharing", en: "In a with sharing class" },
+      { es: "Ejecuta lo de dentro como ese usuario", en: "It runs what is inside as that user" },
+      { es: "Hace que todo el código respete los permisos de campo", en: "It makes all code respect field permissions" },
+      { es: "Inserta el usuario en la org", en: "It inserts the user into the org" },
     ],
     answer: 0,
     explain: {
-      es: "Un valor enlazado nunca se lee como consulta. Hoy lo juntas con el resto del módulo.",
-      en: "A bound value is never read as query. Today you put it together with the rest of the module.",
+      es: "Cambia quién ejecuta, no cómo está escrito el código. Hoy juntas todo el módulo en una sola clase.",
+      en: "It changes who runs, not how the code is written. Today you put the whole module together in one class.",
     },
   },
   title: { es: "Checkpoint del Módulo 12", en: "Module 12 checkpoint" },
@@ -323,8 +323,8 @@ export const l05Checkpoint: Lesson = {
 
   exercise: {
     prompt: {
-      es: "TAREA 5 DE 5 · La entrega, y la última del curso. RenewalDeskController es la clase que usa la pantalla de renovaciones, y el auditor ha encontrado en ella cuatro hallazgos. Esta vez nadie te dice cuáles: hazle a la clase las cuatro preguntas y ciérralos todos, sin cambiar lo que hace.",
-      en: "TASK 5 OF 5 · The delivery, and the course's last. RenewalDeskController is the class the renewals screen uses, and the auditor has found four findings in it. This time nobody tells you which: ask the class the four questions and close them all, without changing what it does.",
+      es: "TAREA 6 DE 6 · La entrega, y la última del curso. RenewalDeskController es la clase que usa la pantalla de renovaciones, y el auditor ha encontrado en ella cuatro hallazgos. Esta vez nadie te dice cuáles: hazle a la clase las cuatro preguntas y ciérralos todos, sin cambiar lo que hace.",
+      en: "TASK 6 OF 6 · The delivery, and the course's last. RenewalDeskController is the class the renewals screen uses, and the auditor has found four findings in it. This time nobody tells you which: ask the class the four questions and close them all, without changing what it does.",
     },
     brief: [
       {

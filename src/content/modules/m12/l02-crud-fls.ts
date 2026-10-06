@@ -1,7 +1,7 @@
 import type { Lesson } from "@/lib/types";
 
 const SOLUTION_ES = `// CASO: el puente con el ERP, auditado
-// Tarea 2 de 5: comprobar los permisos antes de tocar.
+// Tarea 2 de 6: comprobar los permisos antes de tocar.
 
 public class RenewalSecurityException extends Exception {}
 
@@ -23,8 +23,8 @@ public with sharing class RenewalDesk {
 }`;
 
 const SOLUTION_EN = SOLUTION_ES.replace(
-  "// CASO: el puente con el ERP, auditado\n// Tarea 2 de 5: comprobar los permisos antes de tocar.",
-  "// CASE: the ERP bridge, audited\n// Task 2 of 5: check permissions before touching.",
+  "// CASO: el puente con el ERP, auditado\n// Tarea 2 de 6: comprobar los permisos antes de tocar.",
+  "// CASE: the ERP bridge, audited\n// Task 2 of 6: check permissions before touching.",
 )
   .replace("// 1 · ¿Puede editar oportunidades?", "// 1 · May they edit opportunities?")
   .replace("'No tienes permiso para editar oportunidades'", "'You do not have permission to edit opportunities'")
@@ -285,8 +285,8 @@ Schema.sObjectType.Opportunity.fields.Discount__c.isUpdateable();   // edit it?`
 
   exercise: {
     prompt: {
-      es: "TAREA 2 DE 5 · Segundo hallazgo: applyDiscount guarda el descuento sin mirar si quien lo pulsa puede editar oportunidades, ni si puede tocar el campo Discount__c. Añade las dos comprobaciones y rechaza con RenewalSecurityException cuando falte el permiso.",
-      en: "TASK 2 OF 5 · Second finding: applyDiscount saves the discount without checking whether whoever clicks may edit opportunities, or touch the Discount__c field. Add both checks and reject with RenewalSecurityException when the permission is missing.",
+      es: "TAREA 2 DE 6 · Segundo hallazgo: applyDiscount guarda el descuento sin mirar si quien lo pulsa puede editar oportunidades, ni si puede tocar el campo Discount__c. Añade las dos comprobaciones y rechaza con RenewalSecurityException cuando falte el permiso.",
+      en: "TASK 2 OF 6 · Second finding: applyDiscount saves the discount without checking whether whoever clicks may edit opportunities, or touch the Discount__c field. Add both checks and reject with RenewalSecurityException when the permission is missing.",
     },
     brief: [
       {
@@ -305,7 +305,7 @@ Schema.sObjectType.Opportunity.fields.Discount__c.isUpdateable();   // edit it?`
     starter: {
       es: `// CASO: el puente con el ERP, auditado
 // Ya resuelto (tarea 1): cada clase declara qué registros ve.
-// Tarea 2 de 5: comprobar los permisos antes de tocar.
+// Tarea 2 de 6: comprobar los permisos antes de tocar.
 
 public class RenewalSecurityException extends Exception {}
 
@@ -319,7 +319,7 @@ public with sharing class RenewalDesk {
 `,
       en: `// CASE: the ERP bridge, audited
 // Already solved (task 1): each class declares which records it sees.
-// Task 2 of 5: check permissions before touching.
+// Task 2 of 6: check permissions before touching.
 
 public class RenewalSecurityException extends Exception {}
 
