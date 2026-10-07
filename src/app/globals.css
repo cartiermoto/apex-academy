@@ -1135,6 +1135,77 @@ li:focus-within > .e-tip {
   }
 }
 
+/* --- Hero headline ----------------------------------------------------------
+   Each word rises from below inside its own mask, 80 ms after the previous
+   one. The words are laid out from the start: only transform and opacity move,
+   so the title's space never changes. Runs once per load. */
+.e-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  /* room for descenders and for the underline, without changing the line */
+  padding-bottom: 0.16em;
+  margin-bottom: -0.16em;
+}
+.e-word-in {
+  display: inline-block;
+  animation: e-word-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: calc(var(--w, 0) * 80ms);
+}
+@keyframes e-word-up {
+  from {
+    opacity: 0;
+    transform: translateY(105%);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* The marker stroke under the brand word, drawn left to right once the
+   headline has finished arriving. */
+.e-mark {
+  position: relative;
+  display: inline-block;
+}
+.e-mark::after {
+  content: "";
+  position: absolute;
+  left: -0.03em;
+  right: -0.03em;
+  bottom: -0.1em;
+  height: 0.1em;
+  border-radius: 0.05em 0.12em 0.08em 0.04em;
+  background: var(--e-accent);
+  transform: rotate(-0.8deg);
+  transform-origin: left center;
+  animation: e-mark-draw 0.4s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: var(--title-end, 1s);
+}
+@keyframes e-mark-draw {
+  from {
+    transform: rotate(-0.8deg) scaleX(0);
+  }
+  to {
+    transform: rotate(-0.8deg) scaleX(1);
+  }
+}
+/* What follows the headline: a fade and a short rise each, one after another.
+   --t0 is when the cascade starts, --k each element's turn. */
+.e-after {
+  animation: e-rise 0.4s ease-out backwards;
+  animation-delay: calc(var(--t0, 0.6s) + var(--k, 0) * 90ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  /* no waiting behind a delay either: everything is there at once */
+  .e-word-in,
+  .e-mark::after,
+  .e-after,
+  .e-rise {
+    animation: none !important;
+  }
+}
+
 .editorial :where(a, button):focus-visible {
   outline: 2px solid var(--e-accent);
   outline-offset: 2px;
