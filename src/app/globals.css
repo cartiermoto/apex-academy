@@ -1099,7 +1099,7 @@ body:has(.editorial) {
   gap: 9px;
   position: absolute;
   right: 16px;
-  top: -18px;
+  top: -36px;
   z-index: 5;
   max-width: calc(100% - 32px);
   padding: 9px 12px;
