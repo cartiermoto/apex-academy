@@ -548,6 +548,14 @@ export default function HomePage() {
           ? `¡Qué bien verte! Vas por «${t(nextUp.l.title, lang)}». ¿Seguimos?`
           : `Good to see you! You are on «${t(nextUp.l.title, lang)}». Shall we continue?`;
 
+  // The saved language arrives right after hydration. The hero's reveal waits
+  // one frame for it, so it plays once and in the reader's language.
+  const [heroArmed, setHeroArmed] = useState(false);
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setHeroArmed(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+
   // The otter gets excited while the main button is hovered or focused.
   const [cheer, setCheer] = useState(false);
 
@@ -611,7 +619,8 @@ export default function HomePage() {
 
           {/* The headline reveals first; the rest follows it in a cascade. */}
           <div
-            className="flex min-w-0 flex-col gap-7 lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:pt-6"
+            data-armed={heroArmed}
+            className="e-hero-copy flex min-w-0 flex-col gap-7 lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:pt-6"
             style={{ "--t0": `${heroTitleEnd(lang) - 250}ms` } as React.CSSProperties}
           >
             <p className="e-mono e-after flex items-center gap-2.5 text-[12px] uppercase tracking-[0.14em]">

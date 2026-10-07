@@ -1196,6 +1196,19 @@ li:focus-within > .e-tip {
   animation: e-rise 0.4s ease-out backwards;
   animation-delay: calc(var(--t0, 0.6s) + var(--k, 0) * 90ms);
 }
+/* Held at the starting frame until the page is ready (see heroArmed), so the
+   reveal runs once, in the reader's language. Without scripting nothing waits. */
+.e-hero-copy[data-armed="false"] :is(.e-word-in, .e-after),
+.e-hero-copy[data-armed="false"] .e-mark::after {
+  animation-play-state: paused;
+}
+@media (scripting: none) {
+  .e-word-in,
+  .e-mark::after,
+  .e-after {
+    animation: none;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   /* no waiting behind a delay either: everything is there at once */
   .e-word-in,
