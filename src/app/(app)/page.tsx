@@ -98,6 +98,67 @@ function useInView<T extends HTMLElement>() {
   return [ref, inView] as const;
 }
 
+/* -------------------------------------------------------------- hero title */
+
+/**
+ * The headline, described by its parts so the animation never depends on one
+ * language's wording: `lead` stays in the text colour, `accent` takes the
+ * brand green, and the word `mark` gets the marker underline.
+ */
+const HERO_TITLE: { lead: L; accent: L; mark: string } = {
+  lead: { es: "De Admin a", en: "From Admin to" },
+  accent: { es: "desarrollador Apex.", en: "Apex developer." },
+  mark: "Apex",
+};
+const WORD_STEP = 80; // ms between one word and the next
+const WORD_TIME = 600; // ms each word takes to rise
+
+/** When the headline's reveal ends, in ms: what follows waits for it. */
+const heroTitleEnd = (lang: "es" | "en") =>
+  (`${t(HERO_TITLE.lead, lang)} ${t(HERO_TITLE.accent, lang)}`.split(" ").length - 1) * WORD_STEP + WORD_TIME;
+
+function HeroTitle() {
+  const { lang } = useSettings();
+  const lead = t(HERO_TITLE.lead, lang).split(" ");
+  const accent = t(HERO_TITLE.accent, lang).split(" ");
+  const words = [...lead.map((w) => ({ w, accent: false })), ...accent.map((w) => ({ w, accent: true }))];
+  const { mark } = HERO_TITLE;
+
+  return (
+    <h1
+      className="m-0 text-[clamp(2.5rem,1.4rem+3.6vw,4rem)] font-bold leading-[1.06] tracking-[-0.025em] [text-wrap:balance] xl:text-[4.5rem]"
+      style={{ "--title-end": `${heroTitleEnd(lang)}ms` } as React.CSSProperties}
+    >
+      {/* One sentence for screen readers; the word-by-word version is visual only. */}
+      <span className="sr-only">
+        {t(HERO_TITLE.lead, lang)} {t(HERO_TITLE.accent, lang)}
+      </span>
+      <span aria-hidden>
+        {words.map(({ w, accent: green }, i) => (
+          <span key={i}>
+            {i > 0 && " "}
+            <span className="e-word">
+              <span
+                className="e-word-in"
+                style={{ "--w": i, color: green ? "var(--e-accent-text)" : undefined } as React.CSSProperties}
+              >
+                {w.startsWith(mark) ? (
+                  <>
+                    <span className="e-mark">{mark}</span>
+                    {w.slice(mark.length)}
+                  </>
+                ) : (
+                  w
+                )}
+              </span>
+            </span>
+          </span>
+        ))}
+      </span>
+    </h1>
+  );
+}
+
 /* ------------------------------------------------------------------ header */
 
 function Header() {
@@ -487,6 +548,14 @@ export default function HomePage() {
           ? `¡Qué bien verte! Vas por «${t(nextUp.l.title, lang)}». ¿Seguimos?`
           : `Good to see you! You are on «${t(nextUp.l.title, lang)}». Shall we continue?`;
 
+  // The saved language arrives right after hydration. The hero's reveal waits
+  // one frame for it, so it plays once and in the reader's language.
+  const [heroArmed, setHeroArmed] = useState(false);
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setHeroArmed(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+
   // The otter gets excited while the main button is hovered or focused.
   const [cheer, setCheer] = useState(false);
 
@@ -548,30 +617,30 @@ export default function HomePage() {
             />
           </div>
 
-          <div className="flex min-w-0 flex-col gap-7 lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:pt-6">
-            <p className="e-mono e-rise flex items-center gap-2.5 text-[12px] uppercase tracking-[0.14em]">
+          {/* The headline reveals first; the rest follows it in a cascade. */}
+          <div
+            data-armed={heroArmed}
+            className="e-hero-copy flex min-w-0 flex-col gap-7 lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:pt-6"
+            style={{ "--t0": `${heroTitleEnd(lang) - 250}ms` } as React.CSSProperties}
+          >
+            <p className="e-mono e-after flex items-center gap-2.5 text-[12px] uppercase tracking-[0.14em]">
               <span className="inline-block h-2.5 w-2.5 shrink-0" style={{ background: "var(--e-accent)" }} />
               <span>
                 Apex · Salesforce · {lang === "es" ? "Curso personal" : "Personal course"}
               </span>
             </p>
 
-            <h1
-              className="e-rise m-0 text-[clamp(2.5rem,1.4rem+3.6vw,4rem)] font-bold leading-[1.06] tracking-[-0.025em] [text-wrap:balance] xl:text-[4.5rem]"
-              style={{ "--i": 1 } as React.CSSProperties}
-            >
-              {lang === "es" ? "De Admin a desarrollador Apex." : "From Admin to Apex developer."}
-            </h1>
+            <HeroTitle />
 
-            <p className="e-rise m-0 max-w-[600px] text-[17px] leading-[1.65] sm:text-[18px]" style={{ "--i": 2 } as React.CSSProperties}>
+            <p className="e-after m-0 max-w-[600px] text-[17px] leading-[1.65] sm:text-[18px]" style={{ "--k": 1 } as React.CSSProperties}>
               {lang === "es"
                 ? "Cada concepto se explica desde algo que ya configuraste con clicks, y nunca se te pide escribir nada que no se haya explicado antes."
                 : "Every concept starts from something you already configured with clicks, and you are never asked to write anything that has not been explained first."}
             </p>
 
             <ul
-              className="e-mono e-rise m-0 flex list-none flex-wrap gap-2 p-0 text-[12px] uppercase tracking-[0.08em]"
-              style={{ "--i": 3 } as React.CSSProperties}
+              className="e-mono e-after m-0 flex list-none flex-wrap gap-2 p-0 text-[12px] uppercase tracking-[0.08em]"
+              style={{ "--k": 2 } as React.CSSProperties}
             >
               <li className="e-chip">
                 <strong>
@@ -588,7 +657,7 @@ export default function HomePage() {
               <li className="e-chip">ES / EN</li>
             </ul>
 
-            <div className="e-rise mt-2 flex flex-col gap-3.5 sm:flex-row" style={{ "--i": 4 } as React.CSSProperties}>
+            <div className="e-after mt-2 flex flex-col gap-3.5 sm:flex-row" style={{ "--k": 3 } as React.CSSProperties}>
               {nextUp && (
                 <Link
                   href={`/m/${nextUp.m.id}/${nextUp.l.slug}`}
@@ -610,7 +679,7 @@ export default function HomePage() {
             </div>
 
             {allLessons.length > 0 && (
-              <div className="e-rise mt-5 flex flex-col gap-2.5" style={{ "--i": 5 } as React.CSSProperties}>
+              <div className="e-after mt-5 flex flex-col gap-2.5" style={{ "--k": 4 } as React.CSSProperties}>
                 <div className="e-mono flex justify-between text-[11px] uppercase tracking-[0.1em]">
                   <span>{t(ui.overallProgress, lang)}</span>
                   <span className="tabular-nums">
