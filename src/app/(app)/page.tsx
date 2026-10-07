@@ -505,7 +505,7 @@ function UpNext({
 
 export default function HomePage() {
   const { lang } = useSettings();
-  const { snapshot, authed, ready: progressReady } = useProgress();
+  const { snapshot, ready: progressReady } = useProgress();
 
   const statusOf = (id: string): LessonStatus => snapshot.lessons[id]?.status ?? "not_started";
 
@@ -819,8 +819,9 @@ export default function HomePage() {
           >
             {course.challenges.map((c, i) => {
               const required = course.modules.find((m) => m.id === c.requires);
-              // Admin mode: signed in, the challenges open regardless of progress.
-              const unlocked = authed === true || (required ? moduleDone(required) : false);
+              // The card shows the lock by progress alone, signed in or not. Signed in
+              // (admin mode) the challenge page itself still opens when you click through.
+              const unlocked = required ? moduleDone(required) : false;
               const progress = snapshot.challenges[c.id];
 
               return (
