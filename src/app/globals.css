@@ -502,13 +502,23 @@ body:has(.editorial) {
   --e-num: var(--e-module-num);
   background: var(--e-surface);
   border: none;
-  transition:
-    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-    box-shadow 0.35s ease;
+  position: relative;
+  transition: transform 0.25s ease-out;
+}
+/* The lift shadow lives on a pseudo-element so only its opacity animates. */
+.e-module::after,
+.e-challenge::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: var(--e-float-shadow);
+  opacity: 0;
+  transition: opacity 0.25s ease-out;
+  pointer-events: none;
 }
 .e-module .e-num {
   display: inline-block;
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.25s ease-out;
 }
 /* Hover: the card lifts and tilts like the "Siguiente" card, alternating
    direction so the grid feels alive; the number nudges forward. Only on
@@ -518,7 +528,13 @@ body:has(.editorial) {
   li:hover > a > .e-module,
   li:focus-within .e-module {
     transform: translateY(-6px) rotate(-1.2deg);
-    box-shadow: var(--e-float-shadow);
+  }
+  li:hover > .e-module::after,
+  li:hover > a > .e-module::after,
+  li:focus-within .e-module::after,
+  li:hover > a > .e-challenge::after,
+  li:focus-within .e-challenge::after {
+    opacity: 1;
   }
   li:nth-child(even):hover > .e-module,
   li:nth-child(even):hover > a > .e-module,
@@ -532,7 +548,6 @@ body:has(.editorial) {
   li:hover > a > .e-challenge,
   li:focus-within .e-challenge {
     transform: translateY(-8px) rotate(-1deg);
-    box-shadow: var(--e-float-shadow);
   }
   li:nth-child(even):hover > a > .e-challenge,
   li:nth-child(even):focus-within .e-challenge {
@@ -543,9 +558,8 @@ body:has(.editorial) {
   background: var(--e-challenge-bg);
   color: var(--e-challenge-text);
   border: var(--e-challenge-border);
-  transition:
-    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-    box-shadow 0.35s ease;
+  position: relative;
+  transition: transform 0.25s ease-out;
 }
 .e-module[data-cat="logic"] {
   --e-surface: var(--e-cat-logic-surface);
@@ -596,8 +610,23 @@ body:has(.editorial) {
   font-weight: 600;
   letter-spacing: 0.03em;
   text-transform: uppercase;
-  transition: opacity 0.15s ease, background-color 0.15s ease;
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
   cursor: pointer;
+}
+.e-btn .e-arrow {
+  display: inline-block;
+  transition: transform 0.2s ease-out;
+}
+@media (hover: hover) {
+  .e-btn:hover {
+    transform: translateY(-2px);
+  }
+  .e-btn:hover .e-arrow {
+    transform: translateX(4px);
+  }
+}
+.e-btn:active {
+  transform: scale(0.98);
 }
 .e-btn-primary {
   background: var(--e-accent);
@@ -618,27 +647,491 @@ body:has(.editorial) {
   background: rgba(255, 255, 255, 0.06);
 }
 
-/* Welcome strip under the header: the otter, full size. */
-.e-banner {
+/* --- Home motion ------------------------------------------------------------
+   Everything below animates transform and opacity only, 150-300 ms, ease-out.
+   Reduced motion is honoured by the global rule at the end of this file. */
+
+/* Sticky header: transparent at the top; once the page scrolls, a translucent
+   blurred backdrop fades in behind it (a pseudo-element, so only its opacity
+   changes). */
+.e-header {
+  isolation: isolate;
+}
+.e-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: color-mix(in srgb, var(--e-bg) 82%, transparent);
+  border-bottom: 1px solid var(--e-divider);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+  pointer-events: none;
+}
+.e-header[data-scrolled="true"]::before {
+  opacity: 1;
+}
+
+/* Small controls: a clear pressed state. */
+.e-press {
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+}
+.e-press:active {
+  transform: scale(0.96);
+}
+
+/* Theme and language swaps cross-fade the page (see withFade in the home). */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.25s;
+  animation-timing-function: ease-out;
+}
+
+/* Hero: each line rises into place, one after another (--i is its turn). */
+@keyframes e-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.e-rise {
+  animation: e-rise 0.3s ease-out both;
+  animation-delay: calc(var(--i, 0) * 60ms);
+}
+
+/* --- The otter, host of the home (src/components/home-otter.tsx) -----------
+   One flat PNG: every reaction moves the whole figure. Each motion has its own
+   wrapper (lean > float > react > img) so the transforms add up. */
+.e-guide {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+}
+.e-otter-stage {
+  position: relative;
+  flex-shrink: 0;
+  width: 112px;
+  height: 112px;
+  touch-action: manipulation;
+}
+@media (min-width: 640px) {
+  .e-otter-stage {
+    width: 160px;
+    height: 160px;
+  }
+}
+@media (min-width: 1024px) {
+  .e-guide {
+    gap: 8px;
+  }
+  .e-otter-stage {
+    width: 220px;
+    height: 220px;
+  }
+}
+@media (min-width: 1280px) {
+  .e-otter-stage {
+    width: 250px;
+    height: 250px;
+  }
+}
+.e-otter-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  transform-origin: 50% 92%;
+  /* in with a small bounce, then a slow breath */
+  animation:
+    e-otter-enter 0.5s cubic-bezier(0.3, 1.45, 0.5, 1) both,
+    e-otter-breathe 3.6s ease-in-out 0.6s infinite alternate;
+}
+@keyframes e-otter-enter {
+  from {
+    opacity: 0;
+    transform: translateY(26px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes e-otter-breathe {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.025, 1.035);
+  }
+}
+.e-otter-float {
+  animation: e-otter-float 3.2s ease-in-out 0.6s infinite alternate;
+}
+@keyframes e-otter-float {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-7px);
+  }
+}
+/* leans toward the cursor: --lx / --ly run from -1 to 1 (set from script) */
+.e-otter-lean {
+  transform: translate(calc(var(--lx, 0) * 7px), calc(var(--ly, 0) * 5px)) rotate(calc(var(--lx, 0) * 3.5deg));
+  transform-origin: 50% 90%;
+  transition: transform 0.25s ease-out;
+}
+.e-otter-react {
+  transform-origin: 50% 92%;
+}
+.e-otter-react[data-mood="greet"] {
+  animation: e-otter-greet 0.75s ease-in-out both;
+}
+.e-otter-react[data-mood="hop"] {
+  animation: e-otter-hop 0.38s ease-out both;
+}
+.e-otter-react[data-mood="excited"] {
+  animation: e-otter-excited 0.46s ease-in-out infinite alternate;
+}
+.e-otter-react[data-mood="celebrate"] {
+  animation: e-otter-celebrate 1s ease-out both;
+}
+@keyframes e-otter-greet {
+  0%,
+  100% {
+    transform: none;
+  }
+  25% {
+    transform: rotate(-8deg);
+  }
+  50% {
+    transform: rotate(7deg);
+  }
+  75% {
+    transform: rotate(-4deg);
+  }
+}
+@keyframes e-otter-hop {
+  0%,
+  100% {
+    transform: none;
+  }
+  45% {
+    transform: translateY(-20px) scale(0.97, 1.04);
+  }
+  80% {
+    transform: translateY(0) scale(1.04, 0.96);
+  }
+}
+@keyframes e-otter-excited {
+  from {
+    transform: translateY(0) rotate(-3deg);
+  }
+  to {
+    transform: translateY(-9px) rotate(3deg);
+  }
+}
+@keyframes e-otter-celebrate {
+  0%,
+  100% {
+    transform: none;
+  }
+  22% {
+    transform: translateY(-30px) rotate(-9deg);
+  }
+  44% {
+    transform: translateY(0) rotate(0) scale(1.05, 0.95);
+  }
+  66% {
+    transform: translateY(-18px) rotate(7deg);
+  }
+  86% {
+    transform: translateY(0) scale(1.03, 0.97);
+  }
+}
+/* Confetti in the category colours, thrown from the otter when it celebrates. */
+.e-confetti {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  pointer-events: none;
+}
+.e-confetti i {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  opacity: 0;
+  animation: e-confetti 0.95s ease-out both;
+}
+.e-confetti i:nth-child(odd) {
+  border-radius: 50%;
+  animation-delay: 0.06s;
+}
+@keyframes e-confetti {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0);
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), var(--dy)) rotate(200deg);
+  }
+}
+/* What it says: a speech bubble whose tail points back at the otter. */
+.e-bubble {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  margin-bottom: 18px;
+  padding: 14px 16px;
+  border: 1px solid var(--e-divider);
+  border-radius: 14px;
+  background: var(--e-banner-surface);
+  transform-origin: 0 100%;
+  animation: e-bubble-in 0.3s ease-out 0.5s both;
+}
+.e-bubble::before {
+  content: "";
+  position: absolute;
+  left: -7px;
+  bottom: 22px;
+  width: 12px;
+  height: 12px;
+  border-left: 1px solid var(--e-divider);
+  border-bottom: 1px solid var(--e-divider);
+  background: var(--e-banner-surface);
+  transform: rotate(45deg);
+}
+@keyframes e-bubble-in {
+  from {
+    opacity: 0;
+    transform: translateX(-8px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  /* the global rule shortens animations; the endless ones must simply stop,
+     and the picture stays still */
+  .e-otter-img,
+  .e-otter-float,
+  .e-otter-react,
+  .e-bubble,
+  .e-confetti i {
+    animation: none !important;
+  }
+  .e-otter-lean {
+    transform: none;
+  }
+  .e-confetti {
+    display: none;
+  }
+}
+
+/* Course facts as chips. */
+.e-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  padding: 8px 12px;
+  border: 1px solid var(--e-divider);
+  border-radius: 4px;
+  background: var(--e-banner-surface);
+}
+.e-chip strong {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--e-accent-text);
+}
+
+/* Progress bars fill by scaling from the left edge. */
+.e-fill {
+  width: 100%;
+  transform-origin: left center;
+  transition: transform 0.3s ease-out 0.15s;
+}
+
+/* "Siguiente lección": the main thing after the hero. A green edge on top of
+   its floating shadow sets it apart from the module cards. */
+.e-upnext {
+  border: 1px solid color-mix(in srgb, var(--e-accent) 45%, transparent);
+  border-top: 4px solid var(--e-accent);
+}
+
+/* Category tabs: pinned under the header while the module grid scrolls. */
+.e-tabs {
+  isolation: isolate;
+}
+.e-tabs::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: color-mix(in srgb, var(--e-bg) 86%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  pointer-events: none;
+}
+.e-tablist {
+  border-bottom: 1px solid var(--e-divider);
+  scrollbar-width: none;
+}
+.e-tablist::-webkit-scrollbar {
+  display: none;
+}
+.e-tab {
+  cursor: pointer;
+  opacity: 0.78;
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+}
+.e-tab:hover,
+.e-tab[aria-selected="true"] {
+  opacity: 1;
+}
+.e-tab[aria-selected="true"] {
+  font-weight: 700;
+  color: var(--e-accent-text);
+}
+.e-tab:active {
+  transform: scale(0.97);
+}
+.editorial .e-tab:focus-visible {
+  outline-offset: -3px;
+}
+/* The sliding underline: 100px wide, placed and stretched by a transform. */
+.e-tab-bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100px;
+  height: 3px;
+  background: var(--e-accent);
+  transform-origin: left center;
+  opacity: 0;
+  transition: transform 0.25s ease-out, opacity 0.15s ease-out;
+  pointer-events: none;
+}
+
+/* Cards wait for their grid to enter the viewport, then rise in one after
+   another. Without scripting nothing waits. */
+.e-stagger:not([data-in="true"]) .e-rise {
+  animation-play-state: paused;
+}
+@media (scripting: none) {
+  .e-rise {
+    animation: none;
+  }
+}
+
+/* Module state, readable at a glance. */
+.e-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border: 1px solid var(--e-legend-border);
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.e-tag[data-state="done"] {
+  background: var(--e-accent);
+  border-color: var(--e-accent);
+  color: var(--e-on-accent);
+  font-weight: 600;
+}
+.e-tag[data-state="current"] {
+  border-color: var(--e-accent-text);
+  color: var(--e-accent-text);
+  font-weight: 600;
+}
+.e-tag[data-state="current"]::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.e-module[data-state="current"] {
+  outline: 2px solid var(--e-accent);
+  outline-offset: -2px;
+}
+.e-track {
+  background: color-mix(in srgb, var(--e-ink) 14%, transparent);
+}
+
+/* Locked challenges: a lock badge, quieter copy, and a tooltip with the
+   condition. The copy keeps 4.5:1 on the green at this opacity. */
+.e-challenge[data-locked="true"] h3,
+.e-challenge[data-locked="true"] p {
+  opacity: 0.8;
+}
+.e-lock {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 4px;
+  font-weight: 600;
+}
+.e-lock svg {
+  transition: transform 0.2s ease-out;
+}
+@media (hover: hover) {
+  li:hover .e-lock svg {
+    transform: rotate(-12deg);
+  }
+}
+.e-tip {
   display: flex;
   align-items: center;
-  gap: 28px;
-  background: var(--e-banner-surface);
-  padding: 26px 32px;
+  gap: 9px;
+  position: absolute;
+  right: 16px;
+  top: -18px;
+  z-index: 5;
+  max-width: calc(100% - 32px);
+  padding: 9px 12px;
+  border-radius: 4px;
+  background: var(--e-ink);
+  color: var(--e-bg);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+  pointer-events: none;
 }
-.e-banner img {
-  width: 96px;
-  height: 96px;
-  flex-shrink: 0;
-}
-@media (max-width: 639px) {
-  .e-banner {
-    gap: 16px;
-    padding: 18px 16px;
+@media (hover: hover) {
+  li:hover > .e-tip {
+    opacity: 1;
+    transform: none;
   }
-  .e-banner img {
-    width: 72px;
-    height: 72px;
+}
+li:focus-within > .e-tip {
+  opacity: 1;
+  transform: none;
+}
+
+/* The small otter on a locked challenge nods when the card is hovered. */
+.e-lock-otter {
+  transition: transform 0.2s ease-out;
+}
+@media (hover: hover) {
+  li:hover .e-lock-otter {
+    transform: translateY(-3px) rotate(-8deg);
   }
 }
 
