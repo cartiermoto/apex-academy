@@ -9,6 +9,7 @@ import { Theory } from "./theory";
 import { Quiz } from "./quiz";
 import { ExercisePanel } from "./exercise";
 import { OtterWarmup } from "./otter";
+import { LessonAudio } from "./lesson-audio";
 
 type Tab = "theory" | "quiz" | "exercise";
 
@@ -67,6 +68,8 @@ export function LessonView({
 
         <h1 className="t-h1 mt-4">{t(lesson.title, lang)}</h1>
         <p className="lead mt-3 max-w-[62ch]">{t(lesson.summary, lang)}</p>
+        {/* pilot: Module 1 only, while it is being tried out */}
+        {mod.id === "m01" && <LessonAudio key={lesson.id} lesson={lesson} lang={lang} />}
 
         {/* spec sheet: the Admin equivalent + what you will be able to do */}
         <div className="mt-7 rounded-[4px] border border-line bg-surface">

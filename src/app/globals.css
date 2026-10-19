@@ -1224,6 +1224,56 @@ li:focus-within > .e-tip {
   outline-offset: 2px;
 }
 
+/* --- Lesson player (src/components/lesson-audio.tsx) ---------------------- */
+body.audio-open main {
+  padding-bottom: 150px;
+}
+/* the block being read aloud */
+[data-theory] > .is-reading {
+  outline: 2px solid var(--c-brand-ring);
+  outline-offset: 8px;
+  border-radius: 4px;
+  transition: outline-color 0.2s ease-out;
+}
+.audio-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 22px;
+  background: transparent;
+  cursor: pointer;
+}
+.audio-range::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(to right, var(--c-fill) var(--pct), var(--c-border) var(--pct));
+}
+.audio-range::-moz-range-track {
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(to right, var(--c-fill) var(--pct), var(--c-border) var(--pct));
+}
+.audio-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -5px;
+  border-radius: 50%;
+  background: var(--c-fill);
+  border: 2px solid var(--c-surface);
+}
+.audio-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--c-fill);
+  border: 2px solid var(--c-surface);
+}
+.audio-range:focus-visible {
+  outline: 2px solid var(--c-brand);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 /* --- Motion --------------------------------------------------------------- */
 /* step-by-step diagrams (src/content/diagrams-anim.tsx) */
 @keyframes diag-pop {

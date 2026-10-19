@@ -53,7 +53,8 @@ const CALLOUT = {
 
 export function Theory({ blocks, lang }: { blocks: TheoryBlock[]; lang: Lang }) {
   return (
-    <div className="max-w-[68ch]">
+    // data-theory: the lesson player finds the block it is reading by position
+    <div data-theory className="max-w-[68ch]">
       {blocks.map((b, i) => {
         switch (b.type) {
           case "lead":
