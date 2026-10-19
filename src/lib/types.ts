@@ -53,6 +53,8 @@ export type TheoryBlock =
     }
   | { type: "table"; head: L[]; rows: L[][] }
   | { type: "diagram"; id: string; caption?: L }
+  /** a 3D scene (three.js), registered in src/content/scenes-*.tsx */
+  | { type: "scene3d"; id: string; caption?: L }
   | { type: "divider" };
 
 /* -------------------------------------------------------------------------- */

@@ -254,6 +254,14 @@ System.debug(summaryLines);`,
       },
     },
     {
+      type: "scene3d",
+      id: "m01-3d-review",
+      caption: {
+        es: "Los nueve conceptos del módulo en una estantería: elige uno para repasarlo.",
+        en: "The module's nine concepts on a shelf: pick one to review it.",
+      },
+    },
+    {
       type: "h",
       text: { es: "El concepto puente: campo fórmula frente a Apex", en: "The bridge concept: formula field vs Apex" },
     },

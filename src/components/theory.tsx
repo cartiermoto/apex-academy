@@ -6,6 +6,7 @@ import { CodeBlock } from "./code-block";
 import { Diagram } from "@/content/diagrams";
 import { RichText } from "./term";
 import { OtterSays } from "./otter";
+import { Scene3D } from "./scene3d";
 
 const CALLOUT = {
   admin: {
@@ -186,6 +187,9 @@ export function Theory({ blocks, lang }: { blocks: TheoryBlock[]; lang: Lang }) 
                 )}
               </figure>
             );
+
+          case "scene3d":
+            return <Scene3D key={i} id={b.id} caption={b.caption ? t(b.caption, lang) : undefined} lang={lang} />;
 
           case "divider":
             return <hr key={i} className="my-10 border-line" />;

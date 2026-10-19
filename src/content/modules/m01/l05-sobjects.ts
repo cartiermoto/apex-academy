@@ -68,6 +68,14 @@ export const l05SObjects: Lesson = {
       },
     },
     {
+      type: "scene3d",
+      id: "m01-3d-sobject",
+      caption: {
+        es: "Crea registros a partir de la definición y rellena un campo.",
+        en: "Create records from the definition and fill in a field.",
+      },
+    },
+    {
       type: "h",
       text: { es: "Crear un registro", en: "Creating a record" },
     },

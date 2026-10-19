@@ -58,6 +58,14 @@ export const l04Fechas: Lesson = {
       },
     },
     {
+      type: "scene3d",
+      id: "m01-3d-dates",
+      caption: {
+        es: "Elige un tipo: qué guarda cada uno y dónde entra la zona horaria.",
+        en: "Pick a type: what each one holds and where the time zone comes in.",
+      },
+    },
+    {
       type: "h",
       text: { es: "Crear una fecha", en: "Creating a date" },
     },

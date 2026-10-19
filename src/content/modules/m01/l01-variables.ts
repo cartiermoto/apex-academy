@@ -79,6 +79,14 @@ export const l01Variables: Lesson = {
       },
     },
     {
+      type: "scene3d",
+      id: "m01-3d-variable",
+      caption: {
+        es: "Mete un valor en la caja: solo entra si es del tipo de la etiqueta.",
+        en: "Put a value in the box: it only goes in if it matches the label's type.",
+      },
+    },
+    {
       type: "code",
       code: {
         es: `// Declaración con valor inicial

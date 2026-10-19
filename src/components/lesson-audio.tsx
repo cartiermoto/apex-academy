@@ -84,6 +84,10 @@ function lessonParts(lesson: Lesson, lang: Lang): Array<{ text: string; block: n
         add(es ? "Diagrama interactivo." : "Interactive diagram.", i);
         if (b.caption) add(t(b.caption, lang), i);
         break;
+      case "scene3d":
+        add(es ? "Escena 3D interactiva." : "Interactive 3D scene.", i);
+        if (b.caption) add(t(b.caption, lang), i);
+        break;
       case "divider":
         break;
     }

@@ -58,6 +58,14 @@ export const l09Casting: Lesson = {
       },
     },
     {
+      type: "scene3d",
+      id: "m01-3d-casting",
+      caption: {
+        es: "Pasa cada valor por la conversión: unos cambian de tipo, otro pierde decimales y otro falla.",
+        en: "Send each value through the conversion: some change type, one loses decimals and one fails.",
+      },
+    },
+    {
       type: "h",
       text: { es: "Lo que Apex hace por su cuenta", en: "What Apex does on its own" },
     },

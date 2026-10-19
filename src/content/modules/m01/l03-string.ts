@@ -73,6 +73,14 @@ export const l03String: Lesson = {
       },
     },
     {
+      type: "scene3d",
+      id: "m01-3d-string",
+      caption: {
+        es: "Aplica métodos al texto y mira cómo cambia la fila, con sus posiciones desde 0.",
+        en: "Apply methods to the text and watch the row change, with positions from 0.",
+      },
+    },
+    {
       type: "p",
       text: {
         es: "Ese último detalle confunde al principio: un String es [[inmutable]]. Ningún método lo cambia por dentro; todos devuelven un texto nuevo, así que si no guardas el resultado, el trabajo se pierde.",

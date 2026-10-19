@@ -76,7 +76,7 @@ export async function GET() {
           b.rows.flat().forEach((c) => richStrings.push(...both(c)));
           b.head.forEach((h) => both(h).forEach((s) => plainStrings.push(["table head", s])));
         } else if (b.type === "h") both(b.text).forEach((s) => plainStrings.push(["heading", s]));
-        else if ((b.type === "diagram" || b.type === "code") && b.caption)
+        else if ((b.type === "diagram" || b.type === "code" || b.type === "scene3d") && b.caption)
           both(b.caption).forEach((s) => plainStrings.push(["caption", s]));
       }
       for (const q of lesson.quiz) {
