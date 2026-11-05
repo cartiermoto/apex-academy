@@ -80,7 +80,8 @@ export function Mark({
  *
  * Both variants are rendered and CSS shows the one matching data-theme, which
  * the inline script in layout.tsx sets before paint: choosing in React would
- * flash the light icon on a dark page until the settings load.
+ * flash the light icon on a dark page until the settings load. The same goes for
+ * the palette: the hoodie colour comes from data-palette, also set before paint.
  */
 export function MascotMark({
   size = 30,
@@ -101,16 +102,8 @@ export function MascotMark({
       style={{ width: size, height: size }}
     >
       {(["light", "dark"] as const).map((v) => (
-        // eslint-disable-next-line @next/next/no-img-element -- fixed small icon from /public, no Image loader needed
-        <img
-          key={v}
-          src={`/mascot/apex-academy-mascota-verde-icon-${v}.png`}
-          width={size}
-          height={size}
-          alt=""
-          className={`mascot-${v}`}
-          style={{ width: size, height: size }}
-        />
+        // a CSS background (see globals.css): the palette decides which file loads
+        <span key={v} aria-hidden="true" className={`mascot-${v} mascot-ico-${v}`} style={{ width: size, height: size }} />
       ))}
     </span>
   );

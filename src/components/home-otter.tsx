@@ -125,15 +125,8 @@ export function HomeOtter({
                 if (e.target === e.currentTarget) setMood("idle");
               }}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element -- fixed illustration from /public */}
-              <img
-                className="e-otter-img"
-                src="/mascot/apex-academy-mascota-verde-full-illustration.png"
-                alt=""
-                width={480}
-                height={480}
-                draggable={false}
-              />
+              {/* the picture is a CSS background so it follows the palette (globals.css) */}
+              <span className="e-otter-img mascot-full" aria-hidden="true" />
             </div>
           </div>
         </div>

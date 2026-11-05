@@ -1944,3 +1944,31 @@ body.audio-open main {
   --e-cat-robust-surface: #232323;
   --e-cat-scope-surface: #232323;
 }
+
+/* ---------------------------------------------------------------------------
+   La nutria sigue la paleta: su sudadera se recolorea en /public/mascot/<paleta>/
+   (mismos archivos que la base). Son fondos CSS para que el navegador solo baje
+   la imagen de la paleta activa y se vea bien antes de pintar, sin parpadeo.
+   --------------------------------------------------------------------------- */
+.mascot-full {
+  aspect-ratio: 1 / 1;
+  background: url("/mascot/apex-academy-mascota-verde-full-illustration.png") center / contain no-repeat;
+}
+.mascot-ico-light {
+  background: url("/mascot/apex-academy-mascota-verde-icon-light.png") center / contain no-repeat;
+}
+.mascot-ico-dark {
+  background: url("/mascot/apex-academy-mascota-verde-icon-dark.png") center / contain no-repeat;
+}
+[data-palette="oceano"] .mascot-full { background-image: url("/mascot/oceano/apex-academy-mascota-verde-full-illustration.png"); }
+[data-palette="oceano"] .mascot-ico-light { background-image: url("/mascot/oceano/apex-academy-mascota-verde-icon-light.png"); }
+[data-palette="oceano"] .mascot-ico-dark { background-image: url("/mascot/oceano/apex-academy-mascota-verde-icon-dark.png"); }
+[data-palette="terracota"] .mascot-full { background-image: url("/mascot/terracota/apex-academy-mascota-verde-full-illustration.png"); }
+[data-palette="terracota"] .mascot-ico-light { background-image: url("/mascot/terracota/apex-academy-mascota-verde-icon-light.png"); }
+[data-palette="terracota"] .mascot-ico-dark { background-image: url("/mascot/terracota/apex-academy-mascota-verde-icon-dark.png"); }
+[data-palette="ciruela"] .mascot-full { background-image: url("/mascot/ciruela/apex-academy-mascota-verde-full-illustration.png"); }
+[data-palette="ciruela"] .mascot-ico-light { background-image: url("/mascot/ciruela/apex-academy-mascota-verde-icon-light.png"); }
+[data-palette="ciruela"] .mascot-ico-dark { background-image: url("/mascot/ciruela/apex-academy-mascota-verde-icon-dark.png"); }
+[data-palette="grafito"] .mascot-full { background-image: url("/mascot/grafito/apex-academy-mascota-verde-full-illustration.png"); }
+[data-palette="grafito"] .mascot-ico-light { background-image: url("/mascot/grafito/apex-academy-mascota-verde-icon-light.png"); }
+[data-palette="grafito"] .mascot-ico-dark { background-image: url("/mascot/grafito/apex-academy-mascota-verde-icon-dark.png"); }
