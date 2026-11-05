@@ -49,16 +49,8 @@ export function AuthScene({
         {/* sunk a little below the edge, so floating never shows where it is cut */}
         <div className="-mb-3 w-[min(100%,240px)] flex-none lg:w-auto lg:min-w-0 lg:max-w-[500px] lg:flex-[1_1_320px]">
           <div className="e-otter-float">
-            {/* eslint-disable-next-line @next/next/no-img-element -- fixed illustration from /public */}
-            <img
-              className="e-otter-img"
-              style={{ height: "auto" }}
-              src="/mascot/apex-academy-mascota-verde-full-illustration.png"
-              alt=""
-              width={480}
-              height={480}
-              draggable={false}
-            />
+            {/* the picture is a CSS background so it follows the palette (globals.css) */}
+            <span className="e-otter-img mascot-full" style={{ height: "auto" }} aria-hidden="true" />
           </div>
         </div>
 
