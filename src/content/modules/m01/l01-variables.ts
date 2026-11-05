@@ -19,14 +19,18 @@ export const l01Variables: Lesson = {
   },
   title: { es: "Variables y Declaración", en: "Variables and Declaration" },
   summary: {
-    es: "Una variable es un campo personalizado que vive un instante. Aprende a crearlo: tipo, nombre y valor.",
-    en: "A variable is a custom field that lives for an instant. Learn to create one: type, name and value.",
+    es: "Una variable es un espacio con nombre donde tu código guarda un dato mientras se ejecuta. Aprende a crearla: tipo, nombre y valor.",
+    en: "A variable is a named space where your code keeps a piece of data while it runs. Learn to create one: type, name and value.",
   },
   analogy: {
-    es: "Crear un campo personalizado: tipo, nombre y valor",
-    en: "Creating a custom field: type, name and value",
+    es: "Una variable de Flow: guarda un dato solo mientras el flow corre",
+    en: "A Flow variable: it holds a value only while the flow runs",
   },
   objectives: [
+    {
+      es: "Explicar qué es una variable y en qué se diferencia de un campo.",
+      en: "Explain what a variable is and how it differs from a field.",
+    },
     {
       es: "Declarar una variable eligiendo el tipo antes que el valor.",
       en: "Declare a variable by choosing the type before the value.",
@@ -45,14 +49,86 @@ export const l01Variables: Lesson = {
     {
       type: "lead",
       text: {
-        es: "Cada vez que creaste un campo personalizado seguiste el mismo ritual: elegir el tipo, ponerle nombre y decidir qué valor lleva. Declarar una variable en Apex es exactamente ese ritual, escrito en una línea.",
-        en: "Every time you created a custom field you followed the same ritual: pick the type, give it a name, decide what value it holds. Declaring a variable in Apex is exactly that ritual, written on one line.",
+        es: "Una variable es un espacio con nombre donde tu código guarda un dato mientras se ejecuta. Imagínala como una caja con etiqueta: guardas algo dentro y, más adelante, lo pides por su nombre en lugar de volver a escribirlo.",
+        en: "A variable is a named space where your code keeps a piece of data while it runs. Picture a labelled box: you put something in and, later on, you ask for it by name instead of writing it out again.",
+      },
+    },
+    {
+      type: "code",
+      code: {
+        es: `// Guarda 20 en la caja maxDiscount
+Integer maxDiscount = 20;
+
+// La pide por su nombre: también vale 20
+Integer approvedDiscount = maxDiscount;`,
+        en: `// Keeps 20 in the box maxDiscount
+Integer maxDiscount = 20;
+
+// Asks for it by name: also 20
+Integer approvedDiscount = maxDiscount;`,
+      },
+      caption: {
+        es: "Para eso sirve: si el descuento cambia, lo cambias en un solo sitio, y el resto del código usa el valor nuevo al leer la variable.",
+        en: "That is what it is for: if the discount changes, you change it in one place, and the rest of the code gets the new value by reading the variable.",
       },
     },
     {
       type: "callout",
       variant: "admin",
-      title: { es: "El paralelo de Admin", en: "The Admin parallel" },
+      title: { es: "Ya las usaste: las variables de Flow", en: "You already used them: Flow variables" },
+      text: {
+        es: "Si creaste un recurso de tipo Variable en Flow Builder, ya conoces la idea: le das nombre y tipo de dato, guardas ahí un valor con un Assignment, lo usas más adelante y, cuando el flow termina, desaparece. Una variable de Apex funciona igual. Es un paralelo simplificado, porque Apex tiene más reglas sobre dónde se puede usar cada variable, que verás en módulos posteriores.",
+        en: "If you have created a Variable resource in Flow Builder, you know the idea: you give it a name and a data type, keep a value there with an Assignment, use it later and, when the flow ends, it is gone. An Apex variable works the same way. This is a simplified parallel, because Apex has more rules about where each variable can be used, which later modules cover.",
+      },
+      voice: "otter",
+    },
+    {
+      type: "h",
+      text: { es: "Una variable no es un campo", en: "A variable is not a field" },
+    },
+    {
+      type: "p",
+      text: {
+        es: "Se crean con pasos parecidos, y por eso compararemos con campos a lo largo de la lección. Pero son cosas distintas:",
+        en: "They are created in similar steps, which is why this lesson keeps comparing them. But they are different things:",
+      },
+    },
+    {
+      type: "table",
+      head: [
+        { es: "", en: "" },
+        { es: "Campo", en: "Field" },
+        { es: "Variable", en: "Variable" },
+      ],
+      rows: [
+        [
+          { es: "Dónde vive", en: "Where it lives" },
+          { es: "En la base de datos", en: "In the database" },
+          { es: "En la memoria, mientras corre el código", en: "In memory, while the code runs" },
+        ],
+        [
+          { es: "Cuánto dura", en: "How long it lasts" },
+          { es: "Hasta que alguien lo cambie", en: "Until someone changes it" },
+          { es: "Desaparece cuando el código termina", en: "It is gone when the code ends" },
+        ],
+        [
+          { es: "Quién lo ve", en: "Who sees it" },
+          { es: "Los usuarios, en el registro", en: "Users, on the record" },
+          { es: "Solo tu código", en: "Only your code" },
+        ],
+      ],
+    },
+    {
+      type: "p",
+      text: {
+        es: "Lo que sí comparten es el ritual para crearlos: elegir el tipo, ponerle nombre y decidir qué valor lleva. Declarar una variable en Apex es ese ritual, escrito en una línea.",
+        en: "What they do share is the ritual for creating them: pick the type, give it a name, decide what value it holds. Declaring a variable in Apex is that ritual, written on one line.",
+      },
+    },
+    {
+      type: "callout",
+      variant: "admin",
+      title: { es: "El tipo va primero, como en un campo", en: "The type comes first, as in a field" },
       text: {
         es: "La primera vez que creé un campo, en Setup → Object Manager → Fields & Relationships → New, me sorprendió que la primera pantalla me obligara a elegir el tipo de dato. No puedes crear un campo «que ya veremos qué guarda». Apex es igual de estricto, y por la misma razón: el tipo es lo que le permite a la plataforma protegerte de guardar «mañana» en un campo de importe.",
         en: "The first time I created a field, in Setup → Object Manager → Fields & Relationships → New, I was surprised that the very first screen made me pick the data type. You cannot create a field «we'll see what it holds». Apex is just as strict, and for the same reason: the type is what lets the platform stop you from storing «tomorrow» in an amount field.",
@@ -113,8 +189,8 @@ maxDiscount = 25;`,
         en: "Declaring and assigning are not the same",
       },
       text: {
-        es: "Declarar es crear el campo. Asignar es rellenarlo. Puedes declarar sin asignar (la variable existe y está vacía) pero no puedes asignar algo que no has declarado: Apex no crea campos sobre la marcha.",
-        en: "Declaring creates the field. Assigning fills it in. You can declare without assigning — the variable exists and is empty — but you cannot assign to something you never declared: Apex does not invent fields on the fly.",
+        es: "Declarar es crear la caja. Asignar es meter algo dentro. Puedes declarar sin asignar (la variable existe y está vacía), pero no puedes asignar a algo que no has declarado: Apex no crea variables sobre la marcha.",
+        en: "Declaring creates the box. Assigning puts something in it. You can declare without assigning (the variable exists and is empty), but you cannot assign to something you never declared: Apex does not invent variables on the fly.",
       },
     },
     {
@@ -239,13 +315,33 @@ MAX_RETRIES = 5;   // ❌ does not compile: it is final`,
       variant: "recall",
       title: { es: "Antes de seguir", en: "Before moving on" },
       text: {
-        es: "Sin mirar arriba: ¿cuáles son las cuatro partes de una declaración con valor inicial, y cuál de ellas desaparece cuando reasignas?",
-        en: "Without looking up: what are the four parts of a declaration with an initial value, and which one disappears when you reassign?",
+        es: "Sin mirar arriba: ¿qué es una variable y en qué se diferencia de un campo? ¿Cuáles son las cuatro partes de una declaración con valor inicial, y cuál desaparece cuando reasignas?",
+        en: "Without looking up: what is a variable and how does it differ from a field? What are the four parts of a declaration with an initial value, and which one disappears when you reassign?",
       },
     },
   ],
 
   quiz: [
+    {
+      id: "m01-l01-q6",
+      kind: "single",
+      prompt: {
+        es: "¿Qué pasa con el valor de una variable cuando el código termina de ejecutarse?",
+        en: "What happens to a variable's value when the code finishes running?",
+      },
+      options: [
+        { es: "Desaparece, salvo que lo hayas guardado en otro sitio, como un campo", en: "It is gone, unless you saved it somewhere else, such as a field" },
+        { es: "Se guarda sola en la base de datos", en: "It saves itself to the database" },
+        { es: "Aparece en el registro, como un campo", en: "It shows up on the record, like a field" },
+        { es: "Queda disponible para la siguiente ejecución", en: "It stays available for the next run" },
+      ],
+      answer: 0,
+      explain: {
+        es: "Una variable vive en la memoria mientras corre el código. Es la gran diferencia con un campo, que permanece en la base de datos.",
+        en: "A variable lives in memory while the code runs. That is the big difference from a field, which stays in the database.",
+      },
+      tags: ["recall"],
+    },
     {
       id: "m01-l01-q1",
       kind: "single",
