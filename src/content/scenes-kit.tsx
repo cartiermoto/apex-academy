@@ -52,7 +52,7 @@ function subscribe(cb: () => void) {
     cache = readTokens();
     cb();
   });
-  mo.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme", "class"] });
+  mo.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme", "data-palette", "class"] });
   return () => mo.disconnect();
 }
 /** The course colours, re-read when the theme changes. */

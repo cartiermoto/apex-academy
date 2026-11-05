@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { LangToggle, ThemeToggle } from "./toggles";
+import { PaletteMenu } from "./palette-menu";
 
 /**
  * The stage of the account screens: a huge question on the brand green and the
@@ -33,6 +34,10 @@ export function AuthScene({
             </Link>
           )}
           <LangToggle />
+          <PaletteMenu
+            placement="down"
+            className="grid h-10 w-10 place-items-center rounded-[4px] border border-line bg-surface text-muted transition hover:text-ink"
+          />
           <ThemeToggle />
         </div>
       </header>

@@ -8,6 +8,7 @@ import { useProgress, useSettings } from "@/components/providers";
 import { MascotMark } from "@/components/logo";
 import { HomeOtter } from "@/components/home-otter";
 import { StreakCard } from "@/components/streak-card";
+import { PaletteMenu } from "@/components/palette-menu";
 import { t, ui } from "@/lib/i18n";
 import type { L, Lesson, LessonStatus, Module, ModuleCategory } from "@/lib/types";
 
@@ -170,6 +171,7 @@ function Header() {
         <a href="#ruta" className="e-mono e-press hidden min-h-[44px] items-center px-3 text-[12px] font-semibold uppercase tracking-[0.06em] hover:opacity-75 sm:inline-flex">
           {lang === "es" ? "Mi ruta" : "My route"}
         </a>
+        <PaletteMenu className={iconBtn} placement="down" />
         <div
           role="group"
           aria-label={t(ui.language, lang)}

@@ -24,6 +24,8 @@ const themeScript = `(function(){try{
   if(!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   document.documentElement.dataset.theme = t;
   document.documentElement.style.colorScheme = t;
+  var p = localStorage.getItem('apex.palette');
+  if(p && /^[a-z]+$/.test(p)) document.documentElement.dataset.palette = p;
   var l = localStorage.getItem('apex.lang'); if(l) document.documentElement.lang = l;
 }catch(e){}})();`;
 
