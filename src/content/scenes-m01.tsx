@@ -64,9 +64,7 @@ function VariableScene({ lang }: SceneProps) {
               <boxGeometry args={[0.55, 0.55, 0.55]} />
               <Mat color={x.type === "Integer" ? tk.fill : x.type === "String" ? tk.warn : tk.blue} />
             </mesh>
-            <Tag at={[0, 0.55, 0]} tone="quiet">
-              {x.text}
-            </Tag>
+            <Tag at={[0, 0, 0.3]}>{x.text}</Tag>
           </Mover>
         ))}
       </Stage>

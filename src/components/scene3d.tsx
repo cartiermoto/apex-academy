@@ -69,7 +69,10 @@ export function Scene3D({ id, caption, lang }: { id: string; caption?: string; l
 
   return (
     <figure ref={box} className="my-8">
-      <p className="t-eyebrow mb-2 text-accent">{lang === "es" ? "Escena 3D · arrastra para girarla" : "3D scene · drag to turn it"}</p>
+      <p className="t-eyebrow mb-2 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+        <span className="text-accent">{lang === "es" ? "Escena 3D · elige una opción abajo" : "3D scene · pick an option below"}</span>
+        <span className="normal-case tracking-normal text-muted">{lang === "es" ? "Si quieres, arrástrala para verla desde otro ángulo" : "You can also drag it to see it from another angle"}</span>
+      </p>
       {!webgl ? unavailable : near ? <Guard fallback={unavailable}><SceneM01 id={id} lang={lang} /></Guard> : <Placeholder />}
       {caption && <figcaption className="t-small mt-2.5 text-muted">{caption}</figcaption>}
     </figure>
