@@ -103,7 +103,7 @@ function StatusDot({ status }: { status: LessonStatus }) {
 
 function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
   const { lang } = useSettings();
-  const { snapshot, authed } = useProgress();
+  const { snapshot, isAdmin } = useProgress();
   const pathname = usePathname();
 
   const statusOf = (lessonId: string): LessonStatus =>
@@ -211,7 +211,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
         <p className="t-eyebrow px-2 pt-6 pb-2">{t(ui.challenges, lang)}</p>
         <ul className="space-y-0.5">
           {course.challenges.map((c) => {
-            const unlocked = authed === true || moduleDone(c.requires);
+            const unlocked = isAdmin || moduleDone(c.requires);
             const href = `/c/${c.id}`;
             const active = pathname === href;
             return (

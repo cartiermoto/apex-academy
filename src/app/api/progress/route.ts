@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import {
   getSnapshot,
+  type Store,
   patchChallenge,
   patchLesson,
   recordExercise,
@@ -8,22 +9,37 @@ import {
   resetAll,
   resetModule,
   saveDraft,
-  usingNeon,
 } from "@/lib/db";
+import { supabaseServer } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
 
+/** The signed-in user's store, or null: progress is never reachable without a session. */
+async function userStore(): Promise<Store | null> {
+  const sb = await supabaseServer();
+  const {
+    data: { user },
+  } = await sb.auth.getUser();
+  return user ? { sb, userId: user.id } : null;
+}
+
+const unauthorized = () => NextResponse.json({ error: "unauthorized" }, { status: 401 });
+
 export async function GET() {
+  const store = await userStore();
+  if (!store) return unauthorized();
   try {
-    const snapshot = await getSnapshot();
-    return NextResponse.json(snapshot);
+    return NextResponse.json(await getSnapshot(store));
   } catch (err) {
+    // An error, not an empty snapshot: the client must not read it as "no progress".
     console.error("progress GET failed", err);
-    return NextResponse.json({ lessons: {}, drafts: {}, challenges: {} });
+    return NextResponse.json({ error: "unavailable" }, { status: 500 });
   }
 }
 
 export async function POST(req: Request) {
+  const store = await userStore();
+  if (!store) return unauthorized();
   const body = (await req.json().catch(() => null)) as any;
   if (!body?.action) {
     return NextResponse.json({ error: "missing action" }, { status: 400 });
@@ -32,7 +48,7 @@ export async function POST(req: Request) {
   try {
     switch (body.action) {
       case "theory":
-        await patchLesson({
+        await patchLesson(store, {
           lessonId: body.lessonId,
           moduleId: body.moduleId,
           theoryDone: true,
@@ -41,13 +57,14 @@ export async function POST(req: Request) {
 
       case "quiz":
         await recordQuiz(
+          store,
           body.lessonId,
           body.moduleId,
           body.answers ?? [],
           body.score ?? 0,
           body.total ?? 0,
         );
-        await patchLesson({
+        await patchLesson(store, {
           lessonId: body.lessonId,
           moduleId: body.moduleId,
           quizDone: Boolean(body.passed),
@@ -57,7 +74,7 @@ export async function POST(req: Request) {
         break;
 
       case "exercise":
-        await recordExercise({
+        await recordExercise(store, {
           lessonId: body.lessonId,
           moduleId: body.moduleId,
           componentId: body.componentId ?? null,
@@ -67,13 +84,14 @@ export async function POST(req: Request) {
           results: body.results ?? null,
         });
         await saveDraft(
+          store,
           body.componentId ? `${body.lessonId}::${body.componentId}` : body.lessonId,
           body.lessonId,
           body.componentId ?? null,
           body.code ?? "",
         );
         if (body.passed) {
-          await patchLesson({
+          await patchLesson(store, {
             lessonId: body.lessonId,
             moduleId: body.moduleId,
             exerciseDone: true,
@@ -82,11 +100,11 @@ export async function POST(req: Request) {
         break;
 
       case "draft":
-        await saveDraft(body.key, body.lessonId, body.componentId ?? null, body.code ?? "");
+        await saveDraft(store, body.key, body.lessonId, body.componentId ?? null, body.code ?? "");
         break;
 
       case "challenge":
-        await patchChallenge({
+        await patchChallenge(store, {
           challengeId: body.challengeId,
           status: body.status,
           passedComponents: body.passedComponents,
@@ -100,7 +118,7 @@ export async function POST(req: Request) {
       case "merge": {
         for (const l of (body.lessons ?? []) as Array<Record<string, any>>) {
           if (typeof l?.lessonId !== "string" || typeof l?.moduleId !== "string") continue;
-          await patchLesson({
+          await patchLesson(store, {
             lessonId: l.lessonId,
             moduleId: l.moduleId,
             theoryDone: l.theoryDone ? true : undefined,
@@ -112,7 +130,7 @@ export async function POST(req: Request) {
         }
         for (const c of (body.challenges ?? []) as Array<Record<string, any>>) {
           if (typeof c?.challengeId !== "string") continue;
-          await patchChallenge({
+          await patchChallenge(store, {
             challengeId: c.challengeId,
             status: c.status,
             passedComponents: Array.isArray(c.passedComponents) ? c.passedComponents : undefined,
@@ -122,20 +140,20 @@ export async function POST(req: Request) {
         for (const [key, code] of Object.entries((body.drafts ?? {}) as Record<string, unknown>)) {
           if (typeof code !== "string") continue;
           const [lessonId, componentId] = key.split("::");
-          await saveDraft(key, lessonId, componentId ?? null, code);
+          await saveDraft(store, key, lessonId, componentId ?? null, code);
         }
         break;
       }
 
       case "reset":
-        await resetAll();
+        await resetAll(store);
         break;
 
       case "resetModule": {
         if (typeof body.moduleId !== "string") {
           return NextResponse.json({ error: "moduleId required" }, { status: 400 });
         }
-        await resetModule(body.moduleId);
+        await resetModule(store, body.moduleId);
         break;
       }
 
@@ -143,9 +161,9 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: "unknown action" }, { status: 400 });
     }
 
-    return NextResponse.json({ ok: true, store: usingNeon ? "neon" : "file" });
+    return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("progress POST failed", err);
-    return NextResponse.json({ ok: false, error: String(err) }, { status: 500 });
+    return NextResponse.json({ ok: false }, { status: 500 });
   }
 }

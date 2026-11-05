@@ -10,6 +10,7 @@ import {
   useState,
 } from "react";
 import type { Lang, LessonStatus, ProgressSnapshot } from "@/lib/types";
+import { supabaseBrowser } from "@/lib/supabase/client";
 
 /* -------------------------------------------------------------------------- */
 /* Settings: language + theme                                                 */
@@ -75,6 +76,8 @@ interface ProgressApi {
   saving: boolean;
   /** null while checking; true when signed in (progress syncs to the cloud) */
   authed: boolean | null;
+  /** this account opens the challenges regardless of progress */
+  isAdmin: boolean;
   logout: () => Promise<void>;
 }
 
@@ -200,13 +203,14 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }, []);
 
   /* --- session -----------------------------------------------------------
-     The course is public. Signing in (the course password) is optional and
-     only switches on cloud sync: without a session nothing leaves the browser,
-     so a visitor can use the course but can never touch the owner's progress. */
+     The course is public. Signing in (email and password) is optional and only
+     switches on cloud sync: without a session nothing leaves the browser, and
+     with one each account reaches only its own rows. */
   const [authed, setAuthed] = useState<boolean | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const authedRef = useRef(false);
 
-  /* --- hydrate progress: localStorage first, then (if signed in) Neon ------ */
+  /* --- hydrate progress: localStorage first, then (if signed in) the cloud --- */
   useEffect(() => {
     let local: ProgressSnapshot = EMPTY;
     try {
@@ -233,6 +237,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
         const isAuthed = Boolean(session?.authenticated);
         authedRef.current = isAuthed;
         setAuthed(isAuthed);
+        setIsAdmin(Boolean(session?.admin));
         if (!isAuthed) return;
 
         const res = await fetch("/api/progress");
@@ -269,10 +274,17 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   const logout = useCallback(async () => {
     try {
-      await fetch("/api/auth/logout", { method: "POST" });
+      await supabaseBrowser().auth.signOut();
     } catch {}
-    authedRef.current = false;
-    setAuthed(false);
+    // This account's progress is safe in the cloud. Off this browser it goes, or
+    // the next person to sign in here would inherit it in the first-sync merge.
+    try {
+      localStorage.removeItem(LS_PROGRESS);
+      for (const k of Object.keys(localStorage)) {
+        if (k.startsWith(LS_DRAFT)) localStorage.removeItem(k);
+      }
+    } catch {}
+    window.location.assign("/");
   }, []);
 
   /* --- persist snapshot to localStorage ---------------------------------- */
@@ -464,9 +476,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
       resetModule,
       saving,
       authed,
+      isAdmin,
       logout,
     }),
-    [snapshot, ready, markTheory, markQuiz, markExercise, saveDraft, getDraft, setChallenge, reset, resetModule, saving, authed, logout],
+    [snapshot, ready, markTheory, markQuiz, markExercise, saveDraft, getDraft, setChallenge, reset, resetModule, saving, authed, isAdmin, logout],
   );
 
   return (
