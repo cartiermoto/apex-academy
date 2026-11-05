@@ -11,6 +11,7 @@ import {
 } from "react";
 import type { Lang, LessonStatus, ProgressSnapshot } from "@/lib/types";
 import { supabaseBrowser } from "@/lib/supabase/client";
+import { dayKey } from "@/lib/streak";
 
 /* -------------------------------------------------------------------------- */
 /* Settings: language + theme                                                 */
@@ -92,7 +93,7 @@ export function useProgress(): ProgressApi {
 const LS_PROGRESS = "apex.progress.v1";
 const LS_DRAFT = "apex.draft.";
 
-const EMPTY: ProgressSnapshot = { lessons: {}, drafts: {}, challenges: {} };
+const EMPTY: ProgressSnapshot = { lessons: {}, drafts: {}, challenges: {}, days: [] };
 
 type LP = ProgressSnapshot["lessons"][string];
 type CP = ProgressSnapshot["challenges"][string];
@@ -143,8 +144,9 @@ export function mergeSnapshots(local: ProgressSnapshot, server: ProgressSnapshot
   for (const id of new Set([...Object.keys(local.challenges), ...Object.keys(server.challenges)])) {
     challenges[id] = mergeChallenge(local.challenges[id], server.challenges[id]);
   }
+  const days = Array.from(new Set([...(local.days ?? []), ...(server.days ?? [])])).sort();
   // Drafts: this device wins — it autosaves on every keystroke.
-  return { lessons, challenges, drafts: { ...server.drafts, ...local.drafts } };
+  return { lessons, challenges, days, drafts: { ...server.drafts, ...local.drafts } };
 }
 
 /** What the merged snapshot knows that the server does not yet. */
@@ -161,8 +163,10 @@ function diffForServer(merged: ProgressSnapshot, server: ProgressSnapshot) {
   const drafts = Object.fromEntries(
     Object.entries(merged.drafts).filter(([k, v]) => server.drafts[k] !== v),
   );
-  if (!lessons.length && !challenges.length && !Object.keys(drafts).length) return null;
-  return { lessons, challenges, drafts };
+  const serverDays = new Set(server.days ?? []);
+  const days = (merged.days ?? []).filter((d) => !serverDays.has(d));
+  if (!lessons.length && !challenges.length && !Object.keys(drafts).length && !days.length) return null;
+  return { lessons, challenges, drafts, days };
 }
 
 /* -------------------------------------------------------------------------- */
@@ -175,6 +179,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
   const [localLoaded, setLocalLoaded] = useState(false);
   const [saving, setSaving] = useState(false);
   const pending = useRef(0);
+  const snapRef = useRef(snapshot);
+  useEffect(() => {
+    snapRef.current = snapshot;
+  }, [snapshot]);
+  const postedDay = useRef<string | null>(null);
 
   /* --- hydrate settings from the browser -------------------------------- */
   useEffect(() => {
@@ -340,17 +349,31 @@ export function Providers({ children }: { children: React.ReactNode }) {
     [],
   );
 
+  /** Completing a section earns today's streak day (once per day per device). */
+  const recordDay = useCallback(() => {
+    const day = dayKey();
+    setSnapshot((s) => (s.days.includes(day) ? s : { ...s, days: [...s.days, day].sort() }));
+    if (postedDay.current !== day) {
+      postedDay.current = day;
+      void post({ action: "day", day });
+    }
+  }, [post]);
+
   const markTheory: ProgressApi["markTheory"] = useCallback(
     (lessonId, moduleId) => {
+      // The button also appears once the theory is done, only to move on: that
+      // is not a new section completed.
+      if (!snapRef.current.lessons[lessonId]?.theoryDone) recordDay();
       touch(lessonId, moduleId, { theoryDone: true });
       void post({ action: "theory", lessonId, moduleId });
     },
-    [post, touch],
+    [post, touch, recordDay],
   );
 
   const markQuiz: ProgressApi["markQuiz"] = useCallback(
     (lessonId, moduleId, score, total, answers) => {
       const passed = total > 0 && score / total >= 0.7;
+      if (passed) recordDay();
       touch(lessonId, moduleId, {
         quizDone: passed,
         quizScore: score,
@@ -358,16 +381,17 @@ export function Providers({ children }: { children: React.ReactNode }) {
       });
       void post({ action: "quiz", lessonId, moduleId, score, total, answers, passed });
     },
-    [post, touch],
+    [post, touch, recordDay],
   );
 
   const markExercise: ProgressApi["markExercise"] = useCallback(
     (lessonId, moduleId, args) => {
+      if (args.passed) recordDay();
       if (args.passed) touch(lessonId, moduleId, { exerciseDone: true });
       else touch(lessonId, moduleId, {});
       void post({ action: "exercise", lessonId, moduleId, ...args });
     },
-    [post, touch],
+    [post, touch, recordDay],
   );
 
   /* --- drafts: localStorage on every change, server on validate ---------- */

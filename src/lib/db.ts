@@ -18,13 +18,17 @@ function must<T>(res: { data: T; error: { message: string } | null }): T {
 }
 
 export async function getSnapshot({ sb }: Store): Promise<ProgressSnapshot> {
-  const [lessons, drafts, challenges] = await Promise.all([
+  const [lessons, drafts, challenges, days] = await Promise.all([
     sb.from("lesson_progress").select("*"),
     sb.from("code_drafts").select("draft_key, code"),
     sb.from("challenge_progress").select("*"),
+    sb.from("study_days").select("day"),
   ]);
 
-  const snap: ProgressSnapshot = { lessons: {}, drafts: {}, challenges: {} };
+  const snap: ProgressSnapshot = { lessons: {}, drafts: {}, challenges: {}, days: [] };
+  // The streak must never take the rest of the progress down with it: if its
+  // table is not there yet (db/supabase/002_study_days.sql not run), no days.
+  if (!days.error) snap.days = (days.data ?? []).map((r) => String(r.day)).sort();
   for (const r of must(lessons) ?? []) {
     snap.lessons[r.lesson_id] = {
       lessonId: r.lesson_id,
@@ -47,6 +51,16 @@ export async function getSnapshot({ sb }: Store): Promise<ProgressSnapshot> {
     };
   }
   return snap;
+}
+
+/** Records study days; days already recorded are left alone. */
+export async function recordDays({ sb, userId }: Store, days: string[]) {
+  if (!days.length) return;
+  must(
+    await sb
+      .from("study_days")
+      .upsert(days.map((day) => ({ user_id: userId, day })), { onConflict: "user_id,day", ignoreDuplicates: true }),
+  );
 }
 
 export interface LessonPatch {
@@ -203,4 +217,6 @@ export async function resetAll({ sb, userId }: Store) {
   for (const table of ["lesson_progress", "code_drafts", "challenge_progress", "quiz_attempts", "quiz_results", "exercise_attempts"]) {
     must(await sb.from(table).delete().eq("user_id", userId));
   }
+  // Streak: separate so a missing table (script 002 not run yet) cannot fail the reset.
+  await sb.from("study_days").delete().eq("user_id", userId);
 }

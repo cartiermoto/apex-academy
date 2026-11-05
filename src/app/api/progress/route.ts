@@ -4,6 +4,7 @@ import {
   type Store,
   patchChallenge,
   patchLesson,
+  recordDays,
   recordExercise,
   recordQuiz,
   resetAll,
@@ -21,6 +22,13 @@ async function userStore(): Promise<Store | null> {
     data: { user },
   } = await sb.auth.getUser();
   return user ? { sb, userId: user.id } : null;
+}
+
+/** YYYY-MM-DD, not more than two days ahead of now (time zones reach +14 h). */
+function validDay(d: unknown): d is string {
+  if (typeof d !== "string" || !/^d{4}-d{2}-d{2}$/.test(d)) return false;
+  const t = Date.parse(`${d}T12:00:00Z`);
+  return Number.isFinite(t) && t <= Date.now() + 2 * 86_400_000;
 }
 
 const unauthorized = () => NextResponse.json({ error: "unauthorized" }, { status: 401 });
@@ -99,6 +107,11 @@ export async function POST(req: Request) {
         }
         break;
 
+      case "day":
+        if (!validDay(body.day)) return NextResponse.json({ error: "bad day" }, { status: 400 });
+        await recordDays(store, [body.day]);
+        break;
+
       case "draft":
         await saveDraft(store, body.key, body.lessonId, body.componentId ?? null, body.code ?? "");
         break;
@@ -141,6 +154,13 @@ export async function POST(req: Request) {
           if (typeof code !== "string") continue;
           const [lessonId, componentId] = key.split("::");
           await saveDraft(store, key, lessonId, componentId ?? null, code);
+        }
+        // Last and on its own: a streak problem must not undo the merge above.
+        try {
+          const days = Array.isArray(body.days) ? (body.days as unknown[]).filter(validDay).slice(0, 3650) : [];
+          await recordDays(store, days);
+        } catch (err) {
+          console.error("merge days failed", err);
         }
         break;
       }

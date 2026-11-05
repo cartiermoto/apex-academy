@@ -20,7 +20,9 @@ export const ui = {
     es: "Entra para guardar tu progreso en la nube y seguirlo en cualquier dispositivo.",
     en: "Sign in to save your progress to the cloud and pick it up on any device.",
   },
-  signIn: { es: "Entrar", en: "Sign in" },
+  signIn: { es: "Iniciar sesión", en: "Sign in" },
+  /** the same button on a phone, where the full label leaves no room */
+  signInShort: { es: "Entrar", en: "Sign in" },
   backToCourse: { es: "Volver al curso", en: "Back to the course" },
   syncOn: { es: "Progreso sincronizado", en: "Progress synced" },
   syncOff: {

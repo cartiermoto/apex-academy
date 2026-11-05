@@ -7,6 +7,7 @@ import { course, requiredLessons } from "@/content/course";
 import { useProgress, useSettings } from "@/components/providers";
 import { MascotMark } from "@/components/logo";
 import { HomeOtter } from "@/components/home-otter";
+import { StreakCard } from "@/components/streak-card";
 import { t, ui } from "@/lib/i18n";
 import type { L, Lesson, LessonStatus, Module, ModuleCategory } from "@/lib/types";
 
@@ -214,7 +215,8 @@ function Header() {
             className="e-mono e-press inline-flex min-h-[44px] items-center rounded-[4px] px-3.5 text-[12px] font-semibold uppercase tracking-[0.06em] hover:opacity-90"
             style={{ background: "var(--e-accent)", color: "var(--e-on-accent)" }}
           >
-            {t(ui.signIn, lang)}
+            <span className="sm:hidden">{t(ui.signInShort, lang)}</span>
+            <span className="hidden sm:inline">{t(ui.signIn, lang)}</span>
           </Link>
         )}
 
@@ -691,7 +693,8 @@ export default function HomePage() {
           </div>
 
           {nextUp && (
-            <div className="e-rise self-start lg:col-start-2 lg:row-start-2" style={{ "--i": 3 } as React.CSSProperties}>
+            <div className="e-rise flex flex-col gap-4 self-start lg:col-start-2 lg:row-start-2" style={{ "--i": 3 } as React.CSSProperties}>
+              <StreakCard />
               <UpNext
                 mod={nextUp.m}
                 lesson={nextUp.l}

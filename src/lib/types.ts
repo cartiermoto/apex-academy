@@ -254,6 +254,8 @@ export interface ExerciseAttempt {
 
 export interface ProgressSnapshot {
   lessons: Record<string, LessonProgress>;
+  /** local calendar days (YYYY-MM-DD) with at least one section completed */
+  days: string[];
   drafts: Record<string, string>;
   challenges: Record<
     string,

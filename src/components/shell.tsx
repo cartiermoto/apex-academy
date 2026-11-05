@@ -250,7 +250,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
         </ul>
       </div>
 
-      <div className="flex items-center justify-between gap-2 border-t border-line px-4 py-3">
+      <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-2 border-t border-line px-4 py-3">
         <LangToggle />
         <div className="flex items-center gap-2">
           <ThemeToggle />
@@ -261,7 +261,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
   );
 }
 
-/** "Entrar" when signed out (progress stays on this device), sign-out icon when in. */
+/** "Iniciar sesión" when signed out (progress stays on this device), sign-out icon when in. */
 function SignOutButton() {
   const pathname = usePathname();
   const { lang } = useSettings();

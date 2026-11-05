@@ -416,6 +416,8 @@ body {
 .editorial {
   --e-bg: #fbf7f1;
   --e-ink: #4a3f35;
+  --e-flame: #c2570c; /* streak: 4.5:1 on white, 3.2:1 on the track */
+  --e-flame-soft: #fbe3cc;
   --e-accent: #2e7a4c;
   --e-accent-text: #26593a;
   --e-on-accent: #ffffff; /* 5.24:1 on the green */
@@ -458,6 +460,8 @@ body {
 [data-theme="dark"] .editorial {
   --e-bg: #12262e;
   --e-ink: #f3f8fa;
+  --e-flame: #f29a4d; /* streak: 5.8:1 on the dark card */
+  --e-flame-soft: #4a3524;
   --e-accent: #6bc08a;
   --e-accent-text: #6bc08a;
   --e-on-accent: #12262e; /* 7.1:1 on the green */
