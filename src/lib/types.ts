@@ -53,6 +53,8 @@ export type TheoryBlock =
     }
   | { type: "table"; head: L[]; rows: L[][] }
   | { type: "diagram"; id: string; caption?: L }
+  /** a 3D scene (three.js), registered in src/content/scenes-*.tsx */
+  | { type: "scene3d"; id: string; caption?: L }
   | { type: "divider" };
 
 /* -------------------------------------------------------------------------- */
@@ -252,6 +254,8 @@ export interface ExerciseAttempt {
 
 export interface ProgressSnapshot {
   lessons: Record<string, LessonProgress>;
+  /** local calendar days (YYYY-MM-DD) with at least one section completed */
+  days: string[];
   drafts: Record<string, string>;
   challenges: Record<
     string,

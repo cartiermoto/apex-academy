@@ -263,6 +263,14 @@ Decimal safeQuota = quotaByRegion.containsKey('APAC')
       },
     },
     {
+      type: "scene3d",
+      id: "m01-3d-collections",
+      caption: {
+        es: "Añade los mismos valores a una List, a un Set y a un Map, y compara qué guarda cada uno.",
+        en: "Add the same values to a List, a Set and a Map, and compare what each one keeps.",
+      },
+    },
+    {
       type: "h",
       text: { es: "Cuál elegir", en: "Which one to choose" },
     },

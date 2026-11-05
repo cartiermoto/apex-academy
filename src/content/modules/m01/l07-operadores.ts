@@ -58,6 +58,14 @@ export const l07Operadores: Lesson = {
       },
     },
     {
+      type: "scene3d",
+      id: "m01-3d-operators",
+      caption: {
+        es: "Cambia el operador y el valor: la balanza compara y el resultado es un Boolean.",
+        en: "Change the operator and the value: the scale compares and the result is a Boolean.",
+      },
+    },
+    {
       type: "h",
       text: { es: "Aritméticos", en: "Arithmetic" },
     },

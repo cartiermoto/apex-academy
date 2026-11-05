@@ -6,6 +6,7 @@ import { CodeBlock } from "./code-block";
 import { Diagram } from "@/content/diagrams";
 import { RichText } from "./term";
 import { OtterSays } from "./otter";
+import { Scene3D } from "./scene3d";
 
 const CALLOUT = {
   admin: {
@@ -53,7 +54,8 @@ const CALLOUT = {
 
 export function Theory({ blocks, lang }: { blocks: TheoryBlock[]; lang: Lang }) {
   return (
-    <div className="max-w-[68ch]">
+    // data-theory: the lesson player finds the block it is reading by position
+    <div data-theory className="max-w-[68ch]">
       {blocks.map((b, i) => {
         switch (b.type) {
           case "lead":
@@ -185,6 +187,9 @@ export function Theory({ blocks, lang }: { blocks: TheoryBlock[]; lang: Lang }) 
                 )}
               </figure>
             );
+
+          case "scene3d":
+            return <Scene3D key={i} id={b.id} caption={b.caption ? t(b.caption, lang) : undefined} lang={lang} />;
 
           case "divider":
             return <hr key={i} className="my-10 border-line" />;

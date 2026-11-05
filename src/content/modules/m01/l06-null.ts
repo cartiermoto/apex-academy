@@ -69,6 +69,14 @@ export const l06Null: Lesson = {
       },
     },
     {
+      type: "scene3d",
+      id: "m01-3d-null",
+      caption: {
+        es: "Pide la longitud a una caja llena y a una vacía, con punto y con ?.",
+        en: "Ask a full box and an empty one for their length, with a dot and with ?.",
+      },
+    },
+    {
       type: "table",
       head: [
         { es: "Valor", en: "Value" },

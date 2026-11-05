@@ -1,98 +1,164 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
+import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
-import { Mark } from "@/components/logo";
+import { AuthScene } from "@/components/auth-scene";
 import { useSettings } from "@/components/providers";
 import { t, ui } from "@/lib/i18n";
-import { LangToggle, ThemeToggle } from "@/components/toggles";
+import { supabaseBrowser } from "@/lib/supabase/client";
+
+type Mode = "signin" | "signup" | "forgot";
+const MIN_PASSWORD = 8;
 
 function LoginForm() {
   const { lang } = useSettings();
   const params = useSearchParams();
-  const [password, setPassword] = useState("");
   // Only same-site paths: "/x" yes, "//evil.com" or "https://…" no.
   const rawNext = params.get("next") ?? "/";
   const safeNext = rawNext.startsWith("/") && !rawNext.startsWith("//") ? rawNext : "/";
-  const [state, setState] = useState<"idle" | "busy" | "error">("idle");
+
+  const [mode, setMode] = useState<Mode>("signin");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [sent, setSent] = useState<string | null>(null);
+
+  const choose = (m: Mode) => {
+    setMode(m);
+    setError(null);
+    setSent(null);
+  };
+
+  function authProblem(code: string | undefined) {
+    return code === "over_email_send_rate_limit" ? t(ui.tooManyEmails, lang) : t(ui.authUnavailable, lang);
+  }
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    setState("busy");
-    const res = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ password }),
-    });
-    if (res.ok) {
-      // Full reload so the app picks up the session and runs the first sync.
-      window.location.assign(safeNext);
-    } else {
-      setState("error");
+    setError(null);
+    setSent(null);
+    if (mode === "signup" && password.length < MIN_PASSWORD) {
+      setError(t(ui.passwordTooShort, lang));
+      return;
+    }
+    setBusy(true);
+    const callback = (next: string) => `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`;
+    try {
+      const sb = supabaseBrowser();
+      if (mode === "signin") {
+        const { error: err } = await sb.auth.signInWithPassword({ email, password });
+        if (err) {
+          setError(err.code === "email_not_confirmed" ? t(ui.emailNotConfirmed, lang) : t(ui.wrongCredentials, lang));
+          return;
+        }
+        // Full reload so the app picks up the session and runs the first sync.
+        window.location.assign(safeNext);
+        return;
+      }
+      if (mode === "signup") {
+        const { error: err } = await sb.auth.signUp({
+          email,
+          password,
+          options: { emailRedirectTo: callback(safeNext) },
+        });
+        if (err) {
+          setError(err.code === "weak_password" ? t(ui.passwordTooShort, lang) : authProblem(err.code));
+          return;
+        }
+        setSent(t(ui.confirmSent, lang));
+        return;
+      }
+      const { error: err } = await sb.auth.resetPasswordForEmail(email, { redirectTo: callback("/login/nueva-clave") });
+      if (err) {
+        setError(authProblem(err.code));
+        return;
+      }
+      setSent(t(ui.resetSent, lang));
+    } catch {
+      setError(t(ui.authUnavailable, lang));
+    } finally {
+      setBusy(false);
     }
   }
 
+  const copy = {
+    signin: { title: ui.authTitleSignin, say: ui.authSaySignin, cta: ui.enter },
+    signup: { title: ui.authTitleSignup, say: ui.authSaySignup, cta: ui.createAccount },
+    forgot: { title: ui.authTitleForgot, say: ui.authSayForgot, cta: ui.sendLink },
+  }[mode];
+
   return (
-    <main className="min-h-dvh grid place-items-center px-5 py-16">
-      <div className="absolute top-4 right-4 flex items-center gap-2">
-        <LangToggle />
-        <ThemeToggle />
-      </div>
+    <AuthScene
+      title={t(copy.title, lang)}
+      say={t(copy.say, lang)}
+      footerLink={{ href: safeNext, label: t(ui.continueWithoutAccount, lang) }}
+    >
+      {params.get("link") && !sent && !error && <p className="auth-note m-0">{t(ui.linkProblem, lang)}</p>}
 
-      <div className="w-full max-w-sm fade-in">
-        <div className="flex flex-col items-center text-center">
-          <Mark size={44} className="text-brand" />
-          <h1 className="t-h1 mt-6">Apex Academy</h1>
-          <p className="t-small text-muted mt-2 max-w-[28ch]">
-            {t(ui.tagline, lang)}
-          </p>
-        </div>
+      <form onSubmit={submit} className="flex flex-col gap-3">
+        <label className="flex flex-col gap-1.5 text-[14px] font-medium">
+          {t(ui.email, lang)}
+          <input
+            type="email"
+            required
+            value={email}
+            autoFocus
+            onChange={(e) => setEmail(e.target.value)}
+            className="auth-input"
+            placeholder={lang === "es" ? "tu@correo.com" : "you@email.com"}
+            autoComplete="email"
+          />
+        </label>
 
-        <form onSubmit={submit} className="mt-10 space-y-3">
-          <label className="block">
-            <span className="t-micro text-muted">{t(ui.password, lang)}</span>
+        {mode !== "forgot" && (
+          <label className="flex flex-col gap-1.5 text-[14px] font-medium">
+            {t(ui.password, lang)}
             <input
               type="password"
+              required
               value={password}
-              autoFocus
-              onChange={(e) => {
-                setPassword(e.target.value);
-                if (state === "error") setState("idle");
-              }}
-              className="mt-1.5 w-full rounded-[4px] border border-line bg-surface px-3.5 py-3 text-ink outline-none transition focus:border-brand"
-              placeholder="••••••••"
-              autoComplete="current-password"
+              onChange={(e) => setPassword(e.target.value)}
+              className="auth-input"
+              placeholder={t(ui.passwordRule, lang)}
+              autoComplete={mode === "signup" ? "new-password" : "current-password"}
             />
           </label>
+        )}
 
-          {state === "error" && (
-            <p className="t-small text-[var(--c-danger)]">
-              {t(ui.wrongPassword, lang)}
-            </p>
-          )}
+        {error && (
+          <p role="alert" className="m-0 text-[15px] text-[var(--c-danger)]">
+            {error}
+          </p>
+        )}
+        {sent && (
+          <p role="status" className="auth-note m-0">
+            {sent}
+          </p>
+        )}
 
-          <button
-            type="submit"
-            disabled={state === "busy" || !password}
-            className="btn btn-primary w-full py-3"
-          >
-            {state === "busy" ? t(ui.checking, lang) : t(ui.enter, lang)}
+        <button type="submit" disabled={busy} className="auth-submit">
+          {busy ? t(ui.checking, lang) : t(copy.cta, lang)}
+        </button>
+      </form>
+
+      <div className="flex flex-wrap justify-between gap-x-4 text-[15px]">
+        {mode === "signin" ? (
+          <>
+            <button type="button" className="auth-link font-semibold" onClick={() => choose("signup")}>
+              {t(ui.noAccount, lang)}
+            </button>
+            <button type="button" className="auth-link" onClick={() => choose("forgot")}>
+              {t(ui.forgotPassword, lang)}
+            </button>
+          </>
+        ) : (
+          <button type="button" className="auth-link font-semibold" onClick={() => choose("signin")}>
+            {t(ui.haveAccount, lang)}
           </button>
-        </form>
-
-        <p className="t-micro text-faint mt-8 text-center leading-relaxed">
-          {t(ui.signInHint, lang)}
-        </p>
-
-        <p className="mt-6 text-center">
-          <Link href={safeNext} className="t-small text-brand underline underline-offset-4">
-            ← {t(ui.backToCourse, lang)}
-          </Link>
-        </p>
+        )}
       </div>
-    </main>
+    </AuthScene>
   );
 }
 

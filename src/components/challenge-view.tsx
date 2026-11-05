@@ -19,7 +19,7 @@ export function ChallengeView({
   requiredModule?: Module;
 }) {
   const { lang } = useSettings();
-  const { snapshot, setChallenge, authed } = useProgress();
+  const { snapshot, setChallenge, isAdmin } = useProgress();
   const [active, setActive] = useState(challenge.components[0]?.id ?? "");
 
   const earned =
@@ -28,8 +28,8 @@ export function ChallengeView({
     requiredLessons(requiredModule).every(
       (l) => snapshot.lessons[l.id]?.status === "completed",
     );
-  // Admin mode: signed in with the course password, nothing is locked.
-  const unlocked = earned || authed === true;
+  // Admin mode (ADMIN_EMAILS): nothing is locked for that account.
+  const unlocked = earned || isAdmin;
 
   const progress = snapshot.challenges[challenge.id];
   const passedComponents = progress?.passedComponents ?? [];

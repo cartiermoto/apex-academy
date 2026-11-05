@@ -61,6 +61,14 @@ export const l02NumerosBoolean: Lesson = {
       },
     },
     {
+      type: "scene3d",
+      id: "m01-3d-types",
+      caption: {
+        es: "Cada tipo con su forma. Mueve el interruptor del Boolean y fíjate en su tercer estado.",
+        en: "Each type with its shape. Move the Boolean's switch and notice its third state.",
+      },
+    },
+    {
       type: "h",
       text: { es: "Integer y Long: contar cosas", en: "Integer and Long: counting things" },
     },

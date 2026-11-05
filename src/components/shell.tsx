@@ -103,7 +103,7 @@ function StatusDot({ status }: { status: LessonStatus }) {
 
 function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
   const { lang } = useSettings();
-  const { snapshot, authed } = useProgress();
+  const { snapshot, isAdmin } = useProgress();
   const pathname = usePathname();
 
   const statusOf = (lessonId: string): LessonStatus =>
@@ -211,7 +211,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
         <p className="t-eyebrow px-2 pt-6 pb-2">{t(ui.challenges, lang)}</p>
         <ul className="space-y-0.5">
           {course.challenges.map((c) => {
-            const unlocked = authed === true || moduleDone(c.requires);
+            const unlocked = isAdmin || moduleDone(c.requires);
             const href = `/c/${c.id}`;
             const active = pathname === href;
             return (
@@ -250,7 +250,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
         </ul>
       </div>
 
-      <div className="flex items-center justify-between gap-2 border-t border-line px-4 py-3">
+      <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-2 border-t border-line px-4 py-3">
         <LangToggle />
         <div className="flex items-center gap-2">
           <ThemeToggle />
@@ -261,7 +261,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
   );
 }
 
-/** "Entrar" when signed out (progress stays on this device), sign-out icon when in. */
+/** "Iniciar sesión" when signed out (progress stays on this device), sign-out icon when in. */
 function SignOutButton() {
   const pathname = usePathname();
   const { lang } = useSettings();
