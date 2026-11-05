@@ -45,8 +45,8 @@ export const l05SObjects: Lesson = {
     {
       type: "lead",
       text: {
-        es: "Hasta ahora las variables guardaban un dato suelto: un texto, un número, una fecha. Un sObject guarda una fila entera (un registro con todos sus campos) y en Apex se maneja exactamente igual que cualquier otra variable.",
-        en: "So far a variable held one loose value: a piece of text, a number, a date. An sObject holds an entire row — a record with all its fields — and in Apex you handle it exactly like any other variable.",
+        es: "sObject (de «Salesforce object») es el nombre general de cualquier registro, estándar o personalizado: Account, Lead o Assignment_Rule__c son sObjects. Hasta ahora las variables guardaban un dato suelto: un texto, un número, una fecha. Un sObject guarda una fila entera (un registro con todos sus campos) y en Apex se maneja exactamente igual que cualquier otra variable.",
+        en: "sObject (from “Salesforce object”) is the general name for any record, standard or custom: Account, Lead and Assignment_Rule__c are all sObjects. Until now variables held a single piece of data: a text, a number, a date. An sObject holds a whole row (a record with all its fields), and in Apex it is handled exactly like any other variable.",
       },
     },
     {
@@ -132,8 +132,8 @@ newAccount.NumberOfEmployees = 340;`,
     {
       type: "p",
       text: {
-        es: "En el layout ves «Número de empleados». En Apex escribes NumberOfEmployees. La etiqueta es para las personas y puede cambiar (incluso traducirse) sin romper nada; el nombre de API es el que usa el código y no cambia jamás una vez creado.",
-        en: "The layout shows “Number of Employees”. In Apex you write NumberOfEmployees. The label is for people and can change — even be translated — without breaking anything; the API name is what the code uses and never changes once created.",
+        es: "En el layout ves «Número de empleados». En Apex escribes NumberOfEmployees. La etiqueta es para las personas y puede cambiar (incluso traducirse) sin romper nada; el nombre de API es el que usa el código, y Salesforce no te deja cambiarlo mientras haya código que lo use.",
+        en: "On the layout you see “Number of employees”. In Apex you write NumberOfEmployees. The label is for people and can change (even be translated) without breaking anything; the API name is what the code uses, and Salesforce will not let you change it while code is using it.",
       },
     },
     {

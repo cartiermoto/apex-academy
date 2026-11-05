@@ -233,8 +233,8 @@ Boolean broken = region.toUpperCase() == 'EMEA' && region != null;`,
     {
       type: "p",
       text: {
-        es: "Se escribe condición ? valorSiVerdadero : valorSiFalso, y es una expresión: produce un valor que puedes guardar directamente en una variable. Es el equivalente exacto de IF() en una fórmula, y resuelve el problema que dejó abierto la sub-lección anterior: qué poner cuando falta el dato.",
-        en: "You write condition ? valueIfTrue : valueIfFalse, and it is an expression: it produces a value you can store straight into a variable. It is the exact equivalent of IF() in a formula, and it solves the problem the previous sub-lesson left open: what to put when the value is missing.",
+        es: "También se le llama operador ternario, y así lo verás en muchos sitios. Se escribe condición ? valorSiVerdadero : valorSiFalso, y es una expresión: produce un valor que puedes guardar directamente en una variable. Es el equivalente de IF() en una fórmula, y resuelve el problema que dejó abierto la sub-lección anterior: qué poner cuando falta el dato.",
+        en: "It is also called the ternary operator, and you will see that name in many places. It is written condition ? valueIfTrue : valueIfFalse, and it is an expression: it produces a value you can store directly in a variable. It is the equivalent of IF() in a formula, and it solves the problem the previous sub-lesson left open: what to put when the data is missing.",
       },
     },
     {

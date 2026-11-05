@@ -45,8 +45,8 @@ export const l09Casting: Lesson = {
     {
       type: "lead",
       text: {
-        es: "Cambiar un campo de Texto a Número en Setup lanza una advertencia: «los datos que no se puedan convertir se perderán». Esa advertencia es, palabra por palabra, de lo que trata esta sub-lección.",
-        en: "Changing a field from Text to Number in Setup raises a warning: “data that cannot be converted will be lost”. That warning is, word for word, what this sub-lesson is about.",
+        es: "Convertir es pasar un dato de un tipo a otro, por ejemplo del texto '42' al número 42. Cambiar un campo de Texto a Número en Setup lanza una advertencia: los datos que no se puedan convertir se pueden perder. De ese riesgo trata esta sub-lección.",
+        en: "Converting means turning data from one type into another, for example the text '42' into the number 42. Changing a field from Text to Number in Setup shows a warning: data that cannot be converted may be lost. That risk is what this sub-lesson is about.",
       },
     },
     {
