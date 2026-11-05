@@ -12,6 +12,7 @@ import {
 import type { Lang, LessonStatus, ProgressSnapshot } from "@/lib/types";
 import { supabaseBrowser } from "@/lib/supabase/client";
 import { dayKey } from "@/lib/streak";
+import { DEFAULT_PALETTE, PALETTES, isPaletteId, type PaletteId } from "@/lib/palettes";
 
 /* -------------------------------------------------------------------------- */
 /* Settings: language + theme                                                 */
@@ -24,6 +25,8 @@ interface Settings {
   setLang: (l: Lang) => void;
   theme: Theme;
   setTheme: (t: Theme) => void;
+  palette: PaletteId;
+  setPalette: (p: PaletteId) => void;
 }
 
 const SettingsCtx = createContext<Settings | null>(null);
@@ -174,6 +177,7 @@ function diffForServer(merged: ProgressSnapshot, server: ProgressSnapshot) {
 export function Providers({ children }: { children: React.ReactNode }) {
   const [lang, setLangState] = useState<Lang>("es");
   const [theme, setThemeState] = useState<Theme>("light");
+  const [palette, setPaletteState] = useState<PaletteId>(DEFAULT_PALETTE);
   const [snapshot, setSnapshot] = useState<ProgressSnapshot>(EMPTY);
   const [ready, setReady] = useState(false);
   const [localLoaded, setLocalLoaded] = useState(false);
@@ -192,6 +196,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
     const storedTheme = (localStorage.getItem("apex.theme") ||
       document.documentElement.dataset.theme) as Theme | undefined;
     if (storedTheme === "light" || storedTheme === "dark") setThemeState(storedTheme);
+    const storedPalette = localStorage.getItem("apex.palette");
+    if (isPaletteId(storedPalette)) setPaletteState(storedPalette);
   }, []);
 
   const setLang = useCallback((l: Lang) => {
@@ -210,6 +216,26 @@ export function Providers({ children }: { children: React.ReactNode }) {
     document.documentElement.dataset.theme = tm;
     document.documentElement.style.colorScheme = tm;
   }, []);
+
+  /** The phone's address bar takes the page colour of the chosen palette. */
+  const syncThemeColor = useCallback((id: PaletteId) => {
+    const p = PALETTES.find((x) => x.id === id) ?? PALETTES[0];
+    for (const m of Array.from(document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]'))) {
+      m.content = m.media.includes("dark") ? p.dark[2] : p.light[2];
+    }
+  }, []);
+
+  const setPalette = useCallback(
+    (id: PaletteId) => {
+      setPaletteState(id);
+      try {
+        localStorage.setItem("apex.palette", id);
+      } catch {}
+      document.documentElement.dataset.palette = id;
+      syncThemeColor(id);
+    },
+    [syncThemeColor],
+  );
 
   /* --- session -----------------------------------------------------------
      The course is public. Signing in (email and password) is optional and only
@@ -482,8 +508,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
   );
 
   const settings = useMemo<Settings>(
-    () => ({ lang, setLang, theme, setTheme }),
-    [lang, setLang, theme, setTheme],
+    () => ({ lang, setLang, theme, setTheme, palette, setPalette }),
+    [lang, setLang, theme, setTheme, palette, setPalette],
   );
 
   const progress = useMemo<ProgressApi>(

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { MascotMark } from "./logo";
 import { LangToggle, ThemeToggle } from "./toggles";
+import { PaletteMenu } from "./palette-menu";
 import { useProgress, useSettings } from "./providers";
 import { course, requiredLessons } from "@/content/course";
 import { t, ui } from "@/lib/i18n";
@@ -250,12 +251,18 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
         </ul>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-2 border-t border-line px-4 py-3">
-        <LangToggle />
-        <div className="flex items-center gap-2">
-          <ThemeToggle />
-          <SignOutButton />
+      <div className="flex flex-col gap-2 border-t border-line px-4 py-3">
+        <div className="flex items-center justify-between gap-2">
+          <LangToggle />
+          <div className="flex items-center gap-2">
+            <PaletteMenu
+              placement="up"
+              className="grid h-10 w-10 place-items-center rounded-[4px] border border-line bg-surface text-muted transition hover:text-ink"
+            />
+            <ThemeToggle />
+          </div>
         </div>
+        <SignOutButton />
       </div>
     </nav>
   );
@@ -272,7 +279,7 @@ function SignOutButton() {
     return (
       <Link
         href={`/login?next=${encodeURIComponent(pathname)}`}
-        className="btn btn-primary btn-mono min-h-[40px] px-3.5 py-0"
+        className="btn btn-primary btn-mono min-h-[40px] w-full px-3.5 py-0"
       >
         {t(ui.signIn, lang)}
       </Link>
@@ -284,12 +291,13 @@ function SignOutButton() {
       onClick={() => void logout()}
       title={t(ui.signOut, lang)}
       aria-label={t(ui.signOut, lang)}
-      className="grid h-10 w-10 place-items-center rounded-[4px] border border-line bg-surface text-muted transition hover:text-ink"
+      className="btn btn-ghost min-h-[40px] w-full gap-2 py-0"
     >
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
         <path d="m16 17 5-5-5-5M21 12H9" />
       </svg>
+      {t(ui.signOut, lang)}
     </button>
   );
 }

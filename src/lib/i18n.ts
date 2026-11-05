@@ -162,6 +162,7 @@ export const ui = {
   // misc
   language: { es: "Idioma", en: "Language" },
   theme: { es: "Tema", en: "Theme" },
+  palette: { es: "Paleta de colores", en: "Colour palette" },
   light: { es: "Claro", en: "Light" },
   dark: { es: "Oscuro", en: "Dark" },
   notStarted: { es: "No iniciado", en: "Not started" },
