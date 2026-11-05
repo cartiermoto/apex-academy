@@ -49,8 +49,8 @@ export const l03String: Lesson = {
     {
       type: "lead",
       text: {
-        es: "Si alguna vez escribiste TRIM(LastName) o UPPER(Country) en un campo fórmula, ya has usado métodos sin llamarlos así. La diferencia es de puntuación: donde la fórmula pone la función delante, Apex la pega detrás del dato.",
-        en: "If you ever wrote TRIM(LastName) or UPPER(Country) in a formula field, you have already used methods without calling them that. The difference is punctuation: where the formula puts the function in front, Apex attaches it behind the value.",
+        es: "String es el tipo que guarda texto: un nombre, un correo, un código. Y además sabe hacer cosas con ese texto. Si alguna vez escribiste TRIM(LastName) o UPPER(Country) en un campo fórmula, ya has usado esas acciones, que en Apex se llaman métodos. La diferencia es de puntuación: donde la fórmula pone la función delante, Apex la pega detrás del dato.",
+        en: "String is the type that holds text: a name, an email, a code. And it also knows how to do things with that text. If you ever wrote TRIM(LastName) or UPPER(Country) in a formula field, you have already used those actions, which Apex calls methods. The difference is punctuation: where the formula puts the function in front, Apex attaches it after the data.",
       },
     },
     {
@@ -241,6 +241,13 @@ String code2 = rawCompany.trim().substring(0, 4).toUpperCase(); // 'NORT'`,
     {
       type: "h",
       text: { es: "String es una clase que ya trae Apex", en: "String is a class Apex already ships" },
+    },
+    {
+      type: "p",
+      text: {
+        es: "Una clase es la definición de algo: qué datos guarda y qué sabe hacer. Apex trae muchas ya hechas, y String es una de ellas. En el Módulo 5 escribirás las tuyas.",
+        en: "A class is the definition of something: what data it holds and what it can do. Apex comes with many ready-made, and String is one of them. In Module 5 you will write your own.",
+      },
     },
     {
       type: "callout",

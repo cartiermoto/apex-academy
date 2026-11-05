@@ -19,12 +19,12 @@ export const l04Fechas: Lesson = {
   },
   title: { es: "Date, Time y Datetime", en: "Date, Time and Datetime" },
   summary: {
-    es: "Tres tipos para el tiempo, y una zona horaria que explica el 90 % de los «pero si en el informe salía otro día».",
-    en: "Three types for time, and one time zone that explains 90% of every “but the report said another day”.",
+    es: "Tres tipos para el tiempo, y una zona horaria que explica muchos «pero si en mi pantalla salía otro día».",
+    en: "Three types for time, and a time zone that explains many a “but my screen showed another day”.",
   },
   analogy: {
-    es: "Los campos Date, Time y Date/Time, y la zona horaria de los informes",
-    en: "Date, Time and Date/Time fields, and report time zones",
+    es: "Los campos Date, Time y Date/Time, y la zona horaria de cada usuario",
+    en: "The Date, Time and Date/Time fields, and each user's time zone",
   },
   objectives: [
     {
@@ -48,6 +48,14 @@ export const l04Fechas: Lesson = {
         es: "En el asistente de campos hay tres opciones distintas para el tiempo: Date, Time y Date/Time. Elegiste mal alguna vez y lo pagaste en un informe. Apex tiene exactamente los mismos tres tipos, con los mismos nombres y las mismas consecuencias.",
         en: "The field wizard offers three separate options for time: Date, Time and Date/Time. You picked the wrong one once and paid for it in a report. Apex has exactly those three types, with the same names and the same consequences.",
       },
+    },
+    {
+      type: "list",
+      items: [
+        { es: "Date guarda un día: año, mes y día, sin hora.", en: "Date holds a day: year, month and day, with no time." },
+        { es: "Time guarda una hora del día, sin fecha.", en: "Time holds a time of day, with no date." },
+        { es: "Datetime guarda un instante exacto: fecha y hora juntas.", en: "Datetime holds an exact instant: date and time together." },
+      ],
     },
     {
       type: "diagram",
@@ -122,7 +130,7 @@ Time reminder = Time.newInstance(9, 0, 0, 0);    // h, min, s, ms`,
         ],
         [
           { es: "monthsBetween(otraFecha)", en: "monthsBetween(otherDate)" },
-          { es: "Integer: meses completos de diferencia.", en: "Integer: whole months of difference." },
+          { es: "Integer: diferencia de meses, sin mirar los días (del 31 de marzo al 1 de abril da 1).", en: "Integer: difference in months, ignoring the days (March 31 to April 1 gives 1)." },
           { es: "start.monthsBetween(end)", en: "start.monthsBetween(end)" },
         ],
         [
@@ -131,8 +139,8 @@ Time reminder = Time.newInstance(9, 0, 0, 0);    // h, min, s, ms`,
           { es: "closeDate.year()", en: "closeDate.year()" },
         ],
         [
-          { es: "addDays() sobre un Datetime", en: "addDays() on a Datetime" },
-          { es: "Datetime: mismo instante, otro día.", en: "Datetime: same instant, different day." },
+          { es: "addHours(n) sobre un Datetime", en: "addHours(n) on a Datetime" },
+          { es: "Datetime: un instante nuevo, desplazado.", en: "Datetime: a new instant, shifted." },
           { es: "createdAt.addHours(2)", en: "createdAt.addHours(2)" },
         ],
         [
@@ -204,10 +212,10 @@ String closeLabel = String.valueOf(closeDate.addMonths(1)); // nested: the new d
     {
       type: "callout",
       variant: "admin",
-      title: { es: "El informe que «estaba mal»", en: "The report that was “wrong”" },
+      title: { es: "La exportación que «estaba mal»", en: "The export that was “wrong”" },
       text: {
-        es: "¿Te acuerdas de aquel informe agrupado por CreatedDate en el que un pedido de última hora de la noche aparecía en el día siguiente? A mí me pasó, y abrí un caso a soporte pensando que era un bug. No estaba mal: agrupaba en GMT mientras yo miraba en hora local. En Apex esa decisión la tomas tú, y de forma explícita: date() te da el día en la zona del usuario y dateGMT() te lo da en GMT.",
-        en: "Remember that report grouped by CreatedDate where a late-night order landed on the following day? It happened to me, and I opened a support case thinking it was a bug. It was not wrong: it was grouping in GMT while I was reading in local time. In Apex you make that choice yourself, explicitly: date() gives you the day in the user's zone and dateGMT() gives it in GMT.",
+        es: "¿Te ha pasado con una exportación de Data Loader? Un pedido creado a última hora de la noche salía con fecha del día siguiente. A mí me pasó, y abrí un caso a soporte pensando que era un bug. No estaba mal: la exportación viene en GMT y yo miraba la pantalla en hora local. En Apex esa decisión la tomas tú, y de forma explícita: date() te da el día en la zona del usuario y dateGMT() te lo da en GMT.",
+        en: "Has it happened to you with a Data Loader export? An order created late at night showed the next day's date. It happened to me, and I opened a support case thinking it was a bug. It was not wrong: the export comes in GMT and I was looking at the screen in local time. In Apex you make that decision yourself, explicitly: date() gives you the day in the user's zone and dateGMT() gives it to you in GMT.",
       },
       voice: "otter",
     },

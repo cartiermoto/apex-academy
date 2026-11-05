@@ -56,8 +56,8 @@ export const l10Checkpoint: Lesson = {
     {
       type: "p",
       text: {
-        es: "1 · Variables y declaración. Declarar una variable es el asistente de campo personalizado en una línea: eliges el tipo antes que el valor, le pones nombre y decides si podrá cambiar. Integer maxDiscount = 20; tiene cuatro partes y todas hacen falta. Importa porque el tipo es una promesa que la plataforma verifica al compilar, y esa rigidez convierte errores de ejecución (los que ve el cliente) en errores de guardado, que solo ves tú.",
-        en: "1 · Variables and declaration. Declaring a variable is the custom-field wizard on one line: you pick the type before the value, give it a name, and decide whether it can change. Integer maxDiscount = 20; has four parts and every one is needed. It matters because the type is a promise the platform verifies at compile time, and that rigidity turns runtime errors — the ones customers see — into save-time errors, which only you see.",
+        es: "1 · Variables y declaración. Una variable es un espacio con nombre donde tu código guarda un dato mientras se ejecuta; a diferencia de un campo, desaparece cuando el código termina. Al declararla eliges el tipo antes que el valor, le pones nombre y decides si podrá cambiar. Integer maxDiscount = 20; tiene cuatro partes y todas hacen falta. Importa porque el tipo es una promesa que la plataforma verifica al compilar, y esa rigidez convierte errores de ejecución (los que ve el cliente) en errores de guardado, que solo ves tú.",
+        en: "1 · Variables and declaration. A variable is a named space where your code keeps a piece of data while it runs; unlike a field, it is gone when the code ends. When you declare it you choose the type before the value, name it and decide whether it may change. Integer maxDiscount = 20; has four parts and all are needed. It matters because the type is a promise the platform checks at compile time, and that rigidity turns runtime errors (the ones the customer sees) into save errors, which only you see.",
       },
     },
     {
@@ -91,8 +91,8 @@ export const l10Checkpoint: Lesson = {
     {
       type: "p",
       text: {
-        es: "6 · Null. Es el campo en blanco de siempre, pero aquí no se ignora educadamente: pedirle un método a null detiene la transacción con un NullPointerException. String.isBlank(region) cubre de una vez el null, la cadena vacía y la de espacios, que es exactamente lo que manda un formulario web. Importa porque es la causa número uno de errores en Apex y la más barata de evitar: una comprobación de una línea.",
-        en: "6 · Null. It is the same old blank field, but here it is not politely ignored: asking null for a method halts the transaction with a NullPointerException. String.isBlank(region) covers null, the empty string and the whitespace string in one go — exactly what a web form sends. It matters because it is the number-one cause of Apex errors and the cheapest to prevent: a one-line check.",
+        es: "6 · Null. Significa que no hay ningún valor, y aquí no se ignora educadamente: pedirle un método a null detiene la transacción con un NullPointerException. String.isBlank(region) cubre de una vez el null, la cadena vacía y la de espacios, que es exactamente lo que manda un formulario web. Importa porque es una de las causas más comunes de errores en Apex y de las más baratas de evitar: una comprobación de una línea.",
+        en: "6 · Null. It means there is no value at all, and here it is not politely ignored: asking null for a method stops the transaction with a NullPointerException. String.isBlank(region) covers null, the empty string and the blank string in one go, which is exactly what a web form sends. It matters because it is one of the most common causes of errors in Apex and one of the cheapest to avoid: a one-line check.",
       },
     },
     {

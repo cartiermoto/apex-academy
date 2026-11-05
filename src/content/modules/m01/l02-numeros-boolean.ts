@@ -48,8 +48,8 @@ export const l02NumerosBoolean: Lesson = {
     {
       type: "lead",
       text: {
-        es: "En el asistente de campos nuevos, «Number», «Currency» y «Percent» parecen casi lo mismo, pero tú ya sabes que no lo son: uno cuenta unidades, otro dinero, otro proporciones. Apex hace la misma distinción, solo que te obliga a declararla en voz alta.",
-        en: "In the new-field wizard, “Number”, “Currency” and “Percent” look almost identical, but you already know they are not: one counts units, one counts money, one counts proportions. Apex draws the same distinction — it just makes you say it out loud.",
+        es: "El tipo es la clase de dato que cabe en una variable: número, texto, fecha, sí o no. En el asistente de campos, «Number», «Currency» y «Percent» parecen casi lo mismo, pero tú ya sabes que no lo son: uno cuenta unidades, otro dinero, otro proporciones. Apex hace la misma distinción, solo que te obliga a declararla en voz alta.",
+        en: "The type is the kind of data a variable can hold: number, text, date, yes or no. In the field wizard, “Number”, “Currency” and “Percent” look almost identical, but you already know they are not: one counts units, one holds money, one holds proportions. Apex makes the same distinction, it just makes you say it out loud.",
       },
     },
     {
@@ -128,7 +128,7 @@ Double temperature = 36.6;        // a measurement, not money`,
     {
       type: "p",
       text: {
-        es: "Cuando divides dos Integer, Apex responde con un Integer: se queda con la parte entera y tira los decimales sin avisar. No redondea, corta. Es el error número uno de quien viene de fórmulas, donde 7/2 siempre da 3,5.",
+        es: "Cuando divides dos Integer, Apex responde con un Integer: se queda con la parte entera y tira los decimales sin avisar. No redondea, corta. Es un error muy común en quien viene de fórmulas, donde 7/2 siempre da 3,5.",
         en: "When you divide two Integers, Apex answers with an Integer: it keeps the whole part and throws the decimals away without warning. It does not round, it truncates. This is the number-one gotcha for anyone coming from formulas, where 7/2 always gives 3.5.",
       },
     },

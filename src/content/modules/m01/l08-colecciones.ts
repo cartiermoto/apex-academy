@@ -45,8 +45,8 @@ export const l08Colecciones: Lesson = {
     {
       type: "lead",
       text: {
-        es: "Abre una cuenta y mira la lista relacionada de contactos: filas en un orden, con posibles repeticiones de nombre. Abre el filtro de un informe por Industry: valores únicos, sin repetir. Y piensa en cómo cruzas dos exportaciones por Id. Acabas de recorrer List, Set y Map.",
-        en: "Open an account and look at the related list of contacts: rows in an order, with names that may repeat. Open a report filter by Industry: unique values, no repeats. Then think about how you cross two exports by Id. You have just walked through List, Set and Map.",
+        es: "Una colección es una variable que guarda varios valores a la vez. Hay tres, y ya las conoces: abre una cuenta y mira la lista relacionada de contactos: filas en un orden, con posibles repeticiones de nombre. Abre el filtro de un informe por Industry: valores únicos, sin repetir. Y piensa en cómo cruzas dos exportaciones por Id. Acabas de recorrer List, Set y Map.",
+        en: "A collection is a variable that holds several values at once. There are three, and you already know them: open an account and look at the related list of contacts: rows in an order, possibly with repeated names. Open a report filter on Industry: unique values, no repeats. And think of how you match two exports by Id. You have just walked through List, Set and Map.",
       },
     },
     {

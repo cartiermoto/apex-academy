@@ -19,8 +19,8 @@ export const l06Null: Lesson = {
   },
   title: { es: "Null", en: "Null" },
   summary: {
-    es: "El campo en blanco, llevado al código. Es la causa número uno de errores en Apex y la más fácil de evitar.",
-    en: "The blank field, taken into code. It is the number-one cause of Apex errors and the easiest to avoid.",
+    es: "El campo en blanco, llevado al código. Es una de las causas más comunes de errores en Apex, y de las más fáciles de evitar.",
+    en: "The blank field, brought into code. It is one of the most common causes of errors in Apex, and one of the easiest to avoid.",
   },
   analogy: {
     es: "Un campo en blanco, ISBLANK() y BLANKVALUE()",
@@ -45,19 +45,19 @@ export const l06Null: Lesson = {
     {
       type: "lead",
       text: {
-        es: "Abre cualquier lista de Leads de tu org y mira la columna de teléfono: habrá filas en blanco. Ese blanco tiene nombre en Apex (null) y, a diferencia de la interfaz, aquí no se ignora educadamente: si intentas usarlo, la [[transaccion]] entera se detiene.",
-        en: "Open any Lead list in your org and look at the phone column: some rows are blank. That blank has a name in Apex — null — and unlike the UI it is not politely ignored here: try to use it and the whole [[transaccion|transaction]] stops.",
+        es: "null significa que no hay ningún valor: ni cero, ni texto vacío, nada. Abre cualquier lista de Leads de tu org y mira la columna de teléfono: habrá filas en blanco. Ese blanco es null en Apex y, a diferencia de la interfaz, aquí no se ignora educadamente: si intentas usarlo, la [[transaccion]] entera se detiene.",
+        en: "null means there is no value at all: not zero, not empty text, nothing. Open any Leads list in your org and look at the phone column: there will be blank rows. That blank is null in Apex and, unlike the UI, here it is not politely ignored: try to use it and the whole [[transaccion|transaction]] stops.",
       },
     },
     {
       type: "h",
-      text: { es: "Tres cosas que no son lo mismo", en: "Three things that are not the same" },
+      text: { es: "Cuatro cosas que no son lo mismo", en: "Four things that are not the same" },
     },
     {
       type: "p",
       text: {
-        es: "Esto ya lo sabías como Admin, aunque quizá sin ponerle nombre: no es lo mismo un campo que nadie ha rellenado, un campo rellenado con nada, y un campo rellenado con cero. En un informe, los tres se ven casi igual. En Apex se comportan de forma muy distinta.",
-        en: "You already knew this as an Admin, perhaps without naming it: a field nobody filled in, a field filled in with nothing, and a field filled in with zero are three different things. In a report they look almost identical. In Apex they behave very differently.",
+        es: "Esto ya lo sabías como Admin, aunque quizá sin ponerle nombre: no es lo mismo un campo que nadie ha rellenado, uno rellenado con nada, uno con espacios y uno con cero. En un informe se ven casi igual. En Apex se comportan de forma muy distinta.",
+        en: "You knew this as an Admin, perhaps without naming it: a field nobody filled in is not the same as one filled with nothing, one with spaces or one with zero. In a report they look almost the same. In Apex they behave very differently.",
       },
     },
     {
@@ -195,8 +195,8 @@ Boolean usable = String.isNotBlank(region); // null, '' and '   ' in one go
 Boolean missing = String.isBlank(region);   // the opposite`,
       },
       caption: {
-        es: "String.isBlank() es la comprobación que resuelve el 90 % de los casos reales con datos de formularios.",
-        en: "String.isBlank() is the check that handles 90% of real cases with form data.",
+        es: "String.isBlank() es la comprobación que resuelve la mayoría de los casos con datos de formularios.",
+        en: "String.isBlank() is the check that solves most cases with form data.",
       },
     },
     {
@@ -253,8 +253,8 @@ String name = account?.Name;           // null, no explosion`,
       variant: "recall",
       title: { es: "Antes de seguir", en: "Before moving on" },
       text: {
-        es: "Sin mirar arriba: ¿cuáles son las tres operaciones que hacen saltar un NullPointerException, y cuál es la única de las tres que no da error sino un texto raro?",
-        en: "Without looking up: what are the three operations that raise a NullPointerException, and which related one gives you odd text instead of an error?",
+        es: "Sin mirar arriba: ¿cuáles son las tres operaciones que hacen saltar un NullPointerException? ¿Y qué operación con null no da error, sino un texto raro?",
+        en: "Without looking up: which three operations trigger a NullPointerException? And which operation with null gives no error, just odd text?",
       },
     },
   ],
