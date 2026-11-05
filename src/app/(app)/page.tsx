@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import Link from "next/link";
 import { course, requiredLessons } from "@/content/course";
@@ -11,7 +11,7 @@ import { t, ui } from "@/lib/i18n";
 import type { L, Lesson, LessonStatus, Module, ModuleCategory } from "@/lib/types";
 
 /**
- * Home — "Editorial por categorías".
+ * Home — "La cumbre": the course as a climb, in five stages up to the summit.
  *
  * Colours come exclusively from the .editorial tokens in globals.css (copied
  * from apex-academy-paleta-mascota-verde.json). No sidebar on this page:
@@ -43,31 +43,6 @@ function withFade(change: () => void) {
     return;
   }
   doc.startViewTransition(() => flushSync(change));
-}
-
-/** A number that counts up from zero once, when it first appears. */
-function CountUp({ to }: { to: number }) {
-  const [n, setN] = useState(to);
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const start = performance.now();
-    const ms = 600;
-    let raf = 0;
-    const tick = (now: number) => {
-      const k = Math.min(1, (now - start) / ms);
-      setN(Math.round(to * (1 - Math.pow(1 - k, 3))));
-      if (k < 1) raf = requestAnimationFrame(tick);
-    };
-    setN(0);
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [to]);
-  // Fixed width: the digits change, the layout does not.
-  return (
-    <span className="inline-block text-right tabular-nums" style={{ minWidth: `${String(to).length}ch` }}>
-      {n}
-    </span>
-  );
 }
 
 /**
@@ -191,6 +166,9 @@ function Header() {
       </Link>
 
       <div className="flex shrink-0 items-center gap-1.5">
+        <a href="#ruta" className="e-mono e-press hidden min-h-[44px] items-center px-3 text-[12px] font-semibold uppercase tracking-[0.06em] hover:opacity-75 sm:inline-flex">
+          {lang === "es" ? "Mi ruta" : "My route"}
+        </a>
         <div
           role="group"
           aria-label={t(ui.language, lang)}
@@ -258,105 +236,6 @@ function Header() {
   );
 }
 
-/* ----------------------------------------------------------- category tabs */
-
-type CatFilter = "all" | ModuleCategory;
-
-const TABS: Array<{ id: CatFilter; name: L }> = [{ id: "all", name: { es: "Todos", en: "All" } }, ...CATEGORIES];
-
-/**
- * The category legend, as tabs that filter the module grid. One underline
- * slides between them: it is a fixed 100px bar moved and stretched with a
- * transform, so nothing but transform animates.
- */
-function CategoryTabs({ value, onChange }: { value: CatFilter; onChange: (c: CatFilter) => void }) {
-  const { lang } = useSettings();
-  const listRef = useRef<HTMLDivElement>(null);
-  const [bar, setBar] = useState<{ x: number; w: number } | null>(null);
-
-  useLayoutEffect(() => {
-    const list = listRef.current;
-    if (!list) return;
-    const measure = () => {
-      const el = list.querySelector<HTMLElement>('[aria-selected="true"]');
-      if (el) setBar({ x: el.offsetLeft, w: el.offsetWidth });
-    };
-    measure();
-    // Web fonts and viewport changes move the tabs: keep the bar under its tab.
-    const ro = new ResizeObserver(measure);
-    ro.observe(list);
-    list.querySelectorAll('[role="tab"]').forEach((el) => ro.observe(el));
-    return () => ro.disconnect();
-  }, [value, lang]);
-
-  const select = (id: CatFilter, focus = false) => {
-    onChange(id);
-    const el = listRef.current?.querySelector<HTMLElement>(`#tab-${id}`);
-    if (focus) el?.focus();
-    el?.scrollIntoView({ inline: "nearest", block: "nearest" });
-  };
-
-  const onKeyDown = (e: React.KeyboardEvent) => {
-    const i = TABS.findIndex((x) => x.id === value);
-    const next =
-      e.key === "ArrowRight"
-        ? (i + 1) % TABS.length
-        : e.key === "ArrowLeft"
-          ? (i - 1 + TABS.length) % TABS.length
-          : e.key === "Home"
-            ? 0
-            : e.key === "End"
-              ? TABS.length - 1
-              : -1;
-    if (next < 0) return;
-    e.preventDefault();
-    select(TABS[next].id, true);
-  };
-
-  return (
-    <div className="e-tabs sticky top-[64px] z-20 -mx-5 px-5 sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12 xl:-mx-24 xl:px-24">
-      <div
-        ref={listRef}
-        role="tablist"
-        aria-label={t(ui.modules, lang)}
-        onKeyDown={onKeyDown}
-        className="e-tablist e-mono relative flex gap-1 overflow-x-auto text-[11px] uppercase tracking-[0.06em]"
-      >
-        {TABS.map((tab) => {
-          const selected = tab.id === value;
-          return (
-            <button
-              key={tab.id}
-              id={`tab-${tab.id}`}
-              type="button"
-              role="tab"
-              aria-selected={selected}
-              aria-controls="panel-modulos"
-              tabIndex={selected ? 0 : -1}
-              onClick={() => select(tab.id)}
-              className="e-tab inline-flex min-h-[44px] shrink-0 items-center gap-2 whitespace-nowrap px-3.5"
-            >
-              {tab.id !== "all" && (
-                <span
-                  data-cat={tab.id}
-                  className="e-swatch inline-block h-2.5 w-2.5"
-                  style={{ border: "1px solid var(--e-legend-border)" }}
-                />
-              )}
-              {t(tab.name, lang)}
-            </button>
-          );
-        })}
-        <span
-          aria-hidden
-          className="e-tab-bar"
-          style={bar ? { opacity: 1, transform: `translateX(${bar.x}px) scaleX(${bar.w / 100})` } : undefined}
-        />
-      </div>
-    </div>
-  );
-}
-
 /* ------------------------------------------------------------- sync status */
 
 function SyncStatus() {
@@ -393,111 +272,265 @@ function UpNext({
   steps: { theory: boolean; quiz: boolean; exercise: boolean };
 }) {
   const { lang } = useSettings();
-  const statusLabel =
-    status === "completed"
-      ? t(ui.completed, lang)
-      : status === "in_progress"
-        ? t(ui.inProgress, lang)
-        : t(ui.notStarted, lang);
+  return (
+    <Link href={`/m/${mod.id}/${lesson.slug}`} className="e-upnext group flex w-full items-center gap-4 p-5">
+      <span className="flex min-w-0 flex-1 flex-col gap-1">
+        <span className="e-mono text-[11px] uppercase tracking-[0.06em]">
+          {lang === "es" ? "Siguiente" : "Up next"} · M{mod.n}.{pad(lesson.n)} · {lesson.minutes} min
+        </span>
+        <span className="text-[20px] font-bold leading-[1.2]">{t(lesson.title, lang)}</span>
+        {status === "in_progress" && (
+          <span className="e-mono mt-1 flex flex-wrap gap-x-3 gap-y-0.5 text-[11px] uppercase tracking-[0.04em]">
+            {(
+              [
+                [ui.theory, steps.theory],
+                [ui.quiz, steps.quiz],
+                [ui.exercise, steps.exercise],
+              ] as const
+            ).map(([label, done]) => (
+              <span key={label.es}>
+                {done ? "✓" : "○"} {t(label, lang)}
+              </span>
+            ))}
+          </span>
+        )}
+      </span>
+      <span
+        className="inline-flex min-h-[44px] shrink-0 items-center gap-2 rounded-[22px] px-[18px] text-[15px] font-semibold"
+        style={{ background: "var(--e-accent)", color: "var(--e-on-accent)" }}
+      >
+        {lang === "es" ? "Abrir" : "Open"}
+      </span>
+    </Link>
+  );
+}
 
-  const k = "e-mono text-[11px] uppercase tracking-[0.08em]";
-  const rule = <div className="h-px bg-[var(--e-divider)]" />;
+/* ------------------------------------------------------------ route to the summit */
+
+/** One line per module: on the route, the full subtitle is too long to scan. */
+const MODULE_SHORT: Record<string, L> = {
+  m01: { es: "Tipos, datos, colecciones y el hueco donde no hay nada.", en: "Types, data, collections and the gap where there is nothing." },
+  m02: { es: "Decidir y repetir: lo que en Flow eran nodos de decisión y bucles.", en: "Deciding and repeating: what Flow drew as decision nodes and loops." },
+  m03: { es: "El equivalente en código a un Report Type con filtros.", en: "The code equivalent of a Report Type with filters." },
+  m04: { es: "Escribir en la base de datos sin que la org te pare los pies.", en: "Writing to the database without the org shutting you down." },
+  m05: { es: "Del objeto de Salesforce al objeto de Apex: definir tus propios moldes.", en: "From the Salesforce object to the Apex object: defining your own moulds." },
+  m06: { es: "La automatización que corre cuando nadie mira: el Record-Triggered Flow, en código.", en: "The automation that runs when nobody is looking: the Record-Triggered Flow, in code." },
+  m07: { es: "Un trigger por objeto, toda la lógica fuera.", en: "One trigger per object, all the logic outside." },
+  m08: { es: "El fault path de tus flows, pero con tipos.", en: "The fault path of your flows, but with types." },
+  m09: { es: "@future, Queueable, Batch y Scheduled, y cuándo usar cada uno.", en: "@future, Queueable, Batch and Scheduled, and when to use each." },
+  m10: { es: "El 75 % no es la meta: es el mínimo para desplegar.", en: "75% is not the goal: it is the minimum to deploy." },
+  m11: { es: "Callouts HTTP, JSON, Named Credentials, tu propia API y SOAP.", en: "HTTP callouts, JSON, Named Credentials, your own API and SOAP." },
+  m12: { es: "Sharing, permisos de objeto y de campo, modo usuario e inyección de SOQL.", en: "Sharing, object and field permissions, user mode and SOQL injection." },
+};
+
+function TrailChallenge({ challenge: c, unlocked }: { challenge: (typeof course.challenges)[number]; unlocked: boolean }) {
+  const { lang } = useSettings();
+  const { snapshot } = useProgress();
+  const required = course.modules.find((m) => m.id === c.requires);
+  const progress = snapshot.challenges[c.id];
+  return (
+    <ul>
+      <li className="relative">
+        {/* Shown on hover and keyboard focus; on touch the same condition is
+            written on the card. */}
+        {!unlocked && (
+          <span id={`tip-${c.id}`} role="tooltip" className="e-tip e-mono">
+            <MascotMark size={26} className="shrink-0" />
+            <span>
+              {t(ui.unlockedBy, lang)} · M{pad(required?.n ?? 0)}
+              {required ? ` ${t(required.title, lang)}` : ""}
+            </span>
+          </span>
+        )}
+        <Link href={`/c/${c.id}`} className="block" aria-describedby={unlocked ? undefined : `tip-${c.id}`}>
+          <article data-locked={!unlocked} className="e-challenge flex flex-wrap items-center gap-x-5 gap-y-3 p-[22px]">
+            {!unlocked && (
+              <span className="e-lock">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden>
+                  <rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" strokeWidth="2" />
+                  <path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+                {t(ui.locked, lang)}
+              </span>
+            )}
+            <span className="flex min-w-0 flex-[1_1_280px] flex-col gap-1">
+              <span className="e-mono text-[11px] uppercase tracking-[0.08em]">
+                {t(ui.challenge, lang)} {pad(c.n)}
+              </span>
+              <span className="text-[21px] font-bold leading-[1.2]">{t(c.title, lang)}</span>
+            </span>
+            {unlocked ? (
+              <span className="e-mono text-[12px] uppercase tracking-[0.06em]">
+                {progress?.status === "completed" ? t(ui.completed, lang) : t(ui.ready, lang)} · {c.components.length}{" "}
+                {t(ui.components, lang).toLowerCase()} · {c.minutes} min
+              </span>
+            ) : (
+              /* the otter keeps you company here too, with the way in */
+              <span className="e-mono flex items-center gap-2.5 text-[12px] uppercase tracking-[0.06em]">
+                <MascotMark size={30} className="e-lock-otter shrink-0" />
+                {t(ui.unlockedBy, lang)} · M{pad(required?.n ?? 0)}
+              </span>
+            )}
+          </article>
+        </Link>
+      </li>
+    </ul>
+  );
+}
+
+function TrailStage({
+  n,
+  name,
+  modules,
+  statusOf,
+  moduleDone,
+  currentId,
+}: {
+  n: number;
+  name: L;
+  modules: Module[];
+  statusOf: (id: string) => LessonStatus;
+  moduleDone: (m: Module) => boolean;
+  currentId?: string;
+}) {
+  const { lang } = useSettings();
+  const [ref, inView] = useInView<HTMLDivElement>();
+  const done = modules.every(moduleDone);
+  const here = !done && modules.some((m) => m.id === currentId);
+  const challenges = course.challenges.filter((c) => modules.some((m) => m.id === c.requires));
 
   return (
-    <Link
-      href={`/m/${mod.id}/${lesson.slug}`}
-      /* Floating card (as in the reference site): tilted on wide screens, lifted
-         by a shadow, and it straightens on hover. Colours unchanged. */
-      className="e-upnext e-rise group flex w-full flex-col gap-[22px] p-6 transition-transform duration-300 ease-out hover:-translate-y-1.5 focus-visible:-translate-y-1.5 sm:p-8 lg:rotate-[1.5deg] lg:hover:rotate-0 lg:focus-visible:rotate-0"
-      style={
-        {
-          "--i": 3,
-          background: "var(--e-cat-fund-surface)",
-          color: "var(--e-ink)",
-          boxShadow: "var(--e-float-shadow)",
-        } as React.CSSProperties
-      }
-    >
-      <div className="flex items-center gap-3">
-        <MascotMark size={30} className="shrink-0" />
-        <span className="e-mono flex-1 text-[12px] uppercase tracking-[0.08em]">
-          {lang === "es" ? "Siguiente" : "Up next"} · M{mod.n}.{pad(lesson.n)}
+    <div ref={ref} data-in={inView} className="e-stagger e-stage">
+      <div className="flex flex-col items-center">
+        <span data-state={done ? "done" : here ? "here" : "next"} className="e-node" aria-hidden>
+          {done ? "✓" : here ? <MascotMark size={44} /> : n}
         </span>
-        <span className="e-mono whitespace-nowrap text-[11px] uppercase tracking-[0.05em]">
-          <span className="hidden sm:inline">{lang === "es" ? "Lectura" : "Read"} · </span>
-          {lesson.minutes} min
+        {/* the trail paints itself over the stages already climbed */}
+        <span aria-hidden className="e-rail">
+          <span className="e-rail-fill" style={{ transform: `scaleY(${done && inView ? 1 : 0})` }} />
         </span>
       </div>
 
-      {rule}
-
-      <div className="flex flex-col gap-4">
-        <div className="grid grid-cols-[110px_1fr] gap-3 sm:grid-cols-[130px_1fr]">
-          <span className={k}>{lang === "es" ? "Concepto" : "Concept"}</span>
-          <span className="text-[19px] font-bold leading-[1.25] tracking-[-0.01em] sm:text-[21px]">{t(lesson.title, lang)}</span>
-        </div>
-        {lesson.analogy && (
-          <div className="grid grid-cols-[110px_1fr] gap-3 sm:grid-cols-[130px_1fr]">
-            <span className={k}>{lang === "es" ? "En Admin es" : "In Admin it is"}</span>
-            <span className="text-[14px] leading-[1.5]">{t(lesson.analogy, lang)}</span>
-          </div>
-        )}
-        <div className="grid grid-cols-[110px_1fr] gap-3 sm:grid-cols-[130px_1fr]">
-          <span className={k}>{lang === "es" ? "Estado" : "Status"}</span>
-          <span className="e-mono text-[14px] leading-[1.5]">{statusLabel}</span>
-        </div>
-        {status === "in_progress" && (
-          <div className="grid grid-cols-[110px_1fr] gap-3 sm:grid-cols-[130px_1fr]">
-            <span className={k}>{lang === "es" ? "Pasos" : "Steps"}</span>
-            <span className="e-mono flex flex-wrap gap-x-4 gap-y-1 text-[14px] leading-[1.5]">
-              {(
-                [
-                  [ui.theory, steps.theory],
-                  [ui.quiz, steps.quiz],
-                  [ui.exercise, steps.exercise],
-                ] as const
-              ).map(([label, done]) => (
-                <span key={label.es}>
-                  {done ? "✓" : "○"} {t(label, lang)}
-                </span>
-              ))}
+      <div className="flex min-w-0 flex-col gap-3.5 pb-9">
+        <h3 className="m-0 flex min-h-[44px] items-center text-[23px] font-bold leading-[1.2]">
+          {t(name, lang)}
+          {(done || here) && (
+            <span className="sr-only">
+              {" "}
+              ({done ? t(ui.completed, lang) : lang === "es" ? "estás aquí" : "you are here"})
             </span>
-          </div>
-        )}
+          )}
+        </h3>
+
+        <ul className="e-stage-grid">
+          {modules.map((m, i) => {
+            const ready = m.status === "ready";
+            const total = requiredLessons(m).length;
+            const count = requiredLessons(m).filter((l) => statusOf(l.id) === "completed").length;
+            const state = moduleDone(m) ? "done" : ready && m.id === currentId ? "current" : ready ? "ready" : "planned";
+            const tag =
+              state === "done"
+                ? t(ui.completed, lang)
+                : state === "current"
+                  ? lang === "es"
+                    ? "En curso"
+                    : "In progress"
+                  : state === "ready"
+                    ? t(ui.ready, lang)
+                    : t(ui.planned, lang);
+            const card = (
+              <article data-cat={m.category} data-state={state} className="e-module flex h-full flex-col gap-2.5 p-[22px]">
+                <div className="flex items-center justify-between gap-2.5">
+                  <span className="e-num text-[30px] font-bold leading-none">{pad(m.n)}</span>
+                  <span data-state={state} className="e-tag e-mono text-[11px] tracking-[0.02em]">
+                    {state === "done" && <span aria-hidden>✓</span>}
+                    {tag}
+                  </span>
+                </div>
+                <span className="e-title text-[20px] font-bold leading-[1.2]">{t(m.title, lang)}</span>
+                <p className="m-0 flex-1 text-[15px] leading-[1.45]">{t(MODULE_SHORT[m.id] ?? m.subtitle, lang)}</p>
+                <span className="e-mono text-[12px]">
+                  {count}/{total} {lang === "es" ? "hecho" : "done"}
+                </span>
+                {total > 0 && (
+                  <div aria-hidden className="e-track h-1 overflow-hidden rounded-[2px]">
+                    <div
+                      className="e-fill h-1"
+                      style={{ transform: `scaleX(${inView ? count / total : 0})`, background: "var(--e-accent)" }}
+                    />
+                  </div>
+                )}
+              </article>
+            );
+            return (
+              <li key={m.id} className="e-rise" style={{ "--i": i } as React.CSSProperties}>
+                {ready && m.lessons[0] ? (
+                  <Link href={`/m/${m.id}/${m.lessons[0].slug}`} className="block h-full">
+                    {card}
+                  </Link>
+                ) : (
+                  card
+                )}
+              </li>
+            );
+          })}
+        </ul>
+
+        {challenges.map((c) => {
+          const required = modules.find((m) => m.id === c.requires);
+          return <TrailChallenge key={c.id} challenge={c} unlocked={required ? moduleDone(required) : false} />;
+        })}
+      </div>
+    </div>
+  );
+}
+
+function Trail({
+  statusOf,
+  moduleDone,
+  currentId,
+}: {
+  statusOf: (id: string) => LessonStatus;
+  moduleDone: (m: Module) => boolean;
+  currentId?: string;
+}) {
+  const { lang } = useSettings();
+  return (
+    <section id="ruta" className="flex scroll-mt-[80px] flex-col gap-7">
+      <div className="flex flex-col gap-1.5">
+        <h2 className="m-0 text-[clamp(1.875rem,1.2rem+2.2vw,2.75rem)] font-bold leading-[1.1] tracking-[-0.02em]">
+          {lang === "es" ? "Tu ruta a la cumbre" : "Your route to the summit"}
+        </h2>
+        <p className="m-0 text-[17px] leading-[1.5]">
+          {lang === "es"
+            ? `Cinco etapas, ${course.modules.length} módulos y ${course.challenges.length} desafíos. Cada etapa se apoya en la anterior.`
+            : `Five stages, ${course.modules.length} modules and ${course.challenges.length} challenges. Each stage builds on the one before.`}
+        </p>
       </div>
 
-      <div className="flex flex-col gap-3 p-5" style={{ background: "var(--e-bg)" }}>
-        <div className="e-mono flex justify-between text-[11px] uppercase tracking-[0.08em]">
-          <span>{lang === "es" ? "Vas a poder" : "You will be able to"}</span>
-          <span>{lang === "es" ? "Objetivo" : "Goal"}</span>
+      <div className="flex flex-col">
+        {CATEGORIES.map((c, i) => (
+          <TrailStage
+            key={c.id}
+            n={i + 1}
+            name={c.name}
+            modules={course.modules.filter((m) => m.category === c.id)}
+            statusOf={statusOf}
+            moduleDone={moduleDone}
+            currentId={currentId}
+          />
+        ))}
+        <div className="e-stage items-center">
+          <svg aria-hidden width="44" height="44" viewBox="0 0 44 44">
+            <circle cx="22" cy="22" r="22" fill="var(--e-accent)" />
+            <path d="M11 31 22 13l11 18Z" fill="none" stroke="var(--e-on-accent)" strokeWidth="2.4" strokeLinejoin="round" />
+          </svg>
+          <p className="m-0 text-[23px] font-bold leading-[1.2]">
+            {lang === "es" ? "La cumbre: listo para el trabajo y para PD1." : "The summit: ready for the job and for PD1."}
+          </p>
         </div>
-        <ol className="flex flex-col gap-2.5">
-          {lesson.objectives.map((o, i) => (
-            <li key={i} className="flex gap-2.5 text-[13.5px] leading-[1.5]">
-              <span className="e-mono font-semibold">{pad(i + 1)}</span>
-              <span>{t(o, lang)}</span>
-            </li>
-          ))}
-        </ol>
       </div>
-
-      {rule}
-
-      <div className="flex items-center justify-between gap-3">
-        <span className="e-mono text-[11px] uppercase tracking-[0.05em]">
-          ↳ {t(ui.module, lang)} {mod.n} · {t(mod.title, lang)}
-        </span>
-        <span
-          className="e-mono inline-flex min-h-[44px] shrink-0 items-center gap-2 whitespace-nowrap rounded-[4px] px-4 text-[12px] font-bold uppercase tracking-[0.05em]"
-          style={{ background: "var(--e-accent)", color: "var(--e-on-accent)" }}
-        >
-          {lang === "es" ? "Abrir" : "Open"}
-          <span className="inline-block transition-transform duration-200 ease-out group-hover:translate-x-1 group-focus-visible:translate-x-1" aria-hidden>
-            →
-          </span>
-        </span>
-      </div>
-    </Link>
+    </section>
   );
 }
 
@@ -525,7 +558,6 @@ export default function HomePage() {
 
   const pairs = course.modules.flatMap((m) => requiredLessons(m).map((l) => ({ m, l })));
   const nextUp = pairs.find(({ l }) => statusOf(l.id) !== "completed") ?? pairs[0];
-  const published = course.modules.filter((m) => m.status === "ready").length;
 
   // What the otter says follows the reader's progress.
   const courseDone = allLessons.length > 0 && doneCount === allLessons.length;
@@ -573,22 +605,6 @@ export default function HomePage() {
     }
   }, [progressReady, doneCount]);
 
-  const [cat, setCat] = useState<CatFilter>("all");
-  const shownModules = cat === "all" ? course.modules : course.modules.filter((m) => m.category === cat);
-  const chooseCat = (c: CatFilter) => {
-    setCat(c);
-    // The tabs stay pinned while the grid scrolls under them: after filtering
-    // from further down, bring the start of the shorter grid back into view.
-    const section = document.getElementById("modulos");
-    if (section && section.getBoundingClientRect().top < 0) {
-      const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      section.scrollIntoView({ behavior: calm ? "auto" : "smooth", block: "start" });
-    }
-  };
-
-  const [modulesRef, modulesInView] = useInView<HTMLDivElement>();
-  const [challengesRef, challengesInView] = useInView<HTMLUListElement>();
-
   // The bar starts empty and fills to the real value after the first paint,
   // and again whenever the value changes.
   const [shownPct, setShownPct] = useState(0);
@@ -596,8 +612,6 @@ export default function HomePage() {
     const id = requestAnimationFrame(() => setShownPct(overallPct));
     return () => cancelAnimationFrame(id);
   }, [overallPct]);
-
-  const sectionHead = "e-mono flex items-baseline justify-between gap-4 text-[12px] uppercase tracking-[0.1em]";
 
   return (
     <div className="editorial min-h-dvh">
@@ -620,16 +634,9 @@ export default function HomePage() {
           {/* The headline reveals first; the rest follows it in a cascade. */}
           <div
             data-armed={heroArmed}
-            className="e-hero-copy flex min-w-0 flex-col gap-7 lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:pt-6"
+            className="e-hero-copy flex min-w-0 flex-col gap-6 lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:self-center"
             style={{ "--t0": `${heroTitleEnd(lang) - 250}ms` } as React.CSSProperties}
           >
-            <p className="e-mono e-after flex items-center gap-2.5 text-[12px] uppercase tracking-[0.14em]">
-              <span className="inline-block h-2.5 w-2.5 shrink-0" style={{ background: "var(--e-accent)" }} />
-              <span>
-                Apex · Salesforce · {lang === "es" ? "Curso personal" : "Personal course"}
-              </span>
-            </p>
-
             <HeroTitle />
 
             <p className="e-after m-0 max-w-[600px] text-[17px] leading-[1.65] sm:text-[18px]" style={{ "--k": 1 } as React.CSSProperties}>
@@ -637,25 +644,6 @@ export default function HomePage() {
                 ? "Cada concepto se explica desde algo que ya configuraste con clicks, y nunca se te pide escribir nada que no se haya explicado antes."
                 : "Every concept starts from something you already configured with clicks, and you are never asked to write anything that has not been explained first."}
             </p>
-
-            <ul
-              className="e-mono e-after m-0 flex list-none flex-wrap gap-2 p-0 text-[12px] uppercase tracking-[0.08em]"
-              style={{ "--k": 2 } as React.CSSProperties}
-            >
-              <li className="e-chip">
-                <strong>
-                  <CountUp to={course.modules.length} />
-                </strong>
-                {lang === "es" ? "módulos" : "modules"}
-              </li>
-              <li className="e-chip">
-                <strong>
-                  <CountUp to={course.challenges.length} />
-                </strong>
-                {lang === "es" ? "desafíos" : "challenges"}
-              </li>
-              <li className="e-chip">ES / EN</li>
-            </ul>
 
             <div className="e-after mt-2 flex flex-col gap-3.5 sm:flex-row" style={{ "--k": 3 } as React.CSSProperties}>
               {nextUp && (
@@ -667,14 +655,14 @@ export default function HomePage() {
                   onFocus={() => setCheer(true)}
                   onBlur={() => setCheer(false)}
                 >
-                  {stepsDone === 0 ? t(ui.startCourse, lang) : t(ui.continueLearning, lang)}{" "}
+                  {stepsDone === 0 ? t(ui.startCourse, lang) : lang === "es" ? "Continuar la subida" : "Keep climbing"}{" "}
                   <span className="e-arrow" aria-hidden>
                     →
                   </span>
                 </Link>
               )}
-              <a href="#modulos" className="e-btn e-btn-secondary">
-                {lang === "es" ? "Ver módulos" : "See modules"}
+              <a href="#ruta" className="e-btn e-btn-secondary">
+                {lang === "es" ? "Ver la ruta" : "See the route"}
               </a>
             </div>
 
@@ -693,17 +681,17 @@ export default function HomePage() {
                   aria-valuemin={0}
                   aria-valuemax={100}
                   aria-valuenow={overallPct}
-                  className="h-2 overflow-hidden rounded-[2px]"
+                  className="h-3 overflow-hidden rounded-[6px]"
                   style={{ background: "var(--e-track-bg)" }}
                 >
-                  <div className="e-fill h-2" style={{ transform: `scaleX(${shownPct / 100})`, background: "var(--e-accent)" }} />
+                  <div className="e-fill h-3 rounded-[6px]" style={{ transform: `scaleX(${shownPct / 100})`, background: "var(--e-accent)" }} />
                 </div>
               </div>
             )}
           </div>
 
           {nextUp && (
-            <div className="self-start lg:col-start-2 lg:row-start-2">
+            <div className="e-rise self-start lg:col-start-2 lg:row-start-2" style={{ "--i": 3 } as React.CSSProperties}>
               <UpNext
                 mod={nextUp.m}
                 lesson={nextUp.l}
@@ -718,171 +706,8 @@ export default function HomePage() {
           )}
         </section>
 
-        {/* --------------------------------------------------------- modules */}
-        <section id="modulos" className="flex scroll-mt-[80px] flex-col gap-7">
-          <div className={sectionHead}>
-            <span>{t(ui.modules, lang)}</span>
-            <span>
-              {published}/{course.modules.length} {lang === "es" ? "publicados" : "published"}
-            </span>
-          </div>
-
-          <CategoryTabs value={cat} onChange={chooseCat} />
-
-          {/* Re-keyed per category: the filtered cards mount fresh and rise in. */}
-          <div
-            ref={modulesRef}
-            data-in={modulesInView}
-            id="panel-modulos"
-            role="tabpanel"
-            aria-labelledby={`tab-${cat}`}
-            className="e-stagger"
-          >
-          <ul key={cat} className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
-            {shownModules.map((m, i) => {
-              const ready = m.status === "ready";
-              const done = requiredLessons(m).filter((l) => statusOf(l.id) === "completed").length;
-              const current = ready && nextUp?.m.id === m.id && !moduleDone(m);
-              const state = moduleDone(m) ? "done" : current ? "current" : ready ? "ready" : "planned";
-              const total = requiredLessons(m).length;
-              const tag = moduleDone(m)
-                ? t(ui.completed, lang)
-                : current
-                  ? lang === "es"
-                    ? "En curso"
-                    : "In progress"
-                  : ready
-                    ? t(ui.ready, lang)
-                    : t(ui.planned, lang);
-              const meta = ready
-                ? `${done}/${requiredLessons(m).length} ${lang === "es" ? "hecho" : "done"}`
-                : `${m.outline?.length ?? 0} ${lang === "es" ? "sub-lecciones" : "sub-lessons"}`;
-
-              const card = (
-                <article
-                  data-cat={m.category}
-                  data-state={state}
-                  className="e-module flex h-full min-h-[190px] flex-col gap-3.5 p-6 sm:p-[30px]"
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <span className="e-num text-[30px] font-bold leading-none">{pad(m.n)}</span>
-                    <span data-state={state} className="e-tag e-mono text-[10px] uppercase tracking-[0.08em]">
-                      {state === "done" && <span aria-hidden>✓</span>}
-                      {tag}
-                    </span>
-                  </div>
-                  <h3 className="e-title m-0 text-[21px] font-semibold leading-[1.2]">{t(m.title, lang)}</h3>
-                  <p className="m-0 flex-1 text-[13.5px] leading-[1.5]">{t(m.subtitle, lang)}</p>
-                  <span className="e-mono text-[11px] uppercase tracking-[0.06em]">{meta}</span>
-                  {/* decorative: the line above already says done/total */}
-                  {ready && total > 0 && (
-                    <div aria-hidden className="e-track h-1 overflow-hidden rounded-[2px]">
-                      <div
-                        className="e-fill h-1"
-                        style={{ transform: `scaleX(${modulesInView ? done / total : 0})`, background: "var(--e-accent)" }}
-                      />
-                    </div>
-                  )}
-                </article>
-              );
-
-              return (
-                <li key={m.id} className="e-rise" style={{ "--i": Math.min(i, 8) } as React.CSSProperties}>
-                  {ready && m.lessons[0] ? (
-                    <Link
-                      href={`/m/${m.id}/${m.lessons[0].slug}`}
-                      className="block h-full"
-                    >
-                      {card}
-                    </Link>
-                  ) : (
-                    card
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-          </div>
-        </section>
-
-        {/* ------------------------------------------------------ challenges */}
-        <section className="flex flex-col gap-7">
-          <div className={sectionHead}>
-            <span>{t(ui.challenges, lang)}</span>
-            <span>{lang === "es" ? "Proyectos con feedback" : "Projects with feedback"}</span>
-          </div>
-
-          <ul
-            ref={challengesRef}
-            data-in={challengesInView}
-            className="e-stagger grid grid-cols-1 gap-4 md:grid-cols-2 lg:gap-5"
-          >
-            {course.challenges.map((c, i) => {
-              const required = course.modules.find((m) => m.id === c.requires);
-              // The card shows the lock by progress alone, signed in or not. Signed in
-              // (admin mode) the challenge page itself still opens when you click through.
-              const unlocked = required ? moduleDone(required) : false;
-              const progress = snapshot.challenges[c.id];
-
-              return (
-                <li key={c.id} className="e-rise relative" style={{ "--i": i } as React.CSSProperties}>
-                  {/* Shown on hover and keyboard focus; on touch the same
-                      condition is the last line of the card. */}
-                  {!unlocked && (
-                    <span id={`tip-${c.id}`} role="tooltip" className="e-tip e-mono">
-                      <MascotMark size={26} className="shrink-0" />
-                      <span>
-                        {t(ui.unlockedBy, lang)} · M{pad(required?.n ?? 0)}
-                        {required ? ` ${t(required.title, lang)}` : ""}
-                      </span>
-                    </span>
-                  )}
-                  <Link
-                    href={`/c/${c.id}`}
-                    className="block h-full"
-                    aria-describedby={unlocked ? undefined : `tip-${c.id}`}
-                  >
-                    <article data-locked={!unlocked} className="e-challenge flex h-full flex-col gap-3.5 p-6 sm:p-[30px]">
-                      <div
-                        className={`e-mono flex items-center justify-between text-[11px] uppercase tracking-[0.08em] ${unlocked ? "opacity-[0.72]" : ""}`}
-                      >
-                        <span>
-                          {t(ui.challenge, lang)} {pad(c.n)}
-                        </span>
-                        <span className="flex items-center gap-1.5">
-                          {unlocked ? (
-                            progress?.status === "completed" ? t(ui.completed, lang) : t(ui.ready, lang)
-                          ) : (
-                            <span className="e-lock">
-                              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden>
-                                <rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" strokeWidth="2" />
-                                <path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                              </svg>
-                              {t(ui.locked, lang)}
-                            </span>
-                          )}
-                        </span>
-                      </div>
-                      <h3 className="m-0 text-[22px] font-bold leading-[1.25]">{t(c.title, lang)}</h3>
-                      <p className="m-0 flex-1 text-[14px] leading-[1.55]">{t(c.subtitle, lang)}</p>
-                      {unlocked ? (
-                        <span className="e-mono text-[11px] uppercase tracking-[0.06em] opacity-[0.72]">
-                          {c.components.length} {t(ui.components, lang).toLowerCase()} · {c.minutes} min
-                        </span>
-                      ) : (
-                        /* the otter keeps you company here too, with the way in */
-                        <span className="e-mono flex items-center gap-2.5 text-[11px] uppercase tracking-[0.06em]">
-                          <MascotMark size={30} className="e-lock-otter shrink-0" />
-                          {t(ui.unlockedBy, lang)} · M{pad(required?.n ?? 0)}
-                        </span>
-                      )}
-                    </article>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </section>
+        {/* ----------------------------------------------- route to the summit */}
+        <Trail statusOf={statusOf} moduleDone={moduleDone} currentId={nextUp?.m.id} />
 
         <footer className="e-mono flex flex-col gap-4 pb-2 pt-8" style={{ borderTop: "1px solid var(--e-divider)" }}>
           <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2 text-[11px] uppercase tracking-[0.08em]">

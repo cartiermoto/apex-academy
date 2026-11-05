@@ -502,6 +502,7 @@ body:has(.editorial) {
   --e-num: var(--e-module-num);
   background: var(--e-surface);
   border: none;
+  border-radius: 22px;
   position: relative;
   transition: transform 0.25s ease-out;
 }
@@ -511,6 +512,7 @@ body:has(.editorial) {
   content: "";
   position: absolute;
   inset: 0;
+  border-radius: inherit;
   box-shadow: var(--e-float-shadow);
   opacity: 0;
   transition: opacity 0.25s ease-out;
@@ -527,7 +529,7 @@ body:has(.editorial) {
   li:hover > .e-module,
   li:hover > a > .e-module,
   li:focus-within .e-module {
-    transform: translateY(-6px) rotate(-1.2deg);
+    transform: translateY(-4px);
   }
   li:hover > .e-module::after,
   li:hover > a > .e-module::after,
@@ -539,7 +541,7 @@ body:has(.editorial) {
   li:nth-child(even):hover > .e-module,
   li:nth-child(even):hover > a > .e-module,
   li:nth-child(even):focus-within .e-module {
-    transform: translateY(-6px) rotate(1.2deg);
+    transform: translateY(-4px);
   }
   li:hover .e-module .e-num {
     transform: translateX(6px) scale(1.08);
@@ -547,17 +549,18 @@ body:has(.editorial) {
   /* Challenge cards: same lift, a touch more — they are the big projects. */
   li:hover > a > .e-challenge,
   li:focus-within .e-challenge {
-    transform: translateY(-8px) rotate(-1deg);
+    transform: translateY(-4px);
   }
   li:nth-child(even):hover > a > .e-challenge,
   li:nth-child(even):focus-within .e-challenge {
-    transform: translateY(-8px) rotate(1deg);
+    transform: translateY(-4px);
   }
 }
 .e-challenge {
   background: var(--e-challenge-bg);
   color: var(--e-challenge-text);
   border: var(--e-challenge-border);
+  border-radius: 22px;
   position: relative;
   transition: transform 0.25s ease-out;
 }
@@ -602,14 +605,11 @@ body:has(.editorial) {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  min-height: 48px;
-  padding: 16px 28px;
-  border-radius: 4px;
-  font-family: "IBM Plex Mono", ui-monospace, monospace;
-  font-size: 13px;
+  min-height: 56px;
+  padding: 0 30px;
+  border-radius: 28px;
+  font-size: 17px;
   font-weight: 600;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
   transition: opacity 0.15s ease-out, transform 0.15s ease-out;
   cursor: pointer;
 }
@@ -728,17 +728,33 @@ body:has(.editorial) {
 }
 @media (min-width: 1024px) {
   .e-guide {
-    gap: 8px;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 0;
   }
   .e-otter-stage {
-    width: 220px;
-    height: 220px;
+    width: 280px;
+    height: 280px;
+  }
+  .e-guide .e-bubble {
+    flex: none;
+    width: 100%;
+    margin-bottom: 14px;
+    border-radius: 22px;
+    background: var(--e-bg);
+    transform-origin: 50% 100%;
+  }
+  .e-guide .e-bubble::before {
+    left: calc(50% - 6px);
+    bottom: -7px;
+    background: var(--e-bg);
+    transform: rotate(-45deg);
   }
 }
 @media (min-width: 1280px) {
   .e-otter-stage {
-    width: 250px;
-    height: 250px;
+    width: 320px;
+    height: 320px;
   }
 }
 .e-otter-img {
@@ -939,22 +955,6 @@ body:has(.editorial) {
   }
 }
 
-/* Course facts as chips. */
-.e-chip {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 7px;
-  padding: 8px 12px;
-  border: 1px solid var(--e-divider);
-  border-radius: 4px;
-  background: var(--e-banner-surface);
-}
-.e-chip strong {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--e-accent-text);
-}
-
 /* Progress bars fill by scaling from the left edge. */
 .e-fill {
   width: 100%;
@@ -962,65 +962,64 @@ body:has(.editorial) {
   transition: transform 0.3s ease-out 0.15s;
 }
 
-/* "Siguiente lección": the main thing after the hero. A green edge on top of
-   its floating shadow sets it apart from the module cards. */
+/* "Siguiente lección": under the otter, the next step of the climb. */
 .e-upnext {
-  border: 1px solid color-mix(in srgb, var(--e-accent) 45%, transparent);
-  border-top: 4px solid var(--e-accent);
+  border-radius: 22px;
+  background: var(--e-cat-fund-surface);
+  color: var(--e-ink);
+  transition: transform 0.2s ease-out;
+}
+@media (hover: hover) {
+  .e-upnext:hover {
+    transform: translateY(-4px);
+  }
 }
 
-/* Category tabs: pinned under the header while the module grid scrolls. */
-.e-tabs {
-  isolation: isolate;
+/* --- The route to the summit ------------------------------------------------
+   A rail with one node per stage; the part already climbed paints itself. */
+.e-stage {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  column-gap: 18px;
 }
-.e-tabs::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: color-mix(in srgb, var(--e-bg) 86%, transparent);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  pointer-events: none;
-}
-.e-tablist {
-  border-bottom: 1px solid var(--e-divider);
-  scrollbar-width: none;
-}
-.e-tablist::-webkit-scrollbar {
-  display: none;
-}
-.e-tab {
-  cursor: pointer;
-  opacity: 0.78;
-  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
-}
-.e-tab:hover,
-.e-tab[aria-selected="true"] {
-  opacity: 1;
-}
-.e-tab[aria-selected="true"] {
+.e-node {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
   font-weight: 700;
-  color: var(--e-accent-text);
+  background: var(--e-bg);
+  border: 1.5px solid var(--e-legend-border);
 }
-.e-tab:active {
-  transform: scale(0.97);
-}
-.editorial .e-tab:focus-visible {
-  outline-offset: -3px;
-}
-/* The sliding underline: 100px wide, placed and stretched by a transform. */
-.e-tab-bar {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100px;
-  height: 3px;
+.e-node[data-state="done"] {
   background: var(--e-accent);
-  transform-origin: left center;
-  opacity: 0;
-  transition: transform 0.25s ease-out, opacity 0.15s ease-out;
-  pointer-events: none;
+  border-color: var(--e-accent);
+  color: var(--e-on-accent);
+}
+.e-node[data-state="here"] {
+  border: 0;
+  box-shadow: 0 0 0 3px var(--e-accent);
+}
+.e-rail {
+  flex: 1;
+  width: 4px;
+  overflow: hidden;
+  background: var(--e-divider);
+}
+.e-rail-fill {
+  display: block;
+  height: 100%;
+  background: var(--e-accent);
+  transform-origin: center top;
+  transition: transform 0.3s ease-out;
+}
+.e-stage-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 14px;
 }
 
 /* Cards wait for their grid to enter the viewport, then rise in one after
