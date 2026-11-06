@@ -5,6 +5,7 @@ import type { Lang, QuizQuestion, QuizTag } from "@/lib/types";
 import { t, ui } from "@/lib/i18n";
 import { CodeBlock } from "./code-block";
 import { RichText } from "./term";
+import { QuizCelebration } from "./quiz-celebration";
 
 function tagLabel(tag: QuizTag, lang: Lang): string {
   switch (tag) {
@@ -142,12 +143,13 @@ export function Quiz({
     return (
       <div className="fade-in max-w-[68ch]">
         <div
-          className="rounded-[4px] border p-6 sm:p-8"
+          className={`relative rounded-[4px] border p-6 sm:p-8${passed ? " pt-[4.5rem]" : ""}`}
           style={{
             borderColor: passed ? "var(--c-brand)" : "var(--c-border-strong)",
             background: passed ? "var(--c-brand-soft)" : "var(--c-surface)",
           }}
         >
+          {passed && <QuizCelebration lang={lang} />}
           <p className="t-eyebrow">{t(ui.quizResult, lang)}</p>
           <p className="t-display mt-3 tabular-nums">
             {score}
