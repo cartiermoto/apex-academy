@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import type { Lang, TheoryBlock } from "@/lib/types";
 import { t } from "@/lib/i18n";
 import { CodeBlock } from "./code-block";
@@ -7,6 +8,38 @@ import { Diagram } from "@/content/diagrams";
 import { RichText } from "./term";
 import { OtterSays } from "./otter";
 import { Scene3D } from "./scene3d";
+
+/**
+ * Step-by-step diagrams change height from one step to the next. Without this,
+ * pressing «Repetir» at the last step shrinks the box, the buttons slide up
+ * from under the finger and the browser scrolls the page. The frame remembers
+ * the tallest height it has had and never shrinks below it (it starts over when
+ * the width changes, because the text then wraps differently).
+ */
+function DiagramFrame({ children }: { children: React.ReactNode }) {
+  const inner = useRef<HTMLDivElement>(null);
+  const [min, setMin] = useState(0);
+  useEffect(() => {
+    const el = inner.current;
+    if (!el || typeof ResizeObserver === "undefined") return;
+    let width = el.offsetWidth;
+    const ro = new ResizeObserver(() => {
+      if (el.offsetWidth !== width) {
+        width = el.offsetWidth;
+        setMin(el.offsetHeight);
+      } else {
+        setMin((m) => Math.max(m, el.offsetHeight));
+      }
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  return (
+    <div style={{ minHeight: min || undefined, overflowAnchor: "none" }}>
+      <div ref={inner}>{children}</div>
+    </div>
+  );
+}
 
 const CALLOUT = {
   admin: {
@@ -178,7 +211,9 @@ export function Theory({ blocks, lang }: { blocks: TheoryBlock[]; lang: Lang }) 
             return (
               <figure key={i} className="my-9 w-full">
                 <div className="card w-full overflow-hidden p-4 sm:p-6">
-                  <Diagram id={b.id} lang={lang} />
+                  <DiagramFrame>
+                    <Diagram id={b.id} lang={lang} />
+                  </DiagramFrame>
                 </div>
                 {b.caption && (
                   <figcaption className="t-micro mt-2.5 text-faint">
