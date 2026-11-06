@@ -39,8 +39,14 @@ const REGION: Record<string, { es: string; en: string }> = {
 /* --------------------------------------------------------- lesson → text --- */
 
 function lessonParts(lesson: Lesson, lang: Lang): Array<{ text: string; block: number | null }> {
-  const say = (s: string) => plainText(s, lang).replace(/\s+/g, " ").trim();
   const es = lang === "es";
+  // menu paths and symbols are spoken as a pause or a word, never as «flecha» or «ampersand»
+  const say = (s: string) =>
+    plainText(s, lang)
+      .replace(/\s*[→›]\s*/g, ", ")
+      .replace(/\s*&\s*/g, es ? " y " : " and ")
+      .replace(/\s+/g, " ")
+      .trim();
   const parts: Array<{ text: string; block: number | null }> = [];
   const add = (text: string, block: number | null) => {
     const clean = say(text);
@@ -66,8 +72,7 @@ function lessonParts(lesson: Lesson, lang: Lang): Array<{ text: string; block: n
         b.items.forEach((it) => add(t(it, lang), i));
         break;
       case "callout":
-        add(`${t(b.title, lang)}.`, i);
-        add(t(b.text, lang), i);
+        // the otter's tips are read on screen, not aloud
         break;
       case "table":
         // read row by row, each cell with its column name
